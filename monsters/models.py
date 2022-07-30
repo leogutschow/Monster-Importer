@@ -1,6 +1,9 @@
 from django.db import models
 
 # Create your models here.
+from django.utils.text import slugify
+
+
 class BaseSheet(models.Model):
     name: str = models.CharField(max_length=50)
     race: str = models.CharField(max_length=30)
