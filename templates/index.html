@@ -1,11 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 <head>
-    <meta charset="UTF-8">
     <title>Monster Importer</title>
 </head>
 <body>
-    <h1>Aqui esta o Index Page! Ache o monstro ideal para sua aventura e o importe direto para o Roll20!</h1>
+    {% block 'conteudo' %}
+        <h1>Aqui esta o Index Page! Ache o monstro ideal para sua aventura e o importe direto para o Roll20!</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Ac</th>
+                    <th>Challenge</th>
+                </tr>
+            </thead>
+            <tbody>
+                    {% for monster in monsters %}
+                        <tr>
+                            <td>{{ monster.name }}</td>
+                            <td>{{ monster.ac }}</td>
+                            <td>{{ monster.challenge }}</td>
+                        </tr>
+                    {% endfor %}
 
+            </tbody>
+        </table>
+    {% endblock %}
 </body>
 </html>
