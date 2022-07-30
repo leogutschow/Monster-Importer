@@ -14,3 +14,4 @@ class MonsterDetail(DetailView):
         context['monster'] = monster
         return context
 
+
