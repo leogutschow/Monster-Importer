@@ -13,3 +13,4 @@ class MonsterDetail(DetailView):
         monster = self.get_object()
         context['monster'] = monster
         return context
+
