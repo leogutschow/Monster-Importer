@@ -13,4 +13,5 @@ class Index(TemplateView):
         context: dict = super().get_context_data()
         monsters: Monster = Monster.objects.all()
         context["monsters"]: QuerySet = monsters
+        print(self.request.headers.get('user-agent'))
         return context
