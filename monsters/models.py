@@ -1,4 +1,5 @@
 from django.db import models
+from actions.models import Action
 
 # Create your models here.
 from django.utils.text import slugify
@@ -19,7 +20,8 @@ class BaseSheet(models.Model):
     intelligence: int = models.IntegerField()
     wisdom: int = models.IntegerField()
     charisma: int = models.IntegerField()
-    slug: str = models.SlugField(default=None, blank=True, null=True)
+    languages: str = models.CharField(max_length=100, default="None")
+    slug: str = models.SlugField(blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -33,3 +35,4 @@ class BaseSheet(models.Model):
 class Monster(BaseSheet):
     challenge: str = models.CharField(default="0", max_length=3)
     description: str = models.TextField(default="")
+    actions = models.ManyToManyField(Action)

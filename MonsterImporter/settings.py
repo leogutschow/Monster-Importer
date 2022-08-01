@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home_page',
     'monsters',
+    'actions',
 ]
 
 MIDDLEWARE = [
