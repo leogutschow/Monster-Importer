@@ -18,8 +18,10 @@
                         <tr>
                             <td>{{ monster.name }}</td>
                             <td>{{ monster.ac }}</td>
-                            <td>{{ monster.challenge }}</td>
-                            <td>{{monster.actions}}</td>
+                            <!--<td>{{ monster.challenge }}</td>
+                            {% for action in monster.actions.all %}
+                                <td>{{action.name}}, </td>
+                            {% endfor %}-->
                         </tr>
                     {% endfor %}
 
