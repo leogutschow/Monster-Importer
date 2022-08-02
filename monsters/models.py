@@ -35,4 +35,4 @@ class BaseSheet(models.Model):
 class Monster(BaseSheet):
     challenge: str = models.CharField(default="0", max_length=3)
     description: str = models.TextField(default="")
-    actions = models.ManyToManyField(Action)
+    actions = models.ForeignKey(Action, on_delete=models.DO_NOTHING)
