@@ -28,11 +28,11 @@ class BaseSheet(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(f'{self.name}-{self.id}')
+            self.slug = slugify(f'{self.name}-{self.pk}')
         return super().save()
 
 
 class Monster(BaseSheet):
     challenge: str = models.CharField(default="0", max_length=3)
     description: str = models.TextField(default="")
-    actions = models.ForeignKey(Action, on_delete=models.DO_NOTHING)
+    actions = models.ManyToManyField(to=Action)

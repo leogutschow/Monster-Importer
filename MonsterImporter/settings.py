@@ -80,12 +80,8 @@ WSGI_APPLICATION = 'MonsterImporter.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': 'ec2-54-208-104-27.compute-1.amazonaws.com',
-        'NAME': "d38vhifj79k6b4",
-        'USER': "kysmpvwrlxafoy",
-        'PASSWORD': 'cd850c9b9bc977ae46e1347399b88ed0e049537cdf58375b6b0cdc75630e093f',
-        'PORT': '5432'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3'
     }
 }
 

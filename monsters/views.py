@@ -11,6 +11,7 @@ class MonsterDetail(DetailView):
     def get_context_data(self, **kwargs):
         context: dict = super().get_context_data()
         monster = self.get_object()
+        print(monster.actions)
         context['monster'] = monster
         return context
 
