@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 from .models import Monster
 
 
@@ -15,4 +15,7 @@ class MonsterDetail(DetailView):
         context['monster'] = monster
         return context
 
+
+class MonsterList(ListView):
+    pass
 
