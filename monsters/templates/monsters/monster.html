@@ -1,13 +1,30 @@
 {% extends 'base.html' %}
 
 <head>
-    <title>Monster Name</title>
+    <title>{{ monster.name }}</title>
 </head>
 <body>
     {% block 'conteudo' %}
-    
-
+    <div>
+        table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Ac</th>
+                    <th>Challenge</th>
+                </tr>
+            </thead>
+            <tbody>
+                        <tr>
+                            <td>{{ monster.name }}</td>
+                            <td>{{ monster.ac }}</td>
+                            <td>{{ monster.challenge }}</td>
+                        </tr>
+            </tbody>
+        <img src="{{ monster.image.url }}">
     </div>
+
+
     {% endblock %}
 </body>
 </html>

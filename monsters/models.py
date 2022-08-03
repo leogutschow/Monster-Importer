@@ -35,6 +35,7 @@ class BaseSheet(models.Model):
 class Monster(BaseSheet):
     challenge: str = models.CharField(default="0", max_length=3)
     description: str = models.TextField(default="")
+    image: str = models.ImageField(upload_to='images/monsters/')
 
 
 class Action(models.Model):
