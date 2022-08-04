@@ -4,7 +4,6 @@
 </head>
 <body>
     {% block 'conteudo' %}
-        <h1>Aqui esta o Index Page! Ache o monstro ideal para sua aventura e o importe direto para o Roll20!</h1>
         <!--
         <table>
             <thead>
@@ -26,30 +25,20 @@
             </tbody>
         </table>
         -->
-    <div class="d-flex justify-content-center bg-danger">
-        <div id="carouselControls" class="carousel slide" data-bs-rise="carousel">
+    <div class="d-flex justify-content-center">
+        <div id="carouselControls" class="carousel carousel-dark slide" data-bs-rise="carousel">
             <div class="carousel-inner">
-                {% for monster in monsters %}
-                    {% if monster.id == 4 %}
-                        <div class="carousel-item active" data-bs-interval="2000">
-                            <img src="{{ monster.image.url }}" alt="..." class="d-block" style="max-height: 509px;">
-                            <div class="carousel-caption d-none d-md-block bg-gradient" style="background-color: $gray">
-                                <h5>{{ monster.name }}</h5>
-                                <p>{{ monster.description }}</p>
-                            </div>
-                        </div>
+                <a href="{% url 'monster:monster_detail' last_monster.slug%}">
+                    <div class="carousel-item-active" data-bs-interval="2000">
+                        <img src="{{ last_monster.image.url }}" alt="..." class="d-block" style="max-height: 509px;">
 
-                    {% else %}
-                        <div class="carousel-item" data-bs-interval="2000">
-                            <img src="{{ monster.image.url }}" alt="..." class="d-block" style="max-height: 509px;">
-                            <div class="carousel-caption d-none d-md-block bg-gradient" style="background-color: $gray">
-                                <h5>{{ monster.name }}</h1>
-                                <p>{{ monster.description }}</p>
-                            </div>
+                        <div class="carousel-caption d-md-block bg-secondary bg-gradient p-2">
+                            <h5>Most Recent Monster!</h5>
+                            <h2>The {{ last_monster.name }}!</h2>
+                            <p>Now you can import this to your Roll20 Campaign and have fun!</p>
                         </div>
-                    {% endif %}
-
-                {% endfor %}
+                    </div>
+                </a>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>

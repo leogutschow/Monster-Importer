@@ -12,5 +12,7 @@ class Index(TemplateView):
     def get_context_data(self, **kwargs):
         context: dict = super().get_context_data()
         monsters: Monster = Monster.objects.all()
+        last_monster: Monster = Monster.objects.latest('id')
         context["monsters"]: QuerySet = monsters
+        context['last_monster']: Monster = last_monster
         return context
