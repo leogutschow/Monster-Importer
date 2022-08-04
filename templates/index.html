@@ -5,6 +5,7 @@
 <body>
     {% block 'conteudo' %}
         <h1>Aqui esta o Index Page! Ache o monstro ideal para sua aventura e o importe direto para o Roll20!</h1>
+        <!--
         <table>
             <thead>
                 <tr>
@@ -21,12 +22,38 @@
                             <!--<td>{{ monster.challenge }}</td>
                             {% for action in monster.actions.all %}
                                 <td>{{action.name}}, </td>
-                            {% endfor %}-->
+                            {% endfor %}
                         </tr>
                     {% endfor %}
 
             </tbody>
         </table>
+        -->
+    <div id="carouselControls" class="carousel slide" data-bs-rise="carousel">
+        <div class="carousel-inner">
+            {% for monster in monsters %}
+                {% if monster.id == 1 %}
+                    <div class="carousel-item active">
+                        <img src="{{ monster.image.url }}" alt="..." class="d-block w-10">
+                    </div>
+
+                {% else %}
+                    <div class="carousel-item">
+                        <img src="{{ monster.image.url }}" alt="..." class="d-block w-10">
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
     {% endblock %}
 </body>
 </html>
