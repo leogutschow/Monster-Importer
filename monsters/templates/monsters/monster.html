@@ -7,14 +7,14 @@
     {% block 'conteudo' %}
 
     <div class="container">
-        <div class="row">
-            <div class="col">
+        <div class="row justify-content-md-center">
+            <div class="col-auto">
                 <img src="{{ monster.image.url }}">
             </div>
-            <div class="col">
-                <p class="col">{{ monster.name }}</p>
-                <p class="col">{{ monster.ac }}</p>
-                <p class="col">{{ monster.challenge }}</p>
+            <div class="col-auto">
+                <p class="col-auto">{{ monster.name }}</p>
+                <p class="col-auto">{{ monster.ac }}</p>
+                <p class="col-auto">{{ monster.challenge }}</p>
             </div>
         </div>
     </div>
