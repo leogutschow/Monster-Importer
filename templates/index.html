@@ -25,21 +25,21 @@
             </tbody>
         </table>
         -->
+
     <div class="d-flex justify-content-center">
-        <div id="carouselControls" class="carousel carousel-dark slide" data-bs-rise="carousel">
+        <div id="carouselControls bg-dark" class="carousel carousel-dark slide" data-bs-rise="carousel">
             <div class="carousel-inner">
                 <a href="{% url 'monster:monster_detail' last_monster.slug%}">
                     <div class="carousel-item-active" data-bs-interval="2000">
                         <img src="{{ last_monster.image.url }}" alt="..." class="d-block" style="max-height: 509px;">
-
-                        <div class="carousel-caption d-md-block bg-secondary bg-gradient p-2">
-                            <h5>Most Recent Monster!</h5>
-                            <h2>The {{ last_monster.name }}!</h2>
-                            <p>Now you can import this to your Roll20 Campaign and have fun!</p>
-                        </div>
+                            <div class="carousel-caption d-md-block bg-secondary" style="opacity: 75%">
+                                <h5 class="text-white" style="opacity: 100%">Most Recent Monster!</h5>
+                                <h2 class="text-white" style="opacity: 100%">The {{ last_monster.name }}!</h2>
+                                <p class="text-white" style="opacity: 100%">Now you can import this to your Roll20 Campaign and have fun!</p>
+                            </div>
                     </div>
                 </a>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev" style=":hover{background-color: gray}">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
