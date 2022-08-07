@@ -33,9 +33,12 @@ class BaseSheet(models.Model):
 
 
 class Monster(BaseSheet):
+    alignment: str = models.CharField(max_length=30)
     challenge: str = models.CharField(default="0", max_length=3)
     description: str = models.TextField(default="")
     image: str = models.ImageField(upload_to='images/monsters/')
+    senses: str = models.CharField(max_length=100, blank=True, null=True)
+
 
 
 class Action(models.Model):
