@@ -22,16 +22,13 @@ class SpecialTraitsInline(admin.TabularInline):
     extra = 0
     can_delete = True
     min_num = 0
-    formfield_overrides = {
-        models.TextField: {'widget': Textarea(attrs={'rows': 5, 'cols': 40})}
-    }
 
 
 class MonsterAdmin(admin.ModelAdmin):
     list_display = (
         'id', 'name', 'ac', 'hp', 'challenge'
     )
-    inlines = [ActionInline]
+    inlines = [ActionInline, SpecialTraitsInline]
 
 
 admin.site.register(Monster, MonsterAdmin)
