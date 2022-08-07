@@ -16,3 +16,7 @@ class Index(TemplateView):
         context["monsters"]: QuerySet = monsters
         context['last_monster']: Monster = last_monster
         return context
+
+
+class About(TemplateView):
+    template_name = 'home_page/about.html'

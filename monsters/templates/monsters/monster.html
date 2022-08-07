@@ -45,7 +45,7 @@
                             {% endif %}
                             <h5 class="fs-6">Senses: {{ monster.senses }}</h5>
                             <h5 class="fs-6">Languages: {{ monster.languages }}</h5>
-                            <h5 class="fs-6">Challenge: {{ monster.challenge }}</h5>
+                            <h5 class="fs-6">Challenge: {{ monster.challenge }} ({{ monster.challenge|calculate_challenge }}xp)</h5>
                         </div>
                         <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
                         {% for specialtrait in monster.specialtraits_set.all %}
