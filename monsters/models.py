@@ -75,3 +75,28 @@ class SpecialTraits(models.Model):
     def __str__(self):
         return self.name
 
+
+class Skill(models.Model):
+    skill_list: list = [
+        ('Athletics', 'Athletics'),
+        ('Acrobatics', 'Acrobatics'),
+        ('Sleight of Hand', 'Sleight of Hand'),
+        ('Stealth', 'Stealth'),
+        ('Arcana', 'Arcana'),
+        ('History', 'History'),
+        ('Investigation', 'Investigation'),
+        ('Nature', 'Nature'),
+        ('Religion', 'Religion'),
+        ('Animal Handling', 'Animal Handling'),
+        ('Insight', 'Insight'),
+        ('Medicine', 'Medicine'),
+        ('Perception', 'Perception'),
+        ('Survival', 'Survival'),
+        ('Deception', 'Deception'),
+        ('Intimidation', 'Intimidation'),
+        ('Performance', 'Performance'),
+        ('Persuasion', 'Persuasion')
+    ]
+    monster = models.ForeignKey(Monster, on_delete=models.CASCADE)
+    name: str = models.CharField(max_length=15, choices=skill_list)
+    modifier: int = models.PositiveIntegerField(default=1)
