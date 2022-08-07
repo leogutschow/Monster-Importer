@@ -38,3 +38,7 @@ def calculate_mod(value: int):
             return '+9'
         case 30:
             return '+10'
+
+
+def calculate_challenge(value :str):
+    pass

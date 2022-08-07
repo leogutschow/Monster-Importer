@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load calculate_modifier %}
+{% load calculate %}
 <head>
     <title>{% block 'titulo' %} Monster Importer | {{ monster.name }}{% endblock %}</title>
 </head>
@@ -11,7 +11,7 @@
                 <div class="col-auto">
                     <img src="{{ monster.image.url }}" style="width: 547px; max-height: 611px">
                 </div>
-                <div class="container-md col-auto bg-image" style="background-image: url(https://i.imgur.com/hTt73aH.png); width: 547px; height:611px">
+                <div class="container-md col-auto bg-image p-3" style="background-image: url(https://i.imgur.com/hTt73aH.png); width: 547px; max-height:2000px">
                     <div class="container">
                         <h1 class="d-md-block text-danger pd-0 pt-3">{{ monster.name }}</h1>
                         <h5 class="lh-1 fs-6 fst-italic">{{ monster.race }} {{ monster.size }}</h5>
@@ -29,15 +29,32 @@
                             <h5 class="col fs-6 fw-bold text-danger">CAR</h5>
                         </div>
                         <div class="row">
-
-                            <h5 class="col fs-6 text-danger">{{ monster.strength }}({{monster.strength|calculate_mod}})</h5>
-                            <h5 class="col fs-6 text-danger">{{ monster.dexterity }}({{monster.dexterity|calculate_mod}})</h5>
-                            <h5 class="col fs-6 text-danger">{{ monster.constitution }}({{monster.constitution|calculate_mod}})</h5>
-                            <h5 class="col fs-6 text-danger">{{ monster.intelligence }}({{monster.intelligence|calculate_mod}})</h5>
-                            <h5 class="col fs-6 text-danger">{{ monster.wisdom }}({{monster.wisdom|calculate_mod}})</h5>
-                            <h5 class="col fs-6 text-danger">{{ monster.charisma }}({{monster.charisma|calculate_mod}})</h5>
+                            <h5 class="col fs-6">{{ monster.strength }}({{monster.strength|calculate_mod}})</h5>
+                            <h5 class="col fs-6">{{ monster.dexterity }}({{monster.dexterity|calculate_mod}})</h5>
+                            <h5 class="col fs-6">{{ monster.constitution }}({{monster.constitution|calculate_mod}})</h5>
+                            <h5 class="col fs-6">{{ monster.intelligence }}({{monster.intelligence|calculate_mod}})</h5>
+                            <h5 class="col fs-6">{{ monster.wisdom }}({{monster.wisdom|calculate_mod}})</h5>
+                            <h5 class="col fs-6">{{ monster.charisma }}({{monster.charisma|calculate_mod}})</h5>
                         </div>
                         <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
+                        <div class="row">
+                            <h5 class="fs-6">Senses: {{ monster.senses }}</h5>
+                            <h5 class="fs-6">Languages: {{ monster.languages }}</h5>
+                            <h5 class="fs-6">Challenge: {{ monster.challenge }}</h5>
+                        </div>
+                        <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
+                        {% for specialtrait in monster.specialtraits_set.all %}
+                            <p>
+                                <h5 class="fw-bold fs-6" style="display: inline">{{ specialtrait.name }}. </h5>{{ specialtrait.description }}
+                            </p>
+                        {% endfor %}
+                        <h3 class="d-md-block text-danger pd-0 pt-3">Actions</h3>
+                        <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
+                        {% for action in monster.action_set.all %}
+                            <p>
+                                <h5 class="fw-bold fs-6" style="display: inline">{{ action.name }}. </h5>{{ action.description }}
+                            </p>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
