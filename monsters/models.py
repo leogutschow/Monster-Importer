@@ -40,7 +40,6 @@ class Monster(BaseSheet):
     senses: str = models.CharField(max_length=100, blank=True, null=True)
 
 
-
 class Action(models.Model):
     monster = models.ForeignKey(Monster, on_delete=models.CASCADE)
     name: str = models.CharField(max_length=30)
@@ -66,3 +65,13 @@ class Action(models.Model):
             self.damage_type = None
 
         return super().save()
+
+
+class SpecialTraits(models.Model):
+    monster = models.ForeignKey(Monster, on_delete=models.CASCADE)
+    name: str = models.CharField(max_length=20)
+    description: str = models.TextField()
+
+    def __str__(self):
+        return self.name
+
