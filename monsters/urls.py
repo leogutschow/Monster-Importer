@@ -5,5 +5,5 @@ app_name = 'monster'
 
 urlpatterns: list = [
     path('<str:slug>', MonsterDetail.as_view(), name="monster_detail"),
-    path('all', MonsterList.as_view(), name='monster_list')
+    path('s/', MonsterList.as_view(), name='monster_list')
 ]
