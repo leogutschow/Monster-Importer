@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 from .models import Monster
 from django.core.paginator import Paginator
-
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 
 # Create your views here.
 class MonsterDetail(DetailView):
@@ -33,13 +34,11 @@ class MonsterList(ListView):
         return monsters
 
     def get(self, request, *args, **kwargs):
-
-        qs = self.model.objects.all()
         monster_name_query = request.GET.get('monster_name')
+        qs = self.model.objects.all()
         context = self.get_context_data()
         if monster_name_query != '' and monster_name_query is not None:
             qs = qs.filter(name__icontains=monster_name_query)
         context['monsters'] = qs
-        print(monster_name_query)
         return render(request, template_name=self.template_name, context=context)
 
