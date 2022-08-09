@@ -35,10 +35,16 @@ class MonsterList(ListView):
 
     def get(self, request, *args, **kwargs):
         monster_name_query = request.GET.get('monster_name')
+        monster_ac_query = request.GET.get('monster_ac')
+        monster_challenge_query = request.GET.get('monster_challenge')
         qs = self.model.objects.all()
         context = self.get_context_data()
         if monster_name_query != '' and monster_name_query is not None:
             qs = qs.filter(name__icontains=monster_name_query)
+        if monster_ac_query != '' and monster_ac_query is not None:
+            qs = qs.filter(ac__icontains=monster_ac_query)
+        if monster_challenge_query != '' and monster_challenge_query is not None:
+            qs = qs.filter(challenge__icontains=monster_challenge_query)
         context['monsters'] = qs
         return render(request, template_name=self.template_name, context=context)
 

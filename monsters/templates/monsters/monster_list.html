@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 <head>
     <title>Monster Importer | {% block 'titulo' %}Monsters{% endblock %}</title>
 </head>
@@ -9,13 +10,37 @@
         <div class="p-4" >
             <form class="mb-5" method="get">
                 <div class="form-group row">
-                    <div class="col-12 form-floating">
-                        <input id="monsterSearch" class="form-control"
-                        type="search" value="{{request.GET.termo}}"
+                    <div class="col-12 form-floating input-group">
+                        <input id="monsterNameSearch" class="form-control"
+                        type="search"
                         placeholder="Search a Monster"
-                        name="monster_name">
-                        <label class="ps-5" for="monsterSearch">Search a Monster</label>
+                        name="monster_name"
+                        aria-describedby="basic-addon1">
+                        <label class="ps-4" for="monsterNameSearch">Search a Monster</label>
+                        <span class="input-group-text" id="basic-addon1">
+                            <img style="max-height: 32px" src="{% static 'imgs/searchIcon.png' %}">
+                        </span>
                     </div>
+                    <div class="row">
+                        <a role="button" onclick="visible()">Advanced Search</a>
+                        <div class="row">
+                            <div class="advanceSearch col form-floating input-group">
+                                <input id="monsterACSearch" class="form-control form-control-sm"
+                                type="search"
+                                placeholder="AC"
+                                name="monster_ac">
+                                <label class="ps-4" for="monsterACSearch">AC</label>
+                            </div>
+                            <div class="advanceSearch col form-floating input-group">
+                                <input id="monsterChallengeSearch" class="form-control form-control-sm"
+                                type="search"
+                                placeholder="AC"
+                                name="monster_challenge">
+                                <label class="ps-4" for="monsterChallengeSearch">Challenge</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" type="submit">Submit</button>
                 </div>
             </form>
             <table class="table table-striped table-hover">
@@ -28,7 +53,7 @@
                 <tbody>
                     {% if monsters.count == 0 %}
                         <tr>
-                            <td colspan="4">No Monsters With That Name</td>
+                            <td colspan="4">No Monsters With That Parameters in the DataBase</td>
                         </tr>
                     {% endif %}
                     {% for monster in monsters %}
