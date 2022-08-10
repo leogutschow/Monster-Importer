@@ -3,6 +3,7 @@ from django.contrib.admin import TabularInline
 from django.forms import TextInput, Textarea
 from .models import Monster, Action, SpecialTraits, Skill
 from django.db import models
+from django.contrib.auth.models import Group
 
 
 # Register your models here.
@@ -39,6 +40,8 @@ class MonsterAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Monster, MonsterAdmin)
+admin.site.unregister(Group)
+admin.site.site_header = "Monster Importer Admin"
 
 
 

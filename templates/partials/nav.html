@@ -2,7 +2,7 @@
     <div class="row align-content-center">
         <a class="btn col text-white text-decoration-none" href="{% url 'home:home_page' %}">Home Page</a>
         <a class="btn col text-white text-decoration-none" href="{% url 'monster:monster_list' %}">Monsters</a>
-        <a class="btn col text-white text-decoration-none" href="#">Manuals</a>
+        <a class="btn col text-white text-decoration-none" href="{% url 'manuals:manual_download'%}">Manuals</a>
         <a class="btn col text-white text-decoration-none" href="{% url 'home:about' %}">About</a>
     </div>
 </nav>

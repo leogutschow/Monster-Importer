@@ -6,7 +6,7 @@ from django.utils.text import slugify
 
 
 class BaseSheet(models.Model):
-    name: str = models.CharField(max_length=50)
+    name: str = models.CharField(unique=True, max_length=50)
     race: str = models.CharField(max_length=30)
     size: str = models.CharField(max_length=30)
     ac: int = models.IntegerField()
