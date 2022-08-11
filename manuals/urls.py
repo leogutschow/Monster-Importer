@@ -4,5 +4,5 @@ from .views import ManualDownload
 app_name = 'manuals'
 
 urlpatterns = [
-    path('/download', ManualDownload.as_view(), name='manual_download')
+    path('', ManualDownload.as_view(), name='manual_download')
 ]

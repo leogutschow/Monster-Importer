@@ -5,9 +5,15 @@
 </head>
 <body>
     {% block 'conteudo' %}
-        {% for manual in manuals %}
-
-        {% endfor %}
+        <div class="container-fluid row mt-5 w-100">
+            <img class="col" src="">
+            <select class="form-select col">
+                {% for manual in manuals %}
+                    <option selected>Manuals</option>
+                    <option value="{{ forloop.counter }}">{{ manual.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
     {% endblock %}
 </body>
 </html>

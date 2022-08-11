@@ -39,18 +39,29 @@
         -->
 
     <div class="d-flex justify-content-center">
-        <div id="carouselControls bg-dark" class="carousel carousel-dark slide w-25" data-bs-rise="carousel">
+        <div id="carouselControls" class="carousel carousel-dark slide w-25 bg-dark" data-bs-rise="carousel">
             <div class="carousel-inner">
-                <a href="{% url 'monster:monster_detail' last_monster.slug%}">
-                    <div class="carousel-item-active" data-bs-interval="2000">
+                <div class="carousel-item active" data-bs-interval="5000">
+                    <a href="{% url 'monster:monster_detail' last_monster.slug%}">
                         <img src="{{ last_monster.image.url }}" alt="..." class="d-block" style="max-width: 25vw;">
                             <div class="carousel-caption d-md-block bg-secondary" style="opacity: 75%;">
                                 <h5 class="text-white " style="opacity: 100%">Most Recent Monster!</h5>
                                 <h1 class="text-white " style="opacity: 100%">The {{ last_monster.name }}!</h1>
                                 <p class="text-white" style="opacity: 100%">Now you can import this to your Roll20 Campaign and have fun!</p>
                             </div>
-                    </div>
-                </a>
+                     </a>
+                </div>
+                <div class="carousel-item" data-bs-interval="5000">
+                    <a href="{% url 'manuals:manual_download' %}">
+                        <img src="./media/documents/manuals/thumbs/monstersmanual_kyOtY7T.jpg" alt="..." class="d-block" style="max-width: 25vw;">
+                            <div class="carousel-caption d-md-block bg-secondary" style="opacity: 75%;">
+                                <h5 class="text-white " style="opacity: 100%">Don't know the Monsters?</h5>
+                                <h1 class="text-white " style="opacity: 100%">Download the Manuals!!</h1>
+                                <p class="text-white" style="opacity: 100%">Download Manuals and have a look at the Monsters available for various games!</p>
+                            </div>
+                    </a>
+                </div>
+
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev" style=":hover{background-color: gray}">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
