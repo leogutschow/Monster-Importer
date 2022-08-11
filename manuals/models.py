@@ -1,4 +1,5 @@
 from django.db import models
+from pdf2image import convert_from_path
 
 languages: list = [
     ('PT', 'Portuguese'),
@@ -12,9 +13,17 @@ categories = [
 
 ]
 
+
 # Create your models here.
 class Manual(models.Model):
     name: str = models.CharField(max_length=100)
-    file_path = models.FileField(upload_to=f'documents/manuals/{name}')
+    file_path = models.FileField(upload_to='documents/manuals/')
     language: str = models.CharField(max_length=2, choices=languages)
     category: str = models.CharField(default='MON', max_length=3, choices=categories)
+    image = models.ImageField(upload_to='documents/manuals/thumbs/')
+
+    def __str__(self):
+        return self.name
+
+
+
