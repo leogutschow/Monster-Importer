@@ -19,11 +19,17 @@
                         {{ manual|json_script:"{{ monster.name }}" }}
                         <option disabled>Monsters</option>
                         <option value="{{ forloop.counter }}">{{ manual.name }}</option>
-                    {% elif manual.category == 'PLA' %}
+                    {% endif %}
+                {% endfor %}
+                {% for manual in manuals %}
+                    {% if manual.category == 'PLA' %}
                         {{ manual|json_script:"{{ monster.name }}" }}
                         <option disabled>Player Books</option>
                         <option value="{{ forloop.counter }}">{{ manual.name }}</option>
-                    {% elif manual.category == 'GMS' %}
+                    {% endif %}
+                {% endfor %}
+                {% for manual in manuals %}
+                    {% if manual.category == 'GMS' %}
                         {{ manual|json_script:"{{ monster.name }}" }}
                         <option disabled>Game Masters Guides</option>
                         <option value="{{ forloop.counter }}">{{ manual.name }}</option>
