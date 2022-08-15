@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import TabularInline
 from django.forms import TextInput, Textarea
-from .models import DnDMonster, DnDAction, DnDSpecialTraits, DnDSkill, DnDSavingThrows
+from .models import DnDMonster, DnDAction, DnDSpecialTraits, DnDSkill, DnDSavingThrows, DndReaction
 from django.db import models
 from django.contrib.auth.models import Group
 
@@ -39,11 +39,18 @@ class DndSavingThrowsInline(admin.TabularInline):
     min_num = 0
 
 
+class DndReactionInline(admin.TabularInline):
+    model = DndReaction
+    extra = 0
+    can_delete = True
+    min_num = 0
+
+
 class DnDMonsterAdmin(admin.ModelAdmin):
     list_display = (
         'id', 'name', 'ac', 'hp', 'challenge'
     )
-    inlines = [DnDActionInline, DnDSpecialTraitsInline, DnDSkillInline, DndSavingThrowsInline]
+    inlines = [DnDActionInline, DnDSpecialTraitsInline, DnDSkillInline, DndSavingThrowsInline, DndReactionInline]
 
 
 admin.site.register(DnDMonster, DnDMonsterAdmin)

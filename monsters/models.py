@@ -131,3 +131,12 @@ class DnDSavingThrows(models.Model):
 
     class Meta:
         verbose_name = "DnD Saving Throw"
+
+
+class DndReaction(models.Model):
+    monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
+    name: str = models.CharField(max_length=20)
+    description: str = models.TextField()
+
+    class Meta:
+        verbose_name = "DnD Reaction"

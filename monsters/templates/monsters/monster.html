@@ -60,12 +60,14 @@
                             <h5 class="fs-6">Languages: {{ monster.languages }}</h5>
                             <h5 class="fs-6">Challenge: {{ monster.challenge }} ({{ monster.challenge|calculate_challenge }}xp)</h5>
                         </div>
-                        <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
-                        {% for specialtrait in monster.dndspecialtraits_set.all %}
-                            <p>
-                                <h5 class="fw-bold fs-6" style="display: inline">{{ specialtrait.name }}. </h5>{{ specialtrait.description }}
-                            </p>
-                        {% endfor %}
+                        {% if monster.dndspecialtraits_set %}
+                            <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
+                            {% for specialtrait in monster.dndspecialtraits_set.all %}
+                                <p>
+                                    <h5 class="fw-bold fs-6" style="display: inline">{{ specialtrait.name }}. </h5>{{ specialtrait.description }}
+                                </p>
+                            {% endfor %}
+                        {% endif %}
                         <h3 class="d-md-block text-danger pd-0 pt-3">Actions</h3>
                         <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
                         {% for action in monster.dndaction_set.all %}
@@ -73,6 +75,15 @@
                                 <h5 class="fw-bold fs-6" style="display: inline">{{ action.name }}. </h5>{{ action.description }}
                             </p>
                         {% endfor %}
+                        {% if monster.dndreaction_set %}
+                            <h3 class="d-md-block text-danger pd-0 pt-3">Reactions</h3>
+                            <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
+                            {% for reaction in monster.dndreaction_set.all %}
+                                <p>
+                                    <h5 class="fw-bold fs-6" style="display: inline">{{ reaction.name }}. </h5>{{ reaction.description }}
+                                </p>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
