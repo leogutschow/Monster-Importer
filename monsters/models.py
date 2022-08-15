@@ -22,13 +22,18 @@ class BaseSheet(models.Model):
     charisma: int = models.IntegerField()
     languages: str = models.CharField(max_length=100, default="None")
     slug: str = models.SlugField(blank=True, null=True)
+    game: str = models.CharField(default='', max_length=5, choices=[
+        ('DND5E', 'Dungeons and Dragons 5e'),
+        ('PF2E', 'Pathfinder 2e')
+    ])
+    home_brew: bool = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(f'{self.name}-{self.pk}')
+            self.slug = slugify(f'{self.name}')
         return super().save()
 
 

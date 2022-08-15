@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block 'titulo' %}Create Monster{% endblock %}</title>
+</head>
+<body>
+    {% block 'conteudo' %}
+        <form method="POST" action="#create_monster" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_ul }}
+            <button type="submit">Submit</button>
+        </form>
+    {% endblock %}
+</body>
+</html>

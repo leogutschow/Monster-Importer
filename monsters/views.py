@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, HttpResponse
 from django.forms.models import model_to_dict
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, CreateView, TemplateView
 from .models import DnDMonster, DnDAction, DnDSpecialTraits
 from django.core.paginator import Paginator
+from .forms import FormDndMonster, FormAction, FormMonster
 
 
 # Create your views here.
@@ -64,3 +65,48 @@ class MonsterList(ListView):
             qs = qs.filter(challenge__icontains=monster_challenge_query)
         context['monsters'] = qs
         return render(request, template_name=self.template_name, context=context)
+
+
+class MonsterCreate(CreateView):
+    template_name = 'monsters/monster_create.html'
+    form_class = FormDndMonster
+    form = FormDndMonster
+    model = DnDMonster
+
+    def form_valid(self, form):
+        data = form.cleaned_data
+        data['home_brew'] = True
+        print(data)
+
+        if data['game'] == 'DND5E':
+            print("Foi do DnD!")
+        monster = DnDMonster.objects.create(
+            name=data['name'],
+            race=data['race'],
+            size=data['size'],
+            ac=data['ac'],
+            ac_type=data['ac_type'],
+            hp=data['hp'],
+            hp_dices=data['hp_dices'],
+            movement=data['movement'],
+            strength=data['strength'],
+            dexterity=data['dexterity'],
+            constitution=data['constitution'],
+            intelligence=data['intelligence'],
+            wisdom=data['wisdom'],
+            charisma=data['charisma'],
+            languages=data['languages'],
+            game=data['game'],
+            home_brew=data['home_brew'],
+            alignment=data['alignment'],
+            challenge=data['challenge'],
+            description=data['description'],
+            image=data['image'],
+            senses=data['senses'],
+            damage_resistances=data['damage_resistances'],
+            damage_immunities=data['damage_immunities'],
+            condition_immunities=data['condition_immunities'],
+        )
+        monster.save()
+
+        return redirect('monster:monster_list')
