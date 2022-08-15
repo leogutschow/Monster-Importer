@@ -1,21 +1,21 @@
 from django.contrib import admin
 from django.contrib.admin import TabularInline
 from django.forms import TextInput, Textarea
-from .models import Monster, Action, SpecialTraits, Skill
+from .models import DnDMonster, DnDAction, DnDSpecialTraits, DnDSkill
 from django.db import models
 from django.contrib.auth.models import Group
 
 
 # Register your models here.
-class SkillInline(admin.StackedInline):
-    model = Skill
+class DnDSkillInline(admin.StackedInline):
+    model = DnDSkill
     extra = 0
     can_delete = True
     min_num = 0
 
 
-class ActionInline(admin.TabularInline):
-    model = Action
+class DnDActionInline(admin.TabularInline):
+    model = DnDAction
     extra = 0
     can_delete = True
     min_num = 1
@@ -25,21 +25,22 @@ class ActionInline(admin.TabularInline):
     }
 
 
-class SpecialTraitsInline(admin.TabularInline):
-    model = SpecialTraits
+class DnDSpecialTraitsInline(admin.TabularInline):
+    model = DnDSpecialTraits
     extra = 0
     can_delete = True
     min_num = 0
 
 
-class MonsterAdmin(admin.ModelAdmin):
+class DnDMonsterAdmin(admin.ModelAdmin):
     list_display = (
         'id', 'name', 'ac', 'hp', 'challenge'
     )
-    inlines = [ActionInline, SpecialTraitsInline, SkillInline]
+    inlines = [DnDActionInline, DnDSpecialTraitsInline, DnDSkillInline]
 
 
-admin.site.register(Monster, MonsterAdmin)
+
+admin.site.register(DnDMonster, DnDMonsterAdmin)
 admin.site.unregister(Group)
 admin.site.site_header = "Monster Importer Admin"
 

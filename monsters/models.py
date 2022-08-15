@@ -32,16 +32,19 @@ class BaseSheet(models.Model):
         return super().save()
 
 
-class Monster(BaseSheet):
+class DnDMonster(BaseSheet):
     alignment: str = models.CharField(max_length=30, default="Neutral")
     challenge: str = models.CharField(default="0", max_length=3)
     description: str = models.TextField(default="")
     image: str = models.ImageField(upload_to='images/monsters/')
     senses: str = models.CharField(max_length=100, blank=True, null=True)
 
+    class Meta:
+        verbose_name = "DnD Monster"
 
-class Action(models.Model):
-    monster = models.ForeignKey(Monster, on_delete=models.CASCADE)
+
+class DnDAction(models.Model):
+    monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
     name: str = models.CharField(max_length=30)
     description: str = models.TextField()
     is_attack: bool = models.BooleanField(default=False)
@@ -67,8 +70,8 @@ class Action(models.Model):
         return super().save()
 
 
-class SpecialTraits(models.Model):
-    monster = models.ForeignKey(Monster, on_delete=models.CASCADE)
+class DnDSpecialTraits(models.Model):
+    monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
     name: str = models.CharField(max_length=20)
     description: str = models.TextField()
 
@@ -76,7 +79,7 @@ class SpecialTraits(models.Model):
         return self.name
 
 
-class Skill(models.Model):
+class DnDSkill(models.Model):
     skill_list: list = [
         ('Athletics', 'Athletics'),
         ('Acrobatics', 'Acrobatics'),
@@ -97,6 +100,7 @@ class Skill(models.Model):
         ('Performance', 'Performance'),
         ('Persuasion', 'Persuasion')
     ]
-    monster = models.ForeignKey(Monster, on_delete=models.CASCADE)
+    monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
     name: str = models.CharField(max_length=15, choices=skill_list)
     modifier: int = models.PositiveIntegerField(default=1)
+
