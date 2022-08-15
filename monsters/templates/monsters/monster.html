@@ -38,6 +38,9 @@
                         </div>
                         <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
                         <div class="row">
+                            {% if monster.savingthrows_set.count > 0 %}
+                                <h5 class="fs-6">Saving Throws: {% for saving in monster.savingthrows_set %}{{ saving.attr }} + {{ saving.bonus }}{% endfor %}</h5>
+                            {% endfif %}
                             {% if monster.skill_set.count == 1 %}
                                 <h5 class="fs-6">Skills: {% for skill in monster.skill_set.all %}{{ skill.name }} +{{ skill.modifier }}{% endfor %}</h5>
                             {% elif monster.skill_set.count > 1 %}

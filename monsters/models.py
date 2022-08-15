@@ -38,6 +38,9 @@ class DnDMonster(BaseSheet):
     description: str = models.TextField(default="")
     image: str = models.ImageField(upload_to='images/monsters/')
     senses: str = models.CharField(max_length=100, blank=True, null=True)
+    damage_resistances: str = models.CharField(max_length=50, blank=True, null=True)
+    damage_immunities: str = models.CharField(max_length=50, blank=True, null=True)
+    condition_immunities: str = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
         verbose_name = "DnD Monster"
@@ -54,6 +57,9 @@ class DnDAction(models.Model):
     hit: int = models.IntegerField(blank=True, null=True)
     hit_dice: str = models.CharField(max_length=10, blank=True, null=True)
     damage_type: str = models.CharField(max_length=50, blank=True, null=True)
+
+    class Meta:
+        verbose_name = "DnD Action"
 
     def __str__(self):
         return self.name
@@ -74,6 +80,9 @@ class DnDSpecialTraits(models.Model):
     monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
     name: str = models.CharField(max_length=20)
     description: str = models.TextField()
+
+    class Meta:
+        verbose_name = "DnD Special Trait"
 
     def __str__(self):
         return self.name
@@ -104,3 +113,21 @@ class DnDSkill(models.Model):
     name: str = models.CharField(max_length=15, choices=skill_list)
     modifier: int = models.PositiveIntegerField(default=1)
 
+    class Meta:
+        verbose_name = "DnD Skill"
+
+
+class DnDSavingThrows(models.Model):
+    monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE, default=4)
+    attr: str = models.CharField(max_length=3, choices=[
+        ('STR', 'Strength'),
+        ('DEX', 'Dexterity'),
+        ('CON', 'Constitution'),
+        ('INT', 'Intelligence'),
+        ('WIS', 'Wisdom'),
+        ('CHA', 'Charisma'),
+    ])
+    bonus: int = models.PositiveIntegerField()
+
+    class Meta:
+        verbose_name = "DnD Saving Throw"
