@@ -1,10 +1,9 @@
 from django.forms import ModelForm
 from django import forms
-from .models import BaseSheet, DnDMonster, DnDAction
+from .models import BaseSheet, DnDMonster, DnDAction, games
 
 
 class FormMonster(ModelForm):
-
     class Meta:
         model = BaseSheet
         fields = (
@@ -13,13 +12,24 @@ class FormMonster(ModelForm):
             'home_brew',
         )
         widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'race': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'size': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'ac': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
             'slug': forms.HiddenInput(),
             'home_brew': forms.HiddenInput()
         }
 
 
 class FormDndMonster(ModelForm):
-
     class Meta:
         model = DnDMonster
         fields = (
@@ -32,14 +42,13 @@ class FormDndMonster(ModelForm):
         }
 
 
-class FormAction(ModelForm):
+class FormDnDAction(ModelForm):
     class Meta:
         model = DnDAction
         fields = (
-            'monster', 'name', 'description', 'is_attack', 'weapon_type', 'attack', 'reach', 'hit',
+            'monster', 'action_name', 'action_description', 'is_attack', 'weapon_type', 'attack', 'reach', 'hit',
             'hit_dice', 'damage_type',
         )
         widgets = {
             'monster': forms.HiddenInput(),
         }
-

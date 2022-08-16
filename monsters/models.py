@@ -4,6 +4,10 @@ from django.contrib.admin.options import InlineModelAdmin
 # Create your models here.
 from django.utils.text import slugify
 
+games = [
+        ('DND5E', 'Dungeons and Dragons 5e'),
+        ('PF2E', 'Pathfinder 2e')
+    ]
 
 class BaseSheet(models.Model):
     name: str = models.CharField(unique=True, max_length=50)
@@ -22,10 +26,7 @@ class BaseSheet(models.Model):
     charisma: int = models.IntegerField()
     languages: str = models.CharField(max_length=100, default="None")
     slug: str = models.SlugField(blank=True, null=True)
-    game: str = models.CharField(default='', max_length=5, choices=[
-        ('DND5E', 'Dungeons and Dragons 5e'),
-        ('PF2E', 'Pathfinder 2e')
-    ])
+    game: str = models.CharField(default='', max_length=5, choices=games)
     home_brew: bool = models.BooleanField(default=False)
 
     def __str__(self):
@@ -53,8 +54,8 @@ class DnDMonster(BaseSheet):
 
 class DnDAction(models.Model):
     monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
-    name: str = models.CharField(max_length=30)
-    description: str = models.TextField()
+    action_name: str = models.CharField(max_length=30)
+    action_description: str = models.TextField()
     is_attack: bool = models.BooleanField(default=False)
     weapon_type: str = models.CharField(max_length=50, blank=True, null=True)
     attack: int = models.IntegerField(blank=True, null=True)
@@ -67,7 +68,7 @@ class DnDAction(models.Model):
         verbose_name = "DnD Action"
 
     def __str__(self):
-        return self.name
+        return self.action_name
 
     def save(self, *args, **kwargs):
         if not self.is_attack:
@@ -77,14 +78,21 @@ class DnDAction(models.Model):
             self.hit = None
             self.hit_dice = None
             self.damage_type = None
+        else:
+            self.weapon_type = kwargs['weapon_type']
+            self.attack = int(kwargs['attack'])
+            self.reach = kwargs['reach']
+            self.hit = int(kwargs['hit'])
+            self.hit_dice = kwargs['hit_dice']
+            self.damage_type = kwargs['damage_type']
 
         return super().save()
 
 
 class DnDSpecialTraits(models.Model):
     monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
-    name: str = models.CharField(max_length=20)
-    description: str = models.TextField()
+    specialtrait_name: str = models.CharField(max_length=20)
+    specialtrait_description: str = models.TextField()
 
     class Meta:
         verbose_name = "DnD Special Trait"
@@ -115,7 +123,7 @@ class DnDSkill(models.Model):
         ('Persuasion', 'Persuasion')
     ]
     monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
-    name: str = models.CharField(max_length=15, choices=skill_list)
+    skill_name: str = models.CharField(max_length=15, choices=skill_list)
     modifier: int = models.PositiveIntegerField(default=1)
 
     class Meta:
@@ -140,8 +148,8 @@ class DnDSavingThrows(models.Model):
 
 class DndReaction(models.Model):
     monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
-    name: str = models.CharField(max_length=20)
-    description: str = models.TextField()
+    reaction_name: str = models.CharField(max_length=20)
+    reaction_description: str = models.TextField()
 
     class Meta:
         verbose_name = "DnD Reaction"

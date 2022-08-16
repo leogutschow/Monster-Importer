@@ -1,16 +1,35 @@
 {% extends 'base.html' %}
-<head>
+<head xmlns="http://www.w3.org/1999/html">
     <meta charset="UTF-8">
     <title>{% block 'titulo' %}Create Monster{% endblock %}</title>
 </head>
 <body>
     {% block 'conteudo' %}
-        <form method="POST" action="#create_monster" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_ul }}
-            {{ dndmonster.as_ul }}
-            <button type="submit">Submit</button>
-        </form>
+        <div class="container">
+            <form class="" method="POST" action="#create_monster" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div id="baseSheetForm">
+                        {{ form.as_ul }}
+                    </div>
+
+                    <div id="dndMonsterForm">
+                        {{ dndmonster.as_ul }}
+                    </div>
+                    <div id="dndActionForm">
+                        <h5>Actions</h5>
+                        {{ dndaction.as_ul }}
+                    </div>
+                </div>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+    <script>
+
+    </script>
+    {%  %}
     {% endblock %}
 </body>
 </html>

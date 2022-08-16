@@ -3,7 +3,7 @@ from django.forms.models import model_to_dict
 from django.views.generic import DetailView, ListView, CreateView, TemplateView
 from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet
 from django.core.paginator import Paginator
-from .forms import FormDndMonster, FormAction, FormMonster
+from .forms import FormDndMonster, FormDnDAction, FormMonster
 
 
 # Create your views here.
@@ -72,17 +72,19 @@ class MonsterCreate(CreateView):
     form_class = FormMonster
     model = BaseSheet
     extra_context = {
-        'dndmonster': FormDndMonster
+        'dndmonster': FormDndMonster,
+        'dndaction': FormDnDAction
     }
 
     def form_valid(self, form):
         data = form.cleaned_data
+        print(data)
         monster_data = self.request.POST
         print(monster_data)
         if data['game'] == 'DND5E':
             print("Foi do DnD!")
             monster = DnDMonster.objects.create(
-                name=data['name'],
+                name=monster_data.get('name'),
                 race=data['race'],
                 size=data['size'],
                 ac=data['ac'],
@@ -98,7 +100,7 @@ class MonsterCreate(CreateView):
                 charisma=data['charisma'],
                 languages=data['languages'],
                 game=data['game'],
-                home_brew=data['home_brew'],
+                home_brew='True',
                 alignment=monster_data.get('alignment'),
                 challenge=int(monster_data.get('challenge')),
                 description=monster_data.get('description'),
@@ -109,5 +111,18 @@ class MonsterCreate(CreateView):
                 condition_immunities=monster_data.get('condition_immunities'),
             )
             monster.save()
+            action = DnDAction.objects.create(
+                monster=monster,
+                action_name=monster_data.get('action_name'),
+                action_description=monster_data.get('action_name'),
+                is_attack=bool(monster_data.get('is_attack')),
+                attack=monster_data.get('attack'),
+                weapon_type=monster_data.get('weapon_type'),
+                reach=monster_data.get('reach'),
+                hit=monster_data.get('hit'),
+                hit_dice=monster_data.get('hit_dice'),
+                damage_type=monster_data.get('damage_type')
+            )
+            action.save()
 
         return redirect('monster:monster_list')
