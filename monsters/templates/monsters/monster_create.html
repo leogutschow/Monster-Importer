@@ -8,6 +8,7 @@
         <form method="POST" action="#create_monster" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_ul }}
+            {{ dndmonster.as_ul }}
             <button type="submit">Submit</button>
         </form>
     {% endblock %}

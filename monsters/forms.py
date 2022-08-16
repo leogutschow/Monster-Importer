@@ -23,12 +23,9 @@ class FormDndMonster(ModelForm):
     class Meta:
         model = DnDMonster
         fields = (
-            'game', 'name', 'race', 'size', 'ac', 'ac_type', 'hp', 'hp_dices', 'movement', 'strength',
-            'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma', 'languages', 'slug',
-            'home_brew', 'alignment', 'challenge', 'description', 'image', 'senses', 'damage_resistances',
+            'alignment', 'challenge', 'description', 'image', 'senses', 'damage_resistances',
             'damage_immunities', 'condition_immunities',
         )
-
         widgets = {
             'slug': forms.HiddenInput(),
             'home_brew': forms.HiddenInput()
