@@ -6,7 +6,10 @@
 </head>
 <body>
     {% block 'conteudo' %}
-
+    <form>
+        {% csrf_token %}
+        {{ form.as_ul }}
+    </form>
     {% endblock %}
 
 </body>
