@@ -14,7 +14,7 @@
                 <div class="container-md col-auto bg-image p-3" style="background-image: url(https://i.imgur.com/hTt73aH.png); width: 547px; max-height:2000px">
                     <div class="container">
                         <h1 class="d-md-block text-danger pd-0 pt-3">{{ monster.name }}</h1>
-                        <h5 class="lh-1 fs-6 fst-italic">{{ monster.race }} {{ monster.size }}</h5>
+                        <h5 class="lh-1 fs-6 fst-italic">{{ monster.size }} {{ monster.race }}</h5>
                         <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
                         <h5 class="fs-6 text-danger">Armor Class: {{ monster.ac }} ({{ monster.ac_type }})</h5>
                         <h5 class="fs-6 text-danger">Hit Points: {{ monster.hp }} ({{ monster.hp_dices }})</h5>
@@ -38,6 +38,19 @@
                         </div>
                         <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
                         <div class="row">
+                            {% if monster.dndsavingthrows_set.count > 0 %}
+                                {% if monster.dndsavingthrows_set.count == 1 %}
+                                    <h5 class="fs-6">Saving Throws: {% for saving in monster.dndsavingthrows_set.all %}{{ saving.attr }} + {{ saving.bonus }}{% endfor %}</h5>
+                                {% else %}
+                                    <h5 class="fs-6">Saving Throws: {% for saving in monster.dndsavingthrows_set.all %}{{ saving.attr }} + {{ saving.bonus }}, {% endfor %}</h5>
+                                {% endif %}
+                            {% endif %}
+                            {% if monster.damage_immunities %}
+                                <h5 class="fs-6">Damage Immunities: {{ monster.damage_immunities }}</h5>
+                            {% endif %}
+                            {% if monster.condition_immunities %}
+                                <h5 class="fs-6">Condition Immunities: {{ monster.condition_immunities }}</h5>
+                            {% endif %}
                             {% if monster.skill_set.count == 1 %}
                                 <h5 class="fs-6">Skills: {% for skill in monster.skill_set.all %}{{ skill.name }} +{{ skill.modifier }}{% endfor %}</h5>
                             {% elif monster.skill_set.count > 1 %}
@@ -47,19 +60,30 @@
                             <h5 class="fs-6">Languages: {{ monster.languages }}</h5>
                             <h5 class="fs-6">Challenge: {{ monster.challenge }} ({{ monster.challenge|calculate_challenge }}xp)</h5>
                         </div>
-                        <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
-                        {% for specialtrait in monster.specialtraits_set.all %}
-                            <p>
-                                <h5 class="fw-bold fs-6" style="display: inline">{{ specialtrait.name }}. </h5>{{ specialtrait.description }}
-                            </p>
-                        {% endfor %}
+                        {% if monster.dndspecialtraits_set %}
+                            <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
+                            {% for specialtrait in monster.dndspecialtraits_set.all %}
+                                <p>
+                                    <h5 class="fw-bold fs-6" style="display: inline">{{ specialtrait.name }}. </h5>{{ specialtrait.description }}
+                                </p>
+                            {% endfor %}
+                        {% endif %}
                         <h3 class="d-md-block text-danger pd-0 pt-3">Actions</h3>
                         <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
-                        {% for action in monster.action_set.all %}
+                        {% for action in monster.dndaction_set.all %}
                             <p>
                                 <h5 class="fw-bold fs-6" style="display: inline">{{ action.name }}. </h5>{{ action.description }}
                             </p>
                         {% endfor %}
+                        {% if monster.dndreaction_set %}
+                            <h3 class="d-md-block text-danger pd-0 pt-3">Reactions</h3>
+                            <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
+                            {% for reaction in monster.dndreaction_set.all %}
+                                <p>
+                                    <h5 class="fw-bold fs-6" style="display: inline">{{ reaction.name }}. </h5>{{ reaction.description }}
+                                </p>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>

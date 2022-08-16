@@ -4,6 +4,10 @@ from django.contrib.admin.options import InlineModelAdmin
 # Create your models here.
 from django.utils.text import slugify
 
+games = [
+        ('DND5E', 'Dungeons and Dragons 5e'),
+        ('PF2E', 'Pathfinder 2e')
+    ]
 
 class BaseSheet(models.Model):
     name: str = models.CharField(unique=True, max_length=50)
@@ -22,28 +26,36 @@ class BaseSheet(models.Model):
     charisma: int = models.IntegerField()
     languages: str = models.CharField(max_length=100, default="None")
     slug: str = models.SlugField(blank=True, null=True)
+    game: str = models.CharField(default='', max_length=5, choices=games)
+    home_brew: bool = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(f'{self.name}-{self.pk}')
+            self.slug = slugify(f'{self.name}')
         return super().save()
 
 
-class Monster(BaseSheet):
+class DnDMonster(BaseSheet):
     alignment: str = models.CharField(max_length=30, default="Neutral")
     challenge: str = models.CharField(default="0", max_length=3)
     description: str = models.TextField(default="")
     image: str = models.ImageField(upload_to='images/monsters/')
     senses: str = models.CharField(max_length=100, blank=True, null=True)
+    damage_resistances: str = models.CharField(max_length=50, blank=True, null=True)
+    damage_immunities: str = models.CharField(max_length=50, blank=True, null=True)
+    condition_immunities: str = models.CharField(max_length=50, blank=True, null=True)
+
+    class Meta:
+        verbose_name = "DnD Monster"
 
 
-class Action(models.Model):
-    monster = models.ForeignKey(Monster, on_delete=models.CASCADE)
-    name: str = models.CharField(max_length=30)
-    description: str = models.TextField()
+class DnDAction(models.Model):
+    monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
+    action_name: str = models.CharField(max_length=30)
+    action_description: str = models.TextField()
     is_attack: bool = models.BooleanField(default=False)
     weapon_type: str = models.CharField(max_length=50, blank=True, null=True)
     attack: int = models.IntegerField(blank=True, null=True)
@@ -52,8 +64,11 @@ class Action(models.Model):
     hit_dice: str = models.CharField(max_length=10, blank=True, null=True)
     damage_type: str = models.CharField(max_length=50, blank=True, null=True)
 
+    class Meta:
+        verbose_name = "DnD Action"
+
     def __str__(self):
-        return self.name
+        return self.action_name
 
     def save(self, *args, **kwargs):
         if not self.is_attack:
@@ -63,20 +78,30 @@ class Action(models.Model):
             self.hit = None
             self.hit_dice = None
             self.damage_type = None
+        else:
+            self.weapon_type = kwargs['weapon_type']
+            self.attack = int(kwargs['attack'])
+            self.reach = kwargs['reach']
+            self.hit = int(kwargs['hit'])
+            self.hit_dice = kwargs['hit_dice']
+            self.damage_type = kwargs['damage_type']
 
         return super().save()
 
 
-class SpecialTraits(models.Model):
-    monster = models.ForeignKey(Monster, on_delete=models.CASCADE)
-    name: str = models.CharField(max_length=20)
-    description: str = models.TextField()
+class DnDSpecialTraits(models.Model):
+    monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
+    specialtrait_name: str = models.CharField(max_length=20)
+    specialtrait_description: str = models.TextField()
+
+    class Meta:
+        verbose_name = "DnD Special Trait"
 
     def __str__(self):
         return self.name
 
 
-class Skill(models.Model):
+class DnDSkill(models.Model):
     skill_list: list = [
         ('Athletics', 'Athletics'),
         ('Acrobatics', 'Acrobatics'),
@@ -97,6 +122,34 @@ class Skill(models.Model):
         ('Performance', 'Performance'),
         ('Persuasion', 'Persuasion')
     ]
-    monster = models.ForeignKey(Monster, on_delete=models.CASCADE)
-    name: str = models.CharField(max_length=15, choices=skill_list)
+    monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
+    skill_name: str = models.CharField(max_length=15, choices=skill_list)
     modifier: int = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        verbose_name = "DnD Skill"
+
+
+class DnDSavingThrows(models.Model):
+    monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE, default=4)
+    attr: str = models.CharField(max_length=3, choices=[
+        ('STR', 'Strength'),
+        ('DEX', 'Dexterity'),
+        ('CON', 'Constitution'),
+        ('INT', 'Intelligence'),
+        ('WIS', 'Wisdom'),
+        ('CHA', 'Charisma'),
+    ])
+    bonus: int = models.PositiveIntegerField()
+
+    class Meta:
+        verbose_name = "DnD Saving Throw"
+
+
+class DndReaction(models.Model):
+    monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
+    reaction_name: str = models.CharField(max_length=20)
+    reaction_description: str = models.TextField()
+
+    class Meta:
+        verbose_name = "DnD Reaction"
