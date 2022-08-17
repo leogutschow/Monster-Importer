@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 <head xmlns="http://www.w3.org/1999/html">
     <meta charset="UTF-8">
     <title>{% block 'titulo' %}Create Monster{% endblock %}</title>
@@ -18,18 +19,24 @@
                     </div>
                     <div id="dndActionForm">
                         <h5>Actions</h5>
-                        {{ dndaction.as_ul }}
+                        {{ dndaction.management_form }}
+                        {% for action in dndaction %}
+                            <div class="link_formset">
+                                {{ action.as_p }}
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
 
                 <button type="submit">Submit</button>
             </form>
         </div>
-
+    {% verbatim %}
     <script>
 
     </script>
-    {%  %}
+    {% endverbatim %}
+
     {% endblock %}
 </body>
 </html>
