@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.forms.models import model_to_dict
+from django.forms import formset_factory
 from django.views.generic import DetailView, ListView, CreateView, TemplateView
 from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet
 from django.core.paginator import Paginator
@@ -68,12 +69,13 @@ class MonsterList(ListView):
 
 
 class MonsterCreate(CreateView):
+    DnDAction_Formset = formset_factory(FormDnDAction)
     template_name = 'monsters/monster_create.html'
     form_class = FormMonster
     model = BaseSheet
     extra_context = {
         'dndmonster': FormDndMonster,
-        'dndaction': FormDnDAction
+        'dndaction': DnDAction_Formset()
     }
 
     def form_valid(self, form):
