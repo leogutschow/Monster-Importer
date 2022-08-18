@@ -9,6 +9,7 @@ games = [
         ('PF2E', 'Pathfinder 2e')
     ]
 
+
 class BaseSheet(models.Model):
     name: str = models.CharField(unique=True, max_length=50)
     race: str = models.CharField(max_length=30)
@@ -69,24 +70,6 @@ class DnDAction(models.Model):
 
     def __str__(self):
         return self.action_name
-
-    def save(self, *args, **kwargs):
-        if not self.is_attack:
-            self.weapon_type = None
-            self.attack = None
-            self.reach = None
-            self.hit = None
-            self.hit_dice = None
-            self.damage_type = None
-        else:
-            self.weapon_type = kwargs['weapon_type']
-            self.attack = int(kwargs['attack'])
-            self.reach = kwargs['reach']
-            self.hit = int(kwargs['hit'])
-            self.hit_dice = kwargs['hit_dice']
-            self.damage_type = kwargs['damage_type']
-
-        return super().save()
 
 
 class DnDSpecialTraits(models.Model):

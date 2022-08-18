@@ -20,11 +20,18 @@
                     <div id="dndActionForm">
                         <h5>Actions</h5>
                         {{ dndaction.management_form }}
-                        {% for action in dndaction %}
-                            <div class="link_formset">
-                                {{ action.as_p }}
+                        <div id="formList">
+                            {% for action in dndaction %}
+                            <div class="action-form">
+                                {{ action }}
+                                <br></br>
                             </div>
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
+                        <div id="emptyForm">{{ dndaction.empty_form }}</div>
+
+
+                        <button id="addActionBtn" type="button">Add an Action</button>
                     </div>
                 </div>
 
@@ -32,9 +39,21 @@
             </form>
         </div>
     {% verbatim %}
-    <script>
+        <script>
+            const addActionBtn = document.getElementById('addActionBtn')
+            addActionBtn.addEventListener('click', add_new_action)
 
-    </script>
+            function add_new_action(event) {
+                if (event){
+                    event.preventDefault()
+                }
+                const formCopyTarget = document.getElementById('formList')
+                const emptyForm = document.getElementById('emptyForm').cloneNode(true)
+                emptyForm.setAttribute('class', 'action-form')
+                emptyForm.setAttribute('id', '')
+                formCopyTarget.append(emptyForm)
+            }
+        </script>
     {% endverbatim %}
 
     {% endblock %}

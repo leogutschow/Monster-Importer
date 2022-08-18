@@ -72,7 +72,7 @@
                         <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
                         {% for action in monster.dndaction_set.all %}
                             <p>
-                                <h5 class="fw-bold fs-6" style="display: inline">{{ action.name }}. </h5>{{ action.description }}
+                                <h5 class="fw-bold fs-6" style="display: inline">{{ action.action_name }}. </h5>{{ action.action_description }}
                             </p>
                         {% endfor %}
                         {% if monster.dndreaction_set %}
