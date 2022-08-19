@@ -13,6 +13,12 @@
                 </div>
                 <div class="container-md col-auto bg-image p-3" style="background-image: url(https://i.imgur.com/hTt73aH.png); width: 547px; max-height:2000px">
                     <div class="container">
+                        <div class="row container">
+                            <h5 class="fst-italic fs-6">{{ monster.game }}</h5>
+                            {% if monster.home_brew %}
+                                <h5 class="fst-italic fs-6">Home Brew Monster Created By:</h5>
+                            {% endif %}
+                        </div>
                         <h1 class="d-md-block text-danger pd-0 pt-3">{{ monster.name }}</h1>
                         <h5 class="lh-1 fs-6 fst-italic">{{ monster.size }} {{ monster.race }}</h5>
                         <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
