@@ -1,4 +1,4 @@
-# Monster-Importer
+# :dragon: Monster-Importer :dragon: 
 
 ___________________________________________________
 Main purpose
@@ -24,5 +24,11 @@ I have big plans for Monster Importer, such as:
 
 - Having Monsters from every game, at least the most famous ones
 - People could create and Import their own Characters Sheets to their games
+- A Forum so people can discuss their Monsters and their games
+- Populate the Web App with Monster left, at least from the most popular games
 
-
+___________________________________________________
+How to use?
+-
+1. Download and intall the Extension that allows Monster Importer manage internal Roll20 functions
+2. That's it! Now you can import any Monster to your game!
