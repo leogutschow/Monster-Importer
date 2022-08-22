@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'monsters',
     'manuals',
     'client_requests',
+    'authentications',
 ]
 
 MIDDLEWARE = [

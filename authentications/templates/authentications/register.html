@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block 'titulo' %}Register{% endblock %}</title>
+</head>
+<body>
+    {% block 'conteudo' %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+
+    {% endblock %}
+
+</body>
+</html>
