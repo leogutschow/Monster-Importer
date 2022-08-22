@@ -116,6 +116,7 @@ class MonsterCreate(CreateView):
             for form in formset:
                 if form.is_valid():
                     cleaned_data = form.cleaned_data
+                    print(cleaned_data)
                     action = DnDAction.objects.create(
                         monster=monster,
                         action_name=cleaned_data['action_name'],
