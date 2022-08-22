@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.forms.models import model_to_dict
-from django.forms import formset_factory
+from django.forms import formset_factory, inlineformset_factory
 from django.views.generic import DetailView, ListView, CreateView, TemplateView
 from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet
 from django.core.paginator import Paginator
@@ -31,7 +31,7 @@ class MonsterDetail(DetailView):
             monster_dict['special_traits'] = monster_special_traits
         monster_dict['actions'] = monster_actions
         context['monster_dict'] = monster_dict
-
+        print(context)
         return context
 
 
@@ -69,7 +69,8 @@ class MonsterList(ListView):
 
 
 class MonsterCreate(CreateView):
-    DnDAction_Formset = formset_factory(FormDnDAction)
+    DnDAction_Formset = inlineformset_factory(form=FormDnDAction, model=DnDAction, parent_model=DnDMonster, min_num=1,
+                                              extra=0)
     template_name = 'monsters/monster_create.html'
     form_class = FormMonster
     model = BaseSheet
@@ -80,9 +81,7 @@ class MonsterCreate(CreateView):
 
     def form_valid(self, form):
         data = form.cleaned_data
-        print(data)
         monster_data = self.request.POST
-        print(monster_data)
         if data['game'] == 'DND5E':
             print("Foi do DnD!")
             monster = DnDMonster.objects.create(
@@ -113,18 +112,22 @@ class MonsterCreate(CreateView):
                 condition_immunities=monster_data.get('condition_immunities'),
             )
             monster.save()
-            action = DnDAction.objects.create(
-                monster=monster,
-                action_name=monster_data.get('action_name'),
-                action_description=monster_data.get('action_name'),
-                is_attack=bool(monster_data.get('is_attack')),
-                attack=monster_data.get('attack'),
-                weapon_type=monster_data.get('weapon_type'),
-                reach=monster_data.get('reach'),
-                hit=monster_data.get('hit'),
-                hit_dice=monster_data.get('hit_dice'),
-                damage_type=monster_data.get('damage_type')
-            )
-            action.save()
+            formset = self.DnDAction_Formset(self.request.POST)
+            for form in formset:
+                if form.is_valid():
+                    cleaned_data = form.cleaned_data
+                    action = DnDAction.objects.create(
+                        monster=monster,
+                        action_name=cleaned_data['action_name'],
+                        action_description=cleaned_data['action_description'],
+                        is_attack=cleaned_data['is_attack'],
+                        attack=cleaned_data['attack'],
+                        weapon_type=cleaned_data['weapon_type'],
+                        reach=cleaned_data['reach'],
+                        hit=cleaned_data['hit'],
+                        hit_dice=cleaned_data['hit_dice'],
+                        damage_type=cleaned_data['damage_type']
+                    )
+                    action.save()
 
         return redirect('monster:monster_list')

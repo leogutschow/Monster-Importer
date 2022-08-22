@@ -9,6 +9,7 @@ games = [
         ('PF2E', 'Pathfinder 2e')
     ]
 
+
 class BaseSheet(models.Model):
     name: str = models.CharField(unique=True, max_length=50)
     race: str = models.CharField(max_length=30)
