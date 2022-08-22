@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 <head xmlns="http://www.w3.org/1999/html">
-    <meta charset="UTF-8">
     <title>{% block 'titulo' %}Create Monster{% endblock %}</title>
+    {% block 'styles' %}
+    <style>
+        #emptyForm {
+            visibility: hidden;
+        }
+    </style>
+    {% endblock %}
 </head>
 <body>
     {% block 'conteudo' %}
@@ -28,18 +34,17 @@
                             </div>
                             {% endfor %}
                         </div>
-                        <div id="emptyForm">{{ dndaction.empty_form }}</div>
-
-
                         <button id="addActionBtn" type="button">Add an Action</button>
                     </div>
                 </div>
 
                 <button type="submit">Submit</button>
             </form>
+            <div id="emptyForm" class="hidden">{{ dndaction.empty_form }}</div>
         </div>
     {% verbatim %}
         <script>
+        const totalNewForms = document.getElementById('id_dndaction_set-TOTAL_FORMS')
             const addActionBtn = document.getElementById('addActionBtn')
             addActionBtn.addEventListener('click', add_new_action)
 
@@ -47,10 +52,14 @@
                 if (event){
                     event.preventDefault()
                 }
+                const currentActionsForms = document.getElementsByClassName('action-form')
                 const formCopyTarget = document.getElementById('formList')
                 const emptyForm = document.getElementById('emptyForm').cloneNode(true)
                 emptyForm.setAttribute('class', 'action-form')
-                emptyForm.setAttribute('id', '')
+                emptyForm.setAttribute('id', `form-${currentActionsForms.length +1}`)
+                const regex = new RegExp('__prefix__', 'g')
+                emptyForm.innerHTML = emptyForm.innerHTML.replace(regex, currentActionsForms.length)
+                totalNewForms.setAttribute('value', currentActionsForms.length + 1)
                 formCopyTarget.append(emptyForm)
             }
         </script>
