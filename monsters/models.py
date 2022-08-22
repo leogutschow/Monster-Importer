@@ -70,24 +70,6 @@ class DnDAction(models.Model):
     def __str__(self):
         return self.action_name
 
-    def save(self, *args, **kwargs):
-        if not self.is_attack:
-            self.weapon_type = None
-            self.attack = None
-            self.reach = None
-            self.hit = None
-            self.hit_dice = None
-            self.damage_type = None
-        else:
-            self.weapon_type = kwargs['weapon_type']
-            self.attack = int(kwargs['attack'])
-            self.reach = kwargs['reach']
-            self.hit = int(kwargs['hit'])
-            self.hit_dice = kwargs['hit_dice']
-            self.damage_type = kwargs['damage_type']
-
-        return super().save()
-
 
 class DnDSpecialTraits(models.Model):
     monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
@@ -98,7 +80,7 @@ class DnDSpecialTraits(models.Model):
         verbose_name = "DnD Special Trait"
 
     def __str__(self):
-        return self.name
+        return self.specialtrait_name
 
 
 class DnDSkill(models.Model):

@@ -58,9 +58,9 @@
                                 <h5 class="fs-6">Condition Immunities: {{ monster.condition_immunities }}</h5>
                             {% endif %}
                             {% if monster.skill_set.count == 1 %}
-                                <h5 class="fs-6">Skills: {% for skill in monster.skill_set.all %}{{ skill.name }} +{{ skill.modifier }}{% endfor %}</h5>
+                                <h5 class="fs-6">Skills: {% for skill in monster.skill_set.all %}{{ skill.skill_name }} +{{ skill.modifier }}{% endfor %}</h5>
                             {% elif monster.skill_set.count > 1 %}
-                                <h5 class="fs-6">Skills: {% for skill in monster.skill_set.all %}{{ skill.name }} +{{ skill.modifier }}, {% endfor %}</h5>
+                                <h5 class="fs-6">Skills: {% for skill in monster.skill_set.all %}{{ skill.skill_name }} +{{ skill.modifier }}, {% endfor %}</h5>
                             {% endif %}
                             <h5 class="fs-6">Senses: {{ monster.senses }}</h5>
                             <h5 class="fs-6">Languages: {{ monster.languages }}</h5>
@@ -70,7 +70,7 @@
                             <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
                             {% for specialtrait in monster.dndspecialtraits_set.all %}
                                 <p>
-                                    <h5 class="fw-bold fs-6" style="display: inline">{{ specialtrait.name }}. </h5>{{ specialtrait.description }}
+                                    <h5 class="fw-bold fs-6" style="display: inline">{{ specialtrait.specialtrait_name }}. </h5>{{ specialtrait.specialtrait_description }}
                                 </p>
                             {% endfor %}
                         {% endif %}
@@ -78,15 +78,15 @@
                         <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
                         {% for action in monster.dndaction_set.all %}
                             <p>
-                                <h5 class="fw-bold fs-6" style="display: inline">{{ action.name }}. </h5>{{ action.description }}
+                                <h5 class="fw-bold fs-6" style="display: inline">{{ action.action_name }}. </h5>{{ action.action_description }}
                             </p>
                         {% endfor %}
-                        {% if monster.dndreaction_set %}
+                        {% if monster.dndreaction_set.count > 0 %}
                             <h3 class="d-md-block text-danger pd-0 pt-3">Reactions</h3>
                             <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
                             {% for reaction in monster.dndreaction_set.all %}
                                 <p>
-                                    <h5 class="fw-bold fs-6" style="display: inline">{{ reaction.name }}. </h5>{{ reaction.description }}
+                                    <h5 class="fw-bold fs-6" style="display: inline">{{ reaction.reaction_name }}. </h5>{{ reaction.reaction_description }}
                                 </p>
                             {% endfor %}
                         {% endif %}
@@ -96,10 +96,6 @@
         </div>
     </div>
     {{monster_dict|json_script:"monster"}}
-        
-
-
-
     {% endblock %}
 </body>
 </html>
