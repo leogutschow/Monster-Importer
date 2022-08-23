@@ -7,3 +7,4 @@
 !.gitignore
 /migrations/
 /.idea/
+/bootstrap/
