@@ -2,8 +2,8 @@ from django.shortcuts import render, reverse, redirect, HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from .forms import RegisterForm
-from django.views.generic import FormView, RedirectView
 from django.contrib.auth.views import LoginView, LogoutView
+from django.views.generic import FormView, DetailView
 
 
 # Create your views here.
@@ -50,3 +50,7 @@ class Register(FormView):
             new_user.save()
 
             return HttpResponseRedirect(redirect_to=reverse('home:home_page'))
+
+
+class Profile(DetailView):
+    model = User
