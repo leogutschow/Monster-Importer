@@ -31,7 +31,6 @@ class MonsterDetail(DetailView):
             monster_dict['special_traits'] = monster_special_traits
         monster_dict['actions'] = monster_actions
         context['monster_dict'] = monster_dict
-        print(context)
         return context
 
 

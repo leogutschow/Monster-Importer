@@ -24,6 +24,5 @@ urlpatterns = [
     path('monster/', include('monsters.urls')),
     path('manuals/', include('manuals.urls')),
     path('requests/', include('client_requests.urls')),
-    path('auth/', include('authentications.urls')),
     path('accounts/', include('authentications.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

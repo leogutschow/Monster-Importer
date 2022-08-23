@@ -1,6 +1,7 @@
 from django.shortcuts import render, reverse, redirect, HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
+from .models import Profile
 from .forms import RegisterForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import FormView, DetailView
@@ -49,8 +50,24 @@ class Register(FormView):
             )
             new_user.save()
 
+            new_profile = Profile.objects.create(
+                user=new_user
+            )
+            new_profile.save()
+
             return HttpResponseRedirect(redirect_to=reverse('home:home_page'))
 
 
-class Profile(DetailView):
-    model = User
+class ProfileView(DetailView):
+    model = Profile
+    template_name = 'accounts/profile_detail.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        print(self.get_object().username)
+        profile = Profile.objects.all()
+        profile.filter(
+            user=self.get_object().pk
+        )
+        print(profile)
+        context['profile'] = profile
+        return context

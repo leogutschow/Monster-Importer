@@ -12,7 +12,7 @@
         <a class="navbar-nav col text-white text-decoration-none ps-3" href="{% url 'auth:login' %}">Login</a>
         {% else %}
             <a class="navbar-nav col text-white text-decoration-none ps-3" href="{% url 'auth:logout' %}">Logout</a>
-            <a class="navbar-nav col text-white text-decoration-none" href="{% url 'home:about' %}">{{ user.username }}</a>
+            <a class="navbar-nav col text-white text-decoration-none" href="{% url 'auth:profile' user.username %}">{{ user.username }}</a>
         {% endif %}
     </div>
 </nav>
