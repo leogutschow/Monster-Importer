@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.admin.options import InlineModelAdmin
+from authentications.models import Profile
 
 # Create your models here.
 from django.utils.text import slugify
@@ -29,6 +30,7 @@ class BaseSheet(models.Model):
     slug: str = models.SlugField(blank=True, null=True)
     game: str = models.CharField(default='', max_length=5, choices=games)
     home_brew: bool = models.BooleanField(default=False)
+    created_by = models.ForeignKey(to=Profile, default=1, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
