@@ -16,7 +16,7 @@ class BaseSheet(models.Model):
     race: str = models.CharField(max_length=30)
     size: str = models.CharField(max_length=30)
     ac: int = models.IntegerField()
-    ac_type: str = models.CharField(max_length=20)
+    ac_type: str = models.CharField(max_length=50)
     hp: int = models.IntegerField()
     hp_dices: str = models.CharField(max_length=10)
     movement: str = models.CharField(max_length=30)
@@ -47,9 +47,9 @@ class DnDMonster(BaseSheet):
     description: str = models.TextField(default="")
     image: str = models.ImageField(upload_to='images/monsters/')
     senses: str = models.CharField(max_length=100, blank=True, null=True)
-    damage_resistances: str = models.CharField(max_length=50, blank=True, null=True)
-    damage_immunities: str = models.CharField(max_length=50, blank=True, null=True)
-    condition_immunities: str = models.CharField(max_length=50, blank=True, null=True)
+    damage_resistances: str = models.CharField(max_length=100, blank=True, null=True)
+    damage_immunities: str = models.CharField(max_length=100, blank=True, null=True)
+    condition_immunities: str = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         verbose_name = "DnD Monster"
