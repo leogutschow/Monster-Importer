@@ -57,10 +57,10 @@
                             {% if monster.condition_immunities %}
                                 <h5 class="fs-6">Condition Immunities: {{ monster.condition_immunities }}</h5>
                             {% endif %}
-                            {% if monster.skill_set.count == 1 %}
-                                <h5 class="fs-6">Skills: {% for skill in monster.skill_set.all %}{{ skill.skill_name }} +{{ skill.modifier }}{% endfor %}</h5>
-                            {% elif monster.skill_set.count > 1 %}
-                                <h5 class="fs-6">Skills: {% for skill in monster.skill_set.all %}{{ skill.skill_name }} +{{ skill.modifier }}, {% endfor %}</h5>
+                            {% if monster.dndskill_set.count == 1 %}
+                                <h5 class="fs-6">Skills: {% for skill in monster.dndskill_set.all %}{{ skill.skill_name }} +{{ skill.modifier }}{% endfor %}</h5>
+                            {% elif monster.dndskill_set.count > 1 %}
+                                <h5 class="fs-6">Skills: {% for skill in monster.dndskill_set.all %}{{ skill.skill_name }} +{{ skill.modifier }}, {% endfor %}</h5>
                             {% endif %}
                             <h5 class="fs-6">Senses: {{ monster.senses }}</h5>
                             <h5 class="fs-6">Languages: {{ monster.languages }}</h5>
