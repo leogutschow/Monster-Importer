@@ -20,7 +20,7 @@
                             {% endif %}
                         </div>
                         <h1 class="d-md-block text-danger pd-0 pt-3">{{ monster.name }}</h1>
-                        <h5 class="lh-1 fs-6 fst-italic">{{ monster.size }} {{ monster.race }}</h5>
+                        <h5 class="lh-1 fs-6 fst-italic">{{ monster.size }} {{ monster.race }}, {{ monster.alignment }}</h5>
                         <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
                         <h5 class="fs-6 text-danger">Armor Class: {{ monster.ac }} ({{ monster.ac_type }})</h5>
                         <h5 class="fs-6 text-danger">Hit Points: {{ monster.hp }} ({{ monster.hp_dices }})</h5>
@@ -57,10 +57,10 @@
                             {% if monster.condition_immunities %}
                                 <h5 class="fs-6">Condition Immunities: {{ monster.condition_immunities }}</h5>
                             {% endif %}
-                            {% if monster.skill_set.count == 1 %}
-                                <h5 class="fs-6">Skills: {% for skill in monster.skill_set.all %}{{ skill.skill_name }} +{{ skill.modifier }}{% endfor %}</h5>
-                            {% elif monster.skill_set.count > 1 %}
-                                <h5 class="fs-6">Skills: {% for skill in monster.skill_set.all %}{{ skill.skill_name }} +{{ skill.modifier }}, {% endfor %}</h5>
+                            {% if monster.dndskill_set.count == 1 %}
+                                <h5 class="fs-6">Skills: {% for skill in monster.dndskill_set.all %}{{ skill.skill_name }} +{{ skill.modifier }}{% endfor %}</h5>
+                            {% elif monster.dndskill_set.count > 1 %}
+                                <h5 class="fs-6">Skills: {% for skill in monster.dndskill_set.all %}{{ skill.skill_name }} +{{ skill.modifier }}, {% endfor %}</h5>
                             {% endif %}
                             <h5 class="fs-6">Senses: {{ monster.senses }}</h5>
                             <h5 class="fs-6">Languages: {{ monster.languages }}</h5>

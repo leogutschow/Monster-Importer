@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.admin.options import InlineModelAdmin
+from authentications.models import Profile
 
 # Create your models here.
 from django.utils.text import slugify
@@ -15,7 +16,7 @@ class BaseSheet(models.Model):
     race: str = models.CharField(max_length=30)
     size: str = models.CharField(max_length=30)
     ac: int = models.IntegerField()
-    ac_type: str = models.CharField(max_length=20)
+    ac_type: str = models.CharField(max_length=50)
     hp: int = models.IntegerField()
     hp_dices: str = models.CharField(max_length=10)
     movement: str = models.CharField(max_length=30)
@@ -29,6 +30,7 @@ class BaseSheet(models.Model):
     slug: str = models.SlugField(blank=True, null=True)
     game: str = models.CharField(default='', max_length=5, choices=games)
     home_brew: bool = models.BooleanField(default=False)
+    created_by = models.ForeignKey(to=Profile, blank=True, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -43,11 +45,11 @@ class DnDMonster(BaseSheet):
     alignment: str = models.CharField(max_length=30, default="Neutral")
     challenge: str = models.CharField(default="0", max_length=3)
     description: str = models.TextField(default="")
-    image: str = models.ImageField(upload_to='images/monsters/')
+    image: str = models.ImageField(upload_to='images/monsters/DnD')
     senses: str = models.CharField(max_length=100, blank=True, null=True)
-    damage_resistances: str = models.CharField(max_length=50, blank=True, null=True)
-    damage_immunities: str = models.CharField(max_length=50, blank=True, null=True)
-    condition_immunities: str = models.CharField(max_length=50, blank=True, null=True)
+    damage_resistances: str = models.CharField(max_length=100, blank=True, null=True)
+    damage_immunities: str = models.CharField(max_length=100, blank=True, null=True)
+    condition_immunities: str = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         verbose_name = "DnD Monster"
