@@ -34,7 +34,7 @@ class DndSpells(models.Model):
     verbal: bool = models.BooleanField()
     somatic: bool = models.BooleanField()
     material: bool = models.BooleanField()
-    materials_needed: str = models.CharField(max_length=50, default='None', blank=True, null=True)
+    materials_needed: str = models.CharField(max_length=100, default='None', blank=True, null=True)
 
     class Meta:
         verbose_name = 'DnD Spell'
@@ -44,3 +44,6 @@ class DndSpells(models.Model):
             self.materials_needed = 'None'
 
         return super().save()
+
+    def __str__(self):
+        return self.spell_name
