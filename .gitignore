@@ -5,6 +5,6 @@
 /__pycache__/
 /media/
 .gitignore
-*/migrations/
+*/migrations/*
 /.idea/
 /bootstrap/
