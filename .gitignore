@@ -4,7 +4,14 @@
 *.sqlite3
 /__pycache__/
 /media/
+<<<<<<< HEAD
+!.gitignore
+*/migrations/
+.idea/*
+bootstrap/
+=======
 .gitignore
 */migrations/*
 /.idea/
 /bootstrap/
+>>>>>>> master
