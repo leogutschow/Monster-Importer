@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'manuals',
     'client_requests',
     'authentications',
+    'spells',
 ]
 
 MIDDLEWARE = [
