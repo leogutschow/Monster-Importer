@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.admin.options import InlineModelAdmin
 from authentications.models import Profile
+from spells.models import DndSpells
 
 # Create your models here.
 from django.utils.text import slugify
@@ -57,6 +58,7 @@ class DnDMonster(BaseSheet):
 
 class DnDAction(models.Model):
     monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
+    legendary: bool = models.BooleanField(default=False)
     action_name: str = models.CharField(max_length=30)
     action_description: str = models.TextField()
     is_attack: bool = models.BooleanField(default=False)
@@ -66,7 +68,7 @@ class DnDAction(models.Model):
     hit: int = models.IntegerField(blank=True, null=True)
     hit_dice: str = models.CharField(max_length=10, blank=True, null=True)
     damage_type: str = models.CharField(max_length=50, blank=True, null=True)
-
+    
     class Meta:
         verbose_name = "DnD Action"
 
@@ -78,6 +80,8 @@ class DnDSpecialTraits(models.Model):
     monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
     specialtrait_name: str = models.CharField(max_length=20)
     specialtrait_description: str = models.TextField()
+    spellcasting: bool = models.BooleanField(default=False)
+    dnd_spells = models.ManyToManyField(DndSpells, blank=True, null=True)
 
     class Meta:
         verbose_name = "DnD Special Trait"
