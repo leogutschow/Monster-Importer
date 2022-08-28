@@ -34,6 +34,7 @@ class BaseSheet(models.Model):
     home_brew: bool = models.BooleanField(default=False)
     created_by = models.ForeignKey(to=Profile, blank=True, null=True, on_delete=models.CASCADE)
     created_at = models.DateTimeField(timezone.now(), default=timezone.now())
+    times_downloaded: int = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name
