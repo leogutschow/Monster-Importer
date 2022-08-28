@@ -81,6 +81,16 @@
                                 <h5 class="fw-bold fs-6" style="display: inline">{{ action.action_name }}. </h5>{{ action.action_description }}
                             </p>
                         {% endfor %}
+                        <h3 class="d-md-block text-danger pd-0 pt-3">Legendary Actions</h3>
+                        <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
+                        {% for legendary in monster.dndlegendaryaction_set.all %}
+                            {% if legendary.legendary_name == 'BASE' %}
+                                <p>{{ legendary.legendary_description }}</p>
+                            {% endif %}
+                            <p>
+                                <h5 class="fw-bold fs-6" style="display: inline">{{ legendary.legendary_name }}. </h5>{{ legendary.legendary_description }}
+                            </p>
+                        {% endfor %}
                         {% if monster.dndreaction_set.count > 0 %}
                             <h3 class="d-md-block text-danger pd-0 pt-3">Reactions</h3>
                             <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
