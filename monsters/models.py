@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.admin.options import InlineModelAdmin
+from django.utils import timezone
 from authentications.models import Profile
 from spells.models import DndSpells
 
@@ -32,6 +33,7 @@ class BaseSheet(models.Model):
     game: str = models.CharField(default='', max_length=5, choices=games)
     home_brew: bool = models.BooleanField(default=False)
     created_by = models.ForeignKey(to=Profile, blank=True, null=True, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(timezone.now(), default=timezone.now())
 
     def __str__(self):
         return self.name
