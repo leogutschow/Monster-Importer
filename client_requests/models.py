@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Request(models.Model):
-    client: int = models.ForeignKey(User, on_delete=models.CASCADE)
+    client: int = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     request_type: str = models.CharField(default='', max_length=1, choices=[
         ('O', 'Other'),
         ('M', 'Monsters'),
@@ -14,3 +14,4 @@ class Request(models.Model):
     ])
     request_title: str = models.CharField(max_length=50)
     request_text: str = models.TextField()
+

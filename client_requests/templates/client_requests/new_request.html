@@ -6,9 +6,10 @@
 </head>
 <body>
     {% block 'conteudo' %}
-    <form>
+    <form method="POST" action="#new_request">
         {% csrf_token %}
         {{ form.as_ul }}
+        <button type="submit">Submit</button>
     </form>
     {% endblock %}
 

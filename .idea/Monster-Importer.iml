@@ -3,6 +3,10 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/spells/migrations" />
+      <excludeFolder url="file://$MODULE_DIR$/bootstrap" />
+      <excludeFolder url="file://$MODULE_DIR$/media" />
+      <excludeFolder url="file://$MODULE_DIR$/media/images/monsters/DnD" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.10 (Monster-Importer)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
