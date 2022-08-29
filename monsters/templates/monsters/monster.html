@@ -9,14 +9,20 @@
         <div class="container col">
             <div class="row justify-content-md-center">
                 <div class="col-auto">
-                    <img src="{{ monster.image.url }}" style="max-height: 70vh">
+                    <img src="{{ monster.image.url }}" style="height: 65vh">
+                    <div class="container col p-3">
+                        <button class="btn btn-success" type="button">Import Monster!</button>
+                    </div>
+                    <p class="p-4">
+                        {{ monster.description }}
+                    </p>
                 </div>
-                <div class="container-md col-auto bg-image p-3" style="background-image: url(https://i.imgur.com/hTt73aH.png); width: 547px; max-height:2000px">
+                <div class="container-md col-auto bg-image p-3" style="background-image: url(https://i.imgur.com/hTt73aH.png); width: 547px; max-height:7000px">
                     <div class="container">
                         <div class="row container">
                             <h5 class="fst-italic fs-6">{{ monster.game }}</h5>
                             {% if monster.home_brew %}
-                                <h5 class="fst-italic fs-6">Home Brew Monster Created By:</h5>
+                                <h5 class="fst-italic fs-6">Home Brew Monster Created By: {{ monster.created_by }}</h5>
                             {% endif %}
                         </div>
                         <h1 class="d-md-block text-danger pd-0 pt-3">{{ monster.name }}</h1>
@@ -110,9 +116,7 @@
                 </div>
             </div>
         </div>
-        <div class="container col">
-            <button class="btn btn-success" type="button">Import Monster!</button>
-        </div>
+
     </div>
 
     {{monster_dict|json_script:"monster"}}
