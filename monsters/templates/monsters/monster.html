@@ -35,12 +35,12 @@
                             <h5 class="col fs-6 fw-bold text-danger">CAR</h5>
                         </div>
                         <div class="row">
-                            <h5 class="col fs-6">{{ monster.strength }}({{monster.strength|calculate_mod}})</h5>
-                            <h5 class="col fs-6">{{ monster.dexterity }}({{monster.dexterity|calculate_mod}})</h5>
-                            <h5 class="col fs-6">{{ monster.constitution }}({{monster.constitution|calculate_mod}})</h5>
-                            <h5 class="col fs-6">{{ monster.intelligence }}({{monster.intelligence|calculate_mod}})</h5>
-                            <h5 class="col fs-6">{{ monster.wisdom }}({{monster.wisdom|calculate_mod}})</h5>
-                            <h5 class="col fs-6">{{ monster.charisma }}({{monster.charisma|calculate_mod}})</h5>
+                            <h5 class="col fs-6">{{ monster.strength }} ({{monster.strength|calculate_mod}})</h5>
+                            <h5 class="col fs-6">{{ monster.dexterity }} ({{monster.dexterity|calculate_mod}})</h5>
+                            <h5 class="col fs-6">{{ monster.constitution }} ({{monster.constitution|calculate_mod}})</h5>
+                            <h5 class="col fs-6">{{ monster.intelligence }} ({{monster.intelligence|calculate_mod}})</h5>
+                            <h5 class="col fs-6">{{ monster.wisdom }} ({{monster.wisdom|calculate_mod}})</h5>
+                            <h5 class="col fs-6">{{ monster.charisma }} ({{monster.charisma|calculate_mod}})</h5>
                         </div>
                         <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
                         <div class="row">
@@ -66,31 +66,37 @@
                             <h5 class="fs-6">Languages: {{ monster.languages }}</h5>
                             <h5 class="fs-6">Challenge: {{ monster.challenge }} ({{ monster.challenge|calculate_challenge }}xp)</h5>
                         </div>
-                        {% if monster.dndspecialtraits_set %}
+                        {% if monster.dndspecialtraits_set.count > 0 %}
                             <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
                             {% for specialtrait in monster.dndspecialtraits_set.all %}
                                 <p>
-                                    <h5 class="fw-bold fs-6" style="display: inline">{{ specialtrait.specialtrait_name }}. </h5>{{ specialtrait.specialtrait_description }}
+                                    <h5 class="fw-bold fs-6" style="display: inline">{{ specialtrait.specialtrait_name }}. </h5>
+                                    {{ specialtrait.specialtrait_description }}
                                 </p>
                             {% endfor %}
                         {% endif %}
-                        <h3 class="d-md-block text-danger pd-0 pt-3">Actions</h3>
-                        <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
-                        {% for action in monster.dndaction_set.all %}
-                            <p>
-                                <h5 class="fw-bold fs-6" style="display: inline">{{ action.action_name }}. </h5>{{ action.action_description }}
-                            </p>
-                        {% endfor %}
-                        <h3 class="d-md-block text-danger pd-0 pt-3">Legendary Actions</h3>
-                        <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
-                        {% for legendary in monster.dndlegendaryaction_set.all %}
-                            {% if legendary.legendary_name == 'BASE' %}
-                                <p>{{ legendary.legendary_description }}</p>
-                            {% endif %}
-                            <p>
-                                <h5 class="fw-bold fs-6" style="display: inline">{{ legendary.legendary_name }}. </h5>{{ legendary.legendary_description }}
-                            </p>
-                        {% endfor %}
+                        {% if monster.dndaction_set.count > 0 %}
+                            <h3 class="d-md-block text-danger pd-0 pt-3">Actions</h3>
+                            <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
+                            {% for action in monster.dndaction_set.all %}
+                                <p>
+                                    <h5 class="fw-bold fs-6" style="display: inline">{{ action.action_name }}. </h5>{{ action.action_description }}
+                                </p>
+                            {% endfor %}
+                        {% endif %}
+                        {% if monster.dndlegendaryaction_set.count > 0 %}
+                            <h3 class="d-md-block text-danger pd-0 pt-3">Legendary Actions</h3>
+                            <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
+                            {% for legendary in monster.dndlegendaryaction_set.all %}
+                                {% if legendary.legendary_name == 'BASE' %}
+                                    <p>{{ legendary.legendary_description }}</p>
+                                {% else %}
+                                <p>
+                                    <h5 class="fw-bold fs-6" style="display: inline">{{ legendary.legendary_name }}. </h5>{{ legendary.legendary_description }}
+                                </p>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
                         {% if monster.dndreaction_set.count > 0 %}
                             <h3 class="d-md-block text-danger pd-0 pt-3">Reactions</h3>
                             <h5 class="lh-1 fs-6">__________________________________________________________________</h5>

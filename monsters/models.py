@@ -61,7 +61,6 @@ class DnDMonster(BaseSheet):
 
 class DnDAction(models.Model):
     monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
-    legendary: bool = models.BooleanField(default=False)
     action_name: str = models.CharField(max_length=30)
     action_description: str = models.TextField()
     is_attack: bool = models.BooleanField(default=False)
@@ -79,12 +78,17 @@ class DnDAction(models.Model):
         return self.action_name
 
 
+class DnDLegendaryAction(models.Model):
+    monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
+    legendary_name = models.CharField(max_length=50)
+    legendary_description = models.TextField()
+
 class DnDSpecialTraits(models.Model):
     monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
     specialtrait_name: str = models.CharField(max_length=20)
     specialtrait_description: str = models.TextField()
     spellcasting: bool = models.BooleanField(default=False)
-    dnd_spells = models.ManyToManyField(DndSpells, blank=True, null=True)
+    dnd_spells = models.ManyToManyField(DndSpells, unique=False, blank=True, null=True)
 
     class Meta:
         verbose_name = "DnD Special Trait"
