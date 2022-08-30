@@ -12,16 +12,87 @@
 </head>
 <body>
     {% block 'conteudo' %}
-        <div class="container">
-            <form class="" method="POST" action="#create_monster" enctype="multipart/form-data">
+        <div class="container text-center p-5 justify-content-center">
+            <form class="" method="POST" action="#create_monster" enctype="multipart/form-data"
+            style="background-image: url(https://i.imgur.com/hTt73aH.png); max-width: 40vw; max-height:7000px">
                 {% csrf_token %}
                 <div class="form-group">
                     <div id="baseSheetForm">
-                        {{ form.as_ul }}
+                        <div class="container row game-selector">
+                            <label class="form-label" for="id_game">Game</label>
+                            {{ form.game }}
+                        </div>
+                        ________________________________________________________________________________________________
+                        <div class="container row">
+                            <label class="form-label" for="id_name">Monster Name</label>
+                            {{ form.name }}
+                            <div class="col m-0">
+                                <label class="form-label" for="id_size">Size</label>
+                                {{ form.size }}
+                            </div>
+                            <div class="col m-0">
+                                <label class="form-label" for="id_race">Race</label>
+                                {{ form.race }}
+                            </div>
+                        </div>
+                        <div class="container row">
+                            <div class="col m-0">
+                                <label class="form-label" for="id_ac">Armor</label>
+                                {{ form.ac }}
+                            </div>
+                            <div class="col m-0">
+                                <label class="form-label" for="id_ac_type">Armor Class</label>
+                                {{ form.ac_type }}
+                            </div>
+                        </div>
+                         <div class="container row">
+                            <div class="col m-0">
+                                <label class="form-label" for="id_hp">Hit Points</label>
+                                {{ form.hp }}
+                            </div>
+                            <div class="col m-0">
+                                <label class="form-label" for="id_hp_dices">Hit Points Dices</label>
+                                {{ form.hp_dices }}
+                            </div>
+                             <div class="col m-0">
+                                <label class="form-label" for="id_movement">Speed</label>
+                                {{ form.movement }}
+                            </div>
+                        </div>
+                        <div class="container row">
+                            <div class="col m-0">
+                                <label class="form-label" for="id_strength">STR</label>
+                                {{ form.strength }}
+                            </div>
+                            <div class="col m-0">
+                                <label class="form-label" for="id_dexterity">DEX</label>
+                                {{ form.dexterity }}
+                            </div>
+                            <div class="col m-0">
+                                <label class="form-label" for="id_constitution">CON</label>
+                                {{ form.constitution }}
+                            </div>
+                            <div class="col m-0">
+                                <label class="form-label" for="id_intelligence">INT</label>
+                                {{ form.intelligence }}
+                            </div>
+                            <div class="col m-0">
+                                <label class="form-label" for="id_wisdom">WIS</label>
+                                {{ form.wisdom }}
+                            </div>
+                            <div class="col m-0">
+                                <label class="form-label" for="id_charisma">CHA</label>
+                                {{ form.charisma }}
+                            </div>
+                        </div>
+                        <div class="container row">
+                            <label class="form-label" for="id_languages">Languages</label>
+                            {{ form.languages }}
+                        </div>
                     </div>
 
                     <div id="dndMonsterForm">
-                        {{ dndmonster.as_ul }}
+                        {{ dndmonster }}
                     </div>
                     <div id="dndActionForm">
                         <h5>Actions</h5>

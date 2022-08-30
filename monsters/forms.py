@@ -12,8 +12,11 @@ class FormMonster(ModelForm):
             'home_brew',
         )
         widgets = {
+            'game': forms.Select(attrs={
+                'class': 'form-select form-select-lg'
+            }),
             'name': forms.TextInput(attrs={
-                'class': 'form-control'
+                'class': 'form-control form-control-lg'
             }),
             'race': forms.TextInput(attrs={
                 'class': 'form-control'
@@ -21,7 +24,40 @@ class FormMonster(ModelForm):
             'size': forms.TextInput(attrs={
                 'class': 'form-control'
             }),
-            'ac': forms.TextInput(attrs={
+            'ac': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'ac_type': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'hp': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'hp_dices': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'movement': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'strength': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'dexterity': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'constitution': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'intelligence': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'wisdom': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'charisma': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'languages': forms.TextInput(attrs={
                 'class': 'form-control'
             }),
             'slug': forms.HiddenInput(),
