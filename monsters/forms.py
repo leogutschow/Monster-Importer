@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import BaseSheet, DnDMonster, DnDAction, games
+from .models import BaseSheet, DnDMonster, DnDAction, DnDSpecialTraits, games
 
 
 class FormMonster(ModelForm):
@@ -73,6 +73,30 @@ class FormDndMonster(ModelForm):
             'damage_immunities', 'condition_immunities',
         )
         widgets = {
+            'alignment': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'challenge': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control'
+            }),
+            'image': forms.FileInput(attrs={
+                'class': 'form-control'
+            }),
+            'senses': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'damage_resistances': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'damage_immunities': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'condition_immunities': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
             'slug': forms.HiddenInput(),
             'home_brew': forms.HiddenInput()
         }
@@ -87,4 +111,15 @@ class FormDnDAction(ModelForm):
         )
         widgets = {
             'monster': forms.HiddenInput(),
+        }
+
+
+class FormDndTrait(ModelForm):
+    class Meta:
+        model = DnDSpecialTraits
+        fields = (
+            'monster', 'specialtrait_name', 'specialtrait_description', 'spellcasting', 'dnd_spells'
+        )
+        widgets = {
+            'monster': forms.HiddenInput()
         }

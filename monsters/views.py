@@ -4,7 +4,7 @@ from django.forms import formset_factory, inlineformset_factory
 from django.views.generic import DetailView, ListView, CreateView, TemplateView
 from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet
 from django.core.paginator import Paginator
-from .forms import FormDndMonster, FormDnDAction, FormMonster
+from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait
 
 
 # Create your views here.
@@ -70,12 +70,15 @@ class MonsterList(ListView):
 class MonsterCreate(CreateView):
     DnDAction_Formset = inlineformset_factory(form=FormDnDAction, model=DnDAction, parent_model=DnDMonster, min_num=1,
                                               extra=0)
+    DndTrait_Formset = inlineformset_factory(form=FormDndTrait, model=DnDSpecialTraits, parent_model=DnDMonster,
+                                             min_num=0, extra=0)
     template_name = 'monsters/monster_create.html'
     form_class = FormMonster
     model = BaseSheet
     extra_context = {
         'dndmonster': FormDndMonster,
-        'dndaction': DnDAction_Formset()
+        'dndaction': DnDAction_Formset(),
+        'dndtrait': DndTrait_Formset(),
     }
 
     def form_valid(self, form):

@@ -12,18 +12,18 @@
 </head>
 <body>
     {% block 'conteudo' %}
-        <div class="container text-center p-5 justify-content-center">
-            <form class="" method="POST" action="#create_monster" enctype="multipart/form-data"
+        <div class="container text-center p-5">
+            <form class="container" method="POST" action="#create_monster" enctype="multipart/form-data"
             style="background-image: url(https://i.imgur.com/hTt73aH.png); max-width: 40vw; max-height:7000px">
                 {% csrf_token %}
-                <div class="form-group">
-                    <div id="baseSheetForm">
-                        <div class="container row game-selector">
+                <div class="form-group row">
+                    <div id="baseSheetForm" class="col">
+                        <div class="container row pt-2 game-selector">
                             <label class="form-label" for="id_game">Game</label>
                             {{ form.game }}
                         </div>
                         ________________________________________________________________________________________________
-                        <div class="container row">
+                        <div class="container row pt-2">
                             <label class="form-label" for="id_name">Monster Name</label>
                             {{ form.name }}
                             <div class="col m-0">
@@ -35,7 +35,7 @@
                                 {{ form.race }}
                             </div>
                         </div>
-                        <div class="container row">
+                        <div class="container row pt-2">
                             <div class="col m-0">
                                 <label class="form-label" for="id_ac">Armor</label>
                                 {{ form.ac }}
@@ -45,7 +45,7 @@
                                 {{ form.ac_type }}
                             </div>
                         </div>
-                         <div class="container row">
+                         <div class="container row pt-2">
                             <div class="col m-0">
                                 <label class="form-label" for="id_hp">Hit Points</label>
                                 {{ form.hp }}
@@ -59,7 +59,7 @@
                                 {{ form.movement }}
                             </div>
                         </div>
-                        <div class="container row">
+                        <div class="container row pt-2">
                             <div class="col m-0">
                                 <label class="form-label" for="id_strength">STR</label>
                                 {{ form.strength }}
@@ -85,15 +85,59 @@
                                 {{ form.charisma }}
                             </div>
                         </div>
-                        <div class="container row">
-                            <label class="form-label" for="id_languages">Languages</label>
-                            {{ form.languages }}
+                        <div class="container row pt-2">
+                            <div class="col m-0">
+                                <label class="form-label" for="id_languages">Languages</label>
+                                {{ form.languages }}
+                            </div>
                         </div>
                     </div>
-
-                    <div id="dndMonsterForm">
-                        {{ dndmonster }}
+                    ________________________________________________________________________________________________
+                    <div id="dndMonsterForm" class="col">
+                        <div class="container row pt-2">
+                            <div class="col">
+                                <label for="id_alignment">Alignment</label>
+                                {{ dndmonster.alignment }}
+                            </div>
+                            <div class="col">
+                                <label for="id_challenge">Challenge</label>
+                                {{ dndmonster.challenge }}
+                            </div>
+                        </div>
+                        <div class="container row pt-2">
+                            <div class="col m-0">
+                                <label for="id_description">Monster Description</label>
+                                {{ dndmonster.description }}
+                            </div>
+                        </div>
+                        <div class="container row pt-2">
+                            <div class="col m-0">
+                                <label for="id_image">Image</label>
+                                {{ dndmonster.image }}
+                            </div>
+                            <div class="col m-0">
+                                <label for="id_senses">Senses</label>
+                                {{ dndmonster.senses }}
+                            </div>
+                        </div>
+                        <div class="container row pt-2">
+                            <div class="col m-0">
+                                <label for="id_damage_resistances">Damage Resistances</label>
+                                {{ dndmonster.damage_resistances }}
+                            </div>
+                            <div class="col m-0">
+                                <label for="id_damage_immunities">Damage Immunities</label>
+                                {{ dndmonster.damage_immunities }}
+                            </div>
+                        </div>
+                        <div class="container row pt-2">
+                            <div class="col m-0">
+                                <label for="id_condition_immunities">Condition Immunities</label>
+                                {{ dndmonster.condition_immunities }}
+                            </div>
+                        </div>
                     </div>
+                        ________________________________________________________________________________________________
                     <div id="dndActionForm">
                         <h5>Actions</h5>
                         {{ dndaction.management_form }}
