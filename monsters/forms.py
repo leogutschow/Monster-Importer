@@ -128,10 +128,10 @@ class FormDndTrait(ModelForm):
                 'class': 'form-control'
             }),
             'spellcasting': forms.CheckboxInput(attrs={
-                'class': 'form-check'
+                'class': 'form-check-input col'
             }),
             'dnd_spells': forms.SelectMultiple(attrs={
-                'class': 'form-select'
+                'class': 'form-control form-select form-select-sm col'
             }),
             'monster': forms.HiddenInput()
         }

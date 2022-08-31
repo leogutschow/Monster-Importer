@@ -114,11 +114,11 @@ class MonsterCreate(CreateView):
                 condition_immunities=monster_data.get('condition_immunities'),
             )
             monster.save()
-            formset = self.DnDAction_Formset(self.request.POST)
-            for form in formset:
-                if form.is_valid():
-                    cleaned_data = form.cleaned_data
-                    print(cleaned_data)
+            actions_formset = self.DnDAction_Formset(self.request.POST)
+            traits_formsset = self.DndTrait_Formset(self.request.POST)
+            for action_form in actions_formset:
+                if action_form.is_valid():
+                    cleaned_data = action_form.cleaned_data
                     action = DnDAction.objects.create(
                         monster=monster,
                         action_name=cleaned_data['action_name'],
@@ -132,5 +132,19 @@ class MonsterCreate(CreateView):
                         damage_type=cleaned_data['damage_type']
                     )
                     action.save()
+
+            for trait_form in traits_formsset:
+                if trait_form.is_valid():
+                    cleaned_data = trait_form.cleaned_data
+                    trait = DnDSpecialTraits.objects.create(
+                        monster=monster,
+                        specialtrait_name=cleaned_data['specialtrait_name'],
+                        specialtrait_description=cleaned_data['specialtrait_description'],
+                        spellcasting=cleaned_data['spellcasting'],
+                    )
+                    trait.save()
+                    if cleaned_data['spellcasting']:
+                        for spell in cleaned_data['dnd_spells']:
+                            trait.dnd_spells.add(spell)
 
         return redirect('monster:monster_list')

@@ -83,6 +83,7 @@ class DnDLegendaryAction(models.Model):
     legendary_name = models.CharField(max_length=50)
     legendary_description = models.TextField()
 
+
 class DnDSpecialTraits(models.Model):
     monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
     specialtrait_name: str = models.CharField(max_length=20)

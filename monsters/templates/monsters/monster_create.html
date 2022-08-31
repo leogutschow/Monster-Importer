@@ -96,43 +96,43 @@
                     <div id="dndMonsterForm" class="container col">
                         <div class="container row pt-2">
                             <div class="col">
-                                <label for="id_alignment">Alignment</label>
+                                <label class="form-label" for="id_alignment">Alignment</label>
                                 {{ dndmonster.alignment }}
                             </div>
                             <div class="col">
-                                <label for="id_challenge">Challenge</label>
+                                <label class="form-label" for="id_challenge">Challenge</label>
                                 {{ dndmonster.challenge }}
                             </div>
                         </div>
                         <div class="container row pt-2">
                             <div class="col m-0">
-                                <label for="id_description">Monster Description</label>
+                                <label class="form-label" for="id_description">Monster Description</label>
                                 {{ dndmonster.description }}
                             </div>
                         </div>
                         <div class="container row pt-2">
                             <div class="col m-0">
-                                <label for="id_image">Image</label>
+                                <label class="form-label" for="id_image">Image</label>
                                 {{ dndmonster.image }}
                             </div>
                             <div class="col m-0">
-                                <label for="id_senses">Senses</label>
+                                <label class="form-label" for="id_senses">Senses</label>
                                 {{ dndmonster.senses }}
                             </div>
                         </div>
                         <div class="container row pt-2">
                             <div class="col m-0">
-                                <label for="id_damage_resistances">Damage Resistances</label>
+                                <label class="form-label" for="id_damage_resistances">Damage Resistances</label>
                                 {{ dndmonster.damage_resistances }}
                             </div>
                             <div class="col m-0">
-                                <label for="id_damage_immunities">Damage Immunities</label>
+                                <label class="form-label" for="id_damage_immunities">Damage Immunities</label>
                                 {{ dndmonster.damage_immunities }}
                             </div>
                         </div>
                         <div class="container row pt-2">
                             <div class="col m-0">
-                                <label for="id_condition_immunities">Condition Immunities</label>
+                                <label  class="form-label"for="id_condition_immunities">Condition Immunities</label>
                                 {{ dndmonster.condition_immunities }}
                             </div>
                         </div>
@@ -146,12 +146,11 @@
                                 <div class="trait-form">
                                     {{ trait }}
                                 </div>
-
                             {% endfor %}
                         </div>
                         <button id="addTraitBtn" class="btn btn-success" type="button">Add Trait</button>
                     </div>
-
+                        ________________________________________________________________________________________________
                     <div id="dndActionForm">
                         <h5>Actions</h5>
                         {{ dndaction.management_form }}
@@ -170,7 +169,24 @@
                 <button type="submit">Submit</button>
             </form>
             <div id="emptyActionForm" class="hidden">{{ dndaction.empty_form }}</div>
-            <div id="emptyTraitForm" class="hidden">{{ dndtrait.empty_form }}</div>
+            <div id="emptyTraitForm" class="hidden">
+                <div class="p-2">
+                    <label class="form-label" for="{{ dndtrait.empty_form.specialtrait_name.id_for_label }}">Trait Name</label>
+                    {{ dndtrait.empty_form.specialtrait_name }}
+                    <label class="form-label" for="{{ dndtrait.empty_form.specialtrait_description.id_for_label }}">Trait Description</label>
+                    {{ dndtrait.empty_form.specialtrait_description }}
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-label" for="{{ dndtrait.empty_form.spellcasting.id_for_label }}">Is Spellcaster:</label>
+                            {{ dndtrait.empty_form.spellcasting }}
+                        </div>
+                        <div class="col">
+                            <label class="form-label" for="{{ dndtrait.empty_form.spellcasting.id_for_label }}">Spells:</label>
+                            {{ dndtrait.empty_form.dnd_spells }}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     {% verbatim %}
         <script>
