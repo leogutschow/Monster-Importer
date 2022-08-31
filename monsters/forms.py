@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import BaseSheet, DnDMonster, DnDAction, games
+from .models import BaseSheet, DnDMonster, DnDAction, DnDSpecialTraits, games
 
 
 class FormMonster(ModelForm):
@@ -12,8 +12,11 @@ class FormMonster(ModelForm):
             'home_brew',
         )
         widgets = {
+            'game': forms.Select(attrs={
+                'class': 'form-select form-select-lg'
+            }),
             'name': forms.TextInput(attrs={
-                'class': 'form-control'
+                'class': 'form-control form-control-lg'
             }),
             'race': forms.TextInput(attrs={
                 'class': 'form-control'
@@ -21,7 +24,40 @@ class FormMonster(ModelForm):
             'size': forms.TextInput(attrs={
                 'class': 'form-control'
             }),
-            'ac': forms.TextInput(attrs={
+            'ac': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'ac_type': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'hp': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'hp_dices': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'movement': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'strength': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'dexterity': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'constitution': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'intelligence': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'wisdom': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'charisma': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'languages': forms.TextInput(attrs={
                 'class': 'form-control'
             }),
             'slug': forms.HiddenInput(),
@@ -37,6 +73,30 @@ class FormDndMonster(ModelForm):
             'damage_immunities', 'condition_immunities',
         )
         widgets = {
+            'alignment': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'challenge': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control'
+            }),
+            'image': forms.FileInput(attrs={
+                'class': 'form-control'
+            }),
+            'senses': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'damage_resistances': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'damage_immunities': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'condition_immunities': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
             'slug': forms.HiddenInput(),
             'home_brew': forms.HiddenInput()
         }
@@ -51,4 +111,27 @@ class FormDnDAction(ModelForm):
         )
         widgets = {
             'monster': forms.HiddenInput(),
+        }
+
+
+class FormDndTrait(ModelForm):
+    class Meta:
+        model = DnDSpecialTraits
+        fields = (
+            'monster', 'specialtrait_name', 'specialtrait_description', 'spellcasting', 'dnd_spells'
+        )
+        widgets = {
+            'specialtrait_name': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'specialtrait_description': forms.Textarea(attrs={
+                'class': 'form-control'
+            }),
+            'spellcasting': forms.CheckboxInput(attrs={
+                'class': 'form-check'
+            }),
+            'dnd_spells': forms.SelectMultiple(attrs={
+                'class': 'form-select'
+            }),
+            'monster': forms.HiddenInput()
         }

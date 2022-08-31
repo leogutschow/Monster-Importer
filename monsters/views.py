@@ -4,7 +4,7 @@ from django.forms import formset_factory, inlineformset_factory
 from django.views.generic import DetailView, ListView, CreateView, TemplateView
 from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet
 from django.core.paginator import Paginator
-from .forms import FormDndMonster, FormDnDAction, FormMonster
+from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait
 
 
 # Create your views here.
@@ -60,9 +60,9 @@ class MonsterList(ListView):
         if monster_name_query != '' and monster_name_query is not None:
             qs = qs.filter(name__icontains=monster_name_query)
         if monster_ac_query != '' and monster_ac_query is not None:
-            qs = qs.filter(ac__icontains=monster_ac_query)
+            qs = qs.filter(ac__iexact=monster_ac_query)
         if monster_challenge_query != '' and monster_challenge_query is not None:
-            qs = qs.filter(challenge__icontains=monster_challenge_query)
+            qs = qs.filter(challenge__iexact=monster_challenge_query)
         context['monsters'] = qs
         return render(request, template_name=self.template_name, context=context)
 
@@ -70,12 +70,15 @@ class MonsterList(ListView):
 class MonsterCreate(CreateView):
     DnDAction_Formset = inlineformset_factory(form=FormDnDAction, model=DnDAction, parent_model=DnDMonster, min_num=1,
                                               extra=0)
+    DndTrait_Formset = inlineformset_factory(form=FormDndTrait, model=DnDSpecialTraits, parent_model=DnDMonster,
+                                             min_num=0, extra=0)
     template_name = 'monsters/monster_create.html'
     form_class = FormMonster
     model = BaseSheet
     extra_context = {
         'dndmonster': FormDndMonster,
-        'dndaction': DnDAction_Formset()
+        'dndaction': DnDAction_Formset(),
+        'dndtrait': DndTrait_Formset(),
     }
 
     def form_valid(self, form):
