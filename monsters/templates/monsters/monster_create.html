@@ -4,8 +4,8 @@
     <title>{% block 'titulo' %}Create Monster{% endblock %}</title>
     {% block 'styles' %}
     <style>
-        #emptyForm {
-            visibility: hidden;
+        .hidden {
+            display: none;
         }
     </style>
     {% endblock %}
@@ -93,7 +93,7 @@
                         </div>
                     </div>
                     ________________________________________________________________________________________________
-                    <div id="dndMonsterForm" class="col">
+                    <div id="dndMonsterForm" class="container col">
                         <div class="container row pt-2">
                             <div class="col">
                                 <label for="id_alignment">Alignment</label>
@@ -138,6 +138,20 @@
                         </div>
                     </div>
                         ________________________________________________________________________________________________
+                    <div id="dndTraitForm">
+                        <h5>Traits</h5>
+                        {{ dndtrait.management_form }}
+                        <div id="traitList">
+                            {% for trait in dndtrait %}
+                                <div class="trait-form">
+                                    {{ trait }}
+                                </div>
+
+                            {% endfor %}
+                        </div>
+                        <button id="addTraitBtn" class="btn btn-success" type="button">Add Trait</button>
+                    </div>
+
                     <div id="dndActionForm">
                         <h5>Actions</h5>
                         {{ dndaction.management_form }}
@@ -155,13 +169,17 @@
 
                 <button type="submit">Submit</button>
             </form>
-            <div id="emptyForm" class="hidden">{{ dndaction.empty_form }}</div>
+            <div id="emptyActionForm" class="hidden">{{ dndaction.empty_form }}</div>
+            <div id="emptyTraitForm" class="hidden">{{ dndtrait.empty_form }}</div>
         </div>
     {% verbatim %}
         <script>
-        const totalNewForms = document.getElementById('id_dndaction_set-TOTAL_FORMS')
+            const totalActionNewForms = document.getElementById('id_dndaction_set-TOTAL_FORMS')
+            const totalTraitNewForms = document.getElementById('id_dndspecialtraits_set-TOTAL_FORMS')
             const addActionBtn = document.getElementById('addActionBtn')
             addActionBtn.addEventListener('click', add_new_action)
+            const addTraitBtn = document.getElementById('addTraitBtn')
+            addTraitBtn.addEventListener('click', add_new_trait)
 
             function add_new_action(event) {
                 if (event){
@@ -169,12 +187,27 @@
                 }
                 const currentActionsForms = document.getElementsByClassName('action-form')
                 const formCopyTarget = document.getElementById('formList')
-                const emptyForm = document.getElementById('emptyForm').cloneNode(true)
+                const emptyForm = document.getElementById('emptyActionForm').cloneNode(true)
                 emptyForm.setAttribute('class', 'action-form')
                 emptyForm.setAttribute('id', `form-${currentActionsForms.length +1}`)
                 const regex = new RegExp('__prefix__', 'g')
                 emptyForm.innerHTML = emptyForm.innerHTML.replace(regex, currentActionsForms.length)
-                totalNewForms.setAttribute('value', currentActionsForms.length + 1)
+                totalActionNewForms.setAttribute('value', currentActionsForms.length + 1)
+                formCopyTarget.append(emptyForm)
+            }
+
+            function add_new_trait(event){
+                if (event){
+                    event.preventDefault()
+                }
+                const currentTraitForms = document.getElementsByClassName('trait-form')
+                const formCopyTarget = document.getElementById('traitList')
+                const emptyForm = document.getElementById('emptyTraitForm').cloneNode(true)
+                emptyForm.setAttribute('class', 'trait-form')
+                emptyForm.setAttribute('id', `form-${currentTraitForms.length +1}`)
+                const regex = new RegExp('__prefix__', 'g')
+                emptyForm.innerHTML = emptyForm.innerHTML.replace(regex, currentTraitForms.length)
+                totalTraitNewForms.setAttribute('value', currentTraitForms.length + 1)
                 formCopyTarget.append(emptyForm)
             }
         </script>

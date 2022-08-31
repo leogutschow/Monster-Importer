@@ -121,5 +121,17 @@ class FormDndTrait(ModelForm):
             'monster', 'specialtrait_name', 'specialtrait_description', 'spellcasting', 'dnd_spells'
         )
         widgets = {
+            'specialtrait_name': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'specialtrait_description': forms.Textarea(attrs={
+                'class': 'form-control'
+            }),
+            'spellcasting': forms.CheckboxInput(attrs={
+                'class': 'form-check'
+            }),
+            'dnd_spells': forms.SelectMultiple(attrs={
+                'class': 'form-select'
+            }),
             'monster': forms.HiddenInput()
         }
