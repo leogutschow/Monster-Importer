@@ -117,46 +117,51 @@ class MonsterCreate(CreateView):
             )
             monster.save()
             actions_formset = self.DnDAction_Formset(self.request.POST)
-            traits_formsset = self.DndTrait_Formset(self.request.POST)
+            traits_formset = self.DndTrait_Formset(self.request.POST)
             skills_formset = self.DnDSkill_Formset(self.request.POST)
-            for action_form in actions_formset:
-                if action_form.is_valid():
-                    cleaned_data = action_form.cleaned_data
-                    action = DnDAction.objects.create(
-                        monster=monster,
-                        action_name=cleaned_data['action_name'],
-                        action_description=cleaned_data['action_description'],
-                        is_attack=cleaned_data['is_attack'],
-                        attack=cleaned_data['attack'],
-                        weapon_type=cleaned_data['weapon_type'],
-                        reach=cleaned_data['reach'],
-                        hit=cleaned_data['hit'],
-                        hit_dice=cleaned_data['hit_dice'],
-                        damage_type=cleaned_data['damage_type']
-                    )
-                    action.save()
 
-            for trait_form in traits_formsset:
-                if trait_form.is_valid():
-                    cleaned_data = trait_form.cleaned_data
-                    trait = DnDSpecialTraits.objects.create(
-                        monster=monster,
-                        specialtrait_name=cleaned_data['specialtrait_name'],
-                        specialtrait_description=cleaned_data['specialtrait_description'],
-                        spellcasting=cleaned_data['spellcasting'],
-                    )
-                    trait.save()
-                    if cleaned_data['spellcasting']:
-                        for spell in cleaned_data['dnd_spells']:
-                            trait.dnd_spells.add(spell)
+            if len(actions_formset) > 0:
+                for action_form in actions_formset:
+                    if action_form.is_valid():
+                        cleaned_data = action_form.cleaned_data
+                        action = DnDAction.objects.create(
+                            monster=monster,
+                            action_name=cleaned_data['action_name'],
+                            action_description=cleaned_data['action_description'],
+                            is_attack=cleaned_data['is_attack'],
+                            attack=cleaned_data['attack'],
+                            weapon_type=cleaned_data['weapon_type'],
+                            reach=cleaned_data['reach'],
+                            hit=cleaned_data['hit'],
+                            hit_dice=cleaned_data['hit_dice'],
+                            damage_type=cleaned_data['damage_type']
+                        )
+                        action.save()
 
-            for skill_form in skills_formset:
-                if skill_form.is_valid():
-                    cleaned_data = skill_form.cleaned_data
-                    skill = DnDSkill.objects.create(
-                        monster=monster,
-                        skill_name=cleaned_data['skill_name'],
-                        modifier=cleaned_data['modifier']
-                    )
-                    skill.save()
+            if len(traits_formset) > 0:
+                for trait_form in traits_formset:
+                    if trait_form.is_valid():
+                        cleaned_data = trait_form.cleaned_data
+                        trait = DnDSpecialTraits.objects.create(
+                            monster=monster,
+                            specialtrait_name=cleaned_data['specialtrait_name'],
+                            specialtrait_description=cleaned_data['specialtrait_description'],
+                            spellcasting=cleaned_data['spellcasting'],
+                        )
+                        trait.save()
+                        if cleaned_data['spellcasting']:
+                            for spell in cleaned_data['dnd_spells']:
+                                trait.dnd_spells.add(spell)
+
+            if len(skills_formset) > 0:
+                for skill_form in skills_formset:
+                    if skill_form.is_valid():
+                        cleaned_data = skill_form.cleaned_data
+                        skill = DnDSkill.objects.create(
+                            monster=monster,
+                            skill_name=cleaned_data['skill_name'],
+                            modifier=cleaned_data['modifier']
+                        )
+                        skill.save()
+
         return redirect('monster:monster_list')
