@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.forms.models import model_to_dict
 from django.forms import formset_factory, inlineformset_factory
 from django.views.generic import DetailView, ListView, CreateView, TemplateView
-from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet
+from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill
 from django.core.paginator import Paginator
-from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait
+from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait, FormDnDSkill
 
 
 # Create your views here.
@@ -68,9 +68,11 @@ class MonsterList(ListView):
 
 
 class MonsterCreate(CreateView):
-    DnDAction_Formset = inlineformset_factory(form=FormDnDAction, model=DnDAction, parent_model=DnDMonster, min_num=1,
-                                              extra=0)
+    DnDAction_Formset = inlineformset_factory(form=FormDnDAction, model=DnDAction, parent_model=DnDMonster,
+                                              min_num=0, extra=0)
     DndTrait_Formset = inlineformset_factory(form=FormDndTrait, model=DnDSpecialTraits, parent_model=DnDMonster,
+                                             min_num=0, extra=0)
+    DnDSkill_Formset = inlineformset_factory(form=FormDnDSkill, model=DnDSkill, parent_model=DnDMonster,
                                              min_num=0, extra=0)
     template_name = 'monsters/monster_create.html'
     form_class = FormMonster
@@ -79,13 +81,13 @@ class MonsterCreate(CreateView):
         'dndmonster': FormDndMonster,
         'dndaction': DnDAction_Formset(),
         'dndtrait': DndTrait_Formset(),
+        'dndskill': DnDSkill_Formset(),
     }
 
     def form_valid(self, form):
         data = form.cleaned_data
         monster_data = self.request.POST
         if data['game'] == 'DND5E':
-            print("Foi do DnD!")
             monster = DnDMonster.objects.create(
                 name=monster_data.get('name'),
                 race=data['race'],
@@ -116,6 +118,7 @@ class MonsterCreate(CreateView):
             monster.save()
             actions_formset = self.DnDAction_Formset(self.request.POST)
             traits_formsset = self.DndTrait_Formset(self.request.POST)
+            skills_formset = self.DnDSkill_Formset(self.request.POST)
             for action_form in actions_formset:
                 if action_form.is_valid():
                     cleaned_data = action_form.cleaned_data
@@ -147,4 +150,13 @@ class MonsterCreate(CreateView):
                         for spell in cleaned_data['dnd_spells']:
                             trait.dnd_spells.add(spell)
 
+            for skill_form in skills_formset:
+                if skill_form.is_valid():
+                    cleaned_data = skill_form.cleaned_data
+                    skill = DnDSkill.objects.create(
+                        monster=monster,
+                        skill_name=cleaned_data['skill_name'],
+                        modifier=cleaned_data['modifier']
+                    )
+                    skill.save()
         return redirect('monster:monster_list')

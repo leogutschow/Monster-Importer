@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import BaseSheet, DnDMonster, DnDAction, DnDSpecialTraits, games
+from .models import BaseSheet, DnDMonster, DnDAction, DnDSpecialTraits, DnDSkill, games
 
 
 class FormMonster(ModelForm):
@@ -110,6 +110,33 @@ class FormDnDAction(ModelForm):
             'hit_dice', 'damage_type',
         )
         widgets = {
+            'action_name': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'action_description': forms.Textarea(attrs={
+                'class': 'form-control'
+            }),
+            'is_attack': forms.CheckboxInput(attrs={
+                'class': 'form-check-input'
+            }),
+            'weapon_type': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'attack': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'reach': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'hit': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'hit_dice': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'damage_type': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
             'monster': forms.HiddenInput(),
         }
 
@@ -134,4 +161,21 @@ class FormDndTrait(ModelForm):
                 'class': 'form-control form-select form-select-sm col'
             }),
             'monster': forms.HiddenInput()
+        }
+
+
+class FormDnDSkill(ModelForm):
+    class Meta:
+        model = DnDSkill
+        fields = (
+            'monster', 'skill_name', 'modifier'
+        )
+        widgets = {
+            'monster': forms.HiddenInput(),
+            'skill_name': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'modifier': forms.NumberInput(attrs={
+                'class': 'form-control'
+            })
         }
