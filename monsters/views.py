@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.forms.models import model_to_dict
 from django.forms import formset_factory, inlineformset_factory
 from django.views.generic import DetailView, ListView, CreateView, TemplateView
-from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill
+from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill, DnDLegendaryAction
 from django.core.paginator import Paginator
-from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait, FormDnDSkill
+from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait, FormDnDSkill, \
+    FormDnDLegendaryAction
 
 
 # Create your views here.
@@ -74,6 +75,8 @@ class MonsterCreate(CreateView):
                                              min_num=0, extra=0)
     DnDSkill_Formset = inlineformset_factory(form=FormDnDSkill, model=DnDSkill, parent_model=DnDMonster,
                                              min_num=0, extra=0)
+    DnDLegendary_Formset = inlineformset_factory(form=FormDnDLegendaryAction, model=DnDLegendaryAction,
+                                                 parent_model=DnDMonster, min_num=0, extra=0)
     template_name = 'monsters/monster_create.html'
     form_class = FormMonster
     model = BaseSheet
@@ -82,6 +85,7 @@ class MonsterCreate(CreateView):
         'dndaction': DnDAction_Formset(),
         'dndtrait': DndTrait_Formset(),
         'dndskill': DnDSkill_Formset(),
+        'dndlegendary': DnDLegendary_Formset(),
     }
 
     def form_valid(self, form):

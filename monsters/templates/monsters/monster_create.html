@@ -174,14 +174,30 @@
                             {% for action in dndaction %}
                             <div class="action-form">
                                 {{ action }}
-                                <br></br>
+                                <br>
                             </div>
                             {% endfor %}
                         </div>
                         <button id="addActionBtn" class="btn btn-secondary" type="button">Add an Action</button>
                     </div>
+                        ________________________________________________________________________________________________
+                    <p>Every Monster in DnD that has some Legendary Action, also has some attributes that comes with it,
+                    how many actions that particularly Monster can do a day for example. For that kind of information, add
+                    a Legendary Action with the name BASE (case-sensitive) and the description of those attributes</p>
+                    <div id="dndLegendaryForm">
+                        <h5>Legendary Actions</h5>
+                        {{ dndlegendary.management_form }}
+                        <div id="legendaryList">
+                            {% for legendary in dndlegendary %}
+                            <div class="legendary-form">
+                                {{ legendary }}
+                                <br>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <button id="addLegendaryBtn" class="btn btn-secondary" type="button">Add Legendary Action</button>
+                    </div>
                 </div>
-
                 <button class="btn btn-success m-2" type="submit">Submit</button>
             </form>
             <div id="emptyActionForm" class="hidden">
@@ -254,6 +270,15 @@
                         <label class="form-label" for="{{ dndskill.empty_form.modifier.id_for_label }}">Modifier</label>
                         {{ dndskill.empty_form.modifier }}
                     </div>
+                </div>
+            </div>
+            <div id="emptyLegendaryForm" class="hidden">
+                <div class="col">
+                    <label class="form-label" for="{{ dndlegendary.empty_form.legendary_name.id_for_label }}">Legendary Action Name</label>
+                    {{ dndlegendary.empty_form.legendary_name }}
+                    <label class="form-label" for="{{ dndlegendary.empty_form.legendary_description.id_for_label }}">Legendary Action Description</label>
+                    {{ dndlegendary.empty_form.legendary_description }}
+
                 </div>
             </div>
         </div>

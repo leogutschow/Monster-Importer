@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 from django import forms
-from .models import BaseSheet, DnDMonster, DnDAction, DnDSpecialTraits, DnDSkill, games
+from .models import BaseSheet, DnDMonster, DnDAction, DnDSpecialTraits, DnDSkill, DnDLegendaryAction, \
+    games
 
 
 class FormMonster(ModelForm):
@@ -178,4 +179,21 @@ class FormDnDSkill(ModelForm):
             'modifier': forms.NumberInput(attrs={
                 'class': 'form-control'
             })
+        }
+
+
+class FormDnDLegendaryAction(ModelForm):
+    class Meta:
+        model: DnDLegendaryAction
+        fields = (
+            'monster', 'legendary_name', 'legendary_description'
+        )
+        widgets = {
+            'monster': forms.HiddenInput(),
+            'legendary_name': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'legendary_description': forms.Textarea(attrs={
+                'class': 'form-control'
+            }),
         }
