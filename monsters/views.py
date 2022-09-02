@@ -123,6 +123,7 @@ class MonsterCreate(CreateView):
             actions_formset = self.DnDAction_Formset(self.request.POST)
             traits_formset = self.DndTrait_Formset(self.request.POST)
             skills_formset = self.DnDSkill_Formset(self.request.POST)
+            legendary_formset = self.DnDLegendary_Formset(self.request.POST)
 
             if len(actions_formset) > 0:
                 for action_form in actions_formset:
@@ -167,5 +168,16 @@ class MonsterCreate(CreateView):
                             modifier=cleaned_data['modifier']
                         )
                         skill.save()
+
+            if len(legendary_formset) > 0:
+                for legendary in legendary_formset:
+                    if legendary.is_valid():
+                        cleaned_data = legendary.cleaned_data
+                        new_legendary = DnDLegendaryAction.objects.create(
+                            monster=monster,
+                            legendary_name=cleaned_data['legendary_name'],
+                            legendary_description=cleaned_data['legendary_description']
+                        )
+                        new_legendary.save()
 
         return redirect('monster:monster_list')
