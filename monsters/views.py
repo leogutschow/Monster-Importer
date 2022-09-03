@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.forms.models import model_to_dict
 from django.forms import formset_factory, inlineformset_factory
 from django.views.generic import DetailView, ListView, CreateView, TemplateView
-from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill, DnDLegendaryAction
+from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill, \
+    DnDLegendaryAction, DnDSavingThrows, DndReaction
 from django.core.paginator import Paginator
 from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait, FormDnDSkill, \
-    FormDnDLegendaryAction
+    FormDnDLegendaryAction, FormDnDSavingThrow, FormDnDReaction
 
 
 # Create your views here.
@@ -77,6 +78,11 @@ class MonsterCreate(CreateView):
                                              min_num=0, extra=0)
     DnDLegendary_Formset = inlineformset_factory(form=FormDnDLegendaryAction, model=DnDLegendaryAction,
                                                  parent_model=DnDMonster, min_num=0, extra=0)
+    DnDSavingThrow_Formset = inlineformset_factory(form=FormDnDSavingThrow, model=DnDSavingThrows, parent_model=DnDMonster,
+                                                   min_num=0, extra=0)
+    DnDReaction_Formset = inlineformset_factory(form=FormDnDReaction, model=DndReaction, parent_model=DnDMonster,
+                                                min_num=0, extra=0)
+
     template_name = 'monsters/monster_create.html'
     form_class = FormMonster
     model = BaseSheet
@@ -86,6 +92,8 @@ class MonsterCreate(CreateView):
         'dndtrait': DndTrait_Formset(),
         'dndskill': DnDSkill_Formset(),
         'dndlegendary': DnDLegendary_Formset(),
+        'dndsaving': DnDSavingThrow_Formset(),
+        'dndreaction': DnDReaction_Formset(),
     }
 
     def form_valid(self, form):
@@ -124,6 +132,7 @@ class MonsterCreate(CreateView):
             traits_formset = self.DndTrait_Formset(self.request.POST)
             skills_formset = self.DnDSkill_Formset(self.request.POST)
             legendary_formset = self.DnDLegendary_Formset(self.request.POST)
+            saving_formset = self.DnDSavingThrow_Formset(self.request.POST)
 
             if len(actions_formset) > 0:
                 for action_form in actions_formset:
@@ -179,5 +188,16 @@ class MonsterCreate(CreateView):
                             legendary_description=cleaned_data['legendary_description']
                         )
                         new_legendary.save()
+
+            if len(saving_formset) > 0:
+                for saving in saving_formset:
+                    if saving.is_valid():
+                        cleaned_data = saving.cleaned_data
+                        new_saving = DnDSavingThrows.objects.create(
+                            monster=monster,
+                            attr=cleaned_data['attr'],
+                            bonus=cleaned_data['bonus']
+                        )
+                        new_saving.save()
 
         return redirect('monster:monster_list')

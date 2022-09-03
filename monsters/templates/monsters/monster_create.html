@@ -154,6 +154,21 @@
                         <button id="addSkillBtn" class="btn btn-secondary" type="button">Add Skill</button>
                     </div>
                         ________________________________________________________________________________________________
+                    <div id="dndSavingForm">
+                        <h5>Saving Throws</h5>
+                        {{ dndsaving.management_form }}
+                        <div id="savingList" class="row">
+                            {% for saving in dndsaving %}
+                            <div class="saving-form">
+                                <div class="row">
+                                    {{ saving }}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <button id="addSavingBtn" class="btn btn-secondary" type="button">Add Saving Throw</button>
+                    </div>
+                        ________________________________________________________________________________________________
                     <div id="dndTraitForm">
                         <h5>Traits</h5>
                         {{ dndtrait.management_form }}
@@ -196,6 +211,20 @@
                             {% endfor %}
                         </div>
                         <button id="addLegendaryBtn" class="btn btn-secondary" type="button">Add Legendary Action</button>
+                    </div>
+                        ________________________________________________________________________________________________
+                    <div id="dndReactionForm">
+                        <h5>Reactions</h5>
+                        {{ dndreaction.management_form }}
+                        <div id="reactionList">
+                            {% for reaction in dndreaction %}
+                            <div class="reaction-form">
+                                {{ reaction }}
+                                <br>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <button id="addReactionBtn" class="btn btn-secondary" type="button">Add Reaction</button>
                     </div>
                 </div>
                 <button class="btn btn-success m-2" type="submit">Submit</button>
@@ -281,6 +310,28 @@
 
                 </div>
             </div>
+            <div id="emptySavingForm" class="hidden">
+                <div class="col" style="max-width: 60px">
+                    <div class="row">
+                        <label class="form-label" for="{{ dndsaving.empty_form.attr.id_for_label }}">Attriute</label>
+                        {{ dndsaving.empty_form.attr }}
+                    </div>
+                    <div class="row">
+                        <label class="form-label" for="{{ dndsaving.empty_form.bonus.id_for_label }}">Modifier</label>
+                        {{ dndsaving.empty_form.bonus }}
+                    </div>
+                </div>
+            </div>
+            <div id="emptyReactionForm" class="hidden">
+                <div class="col">
+                    <label class="form-label" for="{{ dndreaction.empty_form.reaction_name.id_for_label }}">Reaction Name</label>
+                    {{ dndreaction.empty_form.reaction_name }}
+                    <label class="form-label" for="{{ dndlegendary.empty_form.reaction_description.id_for_label }}">Reaction Description</label>
+                    {{ dndreaction.empty_form.reaction_description }}
+
+                </div>
+            </div>
+
         </div>
     {% block 'scripts' %}
         <script src="{% static 'vendor/js/dynamic_forms.js' %}"></script>

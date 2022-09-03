@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 from .models import BaseSheet, DnDMonster, DnDAction, DnDSpecialTraits, DnDSkill, DnDLegendaryAction, \
-    games
+    DnDSavingThrows, DndReaction, games
 
 
 class FormMonster(ModelForm):
@@ -194,6 +194,40 @@ class FormDnDLegendaryAction(ModelForm):
                 'class': 'form-control'
             }),
             'legendary_description': forms.Textarea(attrs={
+                'class': 'form-control'
+            }),
+        }
+
+
+class FormDnDSavingThrow(ModelForm):
+    class Meta:
+        model = DnDSavingThrows
+        fields = (
+            'monster', 'attr', 'bonus'
+        )
+        widgets = {
+            'monster': forms.HiddenInput(),
+            'attr': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'bonus': forms.NumberInput(attrs={
+                'class': 'form-control'
+            })
+        }
+
+
+class FormDnDReaction(ModelForm):
+    class Meta:
+        model = DndReaction
+        fields = (
+            'monster', 'reaction_name', 'reaction_description'
+        )
+        widgets = {
+            'monster': forms.HiddenInput(),
+            'reaction_name': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'reaction_description': forms.Textarea(attrs={
                 'class': 'form-control'
             }),
         }
