@@ -16,6 +16,8 @@ In the current state, Monster Import have the following features:
 
 - See and Import Monsters from the Site to Roll20
 - Create your own Home Brew Monster for other to spicy their games
+- Games with full SRD Monsters:
+ - DND 5e
 
 ___________________________________________________
 What's missing?
