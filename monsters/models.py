@@ -13,8 +13,16 @@ games = [
     ]
 
 
+def image_upload_path(instance, filename):
+    if isinstance(instance, DnDMonster):
+        return 'images/monsters/DnD5e/{0}'.format(filename)
+    if isinstance(instance, Tor20Monster):
+        return 'images/monsters/Tor20/{0}'.format(filename)
+    return 'images/monsters/fallback/{0}'.format(filename)
+
+
 class BaseSheet(models.Model):
-    name: str = models.CharField(unique=True, max_length=50)
+    name: str = models.CharField(unique=False, max_length=50)
     race: str = models.CharField(max_length=30)
     size: str = models.CharField(max_length=30)
     challenge: str = models.CharField(default="0", max_length=3)
@@ -36,14 +44,14 @@ class BaseSheet(models.Model):
     created_by = models.ForeignKey(to=Profile, blank=True, null=True, on_delete=models.CASCADE)
     created_at = models.DateTimeField(timezone.now(), default=timezone.now())
     times_downloaded: int = models.PositiveIntegerField(default=0)
-    image: str = models.ImageField(upload_to=f'images/monsters/{game}', default=f'images/monsters/{game}')
+    image: str = models.ImageField(upload_to=image_upload_path, default='images/monsters/DnD5e')
 
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(f'{self.name}')
+            self.slug = slugify(f'{self.game} {self.name}')
         return super().save()
 
 
@@ -155,9 +163,43 @@ class DndReaction(models.Model):
 class Tor20Monster(BaseSheet):
     description: str = models.TextField()
     level: int = models.PositiveIntegerField()
-    initiative: int = models.PositiveIntegerField()
-    perception: int = models.PositiveIntegerField()
-    mana :int = models.PositiveIntegerField()
-    fortitude: int = models.PositiveIntegerField()
-    reflex: int = models.PositiveIntegerField()
-    will: int = models.PositiveIntegerField()
+    mana: int = models.PositiveIntegerField()
+    equipment: str = models.CharField(max_length=200, default='')
+
+
+class Tor20Skill(models.Model):
+    skill_list: list = [
+        ('Acrobatics', 'Acrobatics'),
+        ('Taming', 'Taming'),
+        ('Athletics', 'Athletics'),
+        ('Performance', 'Performance'),
+        ('Riding', 'Riding'),
+        ('Knowledge', 'Knowledge'),
+        ('Healing', 'Healing'),
+        ('Diplomacy', 'Diplomacy'),
+        ('Deception', 'Deception'),
+        ('Fortitude', 'Fortitude'),
+        ('Stealth', 'Stealth'),
+        ('War', 'War'),
+        ('Initiative', 'Initiative'),
+        ('Intimidation', 'Intimidation'),
+        ('Intuition', 'Intuition'),
+        ('Investigation', 'Investigation'),
+        ('Gambling', 'Gambling'),
+        ('Sleight of Hand', 'Sleight of Hand'),
+        ('Fight', 'Fight'),
+        ('Mistic Arts', 'Mistic Arts'),
+        ('Nobility', 'Nobility'),
+        ('Diligent', 'Diligent'),
+        ('Perception', 'Perception'),
+        ('Pilotage', 'Pilotage'),
+        ('Aiming', 'Aiming'),
+        ('Reflexes', 'Reflexes'),
+        ('Religion', 'Religion'),
+        ('Survival', 'Survival'),
+        ('Will', 'Will')
+    ]
+    monster = models.ForeignKey(Tor20Monster, on_delete=models.CASCADE)
+    skill_name: str = models.CharField(max_length=15, default='', choices=skill_list)
+    skill_bonus: int = models.PositiveIntegerField()
+

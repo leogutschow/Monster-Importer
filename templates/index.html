@@ -21,7 +21,7 @@
         <div id="carouselControls" class="carousel carousel-dark slide w-25 bg-dark" data-bs-rise="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active" data-bs-interval="5000">
-                    <a href="{% url 'monster:monster_detail' last_monster.game last_monster.slug%}">
+                    <a href="{% url 'monster:monster_detail' last_monster.slug%}">
                         <div class="text-center">
                         <img src="{{ last_monster.image.url }}" alt="..." style="height: 75vh;">
                         </div>

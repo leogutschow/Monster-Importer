@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.admin import TabularInline
 from django.forms import TextInput, Textarea
 from .models import DnDMonster, DnDAction, DnDSpecialTraits, DnDSkill, \
-    DnDSavingThrows, DndReaction, Tor20Monster
+    DnDSavingThrows, DndReaction, Tor20Monster, Tor20Skill
 from django.db import models
 from django.contrib.auth.models import Group
 
@@ -54,10 +54,18 @@ class DnDMonsterAdmin(admin.ModelAdmin):
     inlines = [DnDActionInline, DnDSpecialTraitsInline, DnDSkillInline, DndSavingThrowsInline, DndReactionInline]
 
 
+class Tor20SkillInline(admin.StackedInline):
+    model = Tor20Skill
+    extra = 0
+    min_num = 0
+    can_delete = True
+
+
 class Tor20MonsterAdmin(admin.ModelAdmin):
     list_display = (
         'id', 'name', 'ac', 'hp', 'challenge'
     )
+    inlines = [Tor20SkillInline, ]
 
 
 admin.site.register(Tor20Monster, Tor20MonsterAdmin)

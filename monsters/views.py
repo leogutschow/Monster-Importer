@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.forms.models import model_to_dict
+from itertools import chain
 from django.forms import formset_factory, inlineformset_factory
 from django.views.generic import DetailView, ListView, CreateView, TemplateView
 from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill, \
@@ -16,12 +17,13 @@ class MonsterDetail(DetailView):
 
     def get_object(self, queryset=None):
         base_sheet = BaseSheet.objects.get(slug=self.kwargs['slug'])
-        match self.kwargs['game']:
+        match base_sheet.game:
             case 'DND5E':
                 monster = DnDMonster.objects.get(pk=base_sheet.pk)
                 return monster
             case 'TOR20':
-                return None
+                monster = Tor20Monster.objects.get(pk=base_sheet.pk)
+                return monster
 
     def get_context_data(self, **kwargs):
         context: dict = super().get_context_data()
@@ -35,27 +37,25 @@ class MonsterDetail(DetailView):
 class MonsterList(ListView):
     template_name: str = 'monsters/monster_list.html'
     model = BaseSheet
-    paginas = Paginator(model, 20)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         self.object_list = super().get_queryset()
         context = super().get_context_data()
-        dndmonsters: list = DnDMonster.objects.all()
-        tor20monsters: list = Tor20Monster.objects.all()
-        context['monsters'] = {
-            'dndmonster': dndmonsters,
-            'tor20monster': tor20monsters
-        }
+        dndmonsters = list(DnDMonster.objects.all())
+        tor20monsters = list(Tor20Monster.objects.all())
+        context['monsters'] = list(chain(dndmonsters, tor20monsters))
         return context
 
     def get_queryset(self):
-        monsters = BaseSheet.objects.all()
-        return monsters
+        dndmonsters = list(DnDMonster.objects.all())
+        tor20monsters = list(Tor20Monster.objects.all())
+        return list(chain(dndmonsters, tor20monsters))
 
     def get(self, request, *args, **kwargs):
         monster_name_query = request.GET.get('monster_name')
         monster_ac_query = request.GET.get('monster_ac')
         monster_challenge_query = request.GET.get('monster_challenge')
+        monster_game_query = request.GET.get('monster_game')
         qs = self.model.objects.all()
         context = self.get_context_data()
         # Adding some Logic to Query in the List
@@ -65,6 +65,9 @@ class MonsterList(ListView):
             qs = qs.filter(ac__iexact=monster_ac_query)
         if monster_challenge_query != '' and monster_challenge_query is not None:
             qs = qs.filter(challenge__iexact=monster_challenge_query)
+        if monster_game_query != '' and monster_challenge_query is not None:
+            if monster_game_query != 'ALL':
+                qs = qs.filter(game__iexact=monster_game_query)
         context['monsters'] = qs
         return render(request, template_name=self.template_name, context=context)
 

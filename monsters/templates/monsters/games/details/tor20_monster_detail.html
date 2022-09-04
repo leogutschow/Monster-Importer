@@ -1,0 +1,62 @@
+{% load calculate %}
+<div class="container pt-5">
+        <div class="container col">
+            <div class="row justify-content-md-center">
+                <div class="col-auto">
+                    <img src="{{ monster.image.url }}" style="height: 65vh">
+                    <div class="container col p-3">
+                        <button class="btn btn-success" type="button">Import Monster!</button>
+                    </div>
+                    <p class="p-4">
+                        {{ monster.description }}
+                    </p>
+                </div>
+                <div class="container-md col-auto bg-image p-3" style="width: 547px; max-height:7000px">
+                    <div class="container">
+                        <div class="row container">
+                            <h5 class="fst-italic fs-6">{{ monster.get_game_display }}</h5>
+                            {% if monster.home_brew %}
+                                <h5 class="fst-italic fs-6">Home Brew Monster Created By: {{ monster.created_by }}</h5>
+                            {% endif %}
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h1 class="text-danger pd-0 pt-3">{{ monster.name }}</h1><h1 class="text-danger pd-0 pt-3">ND {{ monster.challenge }}</h1>
+                        </div>
+                        <h5 class="lh-1 fs-6 fst-italic">{{ monster.race }} {{ monster.level }}, {{ monster.size }} </h5>
+                        <h5 class="text-danger lh-1 fs-6">__________________________________________________________________</h5>
+                        <h5 class="fs-6 text-danger">Initiative +
+                            {% for skill in monster.tor20skill_set.all %}
+                                {% if skill.skill_name == 'Initiative' %}
+                                    {{ skill.skill_bonus }},
+                                {% elif skill.skill_name == 'Perception' %}
+                                    Perception +{{ skill.skill_bonus }}
+                                {% endif %}
+                            {% endfor %}</h5>
+                        <h5 class="fs-6 text-danger">Defense: {{ monster.ac }}, Fort +{{ monster.fortitude }}, Ref +{{ monster.reflex }}, Will +{{ monster.will }}</h5>
+                        <h5 class="fs-6 text-danger">Hit Points: {{ monster.hp }}</h5>
+                        <h5 class="fs-6 text-danger">Speed: {{ monster.movement }}</h5>
+                        <h5 class="text-danger lh-1 fs-6">__________________________________________________________________</h5>
+                        <div class="row">
+                            <h5 class="text-center col fs-6 fw-bold text-danger">
+                                STR {{ monster.strength }},
+                                DEX {{ monster.dexterity }},
+                                CON {{ monster.constitution }},
+                                INT {{ monster.intelligence }},
+                                WIS {{ monster.wisdom }},
+                                CAR {{ monster.charisma }}
+                            </h5>
+                        </div>
+                        <h5 class="text-danger lh-1 fs-6">__________________________________________________________________</h5>
+                        <h5 class="text-danger lh-1 fs-6">Skills
+                            {% for skill in monster.tor20skill_set.all %}
+                                {% if skill.skill_name != 'Initiative' and skill.skill_name != 'Perception'%}
+                            {{ skill.skill_name }} +{{ skill.skill_bonus }},
+                                {% endif %}
+                            {% endfor %}
+
+                        </h5>
+                </div>
+            </div>
+        </div>
+
+    </div>

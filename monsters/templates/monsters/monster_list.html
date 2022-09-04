@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+
 <head>
     <title>{% block 'titulo' %}Monsters{% endblock %}</title>
 </head>
@@ -38,6 +39,16 @@
                                 name="monster_challenge">
                                 <label class="ps-4" for="monsterChallengeSearch">Challenge</label>
                             </div>
+                            <div class="advanceSearch col form-floating input-group">
+                                <select id="monsterGameSearch" class="form-select"
+                                placeholder="Game"
+                                name="monster_game">
+                                    <option value="ALL">All</option>
+                                    <option value="DND5E">Dungeons and Dragons 5e</option>
+                                    <option value="TOR20">Tormenta20</option>
+                                </select>
+                                <label class="ps-4" for="monsterGameSearch">Game Rules</label>
+                            </div>
                         </div>
                     </div>
                     <div class="p-3 d-flex flex-column">
@@ -68,7 +79,7 @@
                                 <img style="max-height: 48px" src="{{ monster.image.url }}">
                             </td>
                             <td>
-                                <a href="{% url 'monster:monster_detail' monster.game monster.slug%}">{{ monster.name }}</a>
+                                <a href="{% url 'monster:monster_detail' monster.slug%}">{{ monster.name }}</a>
                             </td>
                             <td>{{ monster.ac }}</td>
                             <td>{{ monster.challenge }}</td>
