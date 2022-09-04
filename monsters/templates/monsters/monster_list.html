@@ -54,6 +54,7 @@
                     <th>Name</th>
                     <th>AC</th>
                     <th>Challenge</th>
+                    <th>Game Rule</th>
                 </thead>
                 <tbody>
                     {% if monsters.count == 0 %}
@@ -71,6 +72,7 @@
                             </td>
                             <td>{{ monster.ac }}</td>
                             <td>{{ monster.challenge }}</td>
+                            <td>{{ monster.get_game_display }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

@@ -136,95 +136,95 @@
                                 {{ dndmonster.condition_immunities }}
                             </div>
                         </div>
-                    </div>
                         ________________________________________________________________________________________________
-                    <div id="dndSkillForm">
-                        <h5>Skills</h5>
-                        {{ dndskill.management_form }}
-                        <div id="skillList" class="row">
-                            {% for skill in dndskill %}
-                            <div class="skill-form">
-                                <div class="row">
-                                    {{ skill }}
-                                </div>
+                        <div id="dndSkillForm">
+                            <h5>Skills</h5>
+                            {{ dndskill.management_form }}
+                            <div id="skillList" class="row">
+                                {% for skill in dndskill %}
+                                <div class="skill-form">
+                                    <div class="row">
+                                        {{ skill }}
+                                    </div>
 
-                            </div>
-                            {% endfor %}
-                        </div>
-                        <button id="addSkillBtn" class="btn btn-secondary" type="button">Add Skill</button>
-                    </div>
-                        ________________________________________________________________________________________________
-                    <div id="dndSavingForm">
-                        <h5>Saving Throws</h5>
-                        {{ dndsaving.management_form }}
-                        <div id="savingList" class="row">
-                            {% for saving in dndsaving %}
-                            <div class="saving-form">
-                                <div class="row">
-                                    {{ saving }}
                                 </div>
+                                {% endfor %}
                             </div>
-                            {% endfor %}
+                            <button id="addSkillBtn" class="btn btn-secondary" type="button">Add Skill</button>
                         </div>
-                        <button id="addSavingBtn" class="btn btn-secondary" type="button">Add Saving Throw</button>
-                    </div>
-                        ________________________________________________________________________________________________
-                    <div id="dndTraitForm">
-                        <h5>Traits</h5>
-                        {{ dndtrait.management_form }}
-                        <div id="traitList">
-                            {% for trait in dndtrait %}
-                                <div class="trait-form">
-                                    {{ trait }}
+                            ________________________________________________________________________________________________
+                        <div id="dndSavingForm">
+                            <h5>Saving Throws</h5>
+                            {{ dndsaving.management_form }}
+                            <div id="savingList" class="row">
+                                {% for saving in dndsaving %}
+                                <div class="saving-form">
+                                    <div class="row">
+                                        {{ saving }}
+                                    </div>
                                 </div>
-                            {% endfor %}
-                        </div>
-                        <button id="addTraitBtn" class="btn btn-secondary" type="button">Add Trait</button>
-                    </div>
-                        ________________________________________________________________________________________________
-                    <div id="dndActionForm">
-                        <h5>Actions</h5>
-                        {{ dndaction.management_form }}
-                        <div id="actionList">
-                            {% for action in dndaction %}
-                            <div class="action-form">
-                                {{ action }}
-                                <br>
+                                {% endfor %}
                             </div>
-                            {% endfor %}
+                            <button id="addSavingBtn" class="btn btn-secondary" type="button">Add Saving Throw</button>
                         </div>
-                        <button id="addActionBtn" class="btn btn-secondary" type="button">Add an Action</button>
-                    </div>
-                        ________________________________________________________________________________________________
-                    <p>Every Monster in DnD that has some Legendary Action, also has some attributes that comes with it,
-                    how many actions that particularly Monster can do a day for example. For that kind of information, add
-                    a Legendary Action with the name BASE (case-sensitive) and the description of those attributes</p>
-                    <div id="dndLegendaryForm">
-                        <h5>Legendary Actions</h5>
-                        {{ dndlegendary.management_form }}
-                        <div id="legendaryList">
-                            {% for legendary in dndlegendary %}
-                            <div class="legendary-form">
-                                {{ legendary }}
-                                <br>
+                            ________________________________________________________________________________________________
+                        <div id="dndTraitForm">
+                            <h5>Traits</h5>
+                            {{ dndtrait.management_form }}
+                            <div id="traitList">
+                                {% for trait in dndtrait %}
+                                    <div class="trait-form">
+                                        {{ trait }}
+                                    </div>
+                                {% endfor %}
                             </div>
-                            {% endfor %}
+                            <button id="addTraitBtn" class="btn btn-secondary" type="button">Add Trait</button>
                         </div>
-                        <button id="addLegendaryBtn" class="btn btn-secondary" type="button">Add Legendary Action</button>
-                    </div>
-                        ________________________________________________________________________________________________
-                    <div id="dndReactionForm">
-                        <h5>Reactions</h5>
-                        {{ dndreaction.management_form }}
-                        <div id="reactionList">
-                            {% for reaction in dndreaction %}
-                            <div class="reaction-form">
-                                {{ reaction }}
-                                <br>
+                            ________________________________________________________________________________________________
+                        <div id="dndActionForm">
+                            <h5>Actions</h5>
+                            {{ dndaction.management_form }}
+                            <div id="actionList">
+                                {% for action in dndaction %}
+                                <div class="action-form">
+                                    {{ action }}
+                                    <br>
+                                </div>
+                                {% endfor %}
                             </div>
-                            {% endfor %}
+                            <button id="addActionBtn" class="btn btn-secondary" type="button">Add an Action</button>
                         </div>
-                        <button id="addReactionBtn" class="btn btn-secondary" type="button">Add Reaction</button>
+                            ________________________________________________________________________________________________
+                        <p>Every Monster in DnD that has some Legendary Action, also has some attributes that comes with it,
+                        how many actions that particularly Monster can do a day for example. For that kind of information, add
+                        a Legendary Action with the name BASE (case-sensitive) and the description of those attributes</p>
+                        <div id="dndLegendaryForm">
+                            <h5>Legendary Actions</h5>
+                            {{ dndlegendary.management_form }}
+                            <div id="legendaryList">
+                                {% for legendary in dndlegendary %}
+                                <div class="legendary-form">
+                                    {{ legendary }}
+                                    <br>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <button id="addLegendaryBtn" class="btn btn-secondary" type="button">Add Legendary Action</button>
+                        </div>
+                            ________________________________________________________________________________________________
+                        <div id="dndReactionForm">
+                            <h5>Reactions</h5>
+                            {{ dndreaction.management_form }}
+                            <div id="reactionList">
+                                {% for reaction in dndreaction %}
+                                <div class="reaction-form">
+                                    {{ reaction }}
+                                    <br>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <button id="addReactionBtn" class="btn btn-secondary" type="button">Add Reaction</button>
+                        </div>
                     </div>
                 </div>
                 <button class="btn btn-success m-2" type="submit">Submit</button>

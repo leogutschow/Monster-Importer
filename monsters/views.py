@@ -12,11 +12,20 @@ from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait, For
 # Create your views here.
 class MonsterDetail(DetailView):
     template_name: str = 'monsters/monster.html'
-    model: DnDMonster = DnDMonster
+    model = DnDMonster
+
+    def get_object(self, queryset=None):
+        base_sheet = BaseSheet.objects.get(slug=self.kwargs['slug'])
+        match base_sheet.game:
+            case 'DND5E':
+                monster = DnDMonster.objects.get(pk=base_sheet.pk)
+                return monster
+            case 'TOR20':
+                return None
 
     def get_context_data(self, **kwargs):
         context: dict = super().get_context_data()
-        monster: DnDMonster = self.get_object()
+        monster = self.get_object()
         context['monster'] = monster
         # Transforming the monster in a Dict so it can be passed as a JSON object in the Template and adding the Actions
         # and Special Traits to the Dict
@@ -44,8 +53,10 @@ class MonsterList(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         self.object_list = super().get_queryset()
         context = super().get_context_data()
-        monsters: list = DnDMonster.objects.all()
-        context['monsters'] = monsters
+        dndmonsters: list = DnDMonster.objects.all()
+        context['monsters'] = {
+            'dndmonster': dndmonsters,
+        }
         return context
 
     def get_queryset(self):

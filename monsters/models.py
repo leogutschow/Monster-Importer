@@ -9,7 +9,7 @@ from django.utils.text import slugify
 
 games = [
         ('DND5E', 'Dungeons and Dragons 5e'),
-        ('PF2E', 'Pathfinder 2e')
+        ('TOR20', 'Tormenta20')
     ]
 
 
