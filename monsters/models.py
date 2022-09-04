@@ -17,6 +17,7 @@ class BaseSheet(models.Model):
     name: str = models.CharField(unique=True, max_length=50)
     race: str = models.CharField(max_length=30)
     size: str = models.CharField(max_length=30)
+    challenge: str = models.CharField(default="0", max_length=3)
     ac: int = models.IntegerField()
     ac_type: str = models.CharField(max_length=50)
     hp: int = models.IntegerField()
@@ -35,6 +36,7 @@ class BaseSheet(models.Model):
     created_by = models.ForeignKey(to=Profile, blank=True, null=True, on_delete=models.CASCADE)
     created_at = models.DateTimeField(timezone.now(), default=timezone.now())
     times_downloaded: int = models.PositiveIntegerField(default=0)
+    image: str = models.ImageField(upload_to=f'images/monsters/{game}', default=f'images/monsters/{game}')
 
     def __str__(self):
         return self.name
@@ -47,9 +49,7 @@ class BaseSheet(models.Model):
 
 class DnDMonster(BaseSheet):
     alignment: str = models.CharField(max_length=30, default="Neutral")
-    challenge: str = models.CharField(default="0", max_length=3)
     description: str = models.TextField(default="")
-    image: str = models.ImageField(upload_to='images/monsters/DnD')
     senses: str = models.CharField(max_length=100, blank=True, null=True)
     damage_resistances: str = models.CharField(max_length=100, blank=True, null=True)
     damage_immunities: str = models.CharField(max_length=100, blank=True, null=True)
@@ -154,7 +154,6 @@ class DndReaction(models.Model):
 
 class Tor20Monster(BaseSheet):
     description: str = models.TextField()
-    challenge: str = models.CharField(default="0", max_length=3)
     level: int = models.PositiveIntegerField()
     initiative: int = models.PositiveIntegerField()
     perception: int = models.PositiveIntegerField()

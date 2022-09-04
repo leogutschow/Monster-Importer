@@ -3,7 +3,7 @@ from django.forms.models import model_to_dict
 from django.forms import formset_factory, inlineformset_factory
 from django.views.generic import DetailView, ListView, CreateView, TemplateView
 from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill, \
-    DnDLegendaryAction, DnDSavingThrows, DndReaction
+    DnDLegendaryAction, DnDSavingThrows, DndReaction, Tor20Monster
 from django.core.paginator import Paginator
 from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait, FormDnDSkill, \
     FormDnDLegendaryAction, FormDnDSavingThrow, FormDnDReaction
@@ -29,39 +29,27 @@ class MonsterDetail(DetailView):
         context['monster'] = monster
         # Transforming the monster in a Dict so it can be passed as a JSON object in the Template and adding the Actions
         # and Special Traits to the Dict
-        monster_dict: dict = model_to_dict(monster)
-        monster_dict['image'] = monster.image.url
-        if monster.game == 'DND5E':
-            monster_actions: dict = {}
-            monster_special_traits: dict = {}
-            for num, action in enumerate(DnDAction.objects.filter(monster=monster.pk).values()):
-                monster_actions['action' + str(num)] = action
-            # Some Monster doesn't have Special Traits
-            if len(DnDSpecialTraits.objects.filter(monster=monster.pk).values()) > 0:
-                for num, special_trait in enumerate(DnDSpecialTraits.objects.filter(monster=monster.pk).values()):
-                    monster_special_traits['special_trait' + str(num)] = special_trait
-                monster_dict['special_traits'] = monster_special_traits
-            monster_dict['actions'] = monster_actions
-            context['monster_dict'] = monster_dict
         return context
 
 
 class MonsterList(ListView):
     template_name: str = 'monsters/monster_list.html'
-    model = DnDMonster
+    model = BaseSheet
     paginas = Paginator(model, 20)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         self.object_list = super().get_queryset()
         context = super().get_context_data()
         dndmonsters: list = DnDMonster.objects.all()
+        tor20monsters: list = Tor20Monster.objects.all()
         context['monsters'] = {
             'dndmonster': dndmonsters,
+            'tor20monster': tor20monsters
         }
         return context
 
     def get_queryset(self):
-        monsters = DnDMonster.objects.all()
+        monsters = BaseSheet.objects.all()
         return monsters
 
     def get(self, request, *args, **kwargs):
