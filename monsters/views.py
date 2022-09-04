@@ -16,7 +16,7 @@ class MonsterDetail(DetailView):
 
     def get_object(self, queryset=None):
         base_sheet = BaseSheet.objects.get(slug=self.kwargs['slug'])
-        match base_sheet.game:
+        match self.kwargs['game']:
             case 'DND5E':
                 monster = DnDMonster.objects.get(pk=base_sheet.pk)
                 return monster
@@ -30,18 +30,19 @@ class MonsterDetail(DetailView):
         # Transforming the monster in a Dict so it can be passed as a JSON object in the Template and adding the Actions
         # and Special Traits to the Dict
         monster_dict: dict = model_to_dict(monster)
-        monster_dict.pop('image')
-        monster_actions: dict = {}
-        monster_special_traits: dict = {}
-        for num, action in enumerate(DnDAction.objects.filter(monster=monster.pk).values()):
-            monster_actions['action' + str(num)] = action
-        # Some Monster doesn't have Special Traits
-        if len(DnDSpecialTraits.objects.filter(monster=monster.pk).values()) > 0:
-            for num, special_trait in enumerate(DnDSpecialTraits.objects.filter(monster=monster.pk).values()):
-                monster_special_traits['special_trait' + str(num)] = special_trait
-            monster_dict['special_traits'] = monster_special_traits
-        monster_dict['actions'] = monster_actions
-        context['monster_dict'] = monster_dict
+        monster_dict['image'] = monster.image.url
+        if monster.game == 'DND5E':
+            monster_actions: dict = {}
+            monster_special_traits: dict = {}
+            for num, action in enumerate(DnDAction.objects.filter(monster=monster.pk).values()):
+                monster_actions['action' + str(num)] = action
+            # Some Monster doesn't have Special Traits
+            if len(DnDSpecialTraits.objects.filter(monster=monster.pk).values()) > 0:
+                for num, special_trait in enumerate(DnDSpecialTraits.objects.filter(monster=monster.pk).values()):
+                    monster_special_traits['special_trait' + str(num)] = special_trait
+                monster_dict['special_traits'] = monster_special_traits
+            monster_dict['actions'] = monster_actions
+            context['monster_dict'] = monster_dict
         return context
 
 

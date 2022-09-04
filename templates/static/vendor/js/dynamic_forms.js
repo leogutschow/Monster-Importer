@@ -102,7 +102,7 @@ function add_reaction(event){
         event.preventDefault()
     }
     const currentReactionForms = document.getElementsByClassName('reaction-form')
-    const formCopyTarget = document.getElementById('reationList')
+    const formCopyTarget = document.getElementById('reactionList')
     const emptyForm = document.getElementById('emptyReactionForm').cloneNode(true)
     emptyForm.setAttribute('class', 'reaction-form')
     emptyForm.setAttribute('id', `form-${currentReactionForms.length +1}`)

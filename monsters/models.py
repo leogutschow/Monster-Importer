@@ -150,3 +150,15 @@ class DndReaction(models.Model):
 
     class Meta:
         verbose_name = "DnD Reaction"
+
+
+class Tor20Monster(BaseSheet):
+    description: str = models.TextField()
+    challenge: str = models.CharField(default="0", max_length=3)
+    level: int = models.PositiveIntegerField()
+    initiative: int = models.PositiveIntegerField()
+    perception: int = models.PositiveIntegerField()
+    mana :int = models.PositiveIntegerField()
+    fortitude: int = models.PositiveIntegerField()
+    reflex: int = models.PositiveIntegerField()
+    will: int = models.PositiveIntegerField()
