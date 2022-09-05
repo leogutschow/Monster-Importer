@@ -162,6 +162,9 @@ class DndReaction(models.Model):
 
 class Tor20Monster(BaseSheet):
     description: str = models.TextField()
+    fortitude: int = models.PositiveIntegerField(default=0)
+    reflex: int = models.PositiveIntegerField(default=0)
+    will: int = models.PositiveIntegerField(default=0)
     level: int = models.PositiveIntegerField()
     mana: int = models.PositiveIntegerField()
     equipment: str = models.CharField(max_length=200, default='')
@@ -202,4 +205,14 @@ class Tor20Skill(models.Model):
     monster = models.ForeignKey(Tor20Monster, on_delete=models.CASCADE)
     skill_name: str = models.CharField(max_length=15, default='', choices=skill_list)
     skill_bonus: int = models.PositiveIntegerField()
+
+
+class Tor20Action(models.Model):
+    monster = models.ForeignKey(Tor20Monster, on_delete=models.CASCADE)
+    action_name = models.CharField(max_length=100)
+    melee = models.BooleanField(default=False)
+    ranged = models.BooleanField(default=False)
+    attack = models.PositiveIntegerField(blank=True, null=True)
+    hit = models.CharField(max_length=25, blank=True, null=True)
+    action_description = models.TextField(blank=True, null=True)
 

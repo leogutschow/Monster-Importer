@@ -27,14 +27,41 @@
                         <h5 class="fs-6 text-danger">Initiative +
                             {% for skill in monster.tor20skill_set.all %}
                                 {% if skill.skill_name == 'Initiative' %}
-                                    {{ skill.skill_bonus }},
+                                    <span class="text-dark">{{ skill.skill_bonus }},</span>
                                 {% elif skill.skill_name == 'Perception' %}
-                                    Perception +{{ skill.skill_bonus }}
+                                    <span class="text-dark">Perception +{{ skill.skill_bonus }}</span>
+
+                                    <h5 class="fs-6 text-danger">Defense:
+                                        <span class="text-dark">{{ monster.ac }},</span>
+                                        Fort <span class="text-dark">+{{ monster.fortitude }},</span>
+                                        Ref <span class="text-dark">+{{ monster.reflex }},</span>
+                                        Will <span class="text-dark">+{{ monster.will }}</span></h5>
                                 {% endif %}
                             {% endfor %}</h5>
-                        <h5 class="fs-6 text-danger">Defense: {{ monster.ac }}, Fort +{{ monster.fortitude }}, Ref +{{ monster.reflex }}, Will +{{ monster.will }}</h5>
-                        <h5 class="fs-6 text-danger">Hit Points: {{ monster.hp }}</h5>
-                        <h5 class="fs-6 text-danger">Speed: {{ monster.movement }}</h5>
+                        <h5 class="fs-6 text-danger">Hit Points: <span class="text-dark">{{ monster.hp }}</span></h5>
+                        <h5 class="fs-6 text-danger">Speed: <span class="text-dark">{{ monster.movement }}</span></h5>
+                        <h5 class="text-danger lh-1 fs-6">__________________________________________________________________</h5>
+                        {% if monster.mana > 0 %}
+                             <h5 class="fs-6 text-danger">Mana Points: <span class="text-dark">{{ monster.mana }}</span></h5>
+                        {% endif %}
+                        {% if monster.tor20action_set.count > 0 %}
+                            <h5 class="text-danger lh-1 fs-6">Melee Attacks:
+                                {% for attack in monster.tor20action_set.all %}
+                                    {% if attack.melee %}
+                                        <span class="text-dark">{{ attack.action_name }} +{{ attack.attack }} ({{ attack.hit }})</span>
+                                    {% endif %}
+                                {% endfor %}
+                            .</h5>
+                            <h5 class="text-danger lh-1 fs-6">Ranged Attacks:
+                                {% for attack in monster.tor20action_set.all %}
+                                    {% if attack.ranged %}
+                                        <span class="text-dark">{{ attack.action_name }} +{{ attack.attack }} ({{ attack.hit }})</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </h5>
+
+
+                        {% endif %}
                         <h5 class="text-danger lh-1 fs-6">__________________________________________________________________</h5>
                         <div class="row">
                             <h5 class="text-center col fs-6 fw-bold text-danger">
@@ -50,7 +77,7 @@
                         <h5 class="text-danger lh-1 fs-6">Skills
                             {% for skill in monster.tor20skill_set.all %}
                                 {% if skill.skill_name != 'Initiative' and skill.skill_name != 'Perception'%}
-                            {{ skill.skill_name }} +{{ skill.skill_bonus }},
+                                    <span class="text-dark">{{ skill.skill_name }} +{{ skill.skill_bonus }},</span>
                                 {% endif %}
                             {% endfor %}
 
