@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+
 <head>
     <title>{% block 'titulo' %}Monsters{% endblock %}</title>
 </head>
@@ -38,6 +39,16 @@
                                 name="monster_challenge">
                                 <label class="ps-4" for="monsterChallengeSearch">Challenge</label>
                             </div>
+                            <div class="advanceSearch col form-floating input-group">
+                                <select id="monsterGameSearch" class="form-select"
+                                placeholder="Game"
+                                name="monster_game">
+                                    <option value="ALL">All</option>
+                                    <option value="DND5E">Dungeons and Dragons 5e</option>
+                                    <option value="TOR20">Tormenta20</option>
+                                </select>
+                                <label class="ps-4" for="monsterGameSearch">Game Rules</label>
+                            </div>
                         </div>
                     </div>
                     <div class="p-3 d-flex flex-column">
@@ -54,6 +65,7 @@
                     <th>Name</th>
                     <th>AC</th>
                     <th>Challenge</th>
+                    <th>Game Rule</th>
                 </thead>
                 <tbody>
                     {% if monsters.count == 0 %}
@@ -71,6 +83,7 @@
                             </td>
                             <td>{{ monster.ac }}</td>
                             <td>{{ monster.challenge }}</td>
+                            <td>{{ monster.get_game_display }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

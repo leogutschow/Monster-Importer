@@ -9,14 +9,23 @@ from django.utils.text import slugify
 
 games = [
         ('DND5E', 'Dungeons and Dragons 5e'),
-        ('PF2E', 'Pathfinder 2e')
+        ('TOR20', 'Tormenta20')
     ]
 
 
+def image_upload_path(instance, filename):
+    if isinstance(instance, DnDMonster):
+        return 'images/monsters/DnD5e/{0}'.format(filename)
+    if isinstance(instance, Tor20Monster):
+        return 'images/monsters/Tor20/{0}'.format(filename)
+    return 'images/monsters/fallback/{0}'.format(filename)
+
+
 class BaseSheet(models.Model):
-    name: str = models.CharField(unique=True, max_length=50)
+    name: str = models.CharField(unique=False, max_length=50)
     race: str = models.CharField(max_length=30)
     size: str = models.CharField(max_length=30)
+    challenge: str = models.CharField(default="0", max_length=3)
     ac: int = models.IntegerField()
     ac_type: str = models.CharField(max_length=50)
     hp: int = models.IntegerField()
@@ -35,21 +44,20 @@ class BaseSheet(models.Model):
     created_by = models.ForeignKey(to=Profile, blank=True, null=True, on_delete=models.CASCADE)
     created_at = models.DateTimeField(timezone.now(), default=timezone.now())
     times_downloaded: int = models.PositiveIntegerField(default=0)
+    image: str = models.ImageField(upload_to=image_upload_path, default='images/monsters/DnD5e')
 
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(f'{self.name}')
+            self.slug = slugify(f'{self.game} {self.name}')
         return super().save()
 
 
 class DnDMonster(BaseSheet):
     alignment: str = models.CharField(max_length=30, default="Neutral")
-    challenge: str = models.CharField(default="0", max_length=3)
     description: str = models.TextField(default="")
-    image: str = models.ImageField(upload_to='images/monsters/DnD')
     senses: str = models.CharField(max_length=100, blank=True, null=True)
     damage_resistances: str = models.CharField(max_length=100, blank=True, null=True)
     damage_immunities: str = models.CharField(max_length=100, blank=True, null=True)
@@ -150,3 +158,61 @@ class DndReaction(models.Model):
 
     class Meta:
         verbose_name = "DnD Reaction"
+
+
+class Tor20Monster(BaseSheet):
+    description: str = models.TextField()
+    fortitude: int = models.PositiveIntegerField(default=0)
+    reflex: int = models.PositiveIntegerField(default=0)
+    will: int = models.PositiveIntegerField(default=0)
+    level: int = models.PositiveIntegerField()
+    mana: int = models.PositiveIntegerField()
+    equipment: str = models.CharField(max_length=200, default='')
+
+
+class Tor20Skill(models.Model):
+    skill_list: list = [
+        ('Acrobatics', 'Acrobatics'),
+        ('Taming', 'Taming'),
+        ('Athletics', 'Athletics'),
+        ('Performance', 'Performance'),
+        ('Riding', 'Riding'),
+        ('Knowledge', 'Knowledge'),
+        ('Healing', 'Healing'),
+        ('Diplomacy', 'Diplomacy'),
+        ('Deception', 'Deception'),
+        ('Fortitude', 'Fortitude'),
+        ('Stealth', 'Stealth'),
+        ('War', 'War'),
+        ('Initiative', 'Initiative'),
+        ('Intimidation', 'Intimidation'),
+        ('Intuition', 'Intuition'),
+        ('Investigation', 'Investigation'),
+        ('Gambling', 'Gambling'),
+        ('Sleight of Hand', 'Sleight of Hand'),
+        ('Fight', 'Fight'),
+        ('Mistic Arts', 'Mistic Arts'),
+        ('Nobility', 'Nobility'),
+        ('Diligent', 'Diligent'),
+        ('Perception', 'Perception'),
+        ('Pilotage', 'Pilotage'),
+        ('Aiming', 'Aiming'),
+        ('Reflexes', 'Reflexes'),
+        ('Religion', 'Religion'),
+        ('Survival', 'Survival'),
+        ('Will', 'Will')
+    ]
+    monster = models.ForeignKey(Tor20Monster, on_delete=models.CASCADE)
+    skill_name: str = models.CharField(max_length=15, default='', choices=skill_list)
+    skill_bonus: int = models.PositiveIntegerField()
+
+
+class Tor20Action(models.Model):
+    monster = models.ForeignKey(Tor20Monster, on_delete=models.CASCADE)
+    action_name = models.CharField(max_length=100)
+    melee = models.BooleanField(default=False)
+    ranged = models.BooleanField(default=False)
+    attack = models.PositiveIntegerField(blank=True, null=True)
+    hit = models.CharField(max_length=25, blank=True, null=True)
+    action_description = models.TextField(blank=True, null=True)
+
