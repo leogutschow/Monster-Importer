@@ -167,7 +167,8 @@ class Tor20Monster(BaseSheet):
     will: int = models.PositiveIntegerField(default=0)
     level: int = models.PositiveIntegerField()
     mana: int = models.PositiveIntegerField()
-    equipment: str = models.CharField(max_length=200, default='')
+    equipment: str = models.CharField(max_length=200, default='None')
+    treasure = models.CharField(max_length=200, default='None')
 
 
 class Tor20Skill(models.Model):
@@ -207,12 +208,22 @@ class Tor20Skill(models.Model):
     skill_bonus: int = models.PositiveIntegerField()
 
 
-class Tor20Action(models.Model):
+class Tor20GenericAction(models.Model):
     monster = models.ForeignKey(Tor20Monster, on_delete=models.CASCADE)
     action_name = models.CharField(max_length=100)
-    melee = models.BooleanField(default=False)
     ranged = models.BooleanField(default=False)
-    attack = models.PositiveIntegerField(blank=True, null=True)
-    hit = models.CharField(max_length=25, blank=True, null=True)
     action_description = models.TextField(blank=True, null=True)
 
+
+class Tor20MeleeAction(models.Model):
+    monster = models.ForeignKey(Tor20Monster, on_delete=models.CASCADE)
+    action_name = models.CharField(max_length=100)
+    attack = models.PositiveIntegerField(blank=True, null=True)
+    hit = models.CharField(max_length=25, blank=True, null=True)
+
+
+class Tor20RangedAction(models.Model):
+    monster = models.ForeignKey(Tor20Monster, on_delete=models.CASCADE)
+    action_name = models.CharField(max_length=100)
+    attack = models.PositiveIntegerField(blank=True, null=True)
+    hit = models.CharField(max_length=25, blank=True, null=True)
