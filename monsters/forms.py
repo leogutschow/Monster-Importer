@@ -240,5 +240,28 @@ class FormTor20Monster(ModelForm):
             'description', 'fortitude', 'reflex', 'will', 'level', 'mana', 'equipment', 'treasure',
         )
         widgets = {
-
+            'description': forms.Textarea(attrs={
+                'class': 'form-control'
+            }),
+            'fortitude': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'reflex': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'will': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'level': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'mana': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'equipment': forms.Textarea(attrs={
+                'class': 'form-control'
+            }),
+            'treasure': forms.Textarea(attrs={
+                'class': 'form-control'
+            }),
         }

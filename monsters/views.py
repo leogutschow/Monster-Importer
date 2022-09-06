@@ -7,7 +7,7 @@ from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill
     DnDLegendaryAction, DnDSavingThrows, DndReaction, Tor20Monster
 from django.core.paginator import Paginator
 from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait, FormDnDSkill, \
-    FormDnDLegendaryAction, FormDnDSavingThrow, FormDnDReaction
+    FormDnDLegendaryAction, FormDnDSavingThrow, FormDnDReaction, FormTor20Monster
 
 
 # Create your views here.
@@ -91,6 +91,7 @@ class MonsterCreate(CreateView):
     model = BaseSheet
     extra_context = {
         'dndmonster': FormDndMonster,
+        'tor20monster': FormTor20Monster,
         'dndaction': DnDAction_Formset(),
         'dndtrait': DndTrait_Formset(),
         'dndskill': DnDSkill_Formset(),

@@ -1,3 +1,6 @@
+const gameSelect = document.getElementById('id_game')
+gameSelect.addEventListener('change', change_game)
+
 const totalActionNewForms = document.getElementById('id_dndaction_set-TOTAL_FORMS')
 const addActionBtn = document.getElementById('addActionBtn')
 addActionBtn.addEventListener('click', add_new_action)
@@ -21,6 +24,22 @@ addSavingBtn.addEventListener('click', add_saving)
 const totalReactionNewForms = document.getElementById('id_dndreaction_set-TOTAL_FORMS')
 const addReactionBtn = document.getElementById('addReactionBtn')
 addReactionBtn.addEventListener('click', add_reaction)
+
+function change_game(event){
+    if (event){
+        event.preventDefault()
+    }
+    const allGames = document.getElementById('specificGames').childNodes
+    console.log(gameSelect.value)
+    allGames.forEach(game => {game.setAttribute('class', 'hidden')})
+
+    switch (gameSelect.value){
+        case 'DND5E':
+            const dndForm = allGames.getElementById('dndMonsterForm')
+            console.log(dndForm)
+            dndForm.setAttribute('class', 'container col')
+    }
+}
 
 function add_new_action(event) {
     if (event){
@@ -111,3 +130,4 @@ function add_reaction(event){
     totalReactionNewForms.setAttribute('value', currentReactionForms.length + 1)
     formCopyTarget.append(emptyForm)
 }
+
