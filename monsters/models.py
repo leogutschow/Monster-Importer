@@ -45,7 +45,6 @@ class BaseSheet(models.Model):
     intelligence: int = models.IntegerField()
     wisdom: int = models.IntegerField()
     charisma: int = models.IntegerField()
-    languages: str = models.CharField(max_length=100, default="None")
     slug: str = models.SlugField(blank=True, null=True)
     game: str = models.CharField(default='', max_length=5, choices=games)
     home_brew: bool = models.BooleanField(default=False)
@@ -64,6 +63,7 @@ class BaseSheet(models.Model):
 
 
 class DnDMonster(BaseSheet):
+    languages: str = models.CharField(max_length=100, default="None")
     alignment: str = models.CharField(max_length=30, default="Neutral")
     description: str = models.TextField(default="")
     senses: str = models.CharField(max_length=100, blank=True, null=True)
@@ -227,23 +227,19 @@ class Tor20GenericAction(models.Model):
         verbose_name = 'Generic Action'
 
 
-class Tor20MeleeAction(models.Model):
+class Tor20BaseAttackAction(models.Model):
     monster = models.ForeignKey(Tor20Monster, on_delete=models.CASCADE)
     action_name = models.CharField(max_length=100, default='')
     action_description = models.TextField(default='', blank=True, null=True)
     attack = models.PositiveIntegerField(blank=True, null=True)
     hit = models.CharField(max_length=25, blank=True, null=True)
 
+
+class Tor20MeleeAction(Tor20BaseAttackAction):
     class Meta:
         verbose_name = 'Melee Action'
 
 
-class Tor20RangedAction(models.Model):
-    monster = models.ForeignKey(Tor20Monster, on_delete=models.CASCADE)
-    action_name = models.CharField(max_length=100, default='')
-    action_description = models.TextField(default='', blank=True, null=True)
-    attack = models.PositiveIntegerField(blank=True, null=True)
-    hit = models.CharField(max_length=25, blank=True, null=True)
-
+class Tor20RangedAction(Tor20BaseAttackAction):
     class Meta:
         verbose_name = 'Ranged Action'

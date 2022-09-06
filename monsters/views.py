@@ -4,10 +4,11 @@ from itertools import chain
 from django.forms import formset_factory, inlineformset_factory
 from django.views.generic import DetailView, ListView, CreateView, TemplateView
 from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill, \
-    DnDLegendaryAction, DnDSavingThrows, DndReaction, Tor20Monster
+    DnDLegendaryAction, DnDSavingThrows, DndReaction, Tor20Monster, Tor20MeleeAction, \
+    Tor20RangedAction
 from django.core.paginator import Paginator
 from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait, FormDnDSkill, \
-    FormDnDLegendaryAction, FormDnDSavingThrow, FormDnDReaction, FormTor20Monster
+    FormDnDLegendaryAction, FormDnDSavingThrow, FormDnDReaction, FormTor20Monster, FormTor20BaseAttack
 
 
 # Create your views here.
@@ -85,19 +86,25 @@ class MonsterCreate(CreateView):
                                                    min_num=0, extra=0)
     DnDReaction_Formset = inlineformset_factory(form=FormDnDReaction, model=DndReaction, parent_model=DnDMonster,
                                                 min_num=0, extra=0)
+    Tor20MeleeAction_Formset = inlineformset_factory(form=FormTor20BaseAttack, model=Tor20MeleeAction,
+                                                     parent_model=Tor20Monster, min_num=0, extra=0)
+    Tor20RangedAction_Formset = inlineformset_factory(form=FormTor20BaseAttack, model=Tor20RangedAction,
+                                                      parent_model=Tor20Monster, min_num=0, extra=0)
 
     template_name = 'monsters/monster_create.html'
     form_class = FormMonster
     model = BaseSheet
     extra_context = {
         'dndmonster': FormDndMonster,
-        'tor20monster': FormTor20Monster,
         'dndaction': DnDAction_Formset(),
         'dndtrait': DndTrait_Formset(),
         'dndskill': DnDSkill_Formset(),
         'dndlegendary': DnDLegendary_Formset(),
         'dndsaving': DnDSavingThrow_Formset(),
         'dndreaction': DnDReaction_Formset(),
+        'tor20monster': FormTor20Monster,
+        'tor20melee': Tor20MeleeAction_Formset(),
+        'tor20ranged': Tor20RangedAction_Formset(),
     }
 
     def form_valid(self, form):
@@ -120,9 +127,9 @@ class MonsterCreate(CreateView):
                 intelligence=data['intelligence'],
                 wisdom=data['wisdom'],
                 charisma=data['charisma'],
-                languages=data['languages'],
+                languages=monster_data.get('languages'),
                 game=data['game'],
-                home_brew='True',
+                home_brew=True,
                 alignment=monster_data.get('alignment'),
                 challenge=int(monster_data.get('challenge')),
                 description=monster_data.get('description'),
@@ -225,7 +232,7 @@ class MonsterCreate(CreateView):
                 charisma=data['charisma'],
                 languages='None',
                 game=data['game'],
-                home_brew='True',
+                home_brew=True,
                 description=monster_data.get('description'),
                 image=self.request.FILES.get('image'),
             )

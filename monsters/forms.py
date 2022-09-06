@@ -10,8 +10,8 @@ class FormMonster(ModelForm):
         model = BaseSheet
         fields = (
             'game', 'name', 'race', 'size', 'ac', 'ac_type', 'hp', 'hp_dices', 'movement', 'strength',
-            'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma', 'languages', 'slug',
-            'home_brew',
+            'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma', 'slug',
+            'home_brew', 'image',
         )
         widgets = {
             'game': forms.Select(attrs={
@@ -59,7 +59,7 @@ class FormMonster(ModelForm):
             'charisma': forms.NumberInput(attrs={
                 'class': 'form-control'
             }),
-            'languages': forms.TextInput(attrs={
+            'image': forms.FileInput(attrs={
                 'class': 'form-control'
             }),
             'slug': forms.HiddenInput(),
@@ -71,10 +71,13 @@ class FormDndMonster(ModelForm):
     class Meta:
         model = DnDMonster
         fields = (
-            'alignment', 'challenge', 'description', 'image', 'senses', 'damage_resistances',
+            'languages', 'alignment', 'challenge', 'description', 'senses', 'damage_resistances',
             'damage_immunities', 'condition_immunities',
         )
         widgets = {
+            'languages': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
             'alignment': forms.TextInput(attrs={
                 'class': 'form-control'
             }),
@@ -82,9 +85,6 @@ class FormDndMonster(ModelForm):
                 'class': 'form-control'
             }),
             'description': forms.Textarea(attrs={
-                'class': 'form-control'
-            }),
-            'image': forms.FileInput(attrs={
                 'class': 'form-control'
             }),
             'senses': forms.TextInput(attrs={
@@ -287,6 +287,28 @@ class FormTor20GenericAction(ModelForm):
                 'class': 'form-control'
             }),
             'mana_cost': forms.NumberInput(attrs={
+                'class': 'form-control'
+            })
+        }
+
+
+class FormTor20BaseAttack(ModelForm):
+    class Meta:
+        fields = (
+            'monster', 'action_name', 'action_description', 'attack', 'hit'
+        )
+        widgets = {
+            'monster': forms.HiddenInput(),
+            'action_name': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'action_description': forms.Textarea(attrs={
+                'class', 'form-control'
+            }),
+            'attack': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'hit': forms.TextInput(attrs={
                 'class': 'form-control'
             })
         }
