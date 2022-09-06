@@ -66,6 +66,7 @@ class Tor20GenericActionInline(admin.TabularInline):
     extra = 0
     min_num = 0
     can_delete = 0
+    can_delete = True
 
 
 class Tor20MeleeActionInline(admin.TabularInline):
@@ -73,6 +74,7 @@ class Tor20MeleeActionInline(admin.TabularInline):
     extra = 0
     min_num = 0
     can_delete = 0
+    can_delete = True
 
 
 class Tor20RangedActionInline(admin.TabularInline):
@@ -80,6 +82,7 @@ class Tor20RangedActionInline(admin.TabularInline):
     extra = 0
     min_num = 0
     can_delete = 0
+    can_delete = True
 
 
 class Tor20MonsterAdmin(admin.ModelAdmin):

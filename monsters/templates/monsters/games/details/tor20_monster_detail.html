@@ -61,6 +61,13 @@
                         {% if monster.tor20genericaction_set.count > 0 %}
                             {% for action in monster.tor20genericaction_set.all %}
                                 <h5 class="text-danger lh-1 fs-6">{{ action.action_name }}
+                                    {% if action.action_type != 'SRD' %}
+                                        ({{ action.get_action_type_display }}
+                                    {% endif %}
+                                    {% if action.mana_cost or action.mana_cost > 0 %}
+                                        {{ action.mana_cost }})
+                                    {% endif %})
+
                                 <span class="text-dark">{{ action.action_description }}</span></h5>
                             {% endfor %}
                         {% endif %}

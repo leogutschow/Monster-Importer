@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 from .models import BaseSheet, DnDMonster, DnDAction, DnDSpecialTraits, DnDSkill, DnDLegendaryAction, \
-    DnDSavingThrows, DndReaction, games
+    DnDSavingThrows, DndReaction, Tor20Monster, games
 
 
 class FormMonster(ModelForm):
@@ -230,4 +230,15 @@ class FormDnDReaction(ModelForm):
             'reaction_description': forms.Textarea(attrs={
                 'class': 'form-control'
             }),
+        }
+
+
+class FormTor20Monster(ModelForm):
+    class Meta:
+        model = Tor20Monster
+        fields = (
+            'description', 'fortitude', 'reflex', 'will', 'level', 'mana', 'equipment', 'treasure',
+        )
+        widgets = {
+
         }

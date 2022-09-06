@@ -12,6 +12,14 @@ games = [
         ('TOR20', 'Tormenta20')
     ]
 
+tor20_action_type: list = [
+    ('SRD', 'Standard'),
+    ('MOV', 'Movement'),
+    ('COM', 'Complete'),
+    ('FRE', 'Free'),
+    ('REA', 'Reaction'),
+]
+
 
 def image_upload_path(instance, filename):
     if isinstance(instance, DnDMonster):
@@ -211,19 +219,31 @@ class Tor20Skill(models.Model):
 class Tor20GenericAction(models.Model):
     monster = models.ForeignKey(Tor20Monster, on_delete=models.CASCADE)
     action_name = models.CharField(max_length=100)
-    ranged = models.BooleanField(default=False)
-    action_description = models.TextField(blank=True, null=True)
+    action_description = models.TextField(default='', blank=True, null=True)
+    action_type = models.CharField(max_length=3, choices=tor20_action_type, default='SRD', blank=True, null=True)
+    mana_cost = models.PositiveIntegerField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Generic Action'
 
 
 class Tor20MeleeAction(models.Model):
     monster = models.ForeignKey(Tor20Monster, on_delete=models.CASCADE)
-    action_name = models.CharField(max_length=100)
+    action_name = models.CharField(max_length=100, default='')
+    action_description = models.TextField(default='', blank=True, null=True)
     attack = models.PositiveIntegerField(blank=True, null=True)
     hit = models.CharField(max_length=25, blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Melee Action'
 
 
 class Tor20RangedAction(models.Model):
     monster = models.ForeignKey(Tor20Monster, on_delete=models.CASCADE)
-    action_name = models.CharField(max_length=100)
+    action_name = models.CharField(max_length=100, default='')
+    action_description = models.TextField(default='', blank=True, null=True)
     attack = models.PositiveIntegerField(blank=True, null=True)
     hit = models.CharField(max_length=25, blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Ranged Action'
