@@ -1,7 +1,8 @@
 from django.forms import ModelForm
 from django import forms
 from .models import BaseSheet, DnDMonster, DnDAction, DnDSpecialTraits, DnDSkill, DnDLegendaryAction, \
-    DnDSavingThrows, DndReaction, Tor20Monster, games
+    DnDSavingThrows, DndReaction, Tor20Monster, Tor20GenericAction,\
+    Tor20RangedAction, Tor20MeleeAction, Tor20Skill, games
 
 
 class FormMonster(ModelForm):
@@ -264,4 +265,28 @@ class FormTor20Monster(ModelForm):
             'treasure': forms.Textarea(attrs={
                 'class': 'form-control'
             }),
+        }
+
+
+class FormTor20GenericAction(ModelForm):
+    class Meta:
+        model = Tor20GenericAction
+        fields = (
+            'monster', 'action_name', 'action_description', 'action_type',
+            'mana_cost'
+        )
+        widgets = {
+            'monster': forms.HiddenInput(),
+            'action_name': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'action_description': forms.Textarea(attrs={
+                'class': 'form-control'
+            }),
+            'action_type': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'mana_cost': forms.NumberInput(attrs={
+                'class': 'form-control'
+            })
         }

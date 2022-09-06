@@ -103,6 +103,7 @@ class MonsterCreate(CreateView):
     def form_valid(self, form):
         data = form.cleaned_data
         monster_data = self.request.POST
+        print(self.request.POST)
         if data['game'] == 'DND5E':
             monster = DnDMonster.objects.create(
                 name=monster_data.get('name'),
@@ -204,4 +205,29 @@ class MonsterCreate(CreateView):
                         )
                         new_saving.save()
 
-        return redirect('monster:monster_list')
+            return redirect('monster:monster_list')
+
+        if data['game'] == 'TOR20':
+            Tor20Monster.objects.create(
+                name=monster_data.get('name'),
+                race=data['race'],
+                size=data['size'],
+                ac=data['ac'],
+                ac_type='None',
+                hp=data['hp'],
+                hp_dices='None',
+                movement=data['movement'],
+                strength=data['strength'],
+                dexterity=data['dexterity'],
+                constitution=data['constitution'],
+                intelligence=data['intelligence'],
+                wisdom=data['wisdom'],
+                charisma=data['charisma'],
+                languages='None',
+                game=data['game'],
+                home_brew='True',
+                description=monster_data.get('description'),
+                image=self.request.FILES.get('image'),
+            )
+            return redirect('monster:monster_list')
+

@@ -30,15 +30,21 @@ function change_game(event){
         event.preventDefault()
     }
     const allGames = document.getElementById('specificGames').childNodes
-    console.log(gameSelect.value)
-    allGames.forEach(game => {game.setAttribute('class', 'hidden')})
-
+    allGames.forEach(game => {
+        if (game.tagName == 'DIV'){
+            console.log(game)
+            game.setAttribute('class', 'hidden')
+        }
+    })
     switch (gameSelect.value){
         case 'DND5E':
-            const dndForm = allGames.getElementById('dndMonsterForm')
-            console.log(dndForm)
+            const dndForm = document.getElementById('dndMonsterForm')
             dndForm.setAttribute('class', 'container col')
-    }
+
+        case 'TOR20':
+            const tor20Form = document.getElementById('tor20MonsterForm')
+            tor20Form.setAttribute('class', 'container col')
+        }
 }
 
 function add_new_action(event) {
