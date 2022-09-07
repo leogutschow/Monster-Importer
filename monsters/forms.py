@@ -259,10 +259,10 @@ class FormTor20Monster(ModelForm):
             'mana': forms.NumberInput(attrs={
                 'class': 'form-control'
             }),
-            'equipment': forms.Textarea(attrs={
+            'equipment': forms.TextInput(attrs={
                 'class': 'form-control'
             }),
-            'treasure': forms.Textarea(attrs={
+            'treasure': forms.TextInput(attrs={
                 'class': 'form-control'
             }),
         }
@@ -303,7 +303,7 @@ class FormTor20BaseAttack(ModelForm):
                 'class': 'form-control'
             }),
             'action_description': forms.Textarea(attrs={
-                'class', 'form-control'
+                'class': 'form-control'
             }),
             'attack': forms.NumberInput(attrs={
                 'class': 'form-control'

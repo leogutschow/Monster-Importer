@@ -1,4 +1,4 @@
-<div id="tor20MonsterForm" class="container col">
+<div id="tor20MonsterForm" class="hidden">
     <div class="container row pt-2">
         <div class="col">
             <label class="form-label" for="id_initiative">Initiative</label>
@@ -34,8 +34,65 @@
         <label for="id_description">Description</label>
          {{ tor20monster.description }}
     </div>
-
-    <div class="container row">
+    <div class="row pt-2">
+        <div class="col">
+            <label class="form-label" for="id_equipment">Equipment</label>
+            {{ tor20monster.equipment }}
+        </div>
+        <div class="col">
+            <label class="form-label" for="id_treasure">Treasure</label>
+            {{ tor20monster.treasure }}
+        </div>
+    </div>
+    <div class="p-2">
+        <div id="tor20MeleeActions">
+            <h5>Melee Attacks</h5>
+            {{ tor20melee.management_form }}
+            <div id="meleeList" class="row">
+                {% for melee in tor20melee %}
+                    <div class="melee-form">
+                        <div class="row">
+                            {{ melee }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <button id="addTor20MeleeBtn" class="btn btn-secondary" type="button">Add Melee Attack</button>
+        </div>
+        <div id="tor20RangedActions">
+            <h5>Ranged Attacks</h5>
+            {{ tor20ranged.management_form }}
+            <div id="rangedList" class="row">
+                {% for ranged in tor20ranged %}
+                    <div class="ranged-form">
+                        <div class="row">
+                            {{ ranged }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <button id="addTor20RangedBtn" class="btn btn-secondary" type="button">Add Ranged Attack</button>
+        </div>
+    </div>
+    <div id="emptyTor20Melee">
+        <div class="row">
+            <label class="form-label" for="tor20melee.empty_form.action_name.id_for_label">Action Name</label>
+            {{ tor20melee.empty_form.action_name }}
+        </div>
+        <div class="row">
+            <label class="form-label" for="tor20melee.empty_form.action_description.id_for_label">Action Description</label>
+            {{ tor20melee.empty_form.action_description }}
+        </div>
+         <div class="row">
+             <div class="col">
+                <label class="form-label" for="tor20melee.empty_form.attack.id_for_label">Attack Bonus</label>
+                +{{ tor20melee.empty_form.attack }}
+             </div>
+             <div class="col">
+                <label class="form-label" for="tor20melee.empty_form.hit.id_for_label">On Hit</label>
+                {{ tor20melee.empty_form.hit }}
+             </div>
+        </div>
 
     </div>
 </div>
