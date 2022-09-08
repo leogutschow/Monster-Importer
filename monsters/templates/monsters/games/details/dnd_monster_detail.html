@@ -16,7 +16,10 @@
                         <div class="row container">
                             <h5 class="fst-italic fs-6">{{ monster.get_game_display }}</h5>
                             {% if monster.home_brew %}
-                                <h5 class="fst-italic fs-6">Home Brew Monster Created By: {{ monster.created_by }}</h5>
+                                <h5 class="fst-italic fs-6">Home Brew Monster Created By:
+                                    <a class="text-decoration-none"
+                                       href="{% url 'auth:profile' monster.created_by %}">{{ monster.created_by }}</a>
+</h5>                           </h5>
                             {% endif %}
                         </div>
                         <h1 class="d-md-block text-danger pd-0 pt-3">{{ monster.name }}</h1>
