@@ -32,12 +32,17 @@
             <h1>Monster Created:</h1>
             <div class="d-flex justify-content-start">
                 {% for monster in monsters %}
-                    <a class="me-auto" href="{% url 'monster:monster_detail' monster.slug %}">
-                        <div class="border">
+                    <div class="rounded border me-auto p-2">
+                        <a class="text-decoration-none" href="{% url 'monster:monster_detail' monster.slug %}">
                             <img class="rounded mx-auto" src="{{ monster.image.url }}" style="max-width: 10vw">
-                            <h5 class="text-center">{{ monster.name }}</h5>
+                            <h5 class="text-dark text-center">{{ monster.name }}</h5>
+                        </a>
+                        <div class="container-fluid">
+                            <button class="btn btn-secondary" type="button">
+                                <a class="text-white text-decoration-none">Change Monster</a>
+                            </button>
                         </div>
-                    </a>
+                    </div>
                 {% endfor %}
             </div>
         </div>
