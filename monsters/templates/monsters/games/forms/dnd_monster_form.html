@@ -1,0 +1,235 @@
+<div id="dndMonsterForm" class="container col">
+    <div class="container row pt-2">
+        <div class="col">
+            <label class="form-label" for="id_alignment">Alignment</label>
+            {{ dndmonster.alignment }}
+        </div>
+        <div class="col">
+            <label class="form-label" for="id_challenge">Challenge</label>
+            {{ dndmonster.challenge }}
+        </div>
+    </div>
+    <div class="container row pt-2">
+        <div class="col m-0">
+            <label class="form-label" for="id_description">Monster Description</label>
+            {{ dndmonster.description }}
+        </div>
+    </div>
+    <div class="container row pt-2">
+        <div class="col m-0">
+            <label class="form-label" for="id_image">Image</label>
+            {{ dndmonster.image }}
+        </div>
+        <div class="col m-0">
+            <label class="form-label" for="id_senses">Senses</label>
+            {{ dndmonster.senses }}
+        </div>
+    </div>
+    <div class="container row pt-2">
+        <div class="col m-0">
+            <label class="form-label" for="id_damage_resistances">Damage Resistances</label>
+            {{ dndmonster.damage_resistances }}
+        </div>
+        <div class="col m-0">
+            <label class="form-label" for="id_damage_immunities">Damage Immunities</label>
+            {{ dndmonster.damage_immunities }}
+        </div>
+    </div>
+    <div class="container row pt-2">
+        <div class="col m-0">
+            <label  class="form-label"for="id_condition_immunities">Condition Immunities</label>
+            {{ dndmonster.condition_immunities }}
+        </div>
+    </div>
+    ________________________________________________________________________________________________
+    <div id="dndSkillForm">
+        <h5>Skills</h5>
+        {{ dndskill.management_form }}
+        <div id="skillList" class="row">
+            {% for skill in dndskill %}
+            <div class="skill-form">
+                <div class="row">
+                    {{ skill }}
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+        <button id="addSkillBtn" class="btn btn-secondary" type="button">Add Skill</button>
+    </div>
+        ________________________________________________________________________________________________
+    <div id="dndSavingForm">
+        <h5>Saving Throws</h5>
+        {{ dndsaving.management_form }}
+        <div id="savingList" class="row">
+            {% for saving in dndsaving %}
+            <div class="saving-form">
+                <div class="row">
+                    {{ saving }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <button id="addSavingBtn" class="btn btn-secondary" type="button">Add Saving Throw</button>
+    </div>
+        ________________________________________________________________________________________________
+    <div id="dndTraitForm">
+        <h5>Traits</h5>
+        {{ dndtrait.management_form }}
+        <div id="traitList">
+            {% for trait in dndtrait %}
+                <div class="trait-form">
+                    {{ trait }}
+                </div>
+            {% endfor %}
+        </div>
+        <button id="addTraitBtn" class="btn btn-secondary" type="button">Add Trait</button>
+    </div>
+        ________________________________________________________________________________________________
+    <div id="dndActionForm">
+        <h5>Actions</h5>
+        {{ dndaction.management_form }}
+        <div id="actionList">
+            {% for action in dndaction %}
+            <div class="action-form">
+                {{ action }}
+                <br>
+            </div>
+            {% endfor %}
+        </div>
+        <button id="addActionBtn" class="btn btn-secondary" type="button">Add an Action</button>
+    </div>
+        ________________________________________________________________________________________________
+    <p>Every Monster in DnD that has some Legendary Action, also has some attributes that comes with it,
+    how many actions that particularly Monster can do a day for example. For that kind of information, add
+    a Legendary Action with the name BASE (case-sensitive) and the description of those attributes</p>
+    <div id="dndLegendaryForm">
+        <h5>Legendary Actions</h5>
+        {{ dndlegendary.management_form }}
+        <div id="legendaryList">
+            {% for legendary in dndlegendary %}
+            <div class="legendary-form">
+                {{ legendary }}
+                <br>
+            </div>
+            {% endfor %}
+        </div>
+        <button id="addLegendaryBtn" class="btn btn-secondary" type="button">Add Legendary Action</button>
+    </div>
+        ________________________________________________________________________________________________
+    <div id="dndReactionForm">
+        <h5>Reactions</h5>
+        {{ dndreaction.management_form }}
+        <div id="reactionList">
+            {% for reaction in dndreaction %}
+            <div class="reaction-form">
+                {{ reaction }}
+                <br>
+            </div>
+            {% endfor %}
+        </div>
+        <button id="addReactionBtn" class="btn btn-secondary" type="button">Add Reaction</button>
+    </div>
+    <div id="emptyActionForm" class="hidden">
+        <div class="p-2">
+            <label class="form-label" for="{{ dndaction.empty_form.action_name.id_for_label }}">Action Name</label>
+            {{ dndaction.empty_form.action_name }}
+            <label class="form-label" for="{{ dndaction.empty_form.action_escription.id_for_label }}">Action Description</label>
+            {{ dndaction.empty_form.action_description }}
+            <div class="row">
+                    <label class="form-label" for="{{ dndaction.empty_form.is_attack.id_for_label }}">Is Attack:</label>
+                    {{ dndaction.empty_form.is_attack }}
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label class="form-label" for="{{ dndaction.empty_form.weapon_type.id_for_label }}">Weapon Type</label>
+                    {{ dndaction.empty_form.weapon_type }}
+                </div>
+                <div class="col">
+                    <label class="form-label" for="{{ dndaction.empty_form.attack.id_for_label }}">Attack</label>
+                    {{ dndaction.empty_form.attack }}
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label class="form-label" for="{{ dndaction.empty_form.reach.id_for_label }}">Reach</label>
+                        {{ dndaction.empty_form.reach }}
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="{{ dndaction.empty_form.hit.id_for_label }}">On Hit</label>
+                        {{ dndaction.empty_form.hit }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label class="form-label" for="{{ dndaction.empty_form.hit_dice.id_for_label }}">Hit Dice</label>
+                        {{ dndaction.empty_form.hit_dice }}
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="{{ dndaction.empty_form.damage_type.id_for_label }}">Damage Type</label>
+                        {{ dndaction.empty_form.damage_type }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="emptyTraitForm" class="hidden">
+        <div class="p-2">
+            <label class="form-label" for="{{ dndtrait.empty_form.specialtrait_name.id_for_label }}">Trait Name</label>
+            {{ dndtrait.empty_form.specialtrait_name }}
+            <label class="form-label" for="{{ dndtrait.empty_form.specialtrait_description.id_for_label }}">Trait Description</label>
+            {{ dndtrait.empty_form.specialtrait_description }}
+            <div class="row">
+                <div class="col">
+                    <label class="form-label" for="{{ dndtrait.empty_form.spellcasting.id_for_label }}">Is Spellcaster:</label>
+                    {{ dndtrait.empty_form.spellcasting }}
+                </div>
+                <div class="col">
+                    <label class="form-label" for="{{ dndtrait.empty_form.spellcasting.id_for_label }}">Spells:</label>
+                    {{ dndtrait.empty_form.dnd_spells }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="emptySkillForm" class="hidden">
+        <div class="p-2 col" style="max-width: 60px">
+            <div class="row">
+                <label class="form-label" for="{{ dndskill.empty_form.skill_name.id_for_label }}">Skill</label>
+                {{ dndskill.empty_form.skill_name }}
+            </div>
+            <div class="row">
+                <label class="form-label" for="{{ dndskill.empty_form.modifier.id_for_label }}">Modifier</label>
+                {{ dndskill.empty_form.modifier }}
+            </div>
+        </div>
+    </div>
+    <div id="emptyLegendaryForm" class="hidden">
+        <div class="col">
+            <label class="form-label" for="{{ dndlegendary.empty_form.legendary_name.id_for_label }}">Legendary Action Name</label>
+            {{ dndlegendary.empty_form.legendary_name }}
+            <label class="form-label" for="{{ dndlegendary.empty_form.legendary_description.id_for_label }}">Legendary Action Description</label>
+            {{ dndlegendary.empty_form.legendary_description }}
+
+        </div>
+    </div>
+    <div id="emptySavingForm" class="hidden">
+        <div class="col" style="max-width: 60px">
+            <div class="row">
+                <label class="form-label" for="{{ dndsaving.empty_form.attr.id_for_label }}">Attriute</label>
+                {{ dndsaving.empty_form.attr }}
+            </div>
+            <div class="row">
+                <label class="form-label" for="{{ dndsaving.empty_form.bonus.id_for_label }}">Modifier</label>
+                {{ dndsaving.empty_form.bonus }}
+            </div>
+        </div>
+    </div>
+    <div id="emptyReactionForm" class="hidden">
+        <div class="col">
+            <label class="form-label" for="{{ dndreaction.empty_form.reaction_name.id_for_label }}">Reaction Name</label>
+            {{ dndreaction.empty_form.reaction_name }}
+            <label class="form-label" for="{{ dndlegendary.empty_form.reaction_description.id_for_label }}">Reaction Description</label>
+            {{ dndreaction.empty_form.reaction_description }}
+
+        </div>
+    </div>
+</div>

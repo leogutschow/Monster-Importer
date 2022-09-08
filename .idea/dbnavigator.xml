@@ -29,7 +29,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="58c67a9f-5769-42a5-b8ec-11c617519e7d">
-      <console name="Connection" type="STANDARD" schema="main" session="Main">SELECT * FROM monsters_dndspecialtraits_dnd_spells;</console>
+      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[SELECT * FROM monsters_dndmonster;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
@@ -167,8 +167,8 @@
     </connections>
     <browser-settings>
       <general>
-        <display-mode value="TABBED" />
-        <navigation-history-size value="100" />
+        <display-mode value="SIMPLE" />
+        <navigation-history-size value="1000" />
         <show-object-details value="false" />
       </general>
       <filters>
@@ -470,7 +470,7 @@
     </code-completion-settings>
     <execution-engine-settings>
       <statement-execution>
-        <fetch-block-size value="100" />
+        <fetch-block-size value="10000" />
         <execution-timeout value="20" />
         <debug-execution-timeout value="600" />
         <focus-result value="false" />

@@ -4,7 +4,7 @@
 *.sqlite3
 /__pycache__/
 /media/
-.idea/*
+.idea/
 bootstrap/
 !.gitignore
 */migrations/*
