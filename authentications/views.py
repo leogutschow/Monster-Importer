@@ -3,7 +3,9 @@ from .forms import RegisterForm
 from django.contrib.auth.models import User
 from .models import Profile
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import FormView, DetailView
+from monsters.models import BaseSheet
 
 
 # Create your views here.
@@ -49,12 +51,15 @@ class Register(FormView):
             return HttpResponseRedirect(redirect_to=reverse('home:home_page'))
 
 
-class ProfileView(DetailView):
+class ProfileView(DetailView, LoginRequiredMixin):
     model = Profile
     template_name = 'accounts/profile_detail.html'
+    login_url = 'auth:login'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         profile = Profile.objects.get(user=self.get_object().user)
+        monsters = BaseSheet.objects.filter(created_by=profile)
         context['profile'] = profile
+        context['monsters'] = monsters
         return context
