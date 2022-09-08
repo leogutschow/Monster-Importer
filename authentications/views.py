@@ -1,8 +1,7 @@
 from django.shortcuts import render, reverse, redirect, HttpResponseRedirect
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from .forms import RegisterForm
 from django.contrib.auth.models import User
 from .models import Profile
-from .forms import RegisterForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import FormView, DetailView
 
@@ -21,32 +20,24 @@ class Register(FormView):
     template_name = 'authentications/register.html'
     form_class = RegisterForm
 
-    def post(self, request, *args, **kwargs):
-        form = RegisterForm(request.POST)
+    def form_valid(self, form):
+        cleaned_data = form.cleaned_data
         if form.is_valid():
-            cleaned_data = form.cleaned_data
             if User.objects.filter(username=cleaned_data['username']).exists():
-                return render(request, self.template_name, {
+                return render(self.request, self.template_name, {
                     'form': self.form_class,
                     'error_message': 'Username already exists'
                 })
-
-            elif User.objects.filter(email=cleaned_data['email']).exists():
-                return render(request, self.template_name, {
-                    'form': self.form_class,
-                    'error_message': 'Email already in the database'
-                })
-
-            elif cleaned_data['password'] != cleaned_data['password_repeat']:
-                return render(request, self.template_name, {
+            print(cleaned_data)
+            if cleaned_data['password1'] != cleaned_data['password2']:
+                return render(self.request, self.template_name, {
                     'form': self.form_class,
                     'error_message': "Passwords don't match"
                 })
-
             new_user = User.objects.create_user(
                 username=cleaned_data['username'],
                 email=cleaned_data['email'],
-                password=cleaned_data['password']
+                password=cleaned_data['password1']
             )
             new_user.save()
 
@@ -61,13 +52,9 @@ class Register(FormView):
 class ProfileView(DetailView):
     model = Profile
     template_name = 'accounts/profile_detail.html'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        print(self.get_object().username)
-        profile = Profile.objects.all()
-        profile.filter(
-            user=self.get_object().pk
-        )
-        print(profile)
+        profile = Profile.objects.get(user=self.get_object().user)
         context['profile'] = profile
         return context

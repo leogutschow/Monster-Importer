@@ -4,9 +4,7 @@ from .models import Profile
 
 # Register your models here.
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = (
-        'id', 'username', 'email'
-    )
+    pass
 
 
 admin.site.register(Profile, ProfileAdmin)

@@ -5,12 +5,16 @@
 </head>
 <body>
     {% block 'conteudo' %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            <div class="container">
+                {{ form.as_p }}
+            </div>
+            <button class="btn btn-success" type="submit">Register</button>
+        </form>
 
+    </div>
     {% endblock %}
 
 </body>
