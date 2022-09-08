@@ -44,24 +44,34 @@
                         {% if monster.mana > 0 %}
                              <h5 class="fs-6 text-danger">Mana Points: <span class="text-dark">{{ monster.mana }}</span></h5>
                         {% endif %}
-                        {% if monster.tor20action_set.count > 0 %}
+                        {% if monster.tor20meleeaction_set.count > 0 %}
                             <h5 class="text-danger lh-1 fs-6">Melee Attacks:
-                                {% for attack in monster.tor20action_set.all %}
-                                    {% if attack.melee %}
+                                {% for attack in monster.tor20meleeaction_set.all %}
                                         <span class="text-dark">{{ attack.action_name }} +{{ attack.attack }} ({{ attack.hit }})</span>
-                                    {% endif %}
                                 {% endfor %}
                             .</h5>
+                        {% endif %}
+                        {% if monster.tor20rangedaction_set.count > 0 %}
                             <h5 class="text-danger lh-1 fs-6">Ranged Attacks:
-                                {% for attack in monster.tor20action_set.all %}
-                                    {% if attack.ranged %}
+                                {% for attack in monster.tor20rangedaction_set.all %}
                                         <span class="text-dark">{{ attack.action_name }} +{{ attack.attack }} ({{ attack.hit }})</span>
-                                    {% endif %}
                                 {% endfor %}
                             </h5>
-
-
                         {% endif %}
+                        {% if monster.tor20genericaction_set.count > 0 %}
+                            {% for action in monster.tor20genericaction_set.all %}
+                                <h5 class="text-danger lh-1 fs-6">{{ action.action_name }}
+                                    {% if action.action_type != 'SRD' %}
+                                        ({{ action.get_action_type_display }}
+                                    {% endif %}
+                                    {% if action.mana_cost or action.mana_cost > 0 %}
+                                        {{ action.mana_cost }})
+                                    {% endif %})
+
+                                <span class="text-dark">{{ action.action_description }}</span></h5>
+                            {% endfor %}
+                        {% endif %}
+
                         <h5 class="text-danger lh-1 fs-6">__________________________________________________________________</h5>
                         <div class="row">
                             <h5 class="text-center col fs-6 fw-bold text-danger">
@@ -74,14 +84,18 @@
                             </h5>
                         </div>
                         <h5 class="text-danger lh-1 fs-6">__________________________________________________________________</h5>
-                        <h5 class="text-danger lh-1 fs-6">Skills
-                            {% for skill in monster.tor20skill_set.all %}
-                                {% if skill.skill_name != 'Initiative' and skill.skill_name != 'Perception'%}
-                                    <span class="text-dark">{{ skill.skill_name }} +{{ skill.skill_bonus }},</span>
-                                {% endif %}
-                            {% endfor %}
-
-                        </h5>
+                        {% if monster.tor20skill_set.count > 2 %}
+                            <h5 class="text-danger lh-1 fs-6">Skills
+                                {% for skill in monster.tor20skill_set.all %}
+                                    {% if skill.skill_name != 'Initiative' and skill.skill_name != 'Perception'%}
+                                        <span class="text-dark">{{ skill.skill_name }} +{{ skill.skill_bonus }},</span>
+                                    {% endif %}
+                                {% endfor %}</h5>
+                        {% endif %}
+                        {% if monster.equipment and monster.equipment != 'None' %}
+                            <h5 class="text-danger lh-1 fs-6">Equipment <span class="text-dark">{{ monster.equipment }}</span></h5>
+                        {% endif %}
+                        <h5 class="text-danger lh-1 fs-6">Treasure <span class="text-dark">{{ monster.treasure }}</span></h5>
                 </div>
             </div>
         </div>

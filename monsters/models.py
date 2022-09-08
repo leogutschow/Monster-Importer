@@ -12,6 +12,14 @@ games = [
         ('TOR20', 'Tormenta20')
     ]
 
+tor20_action_type: list = [
+    ('SRD', 'Standard'),
+    ('MOV', 'Movement'),
+    ('COM', 'Complete'),
+    ('FRE', 'Free'),
+    ('REA', 'Reaction'),
+]
+
 
 def image_upload_path(instance, filename):
     if isinstance(instance, DnDMonster):
@@ -37,7 +45,6 @@ class BaseSheet(models.Model):
     intelligence: int = models.IntegerField()
     wisdom: int = models.IntegerField()
     charisma: int = models.IntegerField()
-    languages: str = models.CharField(max_length=100, default="None")
     slug: str = models.SlugField(blank=True, null=True)
     game: str = models.CharField(default='', max_length=5, choices=games)
     home_brew: bool = models.BooleanField(default=False)
@@ -56,6 +63,7 @@ class BaseSheet(models.Model):
 
 
 class DnDMonster(BaseSheet):
+    languages: str = models.CharField(max_length=100, default="None")
     alignment: str = models.CharField(max_length=30, default="Neutral")
     description: str = models.TextField(default="")
     senses: str = models.CharField(max_length=100, blank=True, null=True)
@@ -167,7 +175,8 @@ class Tor20Monster(BaseSheet):
     will: int = models.PositiveIntegerField(default=0)
     level: int = models.PositiveIntegerField()
     mana: int = models.PositiveIntegerField()
-    equipment: str = models.CharField(max_length=200, default='')
+    equipment: str = models.CharField(max_length=200, default='None')
+    treasure = models.CharField(max_length=200, default='None')
 
 
 class Tor20Skill(models.Model):
@@ -207,12 +216,30 @@ class Tor20Skill(models.Model):
     skill_bonus: int = models.PositiveIntegerField()
 
 
-class Tor20Action(models.Model):
+class Tor20GenericAction(models.Model):
     monster = models.ForeignKey(Tor20Monster, on_delete=models.CASCADE)
     action_name = models.CharField(max_length=100)
-    melee = models.BooleanField(default=False)
-    ranged = models.BooleanField(default=False)
+    action_description = models.TextField(default='', blank=True, null=True)
+    action_type = models.CharField(max_length=3, choices=tor20_action_type, default='SRD', blank=True, null=True)
+    mana_cost = models.PositiveIntegerField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Generic Action'
+
+
+class Tor20BaseAttackAction(models.Model):
+    monster = models.ForeignKey(Tor20Monster, on_delete=models.CASCADE)
+    action_name = models.CharField(max_length=100, default='')
+    action_description = models.TextField(default='', blank=True, null=True)
     attack = models.PositiveIntegerField(blank=True, null=True)
     hit = models.CharField(max_length=25, blank=True, null=True)
-    action_description = models.TextField(blank=True, null=True)
 
+
+class Tor20MeleeAction(Tor20BaseAttackAction):
+    class Meta:
+        verbose_name = 'Melee Action'
+
+
+class Tor20RangedAction(Tor20BaseAttackAction):
+    class Meta:
+        verbose_name = 'Ranged Action'

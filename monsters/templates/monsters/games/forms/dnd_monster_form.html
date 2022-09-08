@@ -1,5 +1,11 @@
 <div id="dndMonsterForm" class="container col">
     <div class="container row pt-2">
+        <div class="col m-0">
+            <label class="form-label" for="id_languages">Languages</label>
+            {{ dndmonster.languages }}
+        </div>
+    </div>
+    <div class="container row pt-2">
         <div class="col">
             <label class="form-label" for="id_alignment">Alignment</label>
             {{ dndmonster.alignment }}
@@ -16,10 +22,7 @@
         </div>
     </div>
     <div class="container row pt-2">
-        <div class="col m-0">
-            <label class="form-label" for="id_image">Image</label>
-            {{ dndmonster.image }}
-        </div>
+
         <div class="col m-0">
             <label class="form-label" for="id_senses">Senses</label>
             {{ dndmonster.senses }}

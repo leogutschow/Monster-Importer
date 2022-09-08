@@ -1,3 +1,6 @@
+const gameSelect = document.getElementById('id_game')
+gameSelect.addEventListener('change', change_game)
+
 const totalActionNewForms = document.getElementById('id_dndaction_set-TOTAL_FORMS')
 const addActionBtn = document.getElementById('addActionBtn')
 addActionBtn.addEventListener('click', add_new_action)
@@ -21,6 +24,33 @@ addSavingBtn.addEventListener('click', add_saving)
 const totalReactionNewForms = document.getElementById('id_dndreaction_set-TOTAL_FORMS')
 const addReactionBtn = document.getElementById('addReactionBtn')
 addReactionBtn.addEventListener('click', add_reaction)
+
+const totalTor20MeleeForms = document.getElementById('id_tor20meleeaction_set-TOTAL_FORMS')
+const addReactionBtn = document.getElementById('addTor20MeleeBtn')
+addReactionBtn.addEventListener('click', add_new_tor20_action)
+
+function change_game(event){
+    if (event){
+        event.preventDefault()
+    }
+    const allGames = document.getElementById('specificGames').childNodes
+     allGames.forEach(game => {
+        if (game.tagName == 'DIV'){
+            console.log(game)
+            game.setAttribute('class', 'hidden')
+            console.log(game)
+        }
+    })
+    switch (gameSelect.value){
+        case 'DND5E':
+            const dndForm = document.getElementById('dndMonsterForm')
+            dndForm.setAttribute('class', 'container col')
+
+        case 'TOR20':
+            const tor20Form = document.getElementById('tor20MonsterForm')
+            tor20Form.setAttribute('class', 'container col')
+    }
+}
 
 function add_new_action(event) {
     if (event){
@@ -111,3 +141,19 @@ function add_reaction(event){
     totalReactionNewForms.setAttribute('value', currentReactionForms.length + 1)
     formCopyTarget.append(emptyForm)
 }
+
+function add_new_tor20_action(event) {
+    if (event){
+        event.preventDefault()
+    }
+    const currentTor20MeleeForms = document.getElementsByClassName('melee-form')
+    const formCopyTarget = document.getElementById('meleeList')
+    const emptyForm = document.getElementById('emptyTor20Melee').cloneNode(true)
+    emptyForm.setAttribute('class', 'melee-form')
+    emptyForm.setAttribute('id', `form-${currentTor20MeleeForms.length +1}`)
+    const regex = new RegExp('__prefix__', 'g')
+    emptyForm.innerHTML = emptyForm.innerHTML.replace(regex, currentTor20MeleeForms.length)
+    totalTor20MeleeForms.setAttribute('value', currentTor20MeleeForms.length + 1)
+    formCopyTarget.append(emptyForm)
+}
+

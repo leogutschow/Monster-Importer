@@ -66,6 +66,7 @@
                     <th>AC</th>
                     <th>Challenge</th>
                     <th>Game Rule</th>
+                    <th>Home Brew</th>
                 </thead>
                 <tbody>
                     {% if monsters.count == 0 %}
@@ -84,6 +85,11 @@
                             <td>{{ monster.ac }}</td>
                             <td>{{ monster.challenge }}</td>
                             <td>{{ monster.get_game_display }}</td>
+                            {% if monster.home_brew %}
+                                <td><h3 class="text-success">✓</h3></td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                 </tbody>

@@ -85,15 +85,17 @@
                                 {{ form.charisma }}
                             </div>
                         </div>
-                        <div class="container row pt-2">
-                            <div class="col m-0">
-                                <label class="form-label" for="id_languages">Languages</label>
-                                {{ form.languages }}
-                            </div>
+                        <div class="row ms-3 me-3 mt-2">
+                            <label class="form-label" for="id_image">Image</label>
+                            {{ form.image }}
                         </div>
+
                     </div>
                     ________________________________________________________________________________________________
-                {% include 'monsters/games/forms/dnd_monster_form.html' %}
+                    <div id="specificGames">
+                        {% include 'monsters/games/forms/dnd_monster_form.html' %}
+                        {% include 'monsters/games/forms/tor20_monster_form.html' %}
+                    </div>
                 </div>
                 <button class="btn btn-success m-2" type="submit">Submit</button>
             </form>
