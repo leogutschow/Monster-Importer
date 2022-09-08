@@ -25,6 +25,10 @@ const totalReactionNewForms = document.getElementById('id_dndreaction_set-TOTAL_
 const addReactionBtn = document.getElementById('addReactionBtn')
 addReactionBtn.addEventListener('click', add_reaction)
 
+const totalTor20MeleeForms = document.getElementById('id_tor20meleeaction_set-TOTAL_FORMS')
+const addReactionBtn = document.getElementById('addTor20MeleeBtn')
+addReactionBtn.addEventListener('click', add_new_tor20_action)
+
 function change_game(event){
     if (event){
         event.preventDefault()
@@ -135,6 +139,21 @@ function add_reaction(event){
     const regex = new RegExp('__prefix__', 'g')
     emptyForm.innerHTML = emptyForm.innerHTML.replace(regex, currentReactionForms.length)
     totalReactionNewForms.setAttribute('value', currentReactionForms.length + 1)
+    formCopyTarget.append(emptyForm)
+}
+
+function add_new_tor20_action(event) {
+    if (event){
+        event.preventDefault()
+    }
+    const currentTor20MeleeForms = document.getElementsByClassName('melee-form')
+    const formCopyTarget = document.getElementById('meleeList')
+    const emptyForm = document.getElementById('emptyTor20Melee').cloneNode(true)
+    emptyForm.setAttribute('class', 'melee-form')
+    emptyForm.setAttribute('id', `form-${currentTor20MeleeForms.length +1}`)
+    const regex = new RegExp('__prefix__', 'g')
+    emptyForm.innerHTML = emptyForm.innerHTML.replace(regex, currentTor20MeleeForms.length)
+    totalTor20MeleeForms.setAttribute('value', currentTor20MeleeForms.length + 1)
     formCopyTarget.append(emptyForm)
 }
 
