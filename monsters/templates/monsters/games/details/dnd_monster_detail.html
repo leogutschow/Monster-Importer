@@ -1,0 +1,117 @@
+{% load calculate %}
+<div class="container pt-5">
+        <div class="container col">
+            <div class="row justify-content-md-center">
+                <div class="col-auto">
+                    <img src="{{ monster.image.url }}" style="height: 65vh">
+                    <div class="container col p-3">
+                        <button class="btn btn-success" type="button">Import Monster!</button>
+                    </div>
+                    <p class="p-4">
+                        {{ monster.description }}
+                    </p>
+                </div>
+                <div class="container-md col-auto bg-image p-3" style="background-image: url(https://i.imgur.com/hTt73aH.png); width: 547px; max-height:7000px">
+                    <div class="container">
+                        <div class="row container">
+                            <h5 class="fst-italic fs-6">{{ monster.get_game_display }}</h5>
+                            {% if monster.home_brew %}
+                                <h5 class="fst-italic fs-6">Home Brew Monster Created By:
+                                    <a class="text-decoration-none"
+                                       href="{% url 'auth:profile' monster.created_by %}">{{ monster.created_by }}</a>
+</h5>                           </h5>
+                            {% endif %}
+                        </div>
+                        <h1 class="d-md-block text-danger pd-0 pt-3">{{ monster.name }}</h1>
+                        <h5 class="lh-1 fs-6 fst-italic">{{ monster.size }} {{ monster.race }}, {{ monster.alignment }}</h5>
+                        <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
+                        <h5 class="fs-6 text-danger">Armor Class: {{ monster.ac }} ({{ monster.ac_type }})</h5>
+                        <h5 class="fs-6 text-danger">Hit Points: {{ monster.hp }} ({{ monster.hp_dices }})</h5>
+                        <h5 class="fs-6 text-danger">Movement: {{ monster.movement }}</h5>
+                        <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
+                        <div class="row">
+                            <h5 class="col fs-6 fw-bold text-danger">STR</h5>
+                            <h5 class="col fs-6 fw-bold text-danger">DEX</h5>
+                            <h5 class="col fs-6 fw-bold text-danger">CON</h5>
+                            <h5 class="col fs-6 fw-bold text-danger">INT</h5>
+                            <h5 class="col fs-6 fw-bold text-danger">WIS</h5>
+                            <h5 class="col fs-6 fw-bold text-danger">CAR</h5>
+                        </div>
+                        <div class="row">
+                            <h5 class="col fs-6">{{ monster.strength }} ({{monster.strength|calculate_mod}})</h5>
+                            <h5 class="col fs-6">{{ monster.dexterity }} ({{monster.dexterity|calculate_mod}})</h5>
+                            <h5 class="col fs-6">{{ monster.constitution }} ({{monster.constitution|calculate_mod}})</h5>
+                            <h5 class="col fs-6">{{ monster.intelligence }} ({{monster.intelligence|calculate_mod}})</h5>
+                            <h5 class="col fs-6">{{ monster.wisdom }} ({{monster.wisdom|calculate_mod}})</h5>
+                            <h5 class="col fs-6">{{ monster.charisma }} ({{monster.charisma|calculate_mod}})</h5>
+                        </div>
+                        <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
+                        <div class="row">
+                            {% if monster.dndsavingthrows_set.count > 0 %}
+                                {% if monster.dndsavingthrows_set.count == 1 %}
+                                    <h5 class="fs-6">Saving Throws: {% for saving in monster.dndsavingthrows_set.all %}{{ saving.attr }} + {{ saving.bonus }}{% endfor %}</h5>
+                                {% else %}
+                                    <h5 class="fs-6">Saving Throws: {% for saving in monster.dndsavingthrows_set.all %}{{ saving.attr }} + {{ saving.bonus }}, {% endfor %}</h5>
+                                {% endif %}
+                            {% endif %}
+                            {% if monster.damage_immunities %}
+                                <h5 class="fs-6">Damage Immunities: {{ monster.damage_immunities }}</h5>
+                            {% endif %}
+                            {% if monster.condition_immunities %}
+                                <h5 class="fs-6">Condition Immunities: {{ monster.condition_immunities }}</h5>
+                            {% endif %}
+                            {% if monster.dndskill_set.count == 1 %}
+                                <h5 class="fs-6">Skills: {% for skill in monster.dndskill_set.all %}{{ skill.skill_name }} +{{ skill.modifier }}{% endfor %}</h5>
+                            {% elif monster.dndskill_set.count > 1 %}
+                                <h5 class="fs-6">Skills: {% for skill in monster.dndskill_set.all %}{{ skill.skill_name }} +{{ skill.modifier }}, {% endfor %}</h5>
+                            {% endif %}
+                            <h5 class="fs-6">Senses: {{ monster.senses }}</h5>
+                            <h5 class="fs-6">Languages: {{ monster.languages }}</h5>
+                            <h5 class="fs-6">Challenge: {{ monster.challenge }} ({{ monster.challenge|calculate_challenge }}xp)</h5>
+                        </div>
+                        {% if monster.dndspecialtraits_set.count > 0 %}
+                            <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
+                            {% for specialtrait in monster.dndspecialtraits_set.all %}
+                                <p>
+                                    <h5 class="fw-bold fs-6" style="display: inline">{{ specialtrait.specialtrait_name }}. </h5>
+                                    {{ specialtrait.specialtrait_description }}
+                                </p>
+                            {% endfor %}
+                        {% endif %}
+                        {% if monster.dndaction_set.count > 0 %}
+                            <h3 class="d-md-block text-danger pd-0 pt-3">Actions</h3>
+                            <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
+                            {% for action in monster.dndaction_set.all %}
+                                <p>
+                                    <h5 class="fw-bold fs-6" style="display: inline">{{ action.action_name }}. </h5>{{ action.action_description }}
+                                </p>
+                            {% endfor %}
+                        {% endif %}
+                        {% if monster.dndlegendaryaction_set.count > 0 %}
+                            <h3 class="d-md-block text-danger pd-0 pt-3">Legendary Actions</h3>
+                            <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
+                            {% for legendary in monster.dndlegendaryaction_set.all %}
+                                {% if legendary.legendary_name == 'BASE' %}
+                                    <p>{{ legendary.legendary_description }}</p>
+                                {% else %}
+                                <p>
+                                    <h5 class="fw-bold fs-6" style="display: inline">{{ legendary.legendary_name }}. </h5>{{ legendary.legendary_description }}
+                                </p>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        {% if monster.dndreaction_set.count > 0 %}
+                            <h3 class="d-md-block text-danger pd-0 pt-3">Reactions</h3>
+                            <h5 class="lh-1 fs-6">__________________________________________________________________</h5>
+                            {% for reaction in monster.dndreaction_set.all %}
+                                <p>
+                                    <h5 class="fw-bold fs-6" style="display: inline">{{ reaction.reaction_name }}. </h5>{{ reaction.reaction_description }}
+                                </p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>

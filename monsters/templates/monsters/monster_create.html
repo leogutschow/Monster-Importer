@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+<head xmlns="http://www.w3.org/1999/html">
+    <title>{% block 'titulo' %}Create Monster{% endblock %}</title>
+    {% block 'styles' %}
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+    {% block 'conteudo' %}
+        <div class="container text-center p-5">
+            <form class="container" method="POST" action="#create_monster" enctype="multipart/form-data"
+            style="background-image: url(https://i.imgur.com/hTt73aH.png); max-width: 40vw; max-height:7000px">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <div id="baseSheetForm" class="col">
+                        <div class="container row pt-2 game-selector">
+                            <label class="form-label" for="id_game">Game</label>
+                            {{ form.game }}
+                        </div>
+                        ________________________________________________________________________________________________
+                        <div class="container row pt-2">
+                            <label class="form-label" for="id_name">Monster Name</label>
+                            {{ form.name }}
+                            <div class="col m-0">
+                                <label class="form-label" for="id_size">Size</label>
+                                {{ form.size }}
+                            </div>
+                            <div class="col m-0">
+                                <label class="form-label" for="id_race">Race</label>
+                                {{ form.race }}
+                            </div>
+                        </div>
+                        <div class="container row pt-2">
+                            <div class="col m-0">
+                                <label class="form-label" for="id_ac">Armor</label>
+                                {{ form.ac }}
+                            </div>
+                            <div class="col m-0">
+                                <label class="form-label" for="id_ac_type">Armor Class</label>
+                                {{ form.ac_type }}
+                            </div>
+                        </div>
+                         <div class="container row pt-2">
+                            <div class="col m-0">
+                                <label class="form-label" for="id_hp">Hit Points</label>
+                                {{ form.hp }}
+                            </div>
+                            <div class="col m-0">
+                                <label class="form-label" for="id_hp_dices">Hit Points Dices</label>
+                                {{ form.hp_dices }}
+                            </div>
+                             <div class="col m-0">
+                                <label class="form-label" for="id_movement">Speed</label>
+                                {{ form.movement }}
+                            </div>
+                        </div>
+                        <div class="container row pt-2">
+                            <div class="col m-0">
+                                <label class="form-label" for="id_strength">STR</label>
+                                {{ form.strength }}
+                            </div>
+                            <div class="col m-0">
+                                <label class="form-label" for="id_dexterity">DEX</label>
+                                {{ form.dexterity }}
+                            </div>
+                            <div class="col m-0">
+                                <label class="form-label" for="id_constitution">CON</label>
+                                {{ form.constitution }}
+                            </div>
+                            <div class="col m-0">
+                                <label class="form-label" for="id_intelligence">INT</label>
+                                {{ form.intelligence }}
+                            </div>
+                            <div class="col m-0">
+                                <label class="form-label" for="id_wisdom">WIS</label>
+                                {{ form.wisdom }}
+                            </div>
+                            <div class="col m-0">
+                                <label class="form-label" for="id_charisma">CHA</label>
+                                {{ form.charisma }}
+                            </div>
+                        </div>
+                        <div class="row ms-3 me-3 mt-2">
+                            <label class="form-label" for="id_image">Image</label>
+                            {{ form.image }}
+                        </div>
+
+                    </div>
+                    ________________________________________________________________________________________________
+                    <div id="specificGames">
+                        {% include 'monsters/games/forms/dnd_monster_form.html' %}
+                        {% include 'monsters/games/forms/tor20_monster_form.html' %}
+                    </div>
+                </div>
+                <button class="btn btn-success m-2" type="submit">Submit</button>
+            </form>
+
+
+        </div>
+    {% block 'scripts' %}
+        <script src="{% static 'vendor/js/dynamic_forms.js' %}"></script>
+    {% endblock %}
+    {% endblock %}
+</body>
+</html>

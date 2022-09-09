@@ -2,18 +2,51 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block 'titulo' %}Manuals{% endblock %}</title>
+
 </head>
 <body>
+
     {% block 'conteudo' %}
+        <script>
+            var manuals = "{{ manuals }}"
+        </script>
         <div class="container-fluid row mt-5 w-100">
-            <img class="col" src="">
-            <select class="form-select col">
+            <img id="manualImage" class="col" src="" style="max_width: 30vw">
+            <select id="selectionBook" class="form-select col" style="max-height: 40px">
+                <option selected disabled>Choose a Manual do Download</option>
                 {% for manual in manuals %}
-                    <option selected>Manuals</option>
-                    <option value="{{ forloop.counter }}">{{ manual.name }}</option>
+                    {% if manual.category == 'MON' %}
+
+                        <option disabled>Monsters</option>
+                        <option image_url="{{manual.image.url}}" value="{{ forloop.counter }}">{{ manual.name }}</option>
+                    {% endif %}
+                {% endfor %}
+                {% for manual in manuals %}
+                    {% if manual.category == 'PLA' %}
+
+                        <option disabled>Player Books</option>
+                        <option image_url="{{manual.image.url}}" value="{{ forloop.counter }}">{{ manual.name }}</option>
+                    {% endif %}
+                {% endfor %}
+                {% for manual in manuals %}
+                    {% if manual.category == 'GMS' %}
+                        <option disabled>Game Masters Guides</option>
+                        <option image_url="{{manual.image.url}}" value="{{ forloop.counter }}">{{ manual.name }}</option>
+                    {% endif %}
                 {% endfor %}
             </select>
         </div>
+
+        <script>
+                    document.getElementById("selectionBook").addEventListener("change", function(){
+                        var e = document.getElementById("selectionBook");
+                        var selected = e.options[e.selectedIndex];
+                        var image_url = selected.getAttribute("image_url")
+                        var image = document.getElementById("manualImage")
+                        console.log(image_url)
+                        image.src = image_url
+                    })
+        </script>
     {% endblock %}
 </body>
 </html>

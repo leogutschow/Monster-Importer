@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block 'titulo' %}Requests{% endblock %}</title>
+</head>
+<body>
+    {% block 'conteudo' %}
+    <form method="POST" action="#new_request">
+        {% csrf_token %}
+        {{ form.as_ul }}
+        <button type="submit">Submit</button>
+    </form>
+    {% endblock %}
+
+</body>
+</html>

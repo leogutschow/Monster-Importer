@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block 'titulo' %}Register{% endblock %}</title>
+</head>
+<body>
+    {% block 'conteudo' %}
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            <div class="container">
+                {{ form.as_p }}
+            </div>
+            <button class="btn btn-success" type="submit">Register</button>
+        </form>
+
+    </div>
+    {% endblock %}
+
+</body>
+</html>

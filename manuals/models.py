@@ -1,5 +1,4 @@
 from django.db import models
-from pdf2image import convert_from_path
 
 languages: list = [
     ('PT', 'Portuguese'),
@@ -24,6 +23,3 @@ class Manual(models.Model):
 
     def __str__(self):
         return self.name
-
-
-

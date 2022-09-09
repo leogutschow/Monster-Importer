@@ -1,2 +1,12 @@
 *.pyc
+/venv/
+/__pycache__/
 *.sqlite3
+/__pycache__/
+/media/
+.idea/
+bootstrap/
+!.gitignore
+*/migrations/*
+/bootstrap/
+dbnavigator.xml
