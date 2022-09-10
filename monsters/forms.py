@@ -11,7 +11,7 @@ class FormMonster(ModelForm):
         fields = (
             'game', 'name', 'race', 'size', 'ac', 'ac_type', 'hp', 'hp_dices', 'movement', 'strength',
             'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma', 'slug',
-            'home_brew', 'image',
+            'home_brew', 'image', 'description',
         )
         widgets = {
             'game': forms.Select(attrs={
@@ -62,6 +62,9 @@ class FormMonster(ModelForm):
             'image': forms.FileInput(attrs={
                 'class': 'form-control'
             }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control'
+            }),
             'slug': forms.HiddenInput(),
             'home_brew': forms.HiddenInput()
         }
@@ -82,9 +85,6 @@ class FormDndMonster(ModelForm):
                 'class': 'form-control'
             }),
             'challenge': forms.TextInput(attrs={
-                'class': 'form-control'
-            }),
-            'description': forms.Textarea(attrs={
                 'class': 'form-control'
             }),
             'senses': forms.TextInput(attrs={
@@ -241,9 +241,6 @@ class FormTor20Monster(ModelForm):
             'description', 'fortitude', 'reflex', 'will', 'level', 'mana', 'equipment', 'treasure',
         )
         widgets = {
-            'description': forms.Textarea(attrs={
-                'class': 'form-control'
-            }),
             'fortitude': forms.NumberInput(attrs={
                 'class': 'form-control'
             }),

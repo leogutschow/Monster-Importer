@@ -8,6 +8,7 @@ from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill
     Tor20RangedAction
 from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait, FormDnDSkill, \
     FormDnDLegendaryAction, FormDnDSavingThrow, FormDnDReaction, FormTor20Monster, FormTor20BaseAttack
+from authentications.models import Profile
 
 
 # Create your views here.
@@ -109,9 +110,9 @@ class MonsterCreate(CreateView):
     def form_valid(self, form):
         data = form.cleaned_data
         monster_data = self.request.POST
-        print(self.request.POST)
         if data['game'] == 'DND5E':
             monster = DnDMonster.objects.create(
+                created_by=Profile.objects.get(user=self.request.user),
                 name=monster_data.get('name'),
                 race=data['race'],
                 size=data['size'],
@@ -215,6 +216,7 @@ class MonsterCreate(CreateView):
 
         if data['game'] == 'TOR20':
             Tor20Monster.objects.create(
+                created_by=Profile.objects.get(user=self.request.user),
                 name=monster_data.get('name'),
                 race=data['race'],
                 size=data['size'],
@@ -229,11 +231,18 @@ class MonsterCreate(CreateView):
                 intelligence=data['intelligence'],
                 wisdom=data['wisdom'],
                 charisma=data['charisma'],
-                languages='None',
                 game=data['game'],
                 home_brew=True,
                 description=monster_data.get('description'),
                 image=self.request.FILES.get('image'),
+                fortitude=monster_data.get('fortitude'),
+                reflex=monster_data.get('reflex'),
+                will=monster_data.get('will'),
+                level=monster_data.get('level'),
+                mana=monster_data.get('mana'),
+                equipment=monster_data.get('equipment'),
+                treasure=monster_data.get('treasure')
             )
+
             return redirect('monster:monster_list')
 

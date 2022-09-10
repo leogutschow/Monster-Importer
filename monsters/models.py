@@ -52,6 +52,7 @@ class BaseSheet(models.Model):
     created_at = models.DateTimeField(timezone.now(), default=timezone.now())
     times_downloaded: int = models.PositiveIntegerField(default=0)
     image: str = models.ImageField(upload_to=image_upload_path, default='images/monsters/DnD5e')
+    description: str = models.TextField(default="")
 
     def __str__(self):
         return self.name
@@ -65,7 +66,6 @@ class BaseSheet(models.Model):
 class DnDMonster(BaseSheet):
     languages: str = models.CharField(max_length=100, default="None")
     alignment: str = models.CharField(max_length=30, default="Neutral")
-    description: str = models.TextField(default="")
     senses: str = models.CharField(max_length=100, blank=True, null=True)
     damage_resistances: str = models.CharField(max_length=100, blank=True, null=True)
     damage_immunities: str = models.CharField(max_length=100, blank=True, null=True)
@@ -169,7 +169,6 @@ class DndReaction(models.Model):
 
 
 class Tor20Monster(BaseSheet):
-    description: str = models.TextField()
     fortitude: int = models.PositiveIntegerField(default=0)
     reflex: int = models.PositiveIntegerField(default=0)
     will: int = models.PositiveIntegerField(default=0)
