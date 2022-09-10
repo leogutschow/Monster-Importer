@@ -1,9 +1,14 @@
-console.log("Aqui é o Script de JS");
-console.log("Cristiano Ronaldo criado!");
 const chat = document.getElementById("textchat-input");
 const txt = chat.getElementsByTagName("textarea")[0];
 const btn = chat.getElementsByTagName("button")[0];
 const speakingas = document.getElementById("speakingas");
+
+window.addEventListener('storage', storageListener);
+
+
+function storageListener(event){
+    alert('Evento Triggou');
+}
 
 function postChatMessage(message, character = null) {
     let set_speakingas = true;
@@ -25,9 +30,9 @@ function postChatMessage(message, character = null) {
     btn.click();
     txt.value = old_text;
     speakingas.value = old_as;
+
 }
 
 postChatMessage("Teste Extensão")
 
-console.log("Foi até o final")
 //window.Campaign.characters.create({name: "Leonardo"});
