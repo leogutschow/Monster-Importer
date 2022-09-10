@@ -43,6 +43,12 @@ addTor20MeleeBtn.addEventListener('click', function(event){
     add_new_inlineform('melee-form', 'meleeList', 'emptyTor20Melee', totalTor20MeleeForms);
 });
 
+const totalTor20RangedForms = document.getElementById('id_tor20rangedaction_set-TOTAL_FORMS');
+const addTor20RangedBtn = document.getElementById('addTor20RangedBtn');
+addTor20RangedBtn.addEventListener('click', function(event){
+    add_new_inlineform('ranged-form', 'rangedList', 'emptyTor20Ranged', totalTor20RangedForms);
+})
+
 function change_game(event){
     if (event){
         event.preventDefault();
