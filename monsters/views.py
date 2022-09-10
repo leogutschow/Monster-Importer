@@ -1,12 +1,11 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect
 from django.forms.models import model_to_dict
 from itertools import chain
-from django.forms import formset_factory, inlineformset_factory
-from django.views.generic import DetailView, ListView, CreateView, TemplateView
+from django.forms import inlineformset_factory
+from django.views.generic import DetailView, ListView, CreateView
 from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill, \
     DnDLegendaryAction, DnDSavingThrows, DndReaction, Tor20Monster, Tor20MeleeAction, \
     Tor20RangedAction
-from django.core.paginator import Paginator
 from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait, FormDnDSkill, \
     FormDnDLegendaryAction, FormDnDSavingThrow, FormDnDReaction, FormTor20Monster, FormTor20BaseAttack
 

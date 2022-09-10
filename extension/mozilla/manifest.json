@@ -11,7 +11,7 @@
     "content_scripts": [
         {
         "matches": ["*://*.roll20.net/editor/"],
-        "js": ["app.js"]
+        "js": ["roll20.js"]
         }
     ]
 

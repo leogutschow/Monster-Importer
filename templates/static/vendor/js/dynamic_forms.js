@@ -1,54 +1,52 @@
-const gameSelect = document.getElementById('id_game')
-gameSelect.addEventListener('change', change_game)
+const gameSelect = document.getElementById('id_game');
+gameSelect.addEventListener('change', change_game);
 
-const totalActionNewForms = document.getElementById('id_dndaction_set-TOTAL_FORMS')
-const addActionBtn = document.getElementById('addActionBtn')
-addActionBtn.addEventListener('click', add_new_action)
+const totalActionNewForms = document.getElementById('id_dndaction_set-TOTAL_FORMS');
+const addActionBtn = document.getElementById('addActionBtn');
+addActionBtn.addEventListener('click', add_new_action);
 
-const totalTraitNewForms = document.getElementById('id_dndspecialtraits_set-TOTAL_FORMS')
-const addTraitBtn = document.getElementById('addTraitBtn')
-addTraitBtn.addEventListener('click', add_new_trait)
+const totalTraitNewForms = document.getElementById('id_dndspecialtraits_set-TOTAL_FORMS');
+const addTraitBtn = document.getElementById('addTraitBtn');
+addTraitBtn.addEventListener('click', add_new_trait);
 
-const totalSkillNewForms = document.getElementById('id_dndskill_set-TOTAL_FORMS')
-const addSkillBtn = document.getElementById('addSkillBtn')
-addSkillBtn.addEventListener('click', add_new_skill)
+const totalSkillNewForms = document.getElementById('id_dndskill_set-TOTAL_FORMS');
+const addSkillBtn = document.getElementById('addSkillBtn');
+addSkillBtn.addEventListener('click', add_new_skill);
 
-const totalLegendaryNewForms = document.getElementById('id_dndlegendaryaction_set-TOTAL_FORMS')
-const addLegendaryBtn = document.getElementById('addLegendaryBtn')
-addLegendaryBtn.addEventListener('click', add_legendary_action)
+const totalLegendaryNewForms = document.getElementById('id_dndlegendaryaction_set-TOTAL_FORMS');
+const addLegendaryBtn = document.getElementById('addLegendaryBtn');
+addLegendaryBtn.addEventListener('click', add_legendary_action);
 
-const totalSavingNewForms = document.getElementById('id_dndsavingthrows_set-TOTAL_FORMS')
-const addSavingBtn = document.getElementById('addSavingBtn')
-addSavingBtn.addEventListener('click', add_saving)
+const totalSavingNewForms = document.getElementById('id_dndsavingthrows_set-TOTAL_FORMS');
+const addSavingBtn = document.getElementById('addSavingBtn');
+addSavingBtn.addEventListener('click', add_saving);
 
-const totalReactionNewForms = document.getElementById('id_dndreaction_set-TOTAL_FORMS')
-const addReactionBtn = document.getElementById('addReactionBtn')
-addReactionBtn.addEventListener('click', add_reaction)
+const totalReactionNewForms = document.getElementById('id_dndreaction_set-TOTAL_FORMS');
+const addReactionBtn = document.getElementById('addReactionBtn');
+addReactionBtn.addEventListener('click', add_reaction);
 
-const totalTor20MeleeForms = document.getElementById('id_tor20meleeaction_set-TOTAL_FORMS')
-const addReactionBtn = document.getElementById('addTor20MeleeBtn')
-addReactionBtn.addEventListener('click', add_new_tor20_action)
+const totalTor20MeleeForms = document.getElementById('id_tor20meleeaction_set-TOTAL_FORMS');
+const addTor20MeleeBtn = document.getElementById('addTor20MeleeBtn');
+addTor20MeleeBtn.addEventListener('click', add_new_tor20_action);
 
 function change_game(event){
     if (event){
-        event.preventDefault()
+        event.preventDefault();
     }
-    const allGames = document.getElementById('specificGames').childNodes
-     allGames.forEach(game => {
+    const allGames = document.getElementById('specificGames').childNodes;
+    allGames.forEach(game => {
         if (game.tagName == 'DIV'){
-            console.log(game)
-            game.setAttribute('class', 'hidden')
-            console.log(game)
+            game.setAttribute('class', 'hidden');
         }
     })
     switch (gameSelect.value){
         case 'DND5E':
-            const dndForm = document.getElementById('dndMonsterForm')
-            dndForm.setAttribute('class', 'container col')
+            const dndForm = document.getElementById('dndMonsterForm');
+            dndForm.setAttribute('class', 'container col');
 
         case 'TOR20':
-            const tor20Form = document.getElementById('tor20MonsterForm')
-            tor20Form.setAttribute('class', 'container col')
+            const tor20Form = document.getElementById('tor20MonsterForm');
+            tor20Form.setAttribute('class', 'container col');
     }
 }
 
