@@ -12,7 +12,6 @@ class NewRequest(FormView):
 
     def form_valid(self, form):
         context = self.get_context_data()
-        print(context)
         user = None
         request = context['form']
         if request and hasattr(request, 'client'):
@@ -26,9 +25,5 @@ class NewRequest(FormView):
         )
         client_request.save()
 
-        mail_admins(
-            subject=f"New Request: {cleaned_data['request_title']}",
-            message=fr"A new request has been asked. Here it is: \n {cleaned_data['request_text']}",
-        )
         print("request enviada")
         return redirect('home:home_page')

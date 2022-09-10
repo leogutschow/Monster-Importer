@@ -1,10 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
+from authentications.models import Profile
 
 
 # Create your models here.
 class Request(models.Model):
-    client: int = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    client: int = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True, null=True)
     request_type: str = models.CharField(default='', max_length=1, choices=[
         ('O', 'Other'),
         ('M', 'Monsters'),
