@@ -9,4 +9,4 @@ bootstrap/
 !.gitignore
 */migrations/*
 /bootstrap/
-dbnavigator.xml
+.idea/dbnavigator.xml
