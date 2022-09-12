@@ -74,7 +74,7 @@
                             <td colspan="4">No Monsters With That Parameters in the DataBase</td>
                         </tr>
                     {% endif %}
-                    {% for monster in monsters %}
+                    {% for monster in page_obj %}
                         <tr>
                             <td>
                                 <img style="max-height: 48px" src="{{ monster.image.url }}">
@@ -94,16 +94,37 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <nav>
+            <nav aria-label="...">
                 <ul class="pagination">
-                    {% for pagina in monsters.paginator.page_range %}
-
+                    {% if page_obj.has_previous %}
                         <li class="page-item">
-                            <a class="page-link" href="?s={{pagina}}">{pagina}</a>
+                            <a class="page-link" href="?page=1">&laquo; First</a>
                         </li>
-
-
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                        </li>
+                    {% endif %}
+                    {% for page in page_obj.paginator %}
+                        {% if page.number == page_obj.number %}
+                            <li class="page-item active" aria="page">
+                                <a class="page-link" href="?page={{ page.number }}">
+                                    {{ page.number }}
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page.number }}">{{ page.number }}</a>
+                            </li>
+                        {% endif %}
                     {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </nav>
         </div>

@@ -36,8 +36,10 @@ class MonsterDetail(DetailView):
 
 
 class MonsterList(ListView):
+    paginate_by = 20
     template_name: str = 'monsters/monster_list.html'
     model = BaseSheet
+
 
     def get_context_data(self, *, object_list=None, **kwargs):
         self.object_list = super().get_queryset()
