@@ -172,8 +172,8 @@ class Tor20Monster(BaseSheet):
     fortitude: int = models.PositiveIntegerField(default=0)
     reflex: int = models.PositiveIntegerField(default=0)
     will: int = models.PositiveIntegerField(default=0)
-    level: int = models.PositiveIntegerField()
-    mana: int = models.PositiveIntegerField()
+    level: int = models.PositiveIntegerField(default=0)
+    mana: int = models.PositiveIntegerField(default=0)
     equipment: str = models.CharField(max_length=200, default='None')
     treasure = models.CharField(max_length=200, default='None')
 

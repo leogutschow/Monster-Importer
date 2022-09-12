@@ -3,6 +3,7 @@ from django.forms.models import model_to_dict
 from itertools import chain
 from django.forms import inlineformset_factory
 from django.views.generic import DetailView, ListView, CreateView
+from django.contrib import messages
 from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill, \
     DnDLegendaryAction, DnDSavingThrows, DndReaction, Tor20Monster, Tor20MeleeAction, \
     Tor20RangedAction
@@ -44,7 +45,6 @@ class MonsterList(ListView):
         self.object_list = self.get_queryset()
         context = super().get_context_data()
         context['monsters'] = self.object_list
-        print(self.object_list)
         return context
 
     def get_queryset(self):
@@ -63,7 +63,6 @@ class MonsterList(ListView):
         if monster_game_query != '' and monster_challenge_query is not None:
             if monster_game_query != 'ALL':
                 qs = qs.filter(game__iexact=monster_game_query)
-        print(qs)
         return qs.order_by('name')
 
 
@@ -134,6 +133,7 @@ class MonsterCreate(CreateView):
                 condition_immunities=monster_data.get('condition_immunities'),
             )
             monster.save()
+            print('DND monster saved')
             actions_formset = self.DnDAction_Formset(self.request.POST)
             traits_formset = self.DndTrait_Formset(self.request.POST)
             skills_formset = self.DnDSkill_Formset(self.request.POST)
@@ -206,6 +206,7 @@ class MonsterCreate(CreateView):
                         )
                         new_saving.save()
 
+            messages.add_message(self.request, messages.SUCCESS, 'Your Monster has been created!')
             return redirect('monster:monster_list')
 
         if data['game'] == 'TOR20':
@@ -238,5 +239,6 @@ class MonsterCreate(CreateView):
                 treasure=monster_data.get('treasure')
             )
 
+            messages.add_message(self.request, messages.SUCCESS, 'Your Monster has been created!')
             return redirect('monster:monster_list')
 
