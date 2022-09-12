@@ -15,3 +15,4 @@ class Request(models.Model):
     request_title: str = models.CharField(max_length=50)
     request_text: str = models.TextField()
 
+

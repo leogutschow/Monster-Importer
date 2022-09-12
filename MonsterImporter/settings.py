@@ -142,8 +142,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
 #Email Settings
-EMAIl_HOST = 'smtp.gmail.com'
-EMAIL_PORT = '587'
-EMAIL_HOST_USER = 'leogusalles@gmail.com'
-EMAIL_HOST_PASSWORD = 'lwda unff tkgw sqak'
-EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = 'b885fa1698ee13'
+EMAIL_HOST_PASSWORD = '6916da2cf81cea'
+EMAIL_PORT = '2525'
