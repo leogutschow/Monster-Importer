@@ -36,29 +36,23 @@ class MonsterDetail(DetailView):
 
 
 class MonsterList(ListView):
+    paginate_by = 20
     template_name: str = 'monsters/monster_list.html'
     model = BaseSheet
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        self.object_list = super().get_queryset()
+        self.object_list = self.get_queryset()
         context = super().get_context_data()
-        dndmonsters = list(DnDMonster.objects.all())
-        tor20monsters = list(Tor20Monster.objects.all())
-        context['monsters'] = list(chain(dndmonsters, tor20monsters))
+        context['monsters'] = self.object_list
+        print(self.object_list)
         return context
 
     def get_queryset(self):
-        dndmonsters = list(DnDMonster.objects.all())
-        tor20monsters = list(Tor20Monster.objects.all())
-        return list(chain(dndmonsters, tor20monsters))
-
-    def get(self, request, *args, **kwargs):
-        monster_name_query = request.GET.get('monster_name')
-        monster_ac_query = request.GET.get('monster_ac')
-        monster_challenge_query = request.GET.get('monster_challenge')
-        monster_game_query = request.GET.get('monster_game')
+        monster_name_query = self.request.GET.get('monster_name')
+        monster_ac_query = self.request.GET.get('monster_ac')
+        monster_challenge_query = self.request.GET.get('monster_challenge')
+        monster_game_query = self.request.GET.get('monster_game')
         qs = self.model.objects.all()
-        context = self.get_context_data()
         # Adding some Logic to Query in the List
         if monster_name_query != '' and monster_name_query is not None:
             qs = qs.filter(name__icontains=monster_name_query)
@@ -69,8 +63,8 @@ class MonsterList(ListView):
         if monster_game_query != '' and monster_challenge_query is not None:
             if monster_game_query != 'ALL':
                 qs = qs.filter(game__iexact=monster_game_query)
-        context['monsters'] = qs
-        return render(request, template_name=self.template_name, context=context)
+        print(qs)
+        return qs.order_by('name')
 
 
 class MonsterCreate(CreateView):

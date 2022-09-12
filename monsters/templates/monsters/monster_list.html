@@ -74,7 +74,7 @@
                             <td colspan="4">No Monsters With That Parameters in the DataBase</td>
                         </tr>
                     {% endif %}
-                    {% for monster in monsters %}
+                    {% for monster in page_obj %}
                         <tr>
                             <td>
                                 <img style="max-height: 48px" src="{{ monster.image.url }}">
@@ -94,16 +94,45 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <nav>
-                <ul class="pagination">
-                    {% for pagina in monsters.paginator.page_range %}
-
-                        <li class="page-item">
-                            <a class="page-link" href="?s={{pagina}}">{pagina}</a>
-                        </li>
-
-
-                    {% endfor %}
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                        {% if request.GET.monster_name or request.GET.monster_ac or request.GET.monster_challenge or request.GET.monster_game %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1&monster_name={{request.GET.monster_name}}&monster_ac={{request.GET.monster_ac}}&monster_challenge={{request.GET.monster_challenge}}&monster_game={{request.GET.monster_game}}">&laquo; First</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}&monster_name={{request.GET.monster_name}}&monster_ac={{request.GET.monster_ac}}&monster_challenge={{request.GET.monster_challenge}}&monster_game={{request.GET.monster_game}}">Previous</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1">&laquo; First</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                    <li class="page-item">
+                        <span class="page-link">Page {{page_obj.number}} of {{ page_obj.paginator.num_pages }}</span>
+                    </li>
+                    {% if page_obj.has_next %}
+                        {% if request.GET.monster_name or request.GET.monster_ac or request.GET.monster_challenge or request.GET.monster_game %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}&monster_name={{request.GET.monster_name}}&monster_ac={{request.GET.monster_ac}}&monster_challenge={{request.GET.monster_challenge}}&monster_game={{request.GET.monster_game}}">Next</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&monster_name={{request.GET.monster_name}}&monster_ac={{request.GET.monster_ac}}&monster_challenge={{request.GET.monster_challenge}}&monster_game={{request.GET.monster_game}}">Last</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
                 </ul>
             </nav>
         </div>
