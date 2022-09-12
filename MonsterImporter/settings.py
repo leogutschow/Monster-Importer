@@ -14,6 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 import django_heroku
+from django.contrib.messages import constants as message_constants
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -147,3 +148,13 @@ EMAIL_HOST = 'smtp.mailtrap.io'
 EMAIL_HOST_USER = 'b885fa1698ee13'
 EMAIL_HOST_PASSWORD = '6916da2cf81cea'
 EMAIL_PORT = '2525'
+
+#Message Framework
+MESSAGE_TAGS = {
+    message_constants.INFO: 'alert alert-info',
+    message_constants.DEBUG: 'alert alert-primary',
+    message_constants.SUCCESS: 'alert alert-success',
+    message_constants.ERROR: 'alert alert-danger',
+    message_constants.WARNING: 'alert alert-warning'
+}
+
