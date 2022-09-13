@@ -32,5 +32,6 @@ I have big plans for Monster Importer, such as:
 ___________________________________________________
 How to use?
 -
-1. Download and intall the Extension that allows Monster Importer manage internal Roll20 functions
-2. That's it! Now you can import any Monster to your game!
+1. Use the Mod feature with the script in the 'mod/monster-importer.js'
+2. When you find your dream monster, just click in the 'Import Monster' button. You will receive a link to put in the Roll20 chat in your campaign
+3. That's it! Now you can import any Monster to your game!
