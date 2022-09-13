@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .models import Manual
 
@@ -13,3 +13,4 @@ class ManualDownload(TemplateView):
         manuals = self.model.objects.all()
         context['manuals'] = manuals
         return context
+
