@@ -1,6 +1,7 @@
 from django.shortcuts import render, reverse, redirect, HttpResponseRedirect
 from .forms import RegisterForm
 from django.contrib.auth.models import User
+from django.contrib import messages
 from .models import Profile
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -48,6 +49,7 @@ class Register(FormView):
             )
             new_profile.save()
 
+            messages.add_message(self.request, messages.SUCCESS, "Your profile has been created!")
             return HttpResponseRedirect(redirect_to=reverse('home:home_page'))
 
 
