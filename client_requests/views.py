@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, FormView
-
+from django.contrib import messages
 from MonsterImporter import settings
 from authentications.models import Profile
 from .forms import FormRequest
@@ -31,5 +31,6 @@ class NewRequest(FormView):
                   from_email=settings.EMAIL_HOST_USER,
                   recipient_list=['leogusalles@hotmail.com'],
                   message=cleaned_data['request_text'])
-
+        messages.add_message(self.request, messages.SUCCESS,
+                             "Your request has been sent to our admins. Wait for it to be reviewd")
         return redirect('home:home_page')
