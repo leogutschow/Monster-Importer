@@ -1,14 +1,10 @@
 const importMonsterBtn = document.getElementById('importMonster');
+const monsterJson = document.getElementById('monster').innerHTML;
 importMonsterBtn.addEventListener('click', import_monster)
 browser.runtime.onMessage.addListener(handleMessage);
 
 function handleMessage(request, sender, sendResponse){
-    console.log(sender);
     console.log(request.message)
-}
-
-function handleResponse(message){
-    console.log(message.response);
 }
 
 function handleError(error){
@@ -20,8 +16,7 @@ async function import_monster(event){
         event.preventDefault();
     }
     const sending = browser.runtime.sendMessage({
-        greeting: "!testeAPI",
+        greeting: monsterJson,
     });
-    sending.then(handleResponse);
 }
 
