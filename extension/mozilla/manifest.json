@@ -7,7 +7,11 @@
     "icons": {
         "48": "icons/icon48.png"
     },
-    "permissions": ["tabs"],
+    "permissions": ["<all_urls>", "tabs", "activeTab"],
+    "background": {
+        "persistent": false,
+        "scripts": ["background.js", "monster_importer.js"]
+    },
     "content_scripts": [
         {
         "matches": ["*://*.roll20.net/editor/"],

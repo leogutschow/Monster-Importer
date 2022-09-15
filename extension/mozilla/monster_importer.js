@@ -1,18 +1,27 @@
 const importMonsterBtn = document.getElementById('importMonster');
 importMonsterBtn.addEventListener('click', import_monster)
-window.addEventListener('storage', storageListener);
+browser.runtime.onMessage.addListener(handleMessage);
+
+function handleMessage(request, sender, sendResponse){
+    console.log(sender);
+    console.log(request.message)
+}
+
+function handleResponse(message){
+    console.log(message.response);
+}
+
+function handleError(error){
+    console.log('Error ${error}');
+}
 
 async function import_monster(event){
     if (event){
         event.preventDefault();
-        if (typeof(Storage) !== "undefined"){
-            localStorage.setItem('message', 'Aqui e a mensagem');
-            console.log(localStorage.getItem('message'));
-        }
     }
-
+    const sending = browser.runtime.sendMessage({
+        greeting: "!testeAPI",
+    });
+    sending.then(handleResponse);
 }
 
-function storageListener(event){
-    alert('Mensagem recebida');
-}

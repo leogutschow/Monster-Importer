@@ -2,12 +2,27 @@ const chat = document.getElementById("textchat-input");
 const txt = chat.getElementsByTagName("textarea")[0];
 const btn = chat.getElementsByTagName("button")[0];
 const speakingas = document.getElementById("speakingas");
+browser.runtime.onMessage.addListener(handleMessage);
 
-window.addEventListener('storage', storageListener);
+function handleMessage(request, sender, sendResponse){
+    console.log(request.message);
+    const message = request.message;
+    postChatMessage(message);
+}
 
+function handleResponse(message){
+    console.log(message.response);
+}
 
-function storageListener(event){
-    alert('Evento Triggou');
+function handleError(error){
+    console.log('Error ${error}');
+}
+
+function sendSelfID(){
+    const sending = browser.runtime.sendMessage({
+        greeting: "Greeting from the content script",
+    });
+    sending.then(handleResponse);
 }
 
 function postChatMessage(message, character = null) {
@@ -32,7 +47,5 @@ function postChatMessage(message, character = null) {
     speakingas.value = old_as;
 
 }
-
-postChatMessage("Teste Extensão")
 
 //window.Campaign.characters.create({name: "Leonardo"});
