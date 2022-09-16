@@ -15,7 +15,7 @@ from authentications.models import Profile
 # Create your views here.
 class MonsterDetail(DetailView):
     template_name: str = 'monsters/monster.html'
-    model = DnDMonster
+    model = BaseSheet
 
     def get_object(self, queryset=None):
         base_sheet = BaseSheet.objects.get(slug=self.kwargs['slug'])
@@ -33,7 +33,37 @@ class MonsterDetail(DetailView):
         context['monster'] = monster
         # Transforming the monster in a Dict so it can be passed as a JSON object in the Template and adding the Actions
         # and Special Traits to the Dict
+        context["monster_dict"] = self.monster_to_json(monster)
         return context
+
+    def monster_to_json(self, monster) -> dict:
+        def get_models(type: str, game: str) -> list:
+            if game == 'DND5E':
+                match type:
+                    case 'actions':
+                        monster_actions = DnDAction.objects.filter(monster=monster)
+                        if len(monster_actions) >= 1:
+                            actions = []
+                            for action in monster_actions:
+                                actions.append(model_to_dict(action))
+                            return actions
+                    case 'skills':
+                        monster_skills = DnDSkill.objects.filter(monster=monster)
+                        if len(monster_skills) >= 1:
+                            skills = []
+                            for skill in monster_skills:
+                                skills.append(model_to_dict(skill))
+                            return skills
+
+        if isinstance(monster, DnDMonster):
+            monster_dict = {'monster': model_to_dict(monster)}
+            monster_dict['monster']['image'] = monster_dict['monster']['image'].url
+            # Getting Monster Actions
+            monster_dict['actions'] = get_models(type='actions', game=monster.game)
+            # Getting Monster Skills
+            monster_dict['skills'] = get_models(type='skills', game=monster.game)
+
+        return monster_dict
 
 
 class MonsterList(ListView):
