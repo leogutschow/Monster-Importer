@@ -5,13 +5,9 @@ const speakingas = document.getElementById("speakingas");
 browser.runtime.onMessage.addListener(handleMessage);
 
 function handleMessage(request, sender, sendResponse){
-    console.log(request.message);
     const message = request.message;
+    console.log(sender);
     postChatMessage(message);
-}
-
-function handleResponse(message){
-    console.log(message.response);
 }
 
 function handleError(error){
