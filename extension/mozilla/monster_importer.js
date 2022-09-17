@@ -16,7 +16,7 @@ async function import_monster(event){
         event.preventDefault();
     }
     const sending = browser.runtime.sendMessage({
-        greeting: monsterJson,
+        monster: monsterJson,
     });
 }
 
