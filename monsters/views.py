@@ -43,17 +43,13 @@ class MonsterDetail(DetailView):
                     case 'actions':
                         monster_actions = DnDAction.objects.filter(monster=monster)
                         if len(monster_actions) >= 1:
-                            actions = []
-                            for action in monster_actions:
-                                actions.append(model_to_dict(action))
+                            actions = [model_to_dict(action) for action in monster_actions]
                             return actions
 
                     case 'skills':
                         monster_skills = DnDSkill.objects.filter(monster=monster)
                         if len(monster_skills) >= 1:
-                            skills = []
-                            for skill in monster_skills:
-                                skills.append(model_to_dict(skill))
+                            skills = [model_to_dict(skill) for skill in monster_skills]
                             return skills
 
                     case 'traits':
@@ -61,7 +57,10 @@ class MonsterDetail(DetailView):
                         if len(monster_traits) >= 1:
                             traits = []
                             for trait in monster_traits:
-                                traits.append(model_to_dict(trait))
+                                if not trait.spellcasting:
+                                    traits.append(model_to_dict(trait))
+                                    continue
+
                             return traits
 
         if isinstance(monster, DnDMonster):
