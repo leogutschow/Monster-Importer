@@ -31,8 +31,7 @@ class MonsterDetail(DetailView):
         context: dict = super().get_context_data()
         monster = self.get_object()
         context['monster'] = monster
-        # Transforming the monster in a Dict so it can be passed as a JSON object in the Template and adding the Actions
-        # and Special Traits to the Dict
+        # Transforming the monster in a Dict so it can be passed as a JSON object
         context["monster_dict"] = self.monster_to_json(monster)
         return context
 
@@ -57,6 +56,8 @@ class MonsterDetail(DetailView):
                         if len(monster_traits) >= 1:
                             traits = []
                             for trait in monster_traits:
+                                # Separating traits that have spells because of
+                                # Many to Many relationship
                                 if not trait.spellcasting:
                                     traits.append(model_to_dict(trait))
                                     continue
@@ -82,6 +83,12 @@ class MonsterDetail(DetailView):
                             legendaries = [model_to_dict(legendary) for legendary in monster_legendary]
                             return legendaries
 
+                    case 'reactions':
+                        monster_reactions = DndReaction.objects.filter(monster=monster)
+                        if len(monster_reactions) >= 1:
+                            reactions = [model_to_dict(reaction) for reaction in monster_reactions]
+                            return reactions
+
         if isinstance(monster, DnDMonster):
             monster_dict = {'monster': model_to_dict(monster)}
             monster_dict['monster']['image'] = monster_dict['monster']['image'].url
@@ -100,6 +107,9 @@ class MonsterDetail(DetailView):
 
             # Getting Legendary Actions
             monster_dict['legendary'] = get_models(type='legendary', game=monster.game)
+
+            # Getting Reactions
+            monster_dict['reactions'] = get_models(type='reactions', game=monster.game)
 
         return monster_dict
 
