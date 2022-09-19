@@ -70,6 +70,12 @@ class MonsterDetail(DetailView):
                                 traits.append(trait_dict)
                             return traits
 
+                    case 'savings':
+                        monster_savings = DnDSavingThrows.objects.filter(monster=monster)
+                        if len(monster_savings) >= 1:
+                            savings = [model_to_dict(saving) for saving in monster_savings]
+                            return savings
+
         if isinstance(monster, DnDMonster):
             monster_dict = {'monster': model_to_dict(monster)}
             monster_dict['monster']['image'] = monster_dict['monster']['image'].url
@@ -82,6 +88,9 @@ class MonsterDetail(DetailView):
 
             #Getting Monster Traits
             monster_dict['traits'] = get_models(type='traits', game=monster.game)
+
+            # Getting the Saving Throws
+            monster_dict['savings'] = get_models(type='savings', game=monster.game)
 
         return monster_dict
 
