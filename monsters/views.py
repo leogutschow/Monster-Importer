@@ -76,6 +76,12 @@ class MonsterDetail(DetailView):
                             savings = [model_to_dict(saving) for saving in monster_savings]
                             return savings
 
+                    case 'legendary':
+                        monster_legendary = DnDLegendaryAction.objects.filter(monster=monster)
+                        if len(monster_legendary) >= 1:
+                            legendaries = [model_to_dict(legendary) for legendary in monster_legendary]
+                            return legendaries
+
         if isinstance(monster, DnDMonster):
             monster_dict = {'monster': model_to_dict(monster)}
             monster_dict['monster']['image'] = monster_dict['monster']['image'].url
@@ -91,6 +97,9 @@ class MonsterDetail(DetailView):
 
             # Getting the Saving Throws
             monster_dict['savings'] = get_models(type='savings', game=monster.game)
+
+            # Getting Legendary Actions
+            monster_dict['legendary'] = get_models(type='legendary', game=monster.game)
 
         return monster_dict
 
