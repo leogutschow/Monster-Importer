@@ -60,7 +60,14 @@ class MonsterDetail(DetailView):
                                 if not trait.spellcasting:
                                     traits.append(model_to_dict(trait))
                                     continue
-
+                                spells = [model_to_dict(spell) for spell in trait.dnd_spells.all()]
+                                trait_dict = {'id': trait.id,
+                                              'monster': trait.monster.pk,
+                                              'specialtrait_name': trait.specialtrait_name,
+                                              'specialtrait_description': trait.specialtrait_description,
+                                              'spellcasting': trait.spellcasting,
+                                              'dnd_spells': spells}
+                                traits.append(trait_dict)
                             return traits
 
         if isinstance(monster, DnDMonster):
