@@ -217,6 +217,7 @@ class MonsterCreate(CreateView):
             skills_formset = self.DnDSkill_Formset(self.request.POST)
             legendary_formset = self.DnDLegendary_Formset(self.request.POST)
             saving_formset = self.DnDSavingThrow_Formset(self.request.POST)
+            reaction_formset = self.DnDReaction_Formset(self.request.POST)
 
             if len(actions_formset) > 0:
                 for action_form in actions_formset:
@@ -283,6 +284,16 @@ class MonsterCreate(CreateView):
                             bonus=cleaned_data['bonus']
                         )
                         new_saving.save()
+
+            if len(reaction_formset) > 0:
+                for reaction in reaction_formset:
+                    cleaned_data = saving.cleaned_data
+                    new_reaction = DndReaction.objects.create(
+                        monster=monster,
+                        reaction_name=cleaned_data['reaction_name'],
+                        reaction_description=cleaned_data['reaction_description']
+                    )
+                    new_reaction.save()
 
             messages.add_message(self.request, messages.SUCCESS, 'Your Monster has been created!')
             return redirect('monster:monster_list')
