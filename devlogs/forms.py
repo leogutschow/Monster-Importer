@@ -1,18 +1,14 @@
 from django import forms
-from .models import DevLogCommentary
+from .models import DevLogComment
 
 
-class DevLogCommentaryForm(forms.ModelForm):
+class DevLogCommentForm(forms.ModelForm):
     class Meta:
-        model = DevLogCommentary
-        fields = ('devlog', 'author', 'commentary', 'created_at', 'updated_at')
+        model = DevLogComment
+        fields = ('commentary',)
         widgets = {
-            'devlog': forms.HiddenInput(),
-            'author': forms.HiddenInput(),
             'commentary': forms.Textarea(attrs={
                 'class': 'form-control'
             }),
-            'created_at': forms.HiddenInput,
-            'updated_at': forms.HiddenInput()
         }
 

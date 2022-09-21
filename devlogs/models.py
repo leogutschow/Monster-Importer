@@ -37,10 +37,12 @@ class DevLog(models.Model):
         return super().save()
 
 
-class DevLogCommentary(models.Model):
+class DevLogComment(models.Model):
     devlog = models.ForeignKey(DevLog, on_delete=models.CASCADE)
-    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile, default="", on_delete=models.CASCADE, blank=True, null=True)
     commentary = models.TextField()
-    created_at = models.DateTimeField(timezone.now(), default=timezone.now())
+    created_at = models.DateTimeField(timezone.now, default=timezone.now)
     updated_at = models.DateTimeField(blank=True, null=True)
 
+    def __str__(self):
+        return f'Comment by {self.author} in {self.devlog}'

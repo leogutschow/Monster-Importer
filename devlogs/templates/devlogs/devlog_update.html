@@ -6,8 +6,38 @@
 </head>
 <body>
     {% block 'conteudo' %}
-    <div class="container">
+    <div>
+        <div id="devlog" class="container mt-5 rounded-3 border border-3 border-secondary justify-content-center">
+            <h1 class="display-1">{{ devlog.title }}</h1>
+            {{ devlog.devlog_text|safe }}
+        </div>
 
+        <div id="postCommentary" class="container mt-3">
+            <h3>Post a Comment:</h3>
+            <form method="POST" action="#post_commentary">
+                {% csrf_token %}
+                {{ form }}
+                <button id="postCommentaryBtn" class="btn btn-success" type="submit">Post</button>
+            </form>
+        </div>
+        <div class="container mt-3">
+            {% if commentaries %}
+                {% for commentary in commentaries %}
+                    <div class="container border rounded-3 border-3 border-secondary">
+                        <a class="text-decoration-none" href="{% url 'auth:profile' commentary.author.slug %}">
+                            {{  commentary.author  }} said:
+                        </a>
+                        <p class="p-5">{{ commentary.commentary }}</p>
+                        <p class="fst-italic">Commented at {{ commentary.created_at }}</p>
+                        {% if commentary.updated_at %}
+                        <p class="fst-italic">Last update: {{ commentary.created_at }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                {% else %}
+                <h5>No comments yet. Be the first!</h5>
+            {% endif %}
+        </div>
     </div>
     {% endblock %}
 </body>
