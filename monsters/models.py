@@ -49,7 +49,7 @@ class BaseSheet(models.Model):
     game: str = models.CharField(default='', max_length=5, choices=games)
     home_brew: bool = models.BooleanField(default=False)
     created_by = models.ForeignKey(to=Profile, blank=True, null=True, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(timezone.now(), default=timezone.now())
+    created_at = models.DateTimeField(timezone.now, default=timezone.now)
     times_downloaded: int = models.PositiveIntegerField(default=0)
     image: str = models.ImageField(upload_to=image_upload_path, default='images/monsters/DnD5e')
     description: str = models.TextField(default="")
