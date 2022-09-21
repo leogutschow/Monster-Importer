@@ -42,12 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'nested_admin',
+    'django_summernote',
     'home_page',
     'monsters',
     'manuals',
     'client_requests',
     'authentications',
     'spells',
+    'devlogs',
 ]
 
 MIDDLEWARE = [
