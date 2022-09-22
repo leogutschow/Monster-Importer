@@ -8,6 +8,9 @@
     {% block 'conteudo' %}
     <div>
         <div id="devlog" class="container mt-5 rounded-3 border border-3 border-secondary justify-content-center">
+            <div class="d-flex justify-content-center mt-2">
+                <img src="{{ devlog.bg_image.url }}" style="max-width: 1400px; max-height: 900px">
+            </div>
             <h1 class="display-1">{{ devlog.title }}</h1>
             {{ devlog.devlog_text|safe }}
         </div>
