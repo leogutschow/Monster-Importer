@@ -10,8 +10,8 @@
     <div class="container mt-3">
       <div class="row row-cols-auto">
         {% for devlog in devlogs %}
-          <div class="container-sm col border border-3 border-secondary">
-            <img src="{{ devlog.bg_image.url }}" style="max-width: 175px">
+          <div class="container-sm col border border-3 border-secondary mb-3" style="max-width: 20vw">
+              <img class="img-fluid" src="{{ devlog.bg_image.url }}">
             <h5><a class="text-decoration-none text-dark" href="{% url 'devlogs:update_devlog' devlog.slug %}">{{ devlog.title }}</a></h5>
             <h6>{{ devlog.short_description }}</h6>
           </div>
