@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import DevLog
+from .views import DevLogDetail, DevLogList
 
 app_name = 'devlogs'
 
 urlpatterns = [
-    path('<str:slug>', DevLog.as_view(), name='update_devlog'),
+    path('all', DevLogList.as_view(), name='devlog_list'),
+    path('<str:slug>', DevLogDetail.as_view(), name='update_devlog'),
 ]

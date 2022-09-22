@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, ListView
 from django.utils import timezone
 from django.contrib import messages
 from .models import DevLog, DevLogComment
@@ -8,7 +8,7 @@ from authentications.models import Profile
 
 
 # Create your views here.
-class DevLog(UpdateView):
+class DevLogDetail(UpdateView):
     template_name = 'devlogs/devlog_update.html'
     model = DevLog
     form_class = DevLogCommentForm
@@ -34,3 +34,12 @@ class DevLog(UpdateView):
         return redirect('devlogs:update_devlog', self.object.slug)
 
 
+class DevLogList(ListView):
+    template_name = 'devlogs/devlogs_list.html'
+    model = DevLog
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data()
+        devlogs = DevLog.objects.all()
+        context['devlogs'] = devlogs
+        return context

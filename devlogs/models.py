@@ -18,6 +18,8 @@ class DevLog(models.Model):
     ]
     author = models.ForeignKey(Profile, on_delete=models.DO_NOTHING)
     title = models.CharField(max_length=200, default="Devlog(0.0.0) The Title Here")
+    bg_image = models.ImageField(upload_to=f'images/devlogs/')
+    short_description = models.CharField(max_length=400, default="Placeholder Short Description")
     tags = MultiSelectField(choices=tags)
     devlog_text = models.TextField()
     created_at = models.DateTimeField(timezone.now, default=timezone.now)
@@ -33,7 +35,7 @@ class DevLog(models.Model):
         if not self.author.user.is_staff:
             return
         if not self.slug:
-            self.slug = slugify(f'{self.title}')
+            self.slug = slugify(f'{self.title}-{self.created_at}')
         return super().save()
 
 

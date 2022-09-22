@@ -31,7 +31,7 @@
                     <a class="nav-link text-decoration-none text-white" href="{% url 'manuals:manual_download'%}">Manuals</a>
                 </li>
                 <liv class="nav-item active">
-                    <a class="nav-lin text-decoration-none text-white" href="#"DevLogs</a>
+                    <a class="nav-link text-decoration-none text-white" href="{% url 'devlogs:devlog_list' %}">DevLogs</a>
                 </liv>
                 <div class="d-flex ps-5 ms-5">
                     {% if user.is_authenticated %}
