@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'authentications',
     'spells',
     'devlogs',
+    'forum',
 ]
 
 MIDDLEWARE = [
