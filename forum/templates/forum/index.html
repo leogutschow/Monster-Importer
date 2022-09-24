@@ -6,7 +6,16 @@
 </head>
 <body>
     {% block 'conteudo' %}
-
+        <div class="container">
+            {% for category in categories %}
+                <h1>{{ category.name }}</h1>
+                {% for forum in forums %}
+                    {% if forum.category == category %}
+                        <h5>{{ forum.title }}</h5>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
     {% endblock %}
 </body>
 </html>
