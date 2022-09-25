@@ -1,8 +1,10 @@
 from django.urls import path
-from .views import ForumIndex, ForumCategory
+from .views import ForumIndex, ForumCategory, ForumInside
+
 app_name = 'forum'
 
 urlpatterns = [
     path('', ForumIndex.as_view(), name='forum_index'),
-    path('<int:id>', ForumCategory.as_view(), name='category'),
+    path('<str:slug>', ForumCategory.as_view(), name='category'),
+    path('<str:slug>/<int:pk>', ForumInside.as_view(), name='forum')
 ]

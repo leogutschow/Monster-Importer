@@ -33,6 +33,10 @@
                 <liv class="nav-item active">
                     <a class="nav-link text-decoration-none text-white" href="{% url 'devlogs:devlog_list' %}">DevLogs</a>
                 </liv>
+                <liv class="nav-item active">
+                    <a class="nav-link text-decoration-none text-white" href="{% url 'forum:forum_index' %}">Forum</a>
+                </liv>
+
                 <div class="d-flex ps-5 ms-5">
                     {% if user.is_authenticated %}
                         <li class="nav-item active dropdown">

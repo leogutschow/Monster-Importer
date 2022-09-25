@@ -6,7 +6,14 @@
 </head>
 <body>
   {% block 'conteudo' %}
-
+    <div class="container mt-3">
+        <h1>{{ category.name }}</h1>
+        {% for forum in forums %}
+            <div>
+                <a href="{% url 'forum:forum' category.slug forum.id %}"><h2>{{ forum.title }}</h2></a>
+            </div>
+        {% endfor %}
+    </div>
   {% endblock %}
 </body>
 </html>
