@@ -8,7 +8,11 @@
     {% block 'conteudo' %}
         <div class="container mt-3">
             <h1>{{ forum.title }}</h1>
+            <h5 class="fst-italic">Posted by <a href="{% url 'auth:profile' forum.author.slug %}">{{ forum.author }}</a></h5>
             <hr>
+            <p>
+                {{ forum.text }}
+            </p>
             <div>
                 {% for comment in comments %}
                     <div class="border">

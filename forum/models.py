@@ -22,8 +22,10 @@ class Category(models.Model):
 
 
 class Forum(models.Model):
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     title: str = models.CharField(max_length=50)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    text = models.TextField()
     created_at = models.DateTimeField(timezone.now, default=timezone.now)
     published: bool = models.BooleanField(default=True)
     slug = models.SlugField(blank=True, null=True)

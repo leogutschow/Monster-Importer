@@ -8,11 +8,18 @@
   {% block 'conteudo' %}
     <div class="container mt-3">
         <h1>{{ category.name }}</h1>
-        {% for forum in forums %}
-            <div>
-                <a href="{% url 'forum:forum' category.slug forum.id %}"><h2>{{ forum.title }}</h2></a>
-            </div>
-        {% endfor %}
+        <a class="btn btn-success" role="button" href="{% url 'forum:create' category.slug %}">Create a Post</a>
+        <div class="mt-2">
+            {% if forums.count > 0 %}
+                {% for forum in forums %}
+                    <div class="border p-1">
+                        <a href="{% url 'forum:forum' category.slug forum.id %}"><h2>{{ forum.title }}</h2></a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h2>No posts here yet! Be the first!</h2>
+            {% endif %}
+        </div>
     </div>
   {% endblock %}
 </body>
