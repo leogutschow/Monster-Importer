@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
-from authentications.models import Profile
+from authentications.models import Profile, Notification
 from monsters.models import games
 from multiselectfield import MultiSelectField
 
@@ -36,6 +36,14 @@ class DevLog(models.Model):
             return
         if not self.slug:
             self.slug = slugify(f'{self.title}-{self.created_at}')
+        profiles = Profile.objects.all()
+        for profile in profiles:
+            notification = Notification.objects.create(
+                to_profile=profile,
+                type='NL',
+                message="A new DevLog has been up! Go check it out!",
+            )
+            notification.save()
         return super().save()
 
 
