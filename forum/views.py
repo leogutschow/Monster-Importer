@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, UpdateView, CreateView
 from authentications.models import Profile
 from .models import Forum, Category, ForumComment
@@ -44,7 +45,7 @@ class ForumInside(UpdateView):
         return context
 
 
-class ForumCreate(CreateView):
+class ForumCreate(LoginRequiredMixin, CreateView):
     template_name = 'forum/forum_create.html'
     model = Forum
     form_class = FormForum
