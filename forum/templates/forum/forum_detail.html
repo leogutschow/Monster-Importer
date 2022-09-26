@@ -18,7 +18,8 @@
                 {% endfor %}
                 <div>
                     {% if user.is_authenticated %}
-                    <form>
+                    <form class="container" method="post">
+                        {% csrf_token %}
                         {{ form }}
                         <button class="btn btn-success" type="submit">Comment</button>
                     </form>

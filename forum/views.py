@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, UpdateView, CreateView
-from authentications.models import Profile
+from authentications.models import Profile, Notification
 from .models import Forum, Category, ForumComment
 from .forms import FormForumComment, FormForum
 
@@ -40,9 +40,34 @@ class ForumInside(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        category = Category.objects.get(slug=self.kwargs['slug'])
         forum_comments = ForumComment.objects.filter(forum=self.get_object()).order_by('created_at')
         context['comments'] = forum_comments
+        context['category'] = category
         return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        data = form.cleaned_data
+        comments = ForumComment.objects.filter(forum=self.get_object()).values('author')
+        profiles = Profile.objects.filter(user__in=comments)
+        for profile in profiles:
+            if profile.user == self.request.user:
+                continue
+            notification = Notification.objects.create(
+                to_profile=profile,
+                type='FC',
+                message="Someone has commented in a post you follow! Go check it out!",
+            )
+            notification.save()
+        new_comment = ForumComment.objects.create(
+            author=Profile.objects.get(user=self.request.user),
+            forum=self.get_object(),
+            comment=data['comment'],
+        )
+        new_comment.save()
+        messages.add_message(self.request, messages.SUCCESS, "Comment posted with Success!")
+        return redirect('forum:forum', context['category'].slug, self.get_object().pk)
 
 
 class ForumCreate(LoginRequiredMixin, CreateView):
@@ -68,7 +93,6 @@ class ForumCreate(LoginRequiredMixin, CreateView):
             published=True,
         )
         forum.save()
-
         comment = ForumComment.objects.create(
             author=Profile.objects.get(user=self.request.user),
             forum=forum,

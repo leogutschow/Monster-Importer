@@ -1,54 +1,33 @@
 {% extends 'base.html' %}
+{% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>{% block 'titulo' %}{{ profile.user.username }}{% endblock %}</title>
+    {% block 'styles' %}
+        <style>
+            .hidden {
+                display: none;
+            }
+        </style>
+    {% endblock %}
 </head>
 <body>
     {% block 'conteudo' %}
-    <div class="d-flex">
-        <div class="btn-toolbar ms-0 mt-4 p-3" role="toolbar">
-             {% if user.is_authenticated %}
-                <div class="col-sm-1 btn-group-vertical" role="group">
-                    <div class="row">
-                        <button class="btn btn-success mb-2">My Monsters</button>
-                    </div>
-                    <div class="row">
-                        <button class="btn btn-success mb-2">My Profile</button>
-                    </div>
-                </div>
-            {% else %}
-                <div class="col-sm-1 btn-group-vertical" role="group">
-                    <div class="row">
-                        <button class="btn btn-success mb-2">{{ profile.user.username }}'s Monsters</button>
-                    </div>
-                    <div class="row">
-                        <button class="btn btn-success mb-2">{{ profile.user.username }}'s Profile</button>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-        <div id="myMonsters" class="flex-fill ms-5">
-            <h1>Monster Created:</h1>
-            <div class="d-flex justify-content-start">
-                {% for monster in monsters %}
-                    <div class="rounded border me-auto p-2">
-                        <a class="text-decoration-none" href="{% url 'monster:monster_detail' monster.slug %}">
-                            <img class="rounded mx-auto" src="{{ monster.image.url }}" style="max-width: 10vw">
-                            <h5 class="text-dark text-center">{{ monster.name }}</h5>
-                        </a>
-                        <div class="container-fluid">
-                            <button class="btn btn-secondary" type="button">
-                                <a class="text-white text-decoration-none">Change Monster</a>
-                            </button>
-                        </div>
-                    </div>
-                {% endfor %}
+        <div class="d-flex">
+            <nav class="nav flex-fluid-column justify-content-center bg-secondary bg-gradient" style="width: 10vw; height:100vh">
+                <button id="myNotificationsBtn" class="btn btn-secondary flex-fill" type="button">Notifications</button>
+                <button id="myMonstersBtn" class="btn btn-secondary flex-fill" type="button">My Monsters</button>
+                <button id="myProfileBtn" class="btn btn-secondary flex-fill" type="button">My Profile</button>
+            </nav>
+            <div id="contentList" class="d-flex">
+                <div id="myMonsters" class="hidden">{% include 'accounts/partials/profile_monsters.html' %}</div>
+                <div id="myNotifications" class="">{% include 'accounts/partials/notifications.html' %}</div>
             </div>
         </div>
-
-
-    </div>
+    {% block 'scripts' %}
+        <script src="{% static 'vendor/js/dynamic_profile.js' %}"></script>
     {% endblock %}
+    {% endblock %}
+
 </body>
 </html>

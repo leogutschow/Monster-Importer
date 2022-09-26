@@ -36,7 +36,7 @@ class Notification(models.Model):
     to_profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     type = models.CharField(max_length=2, choices=notification_type)
     message = models.TextField()
-    seen = models.BooleanField(default=True)
+    seen = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.type}-{self.to_profile}-{self.message}'

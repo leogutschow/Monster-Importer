@@ -2,10 +2,10 @@ from django.shortcuts import render, reverse, redirect, HttpResponseRedirect
 from .forms import RegisterForm
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Profile
+from .models import Profile, Notification
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import FormView, DetailView
+from django.views.generic import FormView, DetailView, ListView
 from monsters.models import BaseSheet
 
 
@@ -65,4 +65,10 @@ class ProfileView(DetailView, LoginRequiredMixin):
         monsters = BaseSheet.objects.filter(created_by=profile)
         context['profile'] = profile
         context['monsters'] = monsters
+        if profile.user == self.request.user:
+            notifications = Notification.objects.filter(to_profile=profile)
+            context['notifications'] = notifications
         return context
+
+
+
