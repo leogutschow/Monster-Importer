@@ -16,12 +16,9 @@ class FormForumComment(forms.ModelForm):
 class FormForum(forms.ModelForm):
     class Meta:
         model = Forum
-        fields = ('title', 'text',)
+        fields = ('title', )
         widgets = {
             'title': forms.TextInput(attrs={
-                'class': 'form-control'
-            }),
-            'text': forms.Textarea(attrs={
                 'class': 'form-control'
             }),
         }

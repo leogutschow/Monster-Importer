@@ -54,6 +54,7 @@ class ForumCreate(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         category = Category.objects.get(slug=self.kwargs['slug'])
         context['category'] = category
+        context['comment'] = FormForumComment
         return context
 
     def form_valid(self, form):
@@ -63,11 +64,17 @@ class ForumCreate(LoginRequiredMixin, CreateView):
             author=Profile.objects.get(user=self.request.user),
             title=data['title'],
             category=context['category'],
-            text=data['text'],
             created_at=timezone.now(),
             published=True,
         )
         forum.save()
+
+        comment = ForumComment.objects.create(
+            author=Profile.objects.get(user=self.request.user),
+            forum=forum,
+            comment=self.request.POST['comment'],
+        )
+        comment.save()
         messages.add_message(self.request, messages.SUCCESS, 'Your Forum has been posted!')
         return redirect('forum:forum', context['category'].slug, forum.pk)
 
