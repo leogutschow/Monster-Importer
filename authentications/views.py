@@ -16,7 +16,8 @@ class Login(LoginView):
 
 
 class Logout(LogoutView):
-    redirect_field_name = 'home:home_page'
+    next_page = 'home:home_page'
+    success_url_allowed_hosts = 'home:home_page'
 
 
 class Register(FormView):
