@@ -5,11 +5,20 @@
 </head>
 <body>
     {% block 'conteudo' %}
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Log In</button>
-        </form>
+        <div class="d-flex justify-content-center col">
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <label class="form-label" for="id_username">Username</label>
+                    {{ form.username }}
+                </div>
+                <div class="row">
+                <label class="form-label" for="id_password">Password</label>
+                {{ form.password }}
+                </div>
+                <button class="btn btn-success" type="submit">Log In</button>
+            </form>
+        </div>
     {% endblock %}
 
 </body>
