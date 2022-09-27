@@ -17,7 +17,7 @@
                                 <img src="{{ comment.author.image.url }}" style="max-width:12vw; max-height: 15vh">
                             <div class="col col-lg-6">
                                 <h5>{{ comment.author }} said: </h5>
-                                <p>{{ comment.comment }}</p>
+                                <p>{{ comment.comment|safe }}</p>
                                 <hr>
                                 <p class="fst-italic">{{ comment.author.motto }}</p>
                             </div>
