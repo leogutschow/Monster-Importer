@@ -139,7 +139,7 @@ class DnDSpecialTraits(models.Model):
         ('CHA', 'Charisma'),
     ]
     monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
-    specialtrait_name: str = models.CharField(max_length=20)
+    specialtrait_name: str = models.CharField(max_length=50)
     specialtrait_description: str = models.TextField()
     spellcasting: bool = models.BooleanField(default=False)
     caster_level = models.PositiveIntegerField(blank=True, null=True)
