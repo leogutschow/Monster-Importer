@@ -1,5 +1,6 @@
 from django import forms
 from .models import ForumComment, Forum
+from django_summernote.widgets import SummernoteWidget
 
 
 class FormForumComment(forms.ModelForm):
@@ -7,9 +8,7 @@ class FormForumComment(forms.ModelForm):
         model = ForumComment
         fields = ('comment', )
         widgets = {
-            'comment': forms.Textarea(attrs={
-                'class': 'form-control'
-            }),
+            'comment': SummernoteWidget(),
         }
 
 
