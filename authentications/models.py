@@ -4,6 +4,10 @@ from django.utils import timezone
 from django.contrib.auth.models import User, AbstractUser
 
 
+def image_path(instance, filename):
+    return f'images/profiles/{instance}/{filename}'
+
+
 # Create your models here.
 class Profile(models.Model):
     roles: list = [
@@ -13,7 +17,7 @@ class Profile(models.Model):
         ('GLGM', 'Godlike GM'),
     ]
     user: int = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    image: str = models.ImageField(upload_to=f'images/profiles/{user}', blank=True, null=True)
+    image: str = models.ImageField(upload_to=image_path, blank=True, null=True)
     motto: str = models.CharField(max_length=100, blank=True, null=True, help_text='Your warcry!')
     role: str = models.CharField(max_length=4, choices=roles, default='NEGM')
     slug: str = models.SlugField(blank=True, null=True)
