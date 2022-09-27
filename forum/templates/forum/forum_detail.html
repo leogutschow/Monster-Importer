@@ -12,8 +12,16 @@
             <hr>
             <div>
                 {% for comment in comments %}
-                    <div class="border">
-                        {{ comment.comment }}
+                    <div class="container border m-1">
+                        <div class="row">
+                                <img src="{{ comment.author.image.url }}" style="max-width:12vw; max-height: 15vh">
+                            <div class="col col-lg-6">
+                                <h5>{{ comment.author }} said: </h5>
+                                <p>{{ comment.comment }}</p>
+                                <hr>
+                                <p class="fst-italic">{{ comment.author.motto }}</p>
+                            </div>
+                        </div>
                     </div>
                 {% endfor %}
                 <div>
