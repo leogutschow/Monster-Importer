@@ -12,6 +12,9 @@
                 <img src="{{ devlog.bg_image.url }}" style="max-width: 1400px; max-height: 900px">
             </div>
             <h1 class="display-1">{{ devlog.title }}</h1>
+            {% for tag in devlog.tags %}
+                <span class="badge rounded-pill bg-primary"><a class="text-decoration-none text-white" href="#">{{ tag }}</a></span>
+            {% endfor %}
             {{ devlog.devlog_text|safe }}
         </div>
 
