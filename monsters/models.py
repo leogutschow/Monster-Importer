@@ -100,20 +100,6 @@ class DnDLegendaryAction(models.Model):
     legendary_description = models.TextField()
 
 
-class DnDSpecialTraits(models.Model):
-    monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
-    specialtrait_name: str = models.CharField(max_length=20)
-    specialtrait_description: str = models.TextField()
-    spellcasting: bool = models.BooleanField(default=False)
-    dnd_spells = models.ManyToManyField(DndSpells, unique=False, blank=True, null=True)
-
-    class Meta:
-        verbose_name = "DnD Special Trait"
-
-    def __str__(self):
-        return self.specialtrait_name
-
-
 class DnDSkill(models.Model):
     skill_list: list = [
         ('Athletics', 'Athletics'),
@@ -141,6 +127,32 @@ class DnDSkill(models.Model):
 
     class Meta:
         verbose_name = "DnD Skill"
+
+
+class DnDSpecialTraits(models.Model):
+    spellcasting_mod_list = [
+        ('STR', 'Strength'),
+        ('DEX', 'Dexterity'),
+        ('CON', 'Constitution'),
+        ('INT', 'Intelligence'),
+        ('WIS', 'Wisdom'),
+        ('CHA', 'Charisma'),
+    ]
+    monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
+    specialtrait_name: str = models.CharField(max_length=20)
+    specialtrait_description: str = models.TextField()
+    spellcasting: bool = models.BooleanField(default=False)
+    caster_level = models.PositiveIntegerField(blank=True, null=True)
+    spellcasting_ability = models.CharField(max_length=3, choices=spellcasting_mod_list, default='WIS', blank=True, null=True)
+    spell_attack_mod = models.PositiveIntegerField(blank=True, null=True)
+    spell_dc_save = models.PositiveIntegerField(blank=True, null=True)
+    dnd_spells = models.ManyToManyField(DndSpells, unique=False, blank=True, null=True)
+
+    class Meta:
+        verbose_name = "DnD Special Trait"
+
+    def __str__(self):
+        return self.specialtrait_name
 
 
 class DnDSavingThrows(models.Model):

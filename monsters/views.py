@@ -67,6 +67,10 @@ class MonsterDetail(DetailView):
                                               'specialtrait_name': trait.specialtrait_name,
                                               'specialtrait_description': trait.specialtrait_description,
                                               'spellcasting': trait.spellcasting,
+                                              'caster_level': trait.caster_level,
+                                              'spell_attack_mod': trait.spell_attack_mod,
+                                              'spell_dc_save': trait.spell_dc_save,
+                                              'spellcasting_ability': trait.spellcasting_ability,
                                               'dnd_spells': spells}
                                 traits.append(trait_dict)
                             return traits
