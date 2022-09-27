@@ -12,7 +12,7 @@ from monsters.models import BaseSheet
 # Create your views here.
 class Login(LoginView):
     template_name = 'authentications/login.html'
-    success_url = 'home:home_page'
+    next_page = 'home:home_page'
 
 
 class Logout(LogoutView):
