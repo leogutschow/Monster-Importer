@@ -1,0 +1,29 @@
+{% load calculate %}
+<div class="container pt-5">
+    <div class="col">
+        <img class="img-fluid" src="{{ monster.image.url }}">
+        <p class="p-4">{{ monster.description }}</p>
+    </div>
+    <div class="container-md col-auto">
+        <div class="d-flex justify-content-between bg-success pt-1 ps-2 pe-2">
+            <h3 class="text-white">{{ monster.name }}</h3>
+            <h3 class="text-white">CR {{ monster.challenge }}</h3>
+        </div>
+        <div class="container row">
+            <h2 class="fw-bold fs-2 row">XP </h2>
+        </div>
+        <div class="container row">
+            <h4 class="row">{{ monster.race }} {{ monster.monster_class }}</h4>
+        </div>
+        <div class="container row">
+            <h4 class="row">{{ monster.monster_alignment }} {{ monster.size }} {{ monster.type }}</h4>
+        </div>
+        <div class="container row">
+            <p class="fs-3 row">{{ monster.init }}; Senses {{ monster.senses }}</p>
+        </div>
+        <hr>
+        <h2>DEFENSE</h2>
+        <hr>
+
+    </div>
+</div>

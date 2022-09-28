@@ -6,7 +6,7 @@ from django.views.generic import DetailView, ListView, CreateView
 from django.contrib import messages
 from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill, \
     DnDLegendaryAction, DnDSavingThrows, DndReaction, Tor20Monster, Tor20MeleeAction, \
-    Tor20RangedAction
+    Tor20RangedAction, PathFinderMonster, PathFinderOffense
 from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait, FormDnDSkill, \
     FormDnDLegendaryAction, FormDnDSavingThrow, FormDnDReaction, FormTor20Monster, FormTor20BaseAttack
 from authentications.models import Profile
@@ -26,15 +26,20 @@ class MonsterDetail(DetailView):
             case 'TOR20':
                 monster = Tor20Monster.objects.get(pk=base_sheet.pk)
                 return monster
+            case 'PATHF':
+                monster = PathFinderMonster.objects.get(pk=base_sheet.pk)
+                return monster
 
     def get_context_data(self, **kwargs):
         context: dict = super().get_context_data()
         monster = self.get_object()
         context['monster'] = monster
         # Transforming the monster in a Dict so it can be passed as a JSON object
-        context["monster_dict"] = self.monster_to_json(monster)
+        ## Acabar de colocar os monstros no monster_json para descomentar e funcionar
+        # context["monster_dict"] = self.monster_to_json(monster)
         return context
 
+    # Precisa acabar de colocar os outros jogos
     def monster_to_json(self, monster) -> dict:
         def get_models(type: str, game: str) -> list:
             if game == 'DND5E':
