@@ -27,6 +27,8 @@ def image_upload_path(instance, filename):
         return 'images/monsters/DnD5e/{0}'.format(filename)
     if isinstance(instance, Tor20Monster):
         return 'images/monsters/Tor20/{0}'.format(filename)
+    if isinstance(instance, PathFinderMonster):
+        return 'images/monsters/Tor20/{0}'.format(filename)
     return 'images/monsters/fallback/{0}'.format(filename)
 
 
