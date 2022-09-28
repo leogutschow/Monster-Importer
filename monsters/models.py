@@ -8,8 +8,9 @@ from spells.models import DndSpells
 from django.utils.text import slugify
 
 games = [
-        ('DND5E', 'Dungeons and Dragons 5e'),
-        ('TOR20', 'Tormenta20')
+    ('DND5E', 'Dungeons and Dragons 5e'),
+    ('TOR20', 'Tormenta20'),
+    ('PATHF', 'Pathfinder'),
     ]
 
 tor20_action_type: list = [
