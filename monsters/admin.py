@@ -1,9 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import TabularInline
 from django.forms import TextInput, Textarea
-from .models import DnDMonster, DnDAction, DnDSpecialTraits, DnDSkill, DnDSavingThrows, DndReaction, \
-    Tor20Monster, Tor20Skill, Tor20GenericAction, Tor20MeleeAction, Tor20RangedAction, PathFinderMonster, \
-    PathFinderOffense
+from .models import *
 from django.db import models
 from django.contrib.auth.models import Group
 
@@ -92,8 +90,29 @@ class Tor20MonsterAdmin(admin.ModelAdmin):
     inlines = [Tor20SkillInline, Tor20GenericActionInline, Tor20MeleeActionInline, Tor20RangedActionInline, ]
 
 
+class PathFinderSkillInline(admin.TabularInline):
+    model = PathFinderSkill
+    extra = 0
+    min_num = 0
+    can_delete = True
+
+
+class PathFinderSpecialAbilityInline(admin.TabularInline):
+    model = PathFinderSpecialAbility
+    extra = 0
+    min_num = 0
+    can_delete = True
+
+
 class PathFinderOffenseInline(admin.TabularInline):
     model = PathFinderOffense
+    extra = 0
+    min_num = 0
+    can_delete = True
+
+
+class PathFinderRacialModsInline(admin.TabularInline):
+    model = PathFinderRacialMod
     extra = 0
     min_num = 0
     can_delete = True
@@ -103,7 +122,7 @@ class PathFinderMonsterAdmin(admin.ModelAdmin):
     list_display = (
         'id', 'name', 'ac', 'hp', 'challenge'
     )
-    inlines = [PathFinderOffenseInline]
+    inlines = [PathFinderOffenseInline, PathFinderSkillInline, PathFinderSpecialAbilityInline, PathFinderRacialModsInline]
 
 
 admin.site.register(Tor20Monster, Tor20MonsterAdmin)

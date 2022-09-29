@@ -35,14 +35,14 @@ class MonsterDetail(DetailView):
         monster = self.get_object()
         context['monster'] = monster
         if monster.game == 'PATHF':
-            offenses = PathFinderOffense.objects.filter(monster = monster)
+            melee = PathFinderOffense.objects.filter(monster=monster, type='M')
+            ranged = PathFinderOffense.objects.filter(monster=monster, type='R')
             melee_offense = False
             ranged_offense = False
-            for offense in offenses:
-                if offense.type == 'M':
-                    melee_offense = True
-                else:
-                    ranged_offense = True
+            if len(melee) > 0:
+                melee_offense = True
+            if len(ranged) > 0:
+                ranged_offense = True
             context['melee_offense'] = melee_offense
             context['ranged_offense'] = ranged_offense
         # Transforming the monster in a Dict so it can be passed as a JSON object
