@@ -34,6 +34,17 @@ class MonsterDetail(DetailView):
         context: dict = super().get_context_data()
         monster = self.get_object()
         context['monster'] = monster
+        if monster.game == 'PATHF':
+            offenses = PathFinderOffense.objects.filter(monster = monster)
+            melee_offense = False
+            ranged_offense = False
+            for offense in offenses:
+                if offense.type == 'M':
+                    melee_offense = True
+                else:
+                    ranged_offense = True
+            context['melee_offense'] = melee_offense
+            context['ranged_offense'] = ranged_offense
         # Transforming the monster in a Dict so it can be passed as a JSON object
         ## Acabar de colocar os monstros no monster_json para descomentar e funcionar
         # context["monster_dict"] = self.monster_to_json(monster)
@@ -97,6 +108,9 @@ class MonsterDetail(DetailView):
                         if len(monster_reactions) >= 1:
                             reactions = [model_to_dict(reaction) for reaction in monster_reactions]
                             return reactions
+
+            if game == 'PATHF':
+                pass
 
         if isinstance(monster, DnDMonster):
             monster_dict = {'monster': model_to_dict(monster)}

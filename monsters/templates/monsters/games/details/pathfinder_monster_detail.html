@@ -1,29 +1,73 @@
 {% load calculate %}
 <div class="container pt-5">
-    <div class="col">
-        <img class="img-fluid" src="{{ monster.image.url }}">
-        <p class="p-4">{{ monster.description }}</p>
-    </div>
-    <div class="container-md col-auto">
-        <div class="d-flex justify-content-between bg-success pt-1 ps-2 pe-2">
-            <h3 class="text-white">{{ monster.name }}</h3>
-            <h3 class="text-white">CR {{ monster.challenge }}</h3>
+    <div class="row">
+        <div class="col-auto">
+            <img class="img-fluid" src="{{ monster.image.url }}" style="height: 65vh">
+            <div class="container col p-3">
+                <button id="importMonster" class="btn btn-success" type="button">Import Monster!</button>
+            </div>
+            <p class="p-4">{{ monster.description }}</p>
         </div>
-        <div class="container row">
-            <h2 class="fw-bold fs-2 row">XP </h2>
+        <div class="container-md col">
+            <div class="d-flex justify-content-between bg-success pt-1 ps-2 pe-2">
+                <h3 class="text-white">{{ monster.name }}</h3>
+                <h3 class="text-white">CR {{ monster.challenge }}</h3>
+            </div>
+            <div class="container row">
+                <h2 class="fw-bold fs-2 row">XP </h2>
+            </div>
+            <div class="container row">
+                <h4 class="row">{{ monster.race }} {{ monster.monster_class }}</h4>
+            </div>
+            <div class="container row">
+                <h4 class="row">{{ monster.monster_alignment }} {{ monster.size }} {{ monster.type }}</h4>
+            </div>
+            <div class="container row">
+                <h4 class="row" style="display:inline;"><b>Init</b> +{{ monster.init }}; <b>Senses</b> {{ monster.senses }}</h4>
+            </div>
+            <hr>
+            <h2>DEFENSE</h2>
+            <hr>
+            <div class="container">
+                <h4 class="row" style="display: inline;"><b>AC</b> {{ monster.ac }} {{ monster.ac_mod }}</h4>
+            </div>
+            <div class="container">
+                <h4 class="row" style="display: inline;"><b>hp</b> {{ monster.hp }} ({{ monster.hp_dice }})</h4>
+            </div>
+            <div class="container">
+                <h4 class="row" style="display: inline;"><b>Fort</b> +{{ monster.fortitude }}, <b>Ref</b> +{{ monster.reflex }}, <b>Will</b> +{{ monster.will }} </h4>
+            </div>
+            <div class="container">
+                <h4 class="row" style="display: inline;"><b>Resist</b> {{ monster.resist }}</h4>
+            </div>
+            <hr>
+            <h2>OFFENCE</h2>
+            <hr>
+            <div class="container">
+                <h4 class="row" style="display: inline;"><b>Speed</b> {{ monster.movement }}</h4>
+            </div>
+            {% if melee_offense or ranged_offense %}
+                {% if melee_offense %}
+                    <div class="container">
+                        <h4 class="row" style="display: inline;"><b>Melee</b>
+                            {% for melee in monster.pathfinderoffense_set.all %}
+                                {% if melee.type == 'M' %}
+                                    {{ melee.name }} {% if melee.attack >= 0 %}+{% endif %}{{ melee.attack }}({{ melee.damage }})
+                                {% endif %}
+                            {% endfor %}</h4>
+                    </div>
+                {% endif %}
+                {% if ranged_offense %}
+                    <div class="container">
+                        <h4 class="row" style="display: inline;"><b>Ranged</b>
+                            {% for ranged in monster.pathfinderoffense_set.all %}
+                                {% if ranged.type == 'R' %}
+                                    {{ ranged.name }} {% if ranged.attack >= 0 %}+{% endif %}{{ ranged.attack }} ({{ ranged.damage }}/{{ ranged.reach }})
+                                {% endif %}
+                            {% endfor %}</h4>
+                    </div>
+                {% endif %}
+            {% endif %}
         </div>
-        <div class="container row">
-            <h4 class="row">{{ monster.race }} {{ monster.monster_class }}</h4>
-        </div>
-        <div class="container row">
-            <h4 class="row">{{ monster.monster_alignment }} {{ monster.size }} {{ monster.type }}</h4>
-        </div>
-        <div class="container row">
-            <p class="fs-3 row">{{ monster.init }}; Senses {{ monster.senses }}</p>
-        </div>
-        <hr>
-        <h2>DEFENSE</h2>
-        <hr>
-
     </div>
 </div>
