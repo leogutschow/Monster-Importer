@@ -18,7 +18,7 @@
                     <h4 class="fw-bold row">XP </h4>
                 </div>
                 <div class="container row">
-                    <h5 class="row">{{ monster.race }} {{ monster.monster_class }}</h5>
+                    <h5 class="row">{% if monster.race != None %}{{ monster.race }}{% endif %} {% if monster.monster_class != None %}{{ monster.monster_class }}{% endif %}</h5>
                 </div>
                 <div class="container row">
                     <h5 class="row">{{ monster.monster_alignment }} {{ monster.size }} {{ monster.type }}</h5>
@@ -30,10 +30,10 @@
                 <h4>DEFENSE</h4>
                 <hr>
                 <div class="container">
-                    <h5 class="row" style="display: inline;"><b>AC</b> {{ monster.ac }} {{ monster.ac_mod }}</h5>
+                    <h5 class="row" style="display: inline;"><b>AC</b> {{ monster.ac }}</h5>
                 </div>
                 <div class="container">
-                    <h5 class="row" style="display: inline;"><b>hp</b> {{ monster.hp }} ({{ monster.hp_dice }})</h5>
+                    <h5 class="row" style="display: inline;"><b>HP</b> {{ monster.hp }} ({{ monster.hp_dices }})</h5>
                 </div>
                 <div class="container">
                     <h5 class="row" style="display: inline;"><b>Fort</b> +{{ monster.fortitude }}, <b>Ref</b> +{{ monster.reflex }}, <b>Will</b> +{{ monster.will }} </h5>
@@ -53,7 +53,7 @@
                             <h5 class="row" style="display: inline;"><b>Melee</b>
                                 {% for melee in monster.pathfinderoffense_set.all %}
                                     {% if melee.type == 'M' %}
-                                        {{ melee.name }} {% if melee.attack >= 0 %}+{% endif %}{{ melee.attack }}({{ melee.damage }})
+                                        {% if melee.count > 0 %}{{melee.count}}{% endif %} {{ melee.name }} {% if melee.attack >= 0 %}+{% endif %}{{ melee.attack }}({{ melee.damage }}),
                                     {% endif %}
                                 {% endfor %}</h5>
                         </div>
@@ -63,7 +63,7 @@
                             <h5 class="row" style="display: inline;"><b>Ranged</b>
                                 {% for ranged in monster.pathfinderoffense_set.all %}
                                     {% if ranged.type == 'R' %}
-                                        {{ ranged.name }} {% if ranged.attack >= 0 %}+{% endif %}{{ ranged.attack }} ({{ ranged.damage }}/{{ ranged.reach }})
+                                         {% if ranged.count > 0 %}{{ranged.count}}{% endif %} {{ ranged.name }} {% if ranged.attack >= 0 %}+{% endif %}{{ ranged.attack }} ({{ ranged.damage }}/{{ ranged.crit_range }}),
                                     {% endif %}
                                 {% endfor %}</h5>
                         </div>

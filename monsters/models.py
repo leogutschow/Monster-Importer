@@ -345,12 +345,12 @@ class PathFinderOffense(models.Model):
     monster = models.ForeignKey(PathFinderMonster, on_delete=models.CASCADE)
     name = models.CharField(max_length=20)
     type = models.CharField(max_length=1, choices=[('M', 'Melee'), ('R', 'Ranged')])
-    reach = models.CharField(max_length=20, blank=True, null=True)
-    attack = models.IntegerField()
+    attack = models.CharField(max_length=20, blank=True, null=True)
+    effect = models.CharField(max_length=20, blank=True, null=True)
+    crit_range = models.CharField(max_length=20, blank=True, null=True)
     multiple = models.BooleanField(default=False)
-    multiple_bonus = models.CharField(max_length=20, blank=True, null=True)
-    damage = models.CharField(max_length=20)
-    damage_type = models.CharField(max_length=20, blank=True, null=True)
+    damage = models.CharField(max_length=20, blank=True, null=True)
+    count = models.IntegerField(default=0, blank=True, null=True)
 
 
 class PathFinderSpecialAbility(models.Model):
@@ -401,48 +401,5 @@ class PathFinderSkill(models.Model):
     monster = models.ForeignKey(PathFinderMonster, on_delete=models.CASCADE)
     skill = models.CharField(max_length=30, choices=skills)
     skill_bonus = models.IntegerField()
-
-
-class PathFinderRacialMod(models.Model):
-    skills = [
-        ('Acrobatics', 'Acrobatics'),
-        ('Appraise', 'Appraise'),
-        ('Bluff', 'Bluff'),
-        ('Climb', 'Climb'),
-        ('Craft', 'Craft'),
-        ('Diplomacy', 'Diplomacy'),
-        ('Disable Device', 'Disable Device'),
-        ('Disguise', 'Disguise'),
-        ('Escape Artist', 'Escape Artist'),
-        ('Fly', 'Fly'),
-        ('Handle Animal', 'Handle Animal'),
-        ('Heal', 'Heal'),
-        ('Intimidate', 'Intimidate'),
-        ('Knowledge (arcana)', 'Knowledge (arcana)'),
-        ('Knowledge (dungeoneering)', 'Knowledge (dungeoneering)'),
-        ('Knowledge (engineering)', 'Knowledge (engineering)'),
-        ('Knowledge (geography)', 'Knowledge (geography)'),
-        ('Knowledge (history)', 'Knowledge (history)'),
-        ('Knowledge (local)', 'Knowledge (local)'),
-        ('Knowledge (nature)', 'Knowledge (nature)'),
-        ('Knowledge (nobility)', 'Knowledge (nobility)'),
-        ('Knowledge (planes)', 'Knowledge (planes)'),
-        ('Knowledge (religion)', 'Knowledge (religion)'),
-        ('Linguistics', 'Linguistics'),
-        ('Perception', 'Perception'),
-        ('Perform', 'Perform'),
-        ('Profession', 'Profession'),
-        ('Ride', 'Ride'),
-        ('Sense Motive', 'Sense Motive'),
-        ('Sleight of Hand', 'Sleight of Hand'),
-        ('Spellcraft', 'Spellcraft'),
-        ('Stealth', 'Stealth'),
-        ('Survival', 'Heal'),
-        ('Swim', 'Swim'),
-        ('Use Magic Device', 'Use Magic Device'),
-    ]
-    monster = models.ForeignKey(PathFinderMonster, on_delete=models.CASCADE)
-    skill = models.CharField(max_length=30, choices=skills)
-    racial_bonus = models.IntegerField()
-
+    racial_mod = models.BooleanField(default=False)
 

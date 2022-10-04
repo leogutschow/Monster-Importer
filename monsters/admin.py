@@ -111,18 +111,11 @@ class PathFinderOffenseInline(admin.TabularInline):
     can_delete = True
 
 
-class PathFinderRacialModsInline(admin.TabularInline):
-    model = PathFinderRacialMod
-    extra = 0
-    min_num = 0
-    can_delete = True
-
-
 class PathFinderMonsterAdmin(admin.ModelAdmin):
     list_display = (
         'id', 'name', 'ac', 'hp', 'challenge'
     )
-    inlines = [PathFinderOffenseInline, PathFinderSkillInline, PathFinderSpecialAbilityInline, PathFinderRacialModsInline]
+    inlines = [PathFinderOffenseInline, PathFinderSkillInline, PathFinderSpecialAbilityInline, ]
 
 
 admin.site.register(Tor20Monster, Tor20MonsterAdmin)
