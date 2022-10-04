@@ -26,7 +26,7 @@ class MonsterDetail(DetailView):
             case 'TOR20':
                 monster = Tor20Monster.objects.get(pk=base_sheet.pk)
                 return monster
-            case 'PATHF':
+            case 'PAF1e':
                 monster = PathFinderMonster.objects.get(pk=base_sheet.pk)
                 return monster
 
@@ -34,7 +34,7 @@ class MonsterDetail(DetailView):
         context: dict = super().get_context_data()
         monster = self.get_object()
         context['monster'] = monster
-        if monster.game == 'PATHF':
+        if monster.game == 'PAF1e':
             melee = PathFinderOffense.objects.filter(monster=monster, type='M')
             ranged = PathFinderOffense.objects.filter(monster=monster, type='R')
             melee_offense = False
@@ -109,7 +109,7 @@ class MonsterDetail(DetailView):
                             reactions = [model_to_dict(reaction) for reaction in monster_reactions]
                             return reactions
 
-            if game == 'PATHF':
+            if game == 'PAF1e':
                 pass
 
         if isinstance(monster, DnDMonster):
