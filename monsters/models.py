@@ -259,43 +259,6 @@ class Tor20RangedAction(Tor20BaseAttackAction):
         verbose_name = 'Ranged Action'
 
 
-class PathFinderFeat(models.Model):
-    feats = [
-        ('General', 'General'),
-        ('Blood Hex', 'Blood Hex'),
-        ('Combat', 'Combat'),
-        ('Conduit', 'Conduit'),
-        ('Critical', 'Critical'),
-        ('Animal Companion', 'Animal Companion'),
-        ('Damnation', 'Damnation'),
-        ('Faction', 'Faction'),
-        ('Grit and Panache', 'Grit and Panache'),
-        ('Hero Points', 'Hero Points'),
-        ('Item Creation', 'Item Creation'),
-        ('Item Mastery', 'Item Mastery'),
-        ('Meditation', 'Meditation'),
-        ('Metamagic', 'Metamagic'),
-        ('Mythic', 'Mythic'),
-        ('Performance', 'Performance'),
-        ('Racial', 'Racial'),
-        ('Stare', 'Stare'),
-        ('Story', 'Story'),
-        ('Style', 'Style'),
-        ('Achievement', 'Achievement'),
-        ('Targeting', 'Targeting'),
-        ('Animal/Familiar', 'Animal/Familiar'),
-        ('Teamwork', 'Teamwork'),
-        ('Monster', 'Monster'),
-    ]
-    name = models.CharField(max_length=50)
-    type = models.CharField(max_length=50, choices=feats)
-    description = models.TextField()
-    prerequisites = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
-
-
 class PathFinderMonster(BaseSheet):
     alignment = [
         ('LG', 'Lawful Good'),
@@ -326,6 +289,7 @@ class PathFinderMonster(BaseSheet):
     resist = models.CharField(max_length=50, blank=True, null=True)
     spell_resistence = models.PositiveIntegerField(blank=True, null=True)
     weaknesses = models.CharField(max_length=50, blank=True, null=True)
+    feats = models.TextField(default='', blank=True, null=True)
     speed_mod = models.CharField(max_length=50, blank=True, null=True)
     space = models.CharField(max_length=10, blank=True, null=True)
     reach = models.CharField(max_length=20, blank=True, null=True)
@@ -333,7 +297,6 @@ class PathFinderMonster(BaseSheet):
     base_attack = models.PositiveIntegerField(blank=True, null=True)
     combat_maneuver_bonus = models.CharField(max_length=50, blank=True, null=True, verbose_name='CMB')
     combat_maneuver_defence = models.CharField(max_length=50, blank=True, null=True, verbose_name='CMD')
-    feats = models.ManyToManyField(to=PathFinderFeat, blank=True, null=True)
     languages = models.CharField(max_length=100, blank=True, null=True)
     special_qualities = models.CharField(max_length=100, blank=True, null=True)
     environment = models.CharField(max_length=100, blank=True, null=True)

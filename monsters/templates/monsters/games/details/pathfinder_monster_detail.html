@@ -78,13 +78,13 @@
                 <div class="container">
                     <h5 class="row" style="display: inline;"><b>Base Atk</b> {{monster.base_attack}}; <b>CMB</b> {{monster.combat_maneuver_bonus}}; <b>CMD</b> {{monster.combat_maneuver_defence}}</h5>
                 </div>
-                <!-- Feats
+                {% if monster.feats %}
                 <div class="container">
-                    <h5 class="row" style="display: inline;"><b>Base Atk</b> {{monster.base_attack}}; <b>CMB</b> {{monster.combat_maneuver_bonus}}; <b>CMD</b> {{monster.combat_maneuver_defence}}</h5>
+                    <h5 class="row" style="display: inline;"><b>Feats</b> {{monster.feats}}</h5>
                 </div>
-                -->
+                {% endif %}
                 <div class="container">
-                    <h5 class="row" style="display: inline;"><b>Skills</b> {% for skill in monster.pathfinderskill_set.all %}{{ skill.get_skill_display }} +{{ skill.skill_bonus }}, {% endfor %}; <b>Racial Modifiers</b>{% for racial in monster.pathfinderracialmod_set.all %} +{{ racial.racial_bonus }} {{ racial.get_skill_display }},{% endfor %}</h5>
+                    <h5 class="row" style="display: inline;"><b>Skills</b> {% for skill in monster.pathfinderskill_set.all %}{% if skill.racial_mod == False %}{{ skill.get_skill_display }} +{{ skill.skill_bonus }}, {% endif %}{% endfor %}; <b>Racial Modifiers</b>{% for racial in monster.pathfinderskill_set.all %}{% if racial.racial_mod %} +{{ racial.skill_bonus }} {{ racial.get_skill_display }}, {% endif %}{% endfor %}</h5>
                 </div>
                 <div class="container">
                     <h5 class="row" style="display: inline;"><b>Languages</b> {{monster.languages}}</h5>
