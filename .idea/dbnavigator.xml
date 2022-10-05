@@ -48,6 +48,11 @@
         <condition column="id" operator="=" value="" active="true" />
       </filter>
     </filter-actions>
+    <filter-actions connection-id="58c67a9f-5769-42a5-b8ec-11c617519e7d" dataset="main.monsters_dndspecialtraits" active-filter-id="47cb9f7c-d25b-45e0-8bb8-9731c77bff10">
+      <filter id="47cb9f7c-d25b-45e0-8bb8-9731c77bff10" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
     <filter-actions connection-id="58c67a9f-5769-42a5-b8ec-11c617519e7d" dataset="main.monsters_dndspecialtraits_dnd_spells" active-filter-id="" />
     <filter-actions connection-id="58c67a9f-5769-42a5-b8ec-11c617519e7d" dataset="main.monsters_monster_actions" active-filter-id="" />
   </component>
