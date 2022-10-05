@@ -2,14 +2,14 @@
 <div class="container-fluid pt-5 mb-5">
     <div class="container col">
         <div class="container row justify-content-center">
-            <div class="col-auto">
+            <div class="col">
                 <img class="img-fluid" src="{{ monster.image.url }}" style="max-height: 65vh">
                 <div class="container col p-3">
                     <button id="importMonster" class="btn btn-success" type="button">Import Monster!</button>
                 </div>
                 <p class="p-4">{{ monster.description }}</p>
             </div>
-            <div class="container-md col">
+            <div class="container-md col-sm">
                 <div class="d-flex justify-content-between bg-success pt-1 ps-2 pe-2 mb-2">
                     <h3 class="text-white">{{ monster.name }}</h3>
                     <h3 class="text-white">CR {{ monster.challenge }}</h3>
