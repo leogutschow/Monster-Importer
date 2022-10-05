@@ -9,5 +9,5 @@ bootstrap/
 !.gitignore
 */migrations/*
 /bootstrap/
-/.idea/
+.idea/*
 data/
