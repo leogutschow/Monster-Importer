@@ -41,7 +41,7 @@ class BaseSheet(models.Model):
     ac_type: str = models.CharField(max_length=50)
     hp: int = models.IntegerField()
     hp_dices: str = models.CharField(max_length=10)
-    movement: str = models.CharField(max_length=30, blank=True, null=True,)
+    movement: str = models.CharField(max_length=100, blank=True, null=True,)
     strength: int = models.IntegerField()
     dexterity: int = models.IntegerField()
     constitution: int = models.IntegerField()
