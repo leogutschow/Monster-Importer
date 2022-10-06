@@ -6,7 +6,7 @@ from django.views.generic import DetailView, ListView, CreateView
 from django.contrib import messages
 from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill, \
     DnDLegendaryAction, DnDSavingThrows, DndReaction, Tor20Monster, Tor20MeleeAction, \
-    Tor20RangedAction, PathFinderMonster, PathFinderOffense
+    Tor20RangedAction, PathFinderMonster, PathFinderOffense, PathFinderSkill, PathFinderSpecialAbility
 from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait, FormDnDSkill, \
     FormDnDLegendaryAction, FormDnDSavingThrow, FormDnDReaction, FormTor20Monster, FormTor20BaseAttack
 from authentications.models import Profile
@@ -47,11 +47,14 @@ class MonsterDetail(DetailView):
             context['ranged_offense'] = ranged_offense
         # Transforming the monster in a Dict so it can be passed as a JSON object
         ## Acabar de colocar os monstros no monster_json para descomentar e funcionar
-        # context["monster_dict"] = self.monster_to_json(monster)
+        context["monster_dict"] = self.monster_to_json(monster)
         return context
 
     # Precisa acabar de colocar os outros jogos
     def monster_to_json(self, monster) -> dict:
+        monster_dict = {'monster': model_to_dict(monster)}
+        monster_dict['monster']['image'] = monster_dict['monster']['image'].url
+
         def get_models(type: str, game: str) -> list:
             if game == 'DND5E':
                 match type:
@@ -110,12 +113,24 @@ class MonsterDetail(DetailView):
                             return reactions
 
             if game == 'PAF1e':
-                pass
+                match type:
+                    case 'offense':
+                        offenses = PathFinderOffense.objects.filter(monster=monster)
+                        if len(offenses) >= 1:
+                            offenses_list = [model_to_dict(offense) for offense in offenses]
+                            return offenses_list
+                    case 'skills':
+                        skills = PathFinderSkill.objects.filter(monster=monster)
+                        if len(skills) >= 1:
+                            skill_list = [model_to_dict(skill) for skill in skills]
+                            return skill_list
+                    case 'special_abilities':
+                        special_abilities = PathFinderSpecialAbility.objects.filter(monster=monster)
+                        if len(special_abilities) >= 1:
+                            ability_list = [model_to_dict(ability) for ability in special_abilities]
+                            return ability_list
 
         if isinstance(monster, DnDMonster):
-            monster_dict = {'monster': model_to_dict(monster)}
-            monster_dict['monster']['image'] = monster_dict['monster']['image'].url
-
             # Getting Monster Actions
             monster_dict['actions'] = get_models(type='actions', game=monster.game)
 
@@ -133,7 +148,15 @@ class MonsterDetail(DetailView):
 
             # Getting Reactions
             monster_dict['reactions'] = get_models(type='reactions', game=monster.game)
+        if isinstance(monster, PathFinderMonster):
+            # Getting the Offenses
+            monster_dict['offense'] = get_models(type='offense', game=monster.game)
 
+            # Getting Skills
+            monster_dict['skills'] = get_models(type='skills', game=monster.game)
+
+            # Getting Special Abilities
+            monster_dict['special_abilities'] = get_models(type='special_abilities', game=monster.game)
         return monster_dict
 
 
