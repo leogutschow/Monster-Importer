@@ -1,8 +1,9 @@
 from django.forms import ModelForm
 from django import forms
 from .models import BaseSheet, DnDMonster, DnDAction, DnDSpecialTraits, DnDSkill, DnDLegendaryAction, \
-    DnDSavingThrows, DndReaction, Tor20Monster, Tor20GenericAction,\
-    Tor20RangedAction, Tor20MeleeAction, Tor20Skill, games
+    DnDSavingThrows, DndReaction, Tor20Monster, Tor20GenericAction, \
+    Tor20RangedAction, Tor20MeleeAction, Tor20Skill, PathFinderMonster, games, \
+    PathFinderSpecialAbility, PathFinderOffense, PathFinderSkill
 
 
 class FormMonster(ModelForm):
@@ -306,6 +307,183 @@ class FormTor20BaseAttack(ModelForm):
                 'class': 'form-control'
             }),
             'hit': forms.TextInput(attrs={
+                'class': 'form-control'
+            })
+        }
+
+
+class FormPFMonster(ModelForm):
+    class Meta:
+        model = PathFinderMonster
+        fields = (
+            'monster_class', 'monster_alignment', 'type', 'subtype', 'init', 'senses',
+            'aura', 'ac_mod', 'hp_mod', 'fortitude', 'reflex', 'will', 'save_mods', 'damage_reduction',
+            'immune', 'resist', 'spell_resistence', 'weaknesses', 'feats', 'speed_mod', 'space', 'reach',
+            'spell_domain', 'base_attack', 'combat_maneuver_bonus', 'combat_maneuver_defence', 'languages',
+            'special_qualities', 'environment', 'organization', 'treasure',
+        )
+        widgets = {
+            'monster_class': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'monster_alignment': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'type': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'subtype': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'init': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'senses': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'aura': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'ac_mod': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'hp_mod': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'fortitude': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'reflex': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'will': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'save_mods': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'damage_reduction': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'immune': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'resist': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'spell_resistence': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'weaknesses': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'feats': forms.Textarea(attrs={
+                'class': 'form-control'
+            }),
+            'speed_mod': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'space': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'reach': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'spell_domain': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'base_attack': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'combat_maneuver_bonus': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'combat_maneuver_defence': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'languages': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'special_qualities': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'environment': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'organization': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'treasure': forms.TextInput(attrs={
+                'class': 'form-control'
+            })
+        }
+
+
+class FormPFSkill(ModelForm):
+    class Meta:
+        model = PathFinderSkill
+        fields = (
+            'monster', 'skill', 'skill_bonus', 'racial_mod'
+        )
+        widgets = {
+            'monster': forms.HiddenInput(),
+            'skill': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'skill_bonus': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'racial_mod': forms.HiddenInput()
+        }
+
+
+class FormPFOffense(ModelForm):
+    class Meta:
+        model = PathFinderOffense
+        fields = (
+            'monster', 'name', 'type', 'attack', 'effect', 'crit_range', 'multiple', 'damage', 'count'
+        )
+        widgets = {
+            'monster': forms.HiddenInput(),
+            'nasme': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'type': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'attack': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'effect': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'crit_range': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'multiple': forms.CheckboxInput(attrs={
+                'class': 'form-control'
+            }),
+            'damage': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'count': forms.NumberInput(attrs={
+                'class': 'form-control'
+            })
+        }
+
+
+class FormPFSpecialAbility(ModelForm):
+    class Meta:
+        model = PathFinderSpecialAbility
+        fields = (
+            'monster', 'name', 'description'
+        )
+        widgets = {
+            'monster': forms.HiddenInput(),
+            'name': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'description': forms.Textarea(attrs={
                 'class': 'form-control'
             })
         }
