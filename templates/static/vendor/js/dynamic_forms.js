@@ -61,6 +61,12 @@ addPFOffenseBtn.addEventListener('click', function(event){
     add_new_inlineform(skill=false, 'offense-form', 'pfOffenseList', 'emptyPFOffenseForm', totalPFOffenseForms)
 })
 
+const totalPFSpecialForms = document.getElementById('id_pathfinderspecialability_set-TOTAL_FORMS');
+const addPFSpecialBtn = document.getElementById('addPFSpecialBtn');
+addPFSpecialBtn.addEventListener('click', function(event){
+    add_new_inlineform(skill=false, 'special-form', 'pfSpecialList', 'emptyPFSpecialForm', totalPFSpecialForms)
+})
+
 function change_game(event){
     const allGames = document.getElementById('specificGames').childNodes;
     allGames.forEach(game => {

@@ -167,6 +167,7 @@
             </div>
             <button id="addPFSkillBtn" type="button" class="btn btn-secondary">Add Skill</button>
         </div>
+        <hr>
         <div id="pfOffense">
             <h5>Offenses</h5>
             {{ pfoffense.management_form }}
@@ -181,6 +182,22 @@
                 {% endfor %}
             </div>
             <button id="addPFOffenseBtn" type="button" class="btn btn-secondary">Add Offense</button>
+        </div>
+        <hr>
+        <div id="pfSpecialAbilities">
+            <h5>Special Abilities</h5>
+            {{ pfspecial.management_form }}
+            <div id="pfSpecialList" class="row">
+                {% for special in pfspecial %}
+                    ______________________
+                    <div class="special-form">
+                        <div class="row">
+                            {{ special }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <button id="addPFSpecialBtn" type="button" class="btn btn-secondary">Add Special Ability</button>
         </div>
         <div id="emptyPFSkillForm" class="hidden">
             <div class="col p-2" style="max-width: 60px">
@@ -229,6 +246,20 @@
                     </div>
                 </div>
             </div>
+            <hr>
+        </div>
+        <div id="emptyPFSpecialForm" class="hidden">
+            <div class="col">
+                <div class="row">
+                    <label class="form-label" for="{{ pfspecial.empty_form.name.id_for_label }}">Special Ability Name</label>
+                    {{ pfspecial.empty_form.name }}
+                </div>
+                <div class="row">
+                    <label class="form-label" for="{{ pfspecial.empty_form.description.id_for_label }}">Special Ability Description</label>
+                    {{ pfspecial.empty_form.description }}
+                </div>
+            </div>
+            <hr>
         </div>
     </div>
 
