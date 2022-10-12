@@ -53,7 +53,6 @@ function change_game(event){
     if (event){
         event.preventDefault();
     }
-    console.log(gameSelect.value);
     const allGames = document.getElementById('specificGames').childNodes;
     allGames.forEach(game => {
         if (game.tagName == 'DIV'){
@@ -72,6 +71,12 @@ function change_game(event){
             const tor20Form = document.getElementById('tor20MonsterForm');
             tor20Form.setAttribute('class', 'container col');
             console.log('Tor20 escolhido');
+            break;
+
+        case 'PAF1e':
+            const pf_form = document.getElementById('pfMonsterForm');
+            pf_form.setAttribute('class', 'container col');
+            console.log('PathFinder escolhido');
             break;
     }
 }

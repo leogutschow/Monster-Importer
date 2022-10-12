@@ -8,7 +8,8 @@ from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill
     DnDLegendaryAction, DnDSavingThrows, DndReaction, Tor20Monster, Tor20MeleeAction, \
     Tor20RangedAction, PathFinderMonster, PathFinderOffense, PathFinderSkill, PathFinderSpecialAbility
 from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait, FormDnDSkill, \
-    FormDnDLegendaryAction, FormDnDSavingThrow, FormDnDReaction, FormTor20Monster, FormTor20BaseAttack
+    FormDnDLegendaryAction, FormDnDSavingThrow, FormDnDReaction, FormTor20Monster, FormTor20BaseAttack,\
+    FormPFSkill, FormPFMonster, FormPFOffense, FormPFSpecialAbility
 from authentications.models import Profile
 
 
@@ -207,6 +208,15 @@ class MonsterCreate(CreateView):
                                                      parent_model=Tor20Monster, min_num=0, extra=0)
     Tor20RangedAction_Formset = inlineformset_factory(form=FormTor20BaseAttack, model=Tor20RangedAction,
                                                       parent_model=Tor20Monster, min_num=0, extra=0)
+    PathFinderOffense_Formset = inlineformset_factory(form=FormPFOffense, model=PathFinderOffense,
+                                                      parent_model=PathFinderMonster, min_num=0, extra=0)
+    PathFinderSkill_Formset = inlineformset_factory(form=FormPFSkill, model=PathFinderSkill,
+                                                    parent_model=PathFinderMonster, min_num=0, extra=0)
+    PathFinderRacial_Formset = inlineformset_factory(form=FormPFSkill, model=PathFinderSkill,
+                                                     parent_model=PathFinderMonster, min_num=0, extra=0)
+    PathFinderSpecialAbility_Formset = inlineformset_factory(form=FormPFSpecialAbility, model=PathFinderSpecialAbility,
+                                                             parent_model=PathFinderMonster, min_num=0, extra=0)
+
 
     template_name = 'monsters/monster_create.html'
     form_class = FormMonster
@@ -222,6 +232,11 @@ class MonsterCreate(CreateView):
         'tor20monster': FormTor20Monster,
         'tor20melee': Tor20MeleeAction_Formset(),
         'tor20ranged': Tor20RangedAction_Formset(),
+        'pfmonster': FormPFMonster,
+        'pfoffense': PathFinderOffense_Formset(),
+        'pfskill': PathFinderSkill_Formset(),
+        'pfracial': PathFinderRacial_Formset(),
+        'pfspecial': PathFinderSpecialAbility_Formset()
     }
 
     def form_valid(self, form):
@@ -248,7 +263,7 @@ class MonsterCreate(CreateView):
                 game=data['game'],
                 home_brew=True,
                 alignment=monster_data.get('alignment'),
-                challenge=int(monster_data.get('challenge')),
+                challenge=monster_data.get('challenge'),
                 description=monster_data.get('description'),
                 image=self.request.FILES.get('image'),
                 senses=monster_data.get('senses'),
@@ -257,7 +272,6 @@ class MonsterCreate(CreateView):
                 condition_immunities=monster_data.get('condition_immunities'),
             )
             monster.save()
-            print('DND monster saved')
             actions_formset = self.DnDAction_Formset(self.request.POST)
             traits_formset = self.DndTrait_Formset(self.request.POST)
             skills_formset = self.DnDSkill_Formset(self.request.POST)
@@ -378,3 +392,84 @@ class MonsterCreate(CreateView):
             messages.add_message(self.request, messages.SUCCESS, 'Your Monster has been created!')
             return redirect('monster:monster_list')
 
+        if data['game'] == 'PAF1e':
+            monster_data = self.request.POST
+            monster = PathFinderMonster.objects.create(
+                created_at=Profile.objects.get(self.request.user),
+                name=monster_data.get('name'),
+                race=data['race'],
+                size=data['size'],
+                ac=data['ac'],
+                ac_type=data['ac_type'],
+                hp=data['hp'],
+                hp_dices=data['hp_dices'],
+                movement=data['movement'],
+                strength=data['strength'],
+                dexterity=data['dexterity'],
+                constitution=data['constitution'],
+                intelligence=data['intelligence'],
+                wisdom=data['wisdom'],
+                charisma=data['charisma'],
+                game=data['game'],
+                home_brew=True,
+                description=data['description'],
+                image=self.request.FILES.get('image'),
+                challenge=monster_data.get('challenge'),
+            )
+            monster.save()
+            offenses = self.PathFinderOffense_Formset(self.request.POST)
+            pf_skills = self.PathFinderSkill_Formset(self.request.POST)
+            pf_racial = self.PathFinderRacial_Formset(self.request.POST)
+            pf_special = self.PathFinderSpecialAbility_Formset(self.request.POST)
+
+            if len(offenses) > 0:
+                for offense in offenses:
+                    if offense.is_valid():
+                        cleaned_data = offense.cleaned_data
+                        new_offense = PathFinderOffense.objects.create(
+                            monster=monster,
+                            name=cleaned_data['name'],
+                            type=cleaned_data['type'],
+                            attack=cleaned_data['attack'],
+                            effect=cleaned_data['effect'],
+                            crit_range=cleaned_data['crit_range'],
+                            multiple=cleaned_data['multiple'],
+                            damage=cleaned_data['damage'],
+                            count=cleaned_data['count']
+                        )
+                        new_offense.save()
+
+            if len(pf_skills) > 0:
+                for skill in pf_skills:
+                    if skill.is_valid():
+                        cleaned_data = skill.cleaned_data
+                        new_skill = new_skill = PathFinderSkill.objects.create(
+                            monster=monster,
+                            skill=cleaned_data['skill'],
+                            skill_bonus=cleaned_data['skill_bonus'],
+                            racial_mod=False
+                        )
+                        new_skill.save()
+
+            if len(pf_racial) > 0:
+                for racial in pf_racial:
+                    if racial.is_valid():
+                        cleaned_data = racial.cleaned_data
+                        new_racial = PathFinderSkill.objects.create(
+                            monster=monster,
+                            skill=cleaned_data['skill'],
+                            skill_bonus=cleaned_data['skill_bonus'],
+                            racial_mod=True
+                        )
+                        new_racial.save()
+
+            if len(pf_special) > 0:
+                for special_ability in pf_special:
+                    if special_ability.is_valid():
+                        cleaned_data = special_ability.cleaned_data
+                        new_special = PathFinderSpecialAbility.objects.create(
+                            monster=monster,
+                            name=cleaned_data['name'],
+                            description=cleaned_data['description']
+                        )
+                        new_special.save()
