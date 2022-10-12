@@ -393,9 +393,8 @@ class MonsterCreate(CreateView):
             return redirect('monster:monster_list')
 
         if data['game'] == 'PAF1e':
-            monster_data = self.request.POST
             monster = PathFinderMonster.objects.create(
-                created_at=Profile.objects.get(user=self.request.user),
+                created_by=Profile.objects.get(user=self.request.user),
                 name=monster_data.get('name'),
                 race=data['race'],
                 size=data['size'],
@@ -415,6 +414,9 @@ class MonsterCreate(CreateView):
                 description=data['description'],
                 image=self.request.FILES.get('image'),
                 challenge=monster_data.get('challenge'),
+                fortitude=monster_data.get('fortitude'),
+                reflex=monster_data.get('reflex'),
+                will=monster_data.get('will')
             )
             monster.save()
             offenses = self.PathFinderOffense_Formset(self.request.POST)
@@ -473,3 +475,6 @@ class MonsterCreate(CreateView):
                             description=cleaned_data['description']
                         )
                         new_special.save()
+
+            messages.add_message(self.request, messages.SUCCESS, 'Your Monster has been created!')
+            return redirect('monster:monster_list')
