@@ -395,7 +395,7 @@ class MonsterCreate(CreateView):
         if data['game'] == 'PAF1e':
             monster_data = self.request.POST
             monster = PathFinderMonster.objects.create(
-                created_at=Profile.objects.get(self.request.user),
+                created_at=Profile.objects.get(user=self.request.user),
                 name=monster_data.get('name'),
                 race=data['race'],
                 size=data['size'],
