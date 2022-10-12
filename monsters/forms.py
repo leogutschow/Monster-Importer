@@ -339,7 +339,7 @@ class FormPFMonster(ModelForm):
                 'class': 'form-control'
             }),
             'senses': forms.TextInput(attrs={
-                'class': 'form-control'
+                'class': 'form-control',
             }),
             'aura': forms.TextInput(attrs={
                 'class': 'form-control'
@@ -351,13 +351,16 @@ class FormPFMonster(ModelForm):
                 'class': 'form-control'
             }),
             'fortitude': forms.NumberInput(attrs={
-                'class': 'form-control'
+                'class': 'form-control',
+                'placeholder': 0
             }),
             'reflex': forms.NumberInput(attrs={
-                'class': 'form-control'
+                'class': 'form-control',
+                'placeholder': 0
             }),
             'will': forms.NumberInput(attrs={
-                'class': 'form-control'
+                'class': 'form-control',
+                'placeholder': 0
             }),
             'save_mods': forms.TextInput(attrs={
                 'class': 'form-control'
@@ -445,11 +448,11 @@ class FormPFOffense(ModelForm):
         )
         widgets = {
             'monster': forms.HiddenInput(),
-            'nasme': forms.TextInput(attrs={
+            'name': forms.TextInput(attrs={
                 'class': 'form-control'
             }),
-            'type': forms.TextInput(attrs={
-                'class': 'form-control'
+            'type': forms.Select(attrs={
+                'class': 'form-select form-select-lg'
             }),
             'attack': forms.TextInput(attrs={
                 'class': 'form-control'
@@ -461,13 +464,14 @@ class FormPFOffense(ModelForm):
                 'class': 'form-control'
             }),
             'multiple': forms.CheckboxInput(attrs={
-                'class': 'form-control'
+                'class': 'form-check-input'
             }),
             'damage': forms.TextInput(attrs={
                 'class': 'form-control'
             }),
             'count': forms.NumberInput(attrs={
-                'class': 'form-control'
+                'class': 'form-control',
+                'placeholder': 1
             })
         }
 

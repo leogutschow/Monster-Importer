@@ -313,7 +313,7 @@ class PathFinderOffense(models.Model):
     crit_range = models.CharField(max_length=20, blank=True, null=True)
     multiple = models.BooleanField(default=False)
     damage = models.CharField(max_length=20, blank=True, null=True)
-    count = models.IntegerField(default=0, blank=True, null=True)
+    count = models.IntegerField(default=1, blank=True, null=True)
 
 
 class PathFinderSpecialAbility(models.Model):
