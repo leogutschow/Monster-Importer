@@ -436,7 +436,9 @@ class FormPFSkill(ModelForm):
             'skill_bonus': forms.NumberInput(attrs={
                 'class': 'form-control'
             }),
-            'racial_mod': forms.HiddenInput()
+            'racial_mod': forms.CheckboxInput(attrs={
+                'class': 'form-check-input',
+            })
         }
 
 

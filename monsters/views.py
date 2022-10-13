@@ -235,7 +235,6 @@ class MonsterCreate(CreateView):
         'pfmonster': FormPFMonster,
         'pfoffense': PathFinderOffense_Formset(),
         'pfskill': PathFinderSkill_Formset(),
-        'pfracial': PathFinderRacial_Formset(),
         'pfspecial': PathFinderSpecialAbility_Formset()
     }
 
@@ -360,7 +359,7 @@ class MonsterCreate(CreateView):
             return redirect('monster:monster_list')
 
         if data['game'] == 'TOR20':
-            Tor20Monster.objects.create(
+            monster = Tor20Monster.objects.create(
                 created_by=Profile.objects.get(user=self.request.user),
                 name=monster_data.get('name'),
                 race=data['race'],
@@ -388,6 +387,34 @@ class MonsterCreate(CreateView):
                 equipment=monster_data.get('equipment'),
                 treasure=monster_data.get('treasure')
             )
+            tor20_melee = self.Tor20MeleeAction_Formset(self.request.POST)
+            tor20_ranged = self.Tor20RangedAction_Formset(self.request.POST)
+
+            if len(tor20_melee) > 0:
+                for melee in tor20_melee:
+                    if melee.is_valid():
+                        cleaned_data = melee.cleaned_data
+                        new_melee = Tor20MeleeAction.objects.create(
+                            monster=monster,
+                            action_name=cleaned_data['action_name'],
+                            action_descripton=cleaned_data['action_description'],
+                            attack=cleaned_data['attack'],
+                            hit=cleaned_data['hit']
+                        )
+                        new_melee.save()
+
+            if len(tor20_ranged) > 0:
+                for ranged in tor20_ranged:
+                    if ranged.is_valid():
+                        cleaned_data = ranged.cleaned_data
+                        new_ranged = Tor20RangedAction.objects.create(
+                            monster=monster,
+                            action_name=cleaned_data['action_name'],
+                            action_descripton=cleaned_data['action_description'],
+                            attack=cleaned_data['attack'],
+                            hit=cleaned_data['hit']
+                        )
+                        new_ranged.save()
 
             messages.add_message(self.request, messages.SUCCESS, 'Your Monster has been created!')
             return redirect('monster:monster_list')
@@ -421,7 +448,6 @@ class MonsterCreate(CreateView):
             monster.save()
             offenses = self.PathFinderOffense_Formset(self.request.POST)
             pf_skills = self.PathFinderSkill_Formset(self.request.POST)
-            pf_racial = self.PathFinderRacial_Formset(self.request.POST)
             pf_special = self.PathFinderSpecialAbility_Formset(self.request.POST)
 
             if len(offenses) > 0:
@@ -449,21 +475,9 @@ class MonsterCreate(CreateView):
                             monster=monster,
                             skill=cleaned_data['skill'],
                             skill_bonus=cleaned_data['skill_bonus'],
-                            racial_mod=False
+                            racial_mod=cleaned_data['racial_mod']
                         )
                         new_skill.save()
-
-            if len(pf_racial) > 0:
-                for racial in pf_racial:
-                    if racial.is_valid():
-                        cleaned_data = racial.cleaned_data
-                        new_racial = PathFinderSkill.objects.create(
-                            monster=monster,
-                            skill=cleaned_data['skill'],
-                            skill_bonus=cleaned_data['skill_bonus'],
-                            racial_mod=True
-                        )
-                        new_racial.save()
 
             if len(pf_special) > 0:
                 for special_ability in pf_special:

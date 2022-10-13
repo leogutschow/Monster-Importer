@@ -67,6 +67,7 @@ addPFSpecialBtn.addEventListener('click', function(event){
     add_new_inlineform(skill=false, 'special-form', 'pfSpecialList', 'emptyPFSpecialForm', totalPFSpecialForms)
 })
 
+
 function change_game(event){
     const allGames = document.getElementById('specificGames').childNodes;
     allGames.forEach(game => {
