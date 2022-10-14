@@ -55,6 +55,7 @@ class ForumInside(UpdateView):
             if profile.user == self.request.user:
                 continue
             notification = Notification.objects.create(
+                title='Someone has commented in a forum you follow!',
                 to_profile=profile,
                 type='FC',
                 message="Someone has commented in a post you follow! Go check it out!",
