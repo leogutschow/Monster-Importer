@@ -39,6 +39,7 @@ class DevLog(models.Model):
         profiles = Profile.objects.all()
         for profile in profiles:
             notification = Notification.objects.create(
+                title=f"New DevLog! {self.title}",
                 to_profile=profile,
                 type='NL',
                 message="A new DevLog has been up! Go check it out!",
