@@ -5,6 +5,7 @@ monstersBtn.addEventListener('click', change_page);
 const profileBtn = document.getElementById('myProfileBtn');
 profileBtn.addEventListener('click', change_page);
 
+
 function change_page(event){
     const allContent = document.getElementById('contentList').childNodes;
     console.log(allContent);
@@ -26,3 +27,24 @@ function change_page(event){
             break
     }
 }
+
+
+$(document).ready(function(){
+
+    var csrf = $('input[name=csrfmiddlewaretoken]').val()
+
+    $(".notification-btn").click(function(){
+        $.ajax({
+            url: '',
+            type: 'post',
+            data: {
+                notification_text: $(this).val(),
+                csrfmiddlewaretoken: csrf
+            },
+            success: function(response){
+                console.log(response.notification);
+            }
+        });
+    });
+
+});

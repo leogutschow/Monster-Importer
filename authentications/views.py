@@ -1,11 +1,12 @@
 from django.shortcuts import render, reverse, redirect, HttpResponseRedirect
 from .forms import RegisterForm
+from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import Profile, Notification
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import FormView, DetailView, ListView
+from django.views.generic import FormView, DetailView, ListView, View
 from monsters.models import BaseSheet
 
 
@@ -58,6 +59,11 @@ class ProfileView(DetailView, LoginRequiredMixin):
     model = Profile
     template_name = 'accounts/profile_detail.html'
     login_url = 'auth:login'
+
+    def post(self, request, slug):
+        print(request.POST.get('notification_text'))
+        text = request.POST.get('notification_text')
+        return JsonResponse({'notification': text}, status=200)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()

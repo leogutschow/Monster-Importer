@@ -8,7 +8,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 class NotificationAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('id', 'message', 'seen')
 
 
 admin.site.register(Notification, NotificationAdmin)

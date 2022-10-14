@@ -1,9 +1,10 @@
 <div class="container row mt-3">
     <nav class="nav flex-column col">
         <ul id="notificationsList" class="list-group">
-        {% for notification in notifications %}
-            <button message="{{ notification.message }}" type="button" class="list-group-item list-group-item-action border">{{notification}}</button>
-        {% endfor %}
+            {% csrf_token %}
+            {% for notification in notifications %}
+                <button value="{{ notification.id }}" type="button" class="notification-btn list-group-item list-group-item-action border">{{notification}}</button>
+            {% endfor %}
         </ul>
     </nav>
     <div id="notificationMessage" class="col">
