@@ -15,8 +15,6 @@ class Index(TemplateView):
         monsters: list = BaseSheet.objects.all()
         random_monster = random.randint(1, len(monsters))
         last_monster = BaseSheet.objects.get(id=random_monster)
-        if last_monster.image:
-            print(last_monster.image.url)
         context["monsters"] = monsters
         context['last_monster'] = last_monster
         return context
