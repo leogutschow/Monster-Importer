@@ -34,15 +34,18 @@ $(document).ready(function(){
     var csrf = $('input[name=csrfmiddlewaretoken]').val()
 
     $(".notification-btn").click(function(){
+        this_button = this
         $.ajax({
             url: '',
             type: 'post',
             data: {
-                notification_text: $(this).val(),
+                notification_id: $(this_button).val(),
                 csrfmiddlewaretoken: csrf
             },
             success: function(response){
                 console.log(response.notification);
+                $("#notificationText").text(response.notification);
+                $(this_button).removeClass("fw-bold");
             }
         });
     });

@@ -37,6 +37,7 @@ class Notification(models.Model):
         ('FC', 'Forum Comment'),
         ('NL', 'News Letter'),
     ]
+    title = models.CharField(max_length=200, default='')
     to_profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     type = models.CharField(max_length=2, choices=notification_type)
     message = models.TextField()

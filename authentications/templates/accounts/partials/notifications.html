@@ -3,7 +3,11 @@
         <ul id="notificationsList" class="list-group">
             {% csrf_token %}
             {% for notification in notifications %}
-                <button value="{{ notification.id }}" type="button" class="notification-btn list-group-item list-group-item-action border">{{notification}}</button>
+                {% if notification.seen == False %}
+                    <button value="{{ notification.id }}" type="button" class="notification-btn list-group-item list-group-item-action border fw-bold">{{notification.title}}</button>
+                {% else %}
+                    <button value="{{ notification.id }}" type="button" class="notification-btn list-group-item list-group-item-action border">{{notification.title}}</button>
+                {% endif %}
             {% endfor %}
         </ul>
     </nav>

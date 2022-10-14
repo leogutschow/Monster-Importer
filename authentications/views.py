@@ -61,8 +61,10 @@ class ProfileView(DetailView, LoginRequiredMixin):
     login_url = 'auth:login'
 
     def post(self, request, slug):
-        print(request.POST.get('notification_text'))
-        text = request.POST.get('notification_text')
+        notification = Notification.objects.get(id=request.POST.get('notification_id'))
+        notification.seen = True
+        notification.save()
+        text = notification.message
         return JsonResponse({'notification': text}, status=200)
 
     def get_context_data(self, **kwargs):
