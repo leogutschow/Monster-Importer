@@ -43,11 +43,15 @@ $(document).ready(function(){
                 csrfmiddlewaretoken: csrf
             },
             success: function(response){
-                console.log(response.notification);
-                $("#notificationText").text(response.notification);
+                $("#notificationText").text('');
+                $("#notificationText").append(
+                    `send at: <h6 class="fst-italic">${response.notification_sendat}</h6>
+                     <h3>${response.notification_title}</h3>
+                      <p>${response.notification_message}</p>`
+                );
                 $(this_button).removeClass("fw-bold");
+                }
             }
-        });
+        );
     });
-
 });

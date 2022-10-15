@@ -1,19 +1,21 @@
-<div class="container row mt-3">
-    <nav class="nav flex-column col">
-        <ul id="notificationsList" class="list-group">
-            {% csrf_token %}
-            {% for notification in notifications %}
-                {% if notification.seen == False %}
-                    <button value="{{ notification.id }}" type="button" class="notification-btn list-group-item list-group-item-action border fw-bold">{{notification.title}}</button>
-                {% else %}
-                    <button value="{{ notification.id }}" type="button" class="notification-btn list-group-item list-group-item-action border">{{notification.title}}</button>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </nav>
-    <div id="notificationMessage" class="col">
-        <p id="notificationText">
+<div class="container mt-3">
+    <div class="row">
+        <nav class="nav flex-column col">
+            <ul id="notificationsList" class="list-group" style="width: 160px">
+                {% csrf_token %}
+                {% for notification in notifications %}
+                    {% if notification.seen == False %}
+                        <button value="{{ notification.id }}" type="button" class="notification-btn list-group-item list-group-item-action border fw-bold">{{notification.title}}</button>
+                    {% else %}
+                        <button value="{{ notification.id }}" type="button" class="notification-btn list-group-item list-group-item-action border">{{notification.title}}</button>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
+        <div id="notificationMessage" class="col-1 border" style="width:60vw; height: 70vh">
+            <p id="notificationText" class="p-5">
 
-        </p>
+            </p>
+        </div>
     </div>
 </div>

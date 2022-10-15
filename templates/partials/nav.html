@@ -47,7 +47,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarToggle">
                                 <li><a class="dropdown-item disabled">{{ user.username }}</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{% url 'auth:profile' user.username %}">Notifications {% if user|get_notifications > 0 %} <span class="badge bg-danger rounded-pill">+{{ user|get_notifications }}</span>{% else %}<span class="badge bg-danger rounded-pill">0</span>{% endif %}</a></li>
+                                <li><a class="dropdown-item" href="{% url 'auth:profile' user.username %}">Notifications <span id="notificationsNavCounter" class="badge bg-danger rounded-pill">{% if user|get_notifications > 0 %} +{{ user|get_notifications }}{% else %}0{% endif %}</span></a></li>
                                 <li><a class="dropdown-item" href="{% url 'auth:profile' user.username %}">My Profile</a></li>
                                 <li><a class="dropdown-item" href="{% url 'auth:logout' %}">Logout</a></li>
                             </ul>

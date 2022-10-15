@@ -64,8 +64,10 @@ class ProfileView(DetailView, LoginRequiredMixin):
         notification = Notification.objects.get(id=request.POST.get('notification_id'))
         notification.seen = True
         notification.save()
-        text = notification.message
-        return JsonResponse({'notification': text}, status=200)
+        return JsonResponse({'notification_message': notification.message,
+                             'notification_title': notification.title,
+                             'notification_sendat': notification.send_at,
+                             'notification_seen': notification.seen}, status=200)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
