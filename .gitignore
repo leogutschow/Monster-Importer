@@ -5,7 +5,6 @@
 .idea/
 bootstrap/
 !.gitignore
-*/migrations/*
 /bootstrap/
 .idea/*
 data/
