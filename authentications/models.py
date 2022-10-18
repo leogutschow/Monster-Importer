@@ -42,6 +42,7 @@ class Notification(models.Model):
     type = models.CharField(max_length=2, choices=notification_type)
     message = models.TextField()
     seen = models.BooleanField(default=False)
+    send_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f'{self.type}-{self.to_profile}-{self.message}'

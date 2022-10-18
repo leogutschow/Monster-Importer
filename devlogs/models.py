@@ -43,6 +43,7 @@ class DevLog(models.Model):
                 to_profile=profile,
                 type='NL',
                 message="A new DevLog has been up! Go check it out!",
+                send_at=timezone.now()
             )
             notification.save()
         return super().save()
