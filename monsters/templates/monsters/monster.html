@@ -21,5 +21,10 @@
     {% endif %}
     {{monster_dict|json_script:"monster"}}
     {% endblock %}
+    {% block 'scripts' %}
+        ($document).ready(function(){
+
+        })
+    {% endblock %}
 </body>
 </html>

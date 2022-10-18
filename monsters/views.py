@@ -18,6 +18,9 @@ class MonsterDetail(DetailView):
     template_name: str = 'monsters/monster.html'
     model = BaseSheet
 
+    def post(self, request):
+        return
+
     def get_object(self, queryset=None):
         base_sheet = BaseSheet.objects.get(slug=self.kwargs['slug'])
         match base_sheet.game:
