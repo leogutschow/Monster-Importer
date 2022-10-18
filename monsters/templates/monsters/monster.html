@@ -12,6 +12,7 @@
 </head>
 <body>
     {% block 'conteudo' %}
+    {% csrf_token %}
     {% if monster.game == 'DND5E' %}
         <div id="dndSheet" class="">{% include 'monsters/games/details/dnd_monster_detail.html' %}</div>
     {% elif monster.game == 'TOR20' %}
@@ -20,11 +21,28 @@
         <div id="pathfinderSheet" class="">{% include 'monsters/games/details/pathfinder_monster_detail.html' %}</div>
     {% endif %}
     {{monster_dict|json_script:"monster"}}
-    {% endblock %}
     {% block 'scripts' %}
-        ($document).ready(function(){
-
-        })
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        const monsterJson = JSON.parse(document.getElementById('monster').innerHTML);
+        $(document).ready(function(){
+            var csrf = $('input[name=csrfmiddlewaretoken]').val()
+            $("#importMonster").click(function(){
+                $.ajax({
+                    url: '',
+                    type: 'post',
+                    data: {
+                        monster_id: monsterJson.monster.id,
+                        csrfmiddlewaretoken: csrf
+                    },
+                    success: function(response){console.log('Foi em!');}
+                    }
+                );
+            });
+        });
+        </script>
     {% endblock %}
+{% endblock %}
+
 </body>
 </html>
