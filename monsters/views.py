@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.forms.models import model_to_dict
-from itertools import chain
+from django.http import JsonResponse
 from django.forms import inlineformset_factory
 from django.views.generic import DetailView, ListView, CreateView
 from django.contrib import messages
@@ -17,6 +17,13 @@ from authentications.models import Profile
 class MonsterDetail(DetailView):
     template_name: str = 'monsters/monster.html'
     model = BaseSheet
+
+    def post(self, request, slug):
+        monster_id = int(request.POST.get('monster_id'))
+        monster = BaseSheet.objects.get(id=monster_id)
+        monster.times_downloaded += 1
+        monster.save()
+        return JsonResponse({'response': ''}, status=200)
 
     def get_object(self, queryset=None):
         base_sheet = BaseSheet.objects.get(slug=self.kwargs['slug'])
