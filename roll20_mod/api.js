@@ -216,23 +216,24 @@ function get_modifier_value(value){
 //Adds the Attributes, just to be prettier in the event function
 function set_attributes(monster, characterid){
     let str = AddPCAttribute("strength", value=monster.strength, characterid);
-    let str_mod = AddPCAttribute("strength_mod", value=get_modifier_value(monster.strength), characterid);
-    
+
+
     let dex = AddPCAttribute("dexterity", value=monster.dexterity, characterid);
-    let dex_mod = AddPCAttribute("dexterity_mod", value=get_modifier_value(monster.dexterity), characterid);
     let init_bonus = AddPCAttribute("initiative_bonus", value=get_modifier_value(monster.dexterity), characterid);
-    
     let con = AddPCAttribute("constitution", value=monster.constitution, characterid);
-    let con_mod = AddPCAttribute("constitution_mod", value=get_modifier_value(monster.constitution), characterid);
-    
     let int = AddPCAttribute("intelligence", value=monster.intelligence, characterid);
-    let int_mod = AddPCAttribute("intelligence_mod", value=get_modifier_value(monster.intelligence), characterid);
-    
     let wis = AddPCAttribute("wisdom", value=monster.wisdom, characterid);
-    let wis_mod = AddPCAttribute("wisdom_mod", value=get_modifier_value(monster.wisdom), characterid);
-    
     let cha = AddPCAttribute("charisma", value=monster.charisma, characterid);
-    let cha_mod = AddPCAttribute("charisma_mod", value=get_modifier_value(monster.charisma), characterid);
+
+    if (monster.game == 'DND5E'){
+        let str_mod = AddPCAttribute("strength_mod", value=get_modifier_value(monster.strength), characterid);
+        let dex_mod = AddPCAttribute("dexterity_mod", value=get_modifier_value(monster.dexterity), characterid);
+        let con_mod = AddPCAttribute("constitution_mod", value=get_modifier_value(monster.constitution), characterid);
+        let int_mod = AddPCAttribute("intelligence_mod", value=get_modifier_value(monster.intelligence), characterid);
+        let wis_mod = AddPCAttribute("wisdom_mod", value=get_modifier_value(monster.wisdom), characterid);
+        let cha_mod = AddPCAttribute("charisma_mod", value=get_modifier_value(monster.charisma), characterid);
+    }
+
 }
 
 // Adds the actions in the monster sheet
@@ -240,7 +241,7 @@ function add_action(action, character){
     const newID = generateRowID();
     let action_name = AddPCAttribute(`repeating_npcaction_${newID}_name`, `${action.action_name}`, character.id);
     let action_description =  AddPCAttribute(`repeating_npcaction_${newID}_description`, `${action.action_description}`, character.id);
-    
+
     // Checking if the actions is an attack
     if(action.is_attack){
         let attack_flag = AddPCAttribute(`repeating_npcaction_${newID}_attack_flag`, "on", character.id);
@@ -250,9 +251,9 @@ function add_action(action, character){
         let damage_flag = AddPCAttribute(`repeating_npcaction_${newID}_damage_flag`, "{{damage=1}} {{dmg1flag=1}} ", character.id);
         let attack_onhit = AddPCAttribute(`repeating_npcaction_${newID}_attack_onhit`, `${action.hit_dice} damage`, character.id);
         let attack_tohitrange = AddPCAttribute(`repeating_npcaction_${newID}_attack_tohitrange`, `+${action.attack}`, character.id);
-        
-        return {name: action_name, 
-                description: action_description, 
+
+        return {name: action_name,
+                description: action_description,
                 attackflag: attack_flag,
                 tohit: attack_tohit,
                 attack_damage: attack_damage,
@@ -298,8 +299,8 @@ function add_trait(trait, character){
         let spell_attack_mod = AddPCAttribute('spell_attack_mod', `${trait.spell_attack_mod}`, character.id);
         let globalmagicmod = AddPCAttribute('globalmagicmod', trait.spell_attack_mod, character.id);
 
-        return {name: trait_name, 
-                description: trait_description, 
+        return {name: trait_name,
+                description: trait_description,
                 spellcasting: spellcasting,
                 caster_level: caster_level,
                 spellcasting_ability: spellcasting_ability,
@@ -340,6 +341,55 @@ function add_reaction(reaction, character){
     return {reaction_name: npcreaction_name, reaction_description: npcreaction_description};
 }
 
+// Parse multiple PF Attacks
+function parse_multi_attack(attack_mods){
+    return attack_mods.split('/');
+}
+
+//Add PathFinder Melee
+function add_pf_melee(atk, monster){
+    const new_id = generateRowID();
+    let attack_name = AddPCAttribute(`repeating_npcatk-melee_${new_id}_atkname`, atk.name, monster.id);
+    let attack_multiple = AddPCAttribute(`repeating_npcatk-melee_${new_id}_multipleatk_flag`, atk.multiple, monster.id);
+    let attack_mod;
+    if (atk.multiple){
+        let counter = 0
+        let attack_roll_string = '{{roll=[[1d20cs>@{atkcritrange}+@{atkmod}[MOD]+@{rollmod_attack}[QUERY]]]}}{{critconfirm=[[1d20cs20+@{atkmod}[MOD]+@{rollmod_attack}[QUERY]]]}}'
+        let attack_multiple = AddPCAttribute(`repeating_npcatk-melee_${new_id}_multipleatk_flag`, atk.multiple, monster.id);
+        const attack_mods = parse_multi_attack(atk.attack);
+
+        sendChat('Ronaldo', `${attack_mods}`)
+        for (const mod of attack_mods){
+            if (counter == 0){
+                attack_mod = AddPCAttribute(`repeating_npcatk-melee_${new_id}_atkmod`, parseInt(attack_mods[counter]), monster.id);
+            }
+            else{
+                attack_mod = AddPCAttribute(`repeating_npcatk-melee_${new_id}_atkmod${counter + 1}`, parseInt(attack_mods[counter]), monster.id);
+                attack_roll_string += `{{roll${counter}=[[1d20cs>@{atkcritrange}+@{atkmod${counter + 1}}[MOD]+@{rollmod_attack}[QUERY]]]}}{{critconfirm${counter}=[[1d20cs20+@{atkmod${counter + 1}}[MOD]+@{rollmod_attack}[QUERY]]]}}`
+            }
+            counter += 1
+        }
+        let attack_roll = AddPCAttribute(`repeating_npcatk-melee_${new_id}_multipleatk`, attack_roll_string, monster.id);
+
+    }
+    else{
+        attack_mod = AddPCAttribute(`repeating_npcatk-melee_${new_id}_atkmod`, parseInt(atk.attack), monster.id);
+        let attack_roll = AddPCAttribute(`repeating_npcatk-melee_${new_id}_multipleatk`, `{{roll=[[1d20cs>@{atkcritrange}+@{atkmod}[MOD]+@{rollmod_attack}[QUERY]]]}}{{critconfirm=[[1d20cs20+@{atkmod}[MOD]+@{rollmod_attack}[QUERY]]]}}{{rolldmg1=[[${atk.damage} + @{rollmod_damage}[QUERY]]]}}{{rolldmg1type=@{dmgtype}}}{{rolldmg1crit=[[(${atk.damage} + ${atk.damage}) + (@{rollmod_damage}[QUERY]*2)]]}}`, monster.id);
+    }
+    let attack_damage_base = AddPCAttribute(`repeating_npcatk-melee_${new_id}_dmgbase`, atk.damage, monster.id);
+    let options_flag = AddPCAttribute(`repeating_npcatk-melee_${new_id}_options-flag`, '0', monster.id);
+    let attack_display = AddPCAttribute(`repeating_npcatk-melee_${new_id}_atkdisplay`, `${atk.name} +${atk.attack} (${atk.damage})`, monster.id);
+    return {
+        name: attack_name,
+        multiple: attack_multiple,
+        mod: attack_mod,
+        damage: attack_damage_base,
+        attack_roll: attack_roll,
+        options: options_flag
+    };
+
+}
+
 //Adds Spells
 // There is something I can't figure it out to add spells
 function add_spell(spell, character){
@@ -356,54 +406,55 @@ function add_spell(spell, character){
 
 on("chat:message", function(msg){
     if(msg.type!="api"){
-        return;   
+        return;
     }
     if (msg.content.indexOf("!mo")==0){
-        
+
         let argument = msg.content.substr(4);
-        
+
         if (argument === "-help"){
             sendChat("Monster-Importer", "/w gm Aqui está um texto de ajuda");
             return;
         }
-        
-        let monster_json = json_parse(argument);
-        
-        
-        if (monster_json.monster.game === 'DND5E'){
-            let Character = createObj("character", {name: monster_json.monster.name});
 
-            let npc = AddPCAttribute("npc", value=1, Character.id);
-            let npc_flag = AddPCAttribute("npc_name", value=monster_json.monster.name, Character.id);
-            let npc_ac = AddPCAttribute("npc_ac", value=monster_json.monster.ac, Character.id);
-            let npc_hp = createObj("attribute", {name:"hp", current:`${monster_json.monster.hp}`, max: `${monster_json.monster.hp}`, characterid: Character.id});
-            let npc_hp_formula = AddPCAttribute("npc_hpformula", value=monster_json.monster.hp_dices, Character.id);
-            let npc_speed = AddPCAttribute("npc_speed", value=monster_json.monster.movement, Character.id);
-            
-            set_attributes(monster_json.monster, Character.id);
-            
-            let ac = AddPCAttribute("npc_ac", value=monster_json.monster.ac, Character.id);
+        let monster_json = json_parse(argument);
+
+        let Character = createObj("character", {name: monster_json.monster.name});
+
+        let npc = AddPCAttribute("npc", value=1, Character.id);
+        let npc_flag = AddPCAttribute("npc_name", value=monster_json.monster.name, Character.id);
+        let npc_ac = AddPCAttribute("npc_ac", value=monster_json.monster.ac, Character.id);
+        let npc_hp = createObj("attribute", {name:"hp", current:`${monster_json.monster.hp}`, max: `${monster_json.monster.hp}`, characterid: Character.id});
+        let npc_hp_formula = AddPCAttribute("npc_hpformula", value=monster_json.monster.hp_dices, Character.id);
+        set_attributes(monster_json.monster, Character.id);
+
+
+
+        if (monster_json.monster.game === 'DND5E'){
+
+
             let ac_type = AddPCAttribute("npc_actype", value=monster_json.monster.ac_type, Character.id);
             let challenge = AddPCAttribute("npc_challenge", value=monster_json.monster.challenge, Character.id);
-            let xp = AddPCAttribute("npc_xp", value=get_xp(monster_json.monster.challenge), Character.id);
+            //let xp = AddPCAttribute("npc_xp", value=get_xp(monster_json.monster.challenge), Character.id);
+            let npc_type = AddPCAttribute("npc_type", value=`${monster_json.monster.size} ${monster_json.monster.race}, ${monster_json.monster.alignment}`, Character.id)
             let npc_senses = AddPCAttribute("npc_senses", value=monster_json.monster.senses, Character.id);
             let npc_languages = AddPCAttribute("npc_languages", value=monster_json.monster.languages, Character.id);
-            let npc_type = AddPCAttribute("npc_type", value=`${monster_json.monster.size} ${monster_json.monster.race}, ${monster_json.monster.alignment}`, Character.id)
-            
-            
+            let npc_speed = AddPCAttribute("npc_speed", value=monster_json.monster.movement, Character.id);
+            let ac = AddPCAttribute("npc_ac", value=monster_json.monster.ac, Character.id);
+
             if (monster_json.savings){
                 var savings_flag = AddPCAttribute("npc_saving_flag", monster_json.savings.length, Character.id);
                 for (const saving of monster_json.savings){
                     let new_saving = add_saving(saving, Character)
                 }
             }
-            
+
             if (monster_json.actions){
                 for (const action of monster_json.actions){
                     let new_action = add_action(action, Character);
                 }
             }
-            
+
             if (monster_json.traits){
                 for (const trait of monster_json.traits){
                     let new_trait = add_trait(trait, Character);
@@ -414,14 +465,14 @@ on("chat:message", function(msg){
                     }
                 }
             }
-            
-            if (monster_json.skills){ 
+
+            if (monster_json.skills){
                 var skill_flag = AddPCAttribute("npc_skills_flag", monster_json.skills.length, Character.id);
                 for (const skill of monster_json.skills){
                     let new_skill = add_skill(skill, Character.id);
-                }           
+                }
             }
-            
+
             if (monster_json.legendary){
                 let legendary_flag = AddPCAttribute("npc_mythic_actions", 1, Character.id);
                 let legendary_description = AddPCAttribute("npc_mythic_actions_desc", monster_json.legendary[0].legendary_description, Character.id);
@@ -431,22 +482,39 @@ on("chat:message", function(msg){
                     }
                 }
             }
-            
+
             if (monster_json.reactions){
                 let reactions_flag = AddPCAttribute("npcreactionsflag", 1, Character.id);
                 for (const reaction of monster_json.reactions){
                     let new_reactions = add_reaction(reaction, Character);
                 }
             }
-                        
-            
+
+
             let npc_options = AddPCAttribute("npc_options-flag", value=0, Character.id);
             let ui_flags = AddPCAttribute("ui_flags", value="", Character.id);
             let mancer_status = AddPCAttribute("l1mancer_status", value="completed", Character.id);
-            sendChat("Monster-Importer", `/w gm ${monster_json.monster.name} was successfully imported!`);
-        
+
         }
+
+        if (monster_json.monster.game === 'PAF1e'){
+            let initialize_character = AddPCAttribute("initialize_character-flag", 0, Character.id)
+            let npc_options = AddPCAttribute("options-flag-npc", value="0", Character.id);
+            let senses = AddPCAttribute('senses', value=monster_json.monster.senses, Character.id);
+            let ac = AddPCAttribute('ac', value=monster_json.monster.ac, Character.id);
+            let languages = AddPCAttribute('languages', value=monster_json.monster.languages, Character.id);
+            if (monster_json.offense){
+                for (const attack of monster_json.offense){
+                    sendChat('Ronaldo', `${attack.name}`);
+                    if (attack.type === 'M'){
+                        let melee = add_pf_melee(attack, Character);
+                    }
+                }
+            }
+        }
+        sendChat("Monster-Importer", `/w gm ${monster_json.monster.name} was successfully imported!`);
     }
 })
 
 sendChat("Monster Importer", "/w gm Monster Importer ready to work! Use the webapp to import a monster or use '!mo -help' to see more options")
+
