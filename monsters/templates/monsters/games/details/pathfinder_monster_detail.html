@@ -53,7 +53,7 @@
                             <h5 class="row" style="display: inline;"><b>Melee</b>
                                 {% for melee in monster.pathfinderoffense_set.all %}
                                     {% if melee.type == 'M' %}
-                                        {% if melee.count > 1 %}{{melee.count}}{% endif %} {{ melee.name }} {% if melee.attack >= 0 %}+{% endif %}{{ melee.attack }}({{ melee.damage }}),
+                                        {{ melee.name }} {% if melee.attack >= 0 %}+{% endif %}{{ melee.attack }}({{ melee.damage }}),
                                     {% endif %}
                                 {% endfor %}</h5>
                         </div>
@@ -63,7 +63,7 @@
                             <h5 class="row" style="display: inline;"><b>Ranged</b>
                                 {% for ranged in monster.pathfinderoffense_set.all %}
                                     {% if ranged.type == 'R' %}
-                                         {% if ranged.count > 1 %}{{ranged.count}}{% endif %} {{ ranged.name }} {% if ranged.attack >= 0 %}+{% endif %}{{ ranged.attack }} ({{ ranged.damage }}/{{ ranged.crit_range }}),
+                                         {{ ranged.name }} {% if ranged.attack >= 0 %}+{% endif %}{{ ranged.attack }} ({{ ranged.damage }}/{{ ranged.crit_range }}),
                                     {% endif %}
                                 {% endfor %}</h5>
                         </div>

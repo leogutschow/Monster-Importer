@@ -21,8 +21,8 @@ class MonsterDetail(DetailView):
     def post(self, request, slug):
         monster_id = int(request.POST.get('monster_id'))
         monster = BaseSheet.objects.get(id=monster_id)
-        monster.times_downloaded += 1
-        monster.save()
+        # monster.times_downloaded += 1
+        # monster.save()
         return JsonResponse({'response': ''}, status=200)
 
     def get_object(self, queryset=None):

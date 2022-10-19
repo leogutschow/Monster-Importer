@@ -48,7 +48,10 @@ class DndReactionInline(admin.TabularInline):
 
 class DnDMonsterAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'name', 'ac', 'hp', 'challenge'
+        'id', 'name', 'ac', 'hp', 'challenge', 'game'
+    )
+    search_fields = (
+        'name', 'game'
     )
     inlines = [DnDActionInline, DnDSpecialTraitsInline, DnDSkillInline, DndSavingThrowsInline, DndReactionInline]
 
@@ -85,7 +88,10 @@ class Tor20RangedActionInline(admin.TabularInline):
 
 class Tor20MonsterAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'name', 'ac', 'hp', 'challenge'
+        'id', 'name', 'ac', 'hp', 'challenge', 'game'
+    )
+    search_fields = (
+        'name', 'game'
     )
     inlines = [Tor20SkillInline, Tor20GenericActionInline, Tor20MeleeActionInline, Tor20RangedActionInline, ]
 
@@ -113,7 +119,10 @@ class PathFinderOffenseInline(admin.TabularInline):
 
 class PathFinderMonsterAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'name', 'ac', 'hp', 'challenge'
+        'id', 'name', 'ac', 'hp', 'challenge', 'game'
+    )
+    search_fields = (
+        'name', 'game'
     )
     inlines = [PathFinderOffenseInline, PathFinderSkillInline, PathFinderSpecialAbilityInline, ]
 
