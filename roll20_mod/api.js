@@ -391,6 +391,12 @@ function add_pf_attack(atk, type, monster){
 
 }
 
+//Add PathFinder Skill
+function add_pf_skill(skill, monster){
+    let skill_name = AddPCAttribute(`${skill.skill}_display`, monster.id);
+    return {skill: skill_name}
+}
+
 //Adds Spells
 // There is something I can't figure it out to add spells
 function add_spell(spell, character){
@@ -504,6 +510,19 @@ on("chat:message", function(msg){
             let senses = AddPCAttribute('senses', value=monster_json.monster.senses, Character.id);
             let ac = AddPCAttribute('ac', value=monster_json.monster.ac, Character.id);
             let languages = AddPCAttribute('languages', value=monster_json.monster.languages, Character.id);
+
+            if (!monster_json.base_attack){
+                let bab = AddPCAttribute("bab", monster_json.monster.base_attack, Character.id);
+            }
+
+            if (!monster_json.combat_maneuver_defence){
+                let cmd = AddPCAttribute("cmd_mod", monster_json.monster.combat_maneuver_defence, Character.id);
+            }
+
+            if (!monster_json.combate_maneuver_bonus){
+                let cmb = AddPCAttribute("cmb_mod", monster_json.monster.combat_maneuver_bonus, Character.id);
+            }
+
             if (monster_json.offense){
                 for (const attack of monster_json.offense){
                     if (attack.type === 'M'){
@@ -512,6 +531,14 @@ on("chat:message", function(msg){
                     if (attack.type === 'R'){
                         let melee = add_pf_attack(attack, 'ranged', Character);
                     }
+                }
+            }
+            if (monster_json.skills){
+                for (const monster_skill of monster_json.skills){
+                    let new_skill = AddPCAttribute(`${monster_skill.skill.toLowerCase()}`, monster_skill.skill_bonus, Character.id);
+                    let skill_display = AddPCAttribute(`${monster_skill.skill.toLowerCase()}_display`, `+${monster_skill.skill_bonus}`, Character.id);
+                    let skill_notes = AddPCAttribute(`${monster_skill.skill.toLowerCase()}_notes`, "", Character.id);
+                    let skill_flag = AddPCAttribute(`${monster_skill.skill.toLowerCase()}_flag`, 1, Character.id);
                 }
             }
         }
