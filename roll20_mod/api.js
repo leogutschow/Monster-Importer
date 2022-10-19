@@ -346,6 +346,11 @@ function parse_multi_attack(attack_mods){
     return attack_mods.split('/');
 }
 
+//Parse PF Feats
+function parse_feats(feats){
+    return feats.split(', ');
+}
+
 //Add PathFinder attack
 function add_pf_attack(atk, type, monster){
     const new_id = generateRowID();
@@ -391,10 +396,15 @@ function add_pf_attack(atk, type, monster){
 
 }
 
-//Add PathFinder Skill
-function add_pf_skill(skill, monster){
-    let skill_name = AddPCAttribute(`${skill.skill}_display`, monster.id);
-    return {skill: skill_name}
+//Add PathFinder Feat
+function add_pf_feat(feat, monster){
+    const new_id = generateRowID();
+    let feat_name = AddPCAttribute(`repeating_feats_${new_id}_name`, feat, monster.id);
+    let feat_flag = AddPCAttribute(`repeating_feats_${new_id}_options-flag`, 0, monster.id);
+    return {
+        feat: feat_name,
+        options: feat_flag
+    }
 }
 
 //Adds Spells
@@ -507,19 +517,27 @@ on("chat:message", function(msg){
         if (monster_json.monster.game === 'PAF1e'){
             let initialize_character = AddPCAttribute("initialize_character-flag", 0, Character.id)
             let npc_options = AddPCAttribute("options-flag-npc", value="0", Character.id);
-            let senses = AddPCAttribute('senses', value=monster_json.monster.senses, Character.id);
+
             let ac = AddPCAttribute('ac', value=monster_json.monster.ac, Character.id);
             let languages = AddPCAttribute('languages', value=monster_json.monster.languages, Character.id);
 
-            if (!monster_json.base_attack){
+            if (monster_json.monster.senses){
+                let senses = AddPCAttribute('senses', value=monster_json.monster.senses, Character.id);
+            }
+
+            if (monster_json.monster.immune){
+                let senses = AddPCAttribute('immune', value=monster_json.monster.immune, Character.id);
+            }
+
+            if (monster_json.monster.base_attack){
                 let bab = AddPCAttribute("bab", monster_json.monster.base_attack, Character.id);
             }
 
-            if (!monster_json.combat_maneuver_defence){
+            if (monster_json.monster.combat_maneuver_defence){
                 let cmd = AddPCAttribute("cmd_mod", monster_json.monster.combat_maneuver_defence, Character.id);
             }
 
-            if (!monster_json.combate_maneuver_bonus){
+            if (monster_json.monster.combate_maneuver_bonus){
                 let cmb = AddPCAttribute("cmb_mod", monster_json.monster.combat_maneuver_bonus, Character.id);
             }
 
@@ -533,12 +551,20 @@ on("chat:message", function(msg){
                     }
                 }
             }
+
             if (monster_json.skills){
                 for (const monster_skill of monster_json.skills){
                     let new_skill = AddPCAttribute(`${monster_skill.skill.toLowerCase()}`, monster_skill.skill_bonus, Character.id);
                     let skill_display = AddPCAttribute(`${monster_skill.skill.toLowerCase()}_display`, `+${monster_skill.skill_bonus}`, Character.id);
                     let skill_notes = AddPCAttribute(`${monster_skill.skill.toLowerCase()}_notes`, "", Character.id);
                     let skill_flag = AddPCAttribute(`${monster_skill.skill.toLowerCase()}_flag`, 1, Character.id);
+                }
+            }
+
+            if (monster_json.monster.feats){
+                let feats = parse_feats(monster_json.monster.feats);
+                for (const feat of feats){
+                    let new_feet = add_pf_feat(feat, Character);
                 }
             }
         }
