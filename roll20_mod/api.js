@@ -407,6 +407,19 @@ function add_pf_feat(feat, monster){
     }
 }
 
+//Add Special Abilities
+function add_special_ability(sa, monster){
+    const new_id = generateRowID();
+    let special_name = AddPCAttribute(`repeating_abilities_${new_id}_name`, sa.name, monster.id);
+    let special_description = AddPCAttribute(`repeating_abilities_${new_id}_description`, sa.description, monster.id);
+    let special_flag = AddPCAttribute(`repeating_abilities_${new_id}_options-flag`, 0, monster.id);
+    return {
+        name: special_name,
+        description: special_description,
+        options: special_flag
+    }
+}
+
 //Adds Spells
 // There is something I can't figure it out to add spells
 function add_spell(spell, character){
@@ -516,6 +529,14 @@ on("chat:message", function(msg){
 
         if (monster_json.monster.game === 'PAF1e'){
             let initialize_character = AddPCAttribute("initialize_character-flag", 0, Character.id)
+
+            if (monster_json.special_abilities){
+                let special_abilities_flag = AddPCAttribute("special_abilities_flag", 1, Character.id);
+                for (const sa of monster_json.special_abilities){
+                    let new_special = add_special_ability(sa, Character);
+                }
+            }
+
             let npc_options = AddPCAttribute("options-flag-npc", value="0", Character.id);
 
             let ac = AddPCAttribute('ac', value=monster_json.monster.ac, Character.id);
@@ -567,6 +588,8 @@ on("chat:message", function(msg){
                     let new_feet = add_pf_feat(feat, Character);
                 }
             }
+
+
         }
         sendChat("Monster-Importer", `/w gm ${monster_json.monster.name} was successfully imported!`);
     }
