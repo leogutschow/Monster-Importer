@@ -458,8 +458,6 @@ on("chat:message", function(msg){
         let npc_hp_formula = AddPCAttribute("npc_hpformula", value=monster_json.monster.hp_dices, Character.id);
         set_attributes(monster_json.monster, Character.id);
 
-
-
         if (monster_json.monster.game === 'DND5E'){
 
 
@@ -541,6 +539,10 @@ on("chat:message", function(msg){
 
             let ac = AddPCAttribute('ac', value=monster_json.monster.ac, Character.id);
             let languages = AddPCAttribute('languages', value=monster_json.monster.languages, Character.id);
+            let environment = AddPCAttribute('environment', monster_json.monster.environment, Character.id);
+            let treasure = AddPCAttribute('treasure', monster_json.monster.treasure, Character.id);
+            let organization = AddPCAttribute('organization', monster_json.monster.organization, Character.id);
+            let background = AddPCAttribute('background', monster_json.monster.description, Character.id);
 
             if (monster_json.monster.senses){
                 let senses = AddPCAttribute('senses', value=monster_json.monster.senses, Character.id);
@@ -558,7 +560,7 @@ on("chat:message", function(msg){
                 let cmd = AddPCAttribute("cmd_mod", monster_json.monster.combat_maneuver_defence, Character.id);
             }
 
-            if (monster_json.monster.combate_maneuver_bonus){
+            if (monster_json.monster.combat_maneuver_bonus){
                 let cmb = AddPCAttribute("cmb_mod", monster_json.monster.combat_maneuver_bonus, Character.id);
             }
 
