@@ -346,41 +346,42 @@ function parse_multi_attack(attack_mods){
     return attack_mods.split('/');
 }
 
-//Add PathFinder Melee
-function add_pf_melee(atk, monster){
+//Add PathFinder attack
+function add_pf_attack(atk, type, monster){
     const new_id = generateRowID();
-    let attack_name = AddPCAttribute(`repeating_npcatk-melee_${new_id}_atkname`, atk.name, monster.id);
-    let attack_multiple = AddPCAttribute(`repeating_npcatk-melee_${new_id}_multipleatk_flag`, atk.multiple, monster.id);
+    let attack_name = AddPCAttribute(`repeating_npcatk-${type}_${new_id}_atkname`, atk.name, monster.id);
+    let attack_multiple = AddPCAttribute(`repeating_npcatk-${type}_${new_id}_multipleatk_flag`, atk.multiple, monster.id);
     let attack_mod;
+    let attack_roll;
+    let dmg_type = AddPCAttribute(`repeating_npcatk-${type}_${new_id}_dmgtype`, 'Placeholder', monster.id);
+    let attack_roll_string = `{{roll=[[1d20cs>@{atkcritrange}+@{atkmod}[MOD]+@{rollmod_attack}[QUERY]]]}}{{critconfirm=[[1d20cs20+@{atkmod}[MOD]+@{rollmod_attack}[QUERY]]]}}{{rolldmg1=[[${atk.damage} + @{rollmod_damage}[QUERY]]]}}{{rolldmg1type=@{dmgtype}}}{{rolldmg1crit=[[(${atk.damage} + ${atk.damage}) + (@{rollmod_damage}[QUERY]*2)]]}}`
     if (atk.multiple){
         let counter = 0
-        let attack_roll_string = '{{roll=[[1d20cs>@{atkcritrange}+@{atkmod}[MOD]+@{rollmod_attack}[QUERY]]]}}{{critconfirm=[[1d20cs20+@{atkmod}[MOD]+@{rollmod_attack}[QUERY]]]}}'
-        let attack_multiple = AddPCAttribute(`repeating_npcatk-melee_${new_id}_multipleatk_flag`, atk.multiple, monster.id);
+        let attack_multiple = AddPCAttribute(`repeating_npcatk-${type}_${new_id}_multipleatk_flag`, atk.multiple, monster.id);
         const attack_mods = parse_multi_attack(atk.attack);
-
-        sendChat('Ronaldo', `${attack_mods}`)
         for (const mod of attack_mods){
             if (counter == 0){
-                attack_mod = AddPCAttribute(`repeating_npcatk-melee_${new_id}_atkmod`, parseInt(attack_mods[counter]), monster.id);
+                attack_mod = AddPCAttribute(`repeating_npcatk-${type}_${new_id}_atkmod`, parseInt(attack_mods[counter]), monster.id);
             }
             else{
-                attack_mod = AddPCAttribute(`repeating_npcatk-melee_${new_id}_atkmod${counter + 1}`, parseInt(attack_mods[counter]), monster.id);
-                attack_roll_string += `{{roll${counter}=[[1d20cs>@{atkcritrange}+@{atkmod${counter + 1}}[MOD]+@{rollmod_attack}[QUERY]]]}}{{critconfirm${counter}=[[1d20cs20+@{atkmod${counter + 1}}[MOD]+@{rollmod_attack}[QUERY]]]}}`
+                attack_mod = AddPCAttribute(`repeating_npcatk-${type}_${new_id}_atkmod${counter + 1}`, parseInt(attack_mods[counter]), monster.id);
+                attack_roll_string += `{{roll${counter}=[[1d20cs>@{atkcritrange}+@{atkmod${counter + 1}}[MOD]+@{rollmod_attack}[QUERY]]]}}{{critconfirm${counter}=[[1d20cs20+@{atkmod${counter + 1}}[MOD]+@{rollmod_attack}[QUERY]]]}}{{roll${counter}dmg1=[[${atk.damage} + @{rollmod_damage}[QUERY]]]}}{{roll${counter}dmg1type=@{dmgtype}}}{{roll${counter}dmg1crit=[[(${atk.damage} + ${atk.damage}) + (@{rollmod_damage}[QUERY]*2)]]}}`
             }
             counter += 1
         }
-        let attack_roll = AddPCAttribute(`repeating_npcatk-melee_${new_id}_multipleatk`, attack_roll_string, monster.id);
+        attack_roll = AddPCAttribute(`repeating_npcatk-${type}_${new_id}_multipleatk`, attack_roll_string, monster.id);
 
     }
     else{
-        attack_mod = AddPCAttribute(`repeating_npcatk-melee_${new_id}_atkmod`, parseInt(atk.attack), monster.id);
-        let attack_roll = AddPCAttribute(`repeating_npcatk-melee_${new_id}_multipleatk`, `{{roll=[[1d20cs>@{atkcritrange}+@{atkmod}[MOD]+@{rollmod_attack}[QUERY]]]}}{{critconfirm=[[1d20cs20+@{atkmod}[MOD]+@{rollmod_attack}[QUERY]]]}}{{rolldmg1=[[${atk.damage} + @{rollmod_damage}[QUERY]]]}}{{rolldmg1type=@{dmgtype}}}{{rolldmg1crit=[[(${atk.damage} + ${atk.damage}) + (@{rollmod_damage}[QUERY]*2)]]}}`, monster.id);
+        attack_mod = AddPCAttribute(`repeating_npcatk-${type}_${new_id}_atkmod`, parseInt(atk.attack), monster.id);
+        attack_roll = AddPCAttribute(`repeating_npcatk-${type}_${new_id}_multipleatk`, `{{roll=[[1d20cs>@{atkcritrange}+@{atkmod}[MOD]+@{rollmod_attack}[QUERY]]]}}{{critconfirm=[[1d20cs20+@{atkmod}[MOD]+@{rollmod_attack}[QUERY]]]}}{{rolldmg1=[[${atk.damage} + @{rollmod_damage}[QUERY]]]}}{{rolldmg1type=@{dmgtype}}}{{rolldmg1crit=[[(${atk.damage} + ${atk.damage}) + (@{rollmod_damage}[QUERY]*2)]]}}`, monster.id);
     }
-    let attack_damage_base = AddPCAttribute(`repeating_npcatk-melee_${new_id}_dmgbase`, atk.damage, monster.id);
-    let options_flag = AddPCAttribute(`repeating_npcatk-melee_${new_id}_options-flag`, '0', monster.id);
-    let attack_display = AddPCAttribute(`repeating_npcatk-melee_${new_id}_atkdisplay`, `${atk.name} +${atk.attack} (${atk.damage})`, monster.id);
+    let attack_damage_base = AddPCAttribute(`repeating_npcatk-${type}_${new_id}_dmgbase`, atk.damage, monster.id);
+    let options_flag = AddPCAttribute(`repeating_npcatk-${type}_${new_id}_options-flag`, '0', monster.id);
+    let attack_display = AddPCAttribute(`repeating_npcatk-${type}_${new_id}_atkdisplay`, `${atk.name} +${atk.attack} (${atk.damage})`, monster.id);
     return {
         name: attack_name,
+        damage_type: dmg_type,
         multiple: attack_multiple,
         mod: attack_mod,
         damage: attack_damage_base,
@@ -505,9 +506,11 @@ on("chat:message", function(msg){
             let languages = AddPCAttribute('languages', value=monster_json.monster.languages, Character.id);
             if (monster_json.offense){
                 for (const attack of monster_json.offense){
-                    sendChat('Ronaldo', `${attack.name}`);
                     if (attack.type === 'M'){
-                        let melee = add_pf_melee(attack, Character);
+                        let melee = add_pf_attack(attack, 'melee', Character);
+                    }
+                    if (attack.type === 'R'){
+                        let melee = add_pf_attack(attack, 'ranged', Character);
                     }
                 }
             }
