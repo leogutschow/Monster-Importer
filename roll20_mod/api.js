@@ -537,6 +537,11 @@ on("chat:message", function(msg){
 
             let npc_options = AddPCAttribute("options-flag-npc", value="0", Character.id);
 
+            let initiative = AddPCAttribute("initiative", monster_json.monster.init, Character.id);
+            let fortitude = AddPCAttribute("fortitude", monster_json.monster.fortitude, Character.id);
+            let reflex = AddPCAttribute("reflex", monster_json.monster.reflex, Character.id);
+            let will = AddPCAttribute("will", monster_json.monster.will, Character.id);
+
             let ac = AddPCAttribute('ac', value=monster_json.monster.ac, Character.id);
             let languages = AddPCAttribute('languages', value=monster_json.monster.languages, Character.id);
             let environment = AddPCAttribute('environment', monster_json.monster.environment, Character.id);
