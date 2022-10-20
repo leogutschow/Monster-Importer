@@ -434,6 +434,72 @@ function add_spell(spell, character){
     };
 }
 
+//Return PF XP from Monster CRE
+function get_pf_xp(cr){
+    switch (cr){
+        case "1/8":
+            return 50;
+        case "1/6":
+            return 65;
+        case "1/4":
+            return 100;
+        case "1/3":
+            return 135;
+        case "1/2":
+            return 200;
+        case "1":
+            return 400;
+        case "2":
+            return 600;
+        case "3":
+            return 800;
+        case "4":
+            return 1200;
+        case "5":
+            return 1600;
+        case "6":
+            return 2400;
+        case "7":
+            return 3200;
+        case "8":
+            return 4800;
+        case "9":
+            return 6400;
+        case "10":
+            return 9600;
+        case "11":
+            return 12800;
+        case "12":
+            return 19200;
+        case "13":
+            return 25600;
+        case "14":
+            return 38400;
+        case "15":
+            return 51200;
+        case "16":
+            return 76800;
+        case "17":
+            return 102400;
+        case "18":
+            return 153600;
+        case "19":
+            return 204800;
+        case "20":
+            return 307200;
+        case "21":
+            return 409600;
+        case "22":
+            return 614400;
+        case "23":
+            return 819200;
+        case "24":
+            return 1228800;
+        case "25":
+            return 1638400;
+    }
+}
+
 on("chat:message", function(msg){
     if(msg.type!="api"){
         return;
@@ -537,10 +603,21 @@ on("chat:message", function(msg){
 
             let npc_options = AddPCAttribute("options-flag-npc", value="0", Character.id);
 
+            let xp = AddPCAttribute("xp", get_pf_xp(monster_json.monster.challenge), Character.id);
+
+            let hd_roll = AddPCAttribute("hd_roll", monster_json.monster.hp_dices, Character.id);
+            let speed = AddPCAttribute("npc_speed", monster_json.monster.movement, Character.id);
+            let sr = AddPCAttribute("sr", monster_json.monster.spell_resistence, Character.id);
+
+            let cr = AddPCAttribute("npc_cr", monster_json.monster.challenge, Character.id);
             let initiative = AddPCAttribute("initiative", monster_json.monster.init, Character.id);
             let fortitude = AddPCAttribute("fortitude", monster_json.monster.fortitude, Character.id);
             let reflex = AddPCAttribute("reflex", monster_json.monster.reflex, Character.id);
             let will = AddPCAttribute("will", monster_json.monster.will, Character.id);
+            let alignment = AddPCAttribute("npc_alignment", monster_json.monster.monster_alignment, Character.id);
+
+            let space = AddPCAttribute("space", monster_json.monster.space, Character.id);
+            let reach = AddPCAttribute("reach", monster_json.monster.reach, Character.id);
 
             let ac = AddPCAttribute('ac', value=monster_json.monster.ac, Character.id);
             let languages = AddPCAttribute('languages', value=monster_json.monster.languages, Character.id);
@@ -548,6 +625,14 @@ on("chat:message", function(msg){
             let treasure = AddPCAttribute('treasure', monster_json.monster.treasure, Character.id);
             let organization = AddPCAttribute('organization', monster_json.monster.organization, Character.id);
             let background = AddPCAttribute('background', monster_json.monster.description, Character.id);
+
+            if (monster_json.monster.weaknesses){
+                let weaknesses = AddPCAttribute("weaknesses", monster_json.monster.weaknesses, Character.id);
+            }
+
+            if (monster_json.monster.resist){
+                let resist = AddPCAttribute("resist", monster_json.monster.resist, Character.id);
+            }
 
             if (monster_json.monster.senses){
                 let senses = AddPCAttribute('senses', value=monster_json.monster.senses, Character.id);
