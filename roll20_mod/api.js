@@ -434,6 +434,27 @@ function add_spell(spell, character){
     };
 }
 
+//Add Ac Mods
+function add_pf_ac_mods(ac_mods, character){
+    const ac_mods_parsed = ac_mods.split(',');
+    let new_touch;
+    let new_flat_footed;
+    for (let i = 0; i < ac_mods_parsed.length; i++){
+        if (i == 0){
+            let touch = ac_mods_parsed[i].split(' ')
+            new_touch = AddPCAttribute("ac_touch", touch[1], character.id);
+        }
+        if (i == 1) {
+            let flat_footed = ac_mods_parsed[i].split(' ');
+            new_flat_footed = AddPCAttribute("ac_flatfooted", flat_footed[1], character.id);
+        }
+    }
+    return {
+        touch: new_touch,
+        flat_footed: new_flat_footed
+    }
+}
+
 //Return PF XP from Monster CRE
 function get_pf_xp(cr){
     switch (cr){
@@ -601,6 +622,21 @@ on("chat:message", function(msg){
                 }
             }
 
+            if (monster_json.monster.race || monster_json.monster.class){
+                let race_class;
+                if (monster_json.monster.race){
+                    race_class += monster_json.monster.race;
+                }
+                if (monster_json.monster.class){
+                    race_class += monster_json.monster.class;
+                }
+                let race = AddPCAttribute("class", race_class, Character.id);
+            }
+
+            if (monster_json.monster.type){
+                let type = AddPCAttribute("npc_type", monster_json.monster.type, Character.id);
+            }
+
             let npc_options = AddPCAttribute("options-flag-npc", value="0", Character.id);
 
             let xp = AddPCAttribute("xp", get_pf_xp(monster_json.monster.challenge), Character.id);
@@ -625,6 +661,10 @@ on("chat:message", function(msg){
             let treasure = AddPCAttribute('treasure', monster_json.monster.treasure, Character.id);
             let organization = AddPCAttribute('organization', monster_json.monster.organization, Character.id);
             let background = AddPCAttribute('background', monster_json.monster.description, Character.id);
+
+            if (monster_json.monster.ac_mod){
+                let ac_mod = add_pf_ac_mods(monster_json.monster.ac_mod, Character);
+            }
 
             if (monster_json.monster.weaknesses){
                 let weaknesses = AddPCAttribute("weaknesses", monster_json.monster.weaknesses, Character.id);
