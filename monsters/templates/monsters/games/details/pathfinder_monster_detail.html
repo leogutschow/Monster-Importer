@@ -15,7 +15,7 @@
                     <h3 class="text-white">CR {{ monster.challenge }}</h3>
                 </div>
                 <div class="container row">
-                    <h4 class="fw-bold row">XP </h4>
+                    <h4 class="fw-bold row">XP {{ monster.challenge|calculate_pf_xp }}</h4>
                 </div>
                 <div class="container row">
                     <h5 class="row">{% if monster.race != None %}{{ monster.race }}{% endif %} {% if monster.monster_class != None %}{{ monster.monster_class }}{% endif %}</h5>
@@ -41,10 +41,12 @@
                     <h5 class="row" style="display: inline;"><b>HP</b> {{ monster.hp }} ({{ monster.hp_dices }})</h5>
                 </div>
                 <div class="container">
-                    <h5 class="row" style="display: inline;"><b>Fort</b> +{{ monster.fortitude }}, <b>Ref</b> +{{ monster.reflex }}, <b>Will</b> +{{ monster.will }} </h5>
+                    <h5 class="row" style="display: inline;"><b>Fort</b> +{{ monster.fortitude }}, <b>Ref</b> +{{ monster.reflex }}, <b>Will</b> +{{ monster.will }}; {{ monster.save_mods }} </h5>
                 </div>
                 <div class="container">
-                    <h5 class="row" style="display: inline;"><b>Resist</b> {{ monster.resist }}</h5>
+                    <h5 class="row" style="display: inline;">{% if monster.damage_reduction %}<b>DR</b>{{ monster.damage_reduction }}{% endif %};
+                        {% if monster.damage_reduction %}<b>Immunities</b> {{ monster.immune }}{% endif %};
+                        {% if monster.damage_reduction %}<b>Resist</b> {{ monster.resist }}{% endif %}</h5>
                 </div>
                 <hr>
                 <h4>OFFENCE</h4>
@@ -81,7 +83,7 @@
                     <h5 class="row" style="display: inline;"><b>Str</b> {{monster.strength}}, <b>Dex</b> {{monster.dexterity}}, <b>Con</b> {{monster.constitution}}, <b>Int</b> {{monster.intelligence}}, <b>Wis</b> {{monster.wisdom}}, <b>Cha</b> {{monster.charisma}}</h5>
                 </div>
                 <div class="container">
-                    <h5 class="row" style="display: inline;"><b>Base Atk</b> {{monster.base_attack}}; <b>CMB</b> {{monster.combat_maneuver_bonus}}; <b>CMD</b> {{monster.combat_maneuver_defence}}</h5>
+                    <h5 class="row" style="display: inline;"><b>Base Atk</b> +{{monster.base_attack}}; <b>CMB</b> +{{monster.combat_maneuver_bonus}}; <b>CMD</b> +{{monster.combat_maneuver_defence}}</h5>
                 </div>
                 {% if monster.feats %}
                 <div class="container">
@@ -94,6 +96,11 @@
                 <div class="container">
                     <h5 class="row" style="display: inline;"><b>Languages</b> {{monster.languages}}</h5>
                 </div>
+                {% if monster.special_qualities %}
+                    <div class="container">
+                        <h5 class="row" style="display: inline;"><b>SQ</b> {{monster.special_qualities}}</h5>
+                    </div>
+                {% endif %}
                 <hr>
                 <h4>ECOLOGY</h4>
                 <hr>
