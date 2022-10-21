@@ -26,6 +26,11 @@
                 <div class="container row">
                     <h5 class="row" style="display:inline;"><b>Init</b> +{{ monster.init }}; <b>Senses</b> {{ monster.senses }}</h5>
                 </div>
+                {% if monster.aura %}
+                    <div class="container row">
+                        <h5 class="row" style="display:inline;"><b>Auras</b> +{{ monster.aura }}</h5>
+                    </div>
+                {% endif %}
                 <hr>
                 <h4>DEFENSE</h4>
                 <hr>
