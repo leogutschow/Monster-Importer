@@ -25,6 +25,11 @@ function change_page(event){
             const monstersContent = document.getElementById('myMonsters');
             monstersContent.setAttribute('class', '');
             break
+
+        case 'myProfileBtn':
+            const profileContent = document.getElementById('myProfile');
+            profileContent.setAttribute('class', '');
+            break
     }
 }
 

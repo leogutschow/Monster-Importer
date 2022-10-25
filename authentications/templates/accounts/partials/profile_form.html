@@ -1,0 +1,45 @@
+<div id="editProfile" class="container-fluid" style="align-items: center; justify-content: center;">
+    <form class="container" method="POST">
+        {% csrf_token %}
+        <div class="border p-2">
+            {% if profile.image %}
+                <img class="img-thumbnail" src="{{ profile.image.url }}">
+                <label class="form-label" for="{{ profile_form.image.id_for_lavel }}"></label>
+                {{ profile_form.image }}
+            {% else %}
+                <h3>No Image to show. Maybe it's good to show yourself</h3>
+                <label class="form-label" for="{{ profile_form.image.id_for_lavel }}"></label>
+                {{ profile_form.image }}
+            {% endif %}
+        </div>
+        <button class="btn btn-success" type="submit">Save</button>
+    </form>
+    <form class="container" method="POST">
+        {% csrf_token %}
+        <div class="border p-2">
+            <h5>Basic Information</h5>
+            <label class="form-label" for="{{ user_form.username.id_for_label }}">Username</label>
+                {{ user_form.username }}
+            <label class="form-label" for="{{ user_form.email.id_for_label }}">E-mail</label>
+                {{ user_form.email }}
+            <label class="form-label" for="{{ user_form.first_name.id_for_label }}">First Name</label>
+                {{ user_form.first_name }}
+            <label class="form-label" for="{{ user_form.last_name.id_for_label }}">Last Name</label>
+                {{ user_form.last_name }}
+        </div>
+        <button class="btn btn-success" type="submit">Save</button>
+    </form>
+    <form class="container" method="POST">
+        {% csrf_token %}
+        <div class="border p-2">
+            <h5>Password Reseting</h5>
+            <label class="form-label" for="{{ password_form.old_password.id_for_label }}">Old Password</label>
+                {{ password_form.old_password }}
+            <label class="form-label" for="{{ password_form.new_password1.id_for_label }}">New Password</label>
+                {{ password_form.new_password1 }}
+            <label class="form-label" for="{{ password_form.new_password2.id_for_label }}">Confirm New Password</label>
+                {{ password_form.new_password2 }}
+        </div>
+        <button class="btn btn-success" type="submit">Save</button>
+    </form>
+</div>

@@ -1,12 +1,12 @@
 from django.shortcuts import render, reverse, redirect, HttpResponseRedirect
-from .forms import RegisterForm
+from .forms import RegisterForm, ProfileEditForm, ChangeUserForm, ChangePassword
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import Profile, Notification
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import FormView, DetailView, ListView, View
+from django.views.generic import FormView, DetailView
 from monsters.models import BaseSheet
 
 
@@ -61,16 +61,40 @@ class ProfileView(DetailView, LoginRequiredMixin):
     login_url = 'auth:login'
 
     def post(self, request, slug):
-        notification = Notification.objects.get(id=request.POST.get('notification_id'))
-        notification.seen = True
-        notification.save()
-        text = notification.message
-        return JsonResponse({'notification': text}, status=200)
+        change_user = ChangeUserForm(self.request.POST)
+        print(change_user)
+        change_password = ChangePassword(self.request.POST)
+        print(change_password)
+
+        if change_user.is_valid():
+            print(change_user)
+            print('CHANGE USER EM')
+            return redirect('auth:profile')
+
+        if change_password.is_valid():
+            print(change_password)
+            print("CHANGE PASSWORD EM")
+            return redirect('auth:profile')
+
+        if request.POST.get('notification_id'):
+            notification = Notification.objects.get(id=request.POST.get('notification_id'))
+            notification.seen = True
+            notification.save()
+            text = notification.message
+            return JsonResponse({'notification': text}, status=200)
+
+        return redirect('auth:profile', self.get_object())
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         profile = Profile.objects.get(user=self.get_object().user)
         monsters = BaseSheet.objects.filter(created_by=profile)
+        user_form = ChangeUserForm(instance=self.request.user)
+        password_form = ChangePassword(self.request.user)
+        profile_form = ProfileEditForm(self.request.GET)
+        context['password_form'] = password_form
+        context['user_form'] = user_form
+        context['profile_form'] = profile_form
         context['profile'] = profile
         context['monsters'] = monsters
         if profile.user == self.request.user:
