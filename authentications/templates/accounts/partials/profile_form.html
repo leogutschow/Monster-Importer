@@ -33,8 +33,6 @@
         {% csrf_token %}
         <div class="border p-2">
             <h5>Password Reseting</h5>
-            <label class="form-label" for="{{ password_form.old_password.id_for_label }}">Old Password</label>
-                {{ password_form.old_password }}
             <label class="form-label" for="{{ password_form.new_password1.id_for_label }}">New Password</label>
                 {{ password_form.new_password1 }}
             <label class="form-label" for="{{ password_form.new_password2.id_for_label }}">Confirm New Password</label>

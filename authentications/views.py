@@ -61,20 +61,22 @@ class ProfileView(DetailView, LoginRequiredMixin):
     login_url = 'auth:login'
 
     def post(self, request, slug):
-        change_user = ChangeUserForm(self.request.POST)
-        print(change_user)
-        change_password = ChangePassword(self.request.POST)
-        print(change_password)
+        user = User.objects.get(username=Profile.objects.get(slug=slug).user)
+        change_user = ChangeUserForm(request.POST, instance=user)
 
         if change_user.is_valid():
-            print(change_user)
-            print('CHANGE USER EM')
-            return redirect('auth:profile')
+            cleaned_data = change_user.cleaned_data
+            user.username = cleaned_data.get('username')
+            user.email = cleaned_data.get('email')
+            user.first_name = cleaned_data.get('first_name')
+            user.last_name = cleaned_data.get('last_name')
+            user.save(update_fields=['username', 'email', 'first_name', 'last_name'])
+            return redirect('auth:profile', slug)
 
-        if change_password.is_valid():
-            print(change_password)
-            print("CHANGE PASSWORD EM")
-            return redirect('auth:profile')
+        print(request.POST)
+        change_password = ChangePassword(data=request.POST, user=user)
+        print(change_password)
+        print(change_password.is_valid())
 
         if request.POST.get('notification_id'):
             notification = Notification.objects.get(id=request.POST.get('notification_id'))
@@ -83,7 +85,13 @@ class ProfileView(DetailView, LoginRequiredMixin):
             text = notification.message
             return JsonResponse({'notification': text}, status=200)
 
-        return redirect('auth:profile', self.get_object())
+        if change_password.is_valid():
+            user.password = change_password.cleaned_data.get('new_password1')
+            user.save(update_fields=['password'])
+            return redirect('auth:profile', slug)
+        else:
+            messages.add_message(self.request, messages.ERROR, f'{change_password.errors}')
+            return redirect('auth:profile', slug)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
@@ -101,6 +109,3 @@ class ProfileView(DetailView, LoginRequiredMixin):
             notifications = Notification.objects.filter(to_profile=profile)
             context['notifications'] = notifications
         return context
-
-
-
