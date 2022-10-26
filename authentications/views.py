@@ -58,7 +58,7 @@ class Register(FormView):
 
 class ProfileView(DetailView, LoginRequiredMixin):
     model = Profile
-    template_name = 'accounts/profile_detail.html'
+    template_name = 'accounts/profile.html'
     login_url = 'auth:login'
 
     def post(self, request, slug):

@@ -1,0 +1,9 @@
+<div class="container p-2">
+    <img class="img-fluid" src="{{ profile.image.url }}" style="max-width: 400px">
+    <h3>{{ profile.user.username }}</h3>
+    {% if profile.motto %}
+        <h4>{{ profile.motto }}</h4>
+    {% endif %}
+    <h5>Joined in {{ profile.created_at }}</h5>
+
+</div>
