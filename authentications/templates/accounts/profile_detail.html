@@ -15,14 +15,18 @@
     {% block 'conteudo' %}
         <div class="d-flex">
             <nav class="nav flex-fluid-column justify-content-center bg-secondary bg-gradient" style="width: 10vw; height:100vh">
-                <button id="myNotificationsBtn" class="btn btn-secondary flex-fill" type="button">Notifications</button>
                 <button id="myMonstersBtn" class="btn btn-secondary flex-fill" type="button">My Monsters</button>
-                <button id="myProfileBtn" class="btn btn-secondary flex-fill" type="button">My Profile</button>
+                {% if user.is_authenticated %}
+                    <button id="myNotificationsBtn" class="btn btn-secondary flex-fill" type="button">Notifications</button>
+                    <button id="myProfileBtn" class="btn btn-secondary flex-fill" type="button">My Profile</button>
+                {% endif %}
             </nav>
             <div id="contentList" class="d-flex">
                 <div id="myMonsters" class="hidden">{% include 'accounts/partials/profile_monsters.html' %}</div>
-                <div id="myNotifications" class="">{% include 'accounts/partials/notifications.html' %}</div>
-                <div id="myProfile" class="hidden">{% include 'accounts/partials/profile_form.html' %}</div>
+                {% if user.is_authenticated %}
+                    <div id="myNotifications" class="">{% include 'accounts/partials/notifications.html' %}</div>
+                    <div id="myProfile" class="hidden">{% include 'accounts/partials/profile_form.html' %}</div>
+                {% endif %}
             </div>
         </div>
     {% block 'scripts' %}

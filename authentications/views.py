@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import Profile, Notification
+from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import FormView, DetailView
@@ -61,23 +62,6 @@ class ProfileView(DetailView, LoginRequiredMixin):
     login_url = 'auth:login'
 
     def post(self, request, slug):
-        user = User.objects.get(username=Profile.objects.get(slug=slug).user)
-        change_user = ChangeUserForm(request.POST, instance=user)
-
-        if change_user.is_valid():
-            cleaned_data = change_user.cleaned_data
-            user.username = cleaned_data.get('username')
-            user.email = cleaned_data.get('email')
-            user.first_name = cleaned_data.get('first_name')
-            user.last_name = cleaned_data.get('last_name')
-            user.save(update_fields=['username', 'email', 'first_name', 'last_name'])
-            return redirect('auth:profile', slug)
-
-        print(request.POST)
-        change_password = ChangePassword(data=request.POST, user=user)
-        print(change_password)
-        print(change_password.is_valid())
-
         if request.POST.get('notification_id'):
             notification = Notification.objects.get(id=request.POST.get('notification_id'))
             notification.seen = True
@@ -85,27 +69,40 @@ class ProfileView(DetailView, LoginRequiredMixin):
             text = notification.message
             return JsonResponse({'notification': text}, status=200)
 
-        if change_password.is_valid():
-            user.password = change_password.cleaned_data.get('new_password1')
-            user.save(update_fields=['password'])
-            return redirect('auth:profile', slug)
         else:
-            messages.add_message(self.request, messages.ERROR, f'{change_password.errors}')
+            user = User.objects.get(username=Profile.objects.get(slug=slug).user)
+            change_user = ChangeUserForm(data=request.POST, instance=user)
+            if change_user.is_valid():
+                cleaned_data = change_user.cleaned_data
+                user.username = cleaned_data.get('username')
+                user.email = cleaned_data.get('email')
+                user.first_name = cleaned_data.get('first_name')
+                user.last_name = cleaned_data.get('last_name')
+                user.save(update_fields=['username', 'email', 'first_name', 'last_name'])
+
+            profile = Profile.objects.get(slug=slug)
+            change_profile = ProfileEditForm(self.request.POST, self.request.FILES, instance=profile)
+            if change_profile.is_valid():
+                cleaned_data = change_profile.cleaned_data
+                profile.image = cleaned_data.get('image')
+                profile.motto = cleaned_data.get('motto')
+                profile.save(update_fields=['image', 'motto'])
+
             return redirect('auth:profile', slug)
+
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         profile = Profile.objects.get(user=self.get_object().user)
         monsters = BaseSheet.objects.filter(created_by=profile)
-        user_form = ChangeUserForm(instance=self.request.user)
-        password_form = ChangePassword(self.request.user)
-        profile_form = ProfileEditForm(self.request.GET)
-        context['password_form'] = password_form
-        context['user_form'] = user_form
-        context['profile_form'] = profile_form
         context['profile'] = profile
         context['monsters'] = monsters
         if profile.user == self.request.user:
+            user_form = ChangeUserForm(instance=self.request.user)
+            profile_form = ProfileEditForm(instance=profile)
+            context['user_form'] = user_form
+            context['profile_form'] = profile_form
             notifications = Notification.objects.filter(to_profile=profile)
             context['notifications'] = notifications
         return context
