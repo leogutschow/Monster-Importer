@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <title>{% block 'titulo' %}{{ profile.user.username }}{% endblock %}</title>
+    {% block 'styles' %}
+        <style>
+            .hidden {
+                display: none;
+            }
+        </style>
+    {% endblock %}
+</head>
+<body>
+    {% block 'conteudo' %}
+        <div class="d-flex">
+            <nav class="nav flex-fluid-column justify-content-center bg-secondary bg-gradient" style="width: 10vw; height:100vh">
+                {% if user.is_authenticated and user == profile.user %}
+                    <button id="myProfileBtn" class="btn btn-secondary flex-fill" type="button">My Profile</button>
+                    <button id="myNotificationsBtn" class="btn btn-secondary flex-fill" type="button">Notifications</button>
+                {% else %}
+                     <button id="otherProfileBtn" class="btn btn-secondary flex-fill" type="button">My Profile</button>
+                {% endif %}
+                <button id="myMonstersBtn" class="btn btn-secondary flex-fill" type="button">My Monsters</button>
+            </nav>
+            <div id="contentList" class="d-flex">
+                {% if user.is_authenticated and user == profile.user %}
+                    <div id="myProfile" class=""style="width: 100vw;">{% include 'accounts/partials/profile_form.html' %}</div>
+                    <div id="myNotifications" class="hidden"style="width: 100vw;">{% include 'accounts/partials/notifications.html' %}</div>
+                {% else %}
+                    <div id="otherProfile" class="" style="width: 100vw;">{% include 'accounts/partials/profile_detail.html' %}</div>
+                {% endif %}
+
+                <div id="myMonsters" class="hidden" style="width: 100vw;">{% include 'accounts/partials/profile_monsters.html' %}</div>
+            </div>
+        </div>
+    {% block 'scripts' %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="{% static 'vendor/js/dynamic_profile.js' %}"></script>
+    {% endblock %}
+    {% endblock %}
+
+</body>
+</html>
