@@ -1,0 +1,10 @@
+all_basesheet.json
+all_monster.json
+all_actions.json
+all_spells.json
+all_traits.json
+all_trait_spells.json
+all_reactions.json
+all_savings.json
+all_legendary.json
+all_skills.json

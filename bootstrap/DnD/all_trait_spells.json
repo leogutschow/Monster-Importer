@@ -1,0 +1,1570 @@
+[
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 1,
+        "fields": {
+            "dndspecialtraits_id": 4,
+            "dndspells_id": 50
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 2,
+        "fields": {
+            "dndspecialtraits_id": 4,
+            "dndspells_id": 67
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 3,
+        "fields": {
+            "dndspecialtraits_id": 4,
+            "dndspells_id": 78
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 4,
+        "fields": {
+            "dndspecialtraits_id": 4,
+            "dndspells_id": 6
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 5,
+        "fields": {
+            "dndspecialtraits_id": 4,
+            "dndspells_id": 16
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 6,
+        "fields": {
+            "dndspecialtraits_id": 4,
+            "dndspells_id": 68
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 7,
+        "fields": {
+            "dndspecialtraits_id": 38,
+            "dndspells_id": 67
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 8,
+        "fields": {
+            "dndspecialtraits_id": 38,
+            "dndspells_id": 76
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 9,
+        "fields": {
+            "dndspecialtraits_id": 38,
+            "dndspells_id": 78
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 10,
+        "fields": {
+            "dndspecialtraits_id": 38,
+            "dndspells_id": 12
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 11,
+        "fields": {
+            "dndspecialtraits_id": 38,
+            "dndspells_id": 18
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 12,
+        "fields": {
+            "dndspecialtraits_id": 38,
+            "dndspells_id": 19
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 13,
+        "fields": {
+            "dndspecialtraits_id": 38,
+            "dndspells_id": 93
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 14,
+        "fields": {
+            "dndspecialtraits_id": 38,
+            "dndspells_id": 341
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 15,
+        "fields": {
+            "dndspecialtraits_id": 38,
+            "dndspells_id": 119
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 16,
+        "fields": {
+            "dndspecialtraits_id": 38,
+            "dndspells_id": 153
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 17,
+        "fields": {
+            "dndspecialtraits_id": 38,
+            "dndspells_id": 103
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 18,
+        "fields": {
+            "dndspecialtraits_id": 38,
+            "dndspells_id": 260
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 19,
+        "fields": {
+            "dndspecialtraits_id": 38,
+            "dndspells_id": 256
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 20,
+        "fields": {
+            "dndspecialtraits_id": 38,
+            "dndspells_id": 268
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 21,
+        "fields": {
+            "dndspecialtraits_id": 38,
+            "dndspells_id": 277
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 22,
+        "fields": {
+            "dndspecialtraits_id": 42,
+            "dndspells_id": 33
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 23,
+        "fields": {
+            "dndspecialtraits_id": 42,
+            "dndspells_id": 50
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 24,
+        "fields": {
+            "dndspecialtraits_id": 42,
+            "dndspells_id": 53
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 25,
+        "fields": {
+            "dndspecialtraits_id": 42,
+            "dndspells_id": 59
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 26,
+        "fields": {
+            "dndspecialtraits_id": 42,
+            "dndspells_id": 73
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 27,
+        "fields": {
+            "dndspecialtraits_id": 42,
+            "dndspells_id": 19
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 28,
+        "fields": {
+            "dndspecialtraits_id": 42,
+            "dndspells_id": 46
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 29,
+        "fields": {
+            "dndspecialtraits_id": 42,
+            "dndspells_id": 54
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 30,
+        "fields": {
+            "dndspecialtraits_id": 42,
+            "dndspells_id": 161
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 31,
+        "fields": {
+            "dndspecialtraits_id": 42,
+            "dndspells_id": 293
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 32,
+        "fields": {
+            "dndspecialtraits_id": 42,
+            "dndspells_id": 295
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 33,
+        "fields": {
+            "dndspecialtraits_id": 42,
+            "dndspells_id": 285
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 34,
+        "fields": {
+            "dndspecialtraits_id": 42,
+            "dndspells_id": 103
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 35,
+        "fields": {
+            "dndspecialtraits_id": 42,
+            "dndspells_id": 254
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 36,
+        "fields": {
+            "dndspecialtraits_id": 42,
+            "dndspells_id": 229
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 37,
+        "fields": {
+            "dndspecialtraits_id": 42,
+            "dndspells_id": 313
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 38,
+        "fields": {
+            "dndspecialtraits_id": 42,
+            "dndspells_id": 332
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 39,
+        "fields": {
+            "dndspecialtraits_id": 42,
+            "dndspells_id": 264
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 40,
+        "fields": {
+            "dndspecialtraits_id": 42,
+            "dndspells_id": 214
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 41,
+        "fields": {
+            "dndspecialtraits_id": 106,
+            "dndspells_id": 12
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 42,
+        "fields": {
+            "dndspecialtraits_id": 106,
+            "dndspells_id": 48
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 43,
+        "fields": {
+            "dndspecialtraits_id": 106,
+            "dndspells_id": 69
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 44,
+        "fields": {
+            "dndspecialtraits_id": 106,
+            "dndspells_id": 92
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 45,
+        "fields": {
+            "dndspecialtraits_id": 106,
+            "dndspells_id": 96
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 46,
+        "fields": {
+            "dndspecialtraits_id": 134,
+            "dndspells_id": 24
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 47,
+        "fields": {
+            "dndspecialtraits_id": 134,
+            "dndspells_id": 60
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 48,
+        "fields": {
+            "dndspecialtraits_id": 134,
+            "dndspells_id": 72
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 49,
+        "fields": {
+            "dndspecialtraits_id": 134,
+            "dndspells_id": 27
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 50,
+        "fields": {
+            "dndspecialtraits_id": 134,
+            "dndspells_id": 51
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 51,
+        "fields": {
+            "dndspecialtraits_id": 134,
+            "dndspells_id": 77
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 52,
+        "fields": {
+            "dndspecialtraits_id": 134,
+            "dndspells_id": 81
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 53,
+        "fields": {
+            "dndspecialtraits_id": 134,
+            "dndspells_id": 88
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 54,
+        "fields": {
+            "dndspecialtraits_id": 134,
+            "dndspells_id": 134
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 55,
+        "fields": {
+            "dndspecialtraits_id": 236,
+            "dndspells_id": 46
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 56,
+        "fields": {
+            "dndspecialtraits_id": 236,
+            "dndspells_id": 64
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 57,
+        "fields": {
+            "dndspecialtraits_id": 236,
+            "dndspells_id": 92
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 58,
+        "fields": {
+            "dndspecialtraits_id": 236,
+            "dndspells_id": 287
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 59,
+        "fields": {
+            "dndspecialtraits_id": 236,
+            "dndspells_id": 106
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 60,
+        "fields": {
+            "dndspecialtraits_id": 236,
+            "dndspells_id": 115
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 61,
+        "fields": {
+            "dndspecialtraits_id": 236,
+            "dndspells_id": 285
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 62,
+        "fields": {
+            "dndspecialtraits_id": 236,
+            "dndspells_id": 301
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 63,
+        "fields": {
+            "dndspecialtraits_id": 236,
+            "dndspells_id": 305
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 64,
+        "fields": {
+            "dndspecialtraits_id": 236,
+            "dndspells_id": 233
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 65,
+        "fields": {
+            "dndspecialtraits_id": 236,
+            "dndspells_id": 313
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 66,
+        "fields": {
+            "dndspecialtraits_id": 244,
+            "dndspells_id": 55
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 67,
+        "fields": {
+            "dndspecialtraits_id": 244,
+            "dndspells_id": 67
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 68,
+        "fields": {
+            "dndspecialtraits_id": 244,
+            "dndspells_id": 78
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 69,
+        "fields": {
+            "dndspecialtraits_id": 244,
+            "dndspells_id": 12
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 70,
+        "fields": {
+            "dndspecialtraits_id": 244,
+            "dndspells_id": 16
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 71,
+        "fields": {
+            "dndspecialtraits_id": 244,
+            "dndspells_id": 69
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 72,
+        "fields": {
+            "dndspecialtraits_id": 244,
+            "dndspells_id": 91
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 73,
+        "fields": {
+            "dndspecialtraits_id": 244,
+            "dndspells_id": 92
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 74,
+        "fields": {
+            "dndspecialtraits_id": 244,
+            "dndspells_id": 106
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 75,
+        "fields": {
+            "dndspecialtraits_id": 244,
+            "dndspells_id": 110
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 76,
+        "fields": {
+            "dndspecialtraits_id": 244,
+            "dndspells_id": 103
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 77,
+        "fields": {
+            "dndspecialtraits_id": 244,
+            "dndspells_id": 260
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 78,
+        "fields": {
+            "dndspecialtraits_id": 244,
+            "dndspells_id": 256
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 79,
+        "fields": {
+            "dndspecialtraits_id": 244,
+            "dndspells_id": 261
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 80,
+        "fields": {
+            "dndspecialtraits_id": 244,
+            "dndspells_id": 328
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 81,
+        "fields": {
+            "dndspecialtraits_id": 247,
+            "dndspells_id": 53
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 82,
+        "fields": {
+            "dndspecialtraits_id": 247,
+            "dndspells_id": 57
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 83,
+        "fields": {
+            "dndspecialtraits_id": 247,
+            "dndspells_id": 59
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 84,
+        "fields": {
+            "dndspecialtraits_id": 247,
+            "dndspells_id": 19
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 85,
+        "fields": {
+            "dndspecialtraits_id": 247,
+            "dndspells_id": 46
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 86,
+        "fields": {
+            "dndspecialtraits_id": 247,
+            "dndspells_id": 71
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 87,
+        "fields": {
+            "dndspecialtraits_id": 247,
+            "dndspells_id": 159
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 88,
+        "fields": {
+            "dndspecialtraits_id": 247,
+            "dndspells_id": 287
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 89,
+        "fields": {
+            "dndspecialtraits_id": 247,
+            "dndspells_id": 215
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 90,
+        "fields": {
+            "dndspecialtraits_id": 247,
+            "dndspells_id": 119
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 91,
+        "fields": {
+            "dndspecialtraits_id": 247,
+            "dndspells_id": 65
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 92,
+        "fields": {
+            "dndspecialtraits_id": 247,
+            "dndspells_id": 153
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 93,
+        "fields": {
+            "dndspecialtraits_id": 247,
+            "dndspells_id": 103
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 94,
+        "fields": {
+            "dndspecialtraits_id": 247,
+            "dndspells_id": 267
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 95,
+        "fields": {
+            "dndspecialtraits_id": 247,
+            "dndspells_id": 282
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 96,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 53
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 97,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 59
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 98,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 63
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 99,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 19
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 100,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 54
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 101,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 71
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 102,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 81
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 103,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 161
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 104,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 216
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 105,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 293
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 106,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 98
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 107,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 115
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 108,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 119
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 109,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 123
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 110,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 105
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 111,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 198
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 112,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 226
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 113,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 313
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 114,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 240
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 115,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 264
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 116,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 201
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 117,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 207
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 118,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 169
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 119,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 184
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 120,
+        "fields": {
+            "dndspecialtraits_id": 296,
+            "dndspells_id": 183
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 121,
+        "fields": {
+            "dndspecialtraits_id": 303,
+            "dndspells_id": 33
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 122,
+        "fields": {
+            "dndspecialtraits_id": 303,
+            "dndspells_id": 50
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 123,
+        "fields": {
+            "dndspecialtraits_id": 303,
+            "dndspells_id": 53
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 124,
+        "fields": {
+            "dndspecialtraits_id": 303,
+            "dndspells_id": 59
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 125,
+        "fields": {
+            "dndspecialtraits_id": 303,
+            "dndspells_id": 19
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 126,
+        "fields": {
+            "dndspecialtraits_id": 303,
+            "dndspells_id": 52
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 127,
+        "fields": {
+            "dndspecialtraits_id": 303,
+            "dndspells_id": 54
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 128,
+        "fields": {
+            "dndspecialtraits_id": 303,
+            "dndspells_id": 71
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 129,
+        "fields": {
+            "dndspecialtraits_id": 303,
+            "dndspells_id": 295
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 130,
+        "fields": {
+            "dndspecialtraits_id": 303,
+            "dndspells_id": 215
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 131,
+        "fields": {
+            "dndspecialtraits_id": 303,
+            "dndspells_id": 115
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 132,
+        "fields": {
+            "dndspecialtraits_id": 303,
+            "dndspells_id": 123
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 133,
+        "fields": {
+            "dndspecialtraits_id": 303,
+            "dndspells_id": 124
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 134,
+        "fields": {
+            "dndspecialtraits_id": 303,
+            "dndspells_id": 267
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 135,
+        "fields": {
+            "dndspecialtraits_id": 303,
+            "dndspells_id": 279
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 136,
+        "fields": {
+            "dndspecialtraits_id": 303,
+            "dndspells_id": 229
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 137,
+        "fields": {
+            "dndspecialtraits_id": 330,
+            "dndspells_id": 67
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 138,
+        "fields": {
+            "dndspecialtraits_id": 330,
+            "dndspells_id": 78
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 139,
+        "fields": {
+            "dndspecialtraits_id": 330,
+            "dndspells_id": 12
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 140,
+        "fields": {
+            "dndspecialtraits_id": 330,
+            "dndspells_id": 39
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 141,
+        "fields": {
+            "dndspecialtraits_id": 330,
+            "dndspells_id": 69
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 142,
+        "fields": {
+            "dndspecialtraits_id": 330,
+            "dndspells_id": 92
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 143,
+        "fields": {
+            "dndspecialtraits_id": 330,
+            "dndspells_id": 95
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 144,
+        "fields": {
+            "dndspecialtraits_id": 330,
+            "dndspells_id": 96
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 145,
+        "fields": {
+            "dndspecialtraits_id": 330,
+            "dndspells_id": 98
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 146,
+        "fields": {
+            "dndspecialtraits_id": 330,
+            "dndspells_id": 119
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 147,
+        "fields": {
+            "dndspecialtraits_id": 330,
+            "dndspells_id": 241
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 148,
+        "fields": {
+            "dndspecialtraits_id": 330,
+            "dndspells_id": 269
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 149,
+        "fields": {
+            "dndspecialtraits_id": 330,
+            "dndspells_id": 234
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 150,
+        "fields": {
+            "dndspecialtraits_id": 330,
+            "dndspells_id": 280
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 151,
+        "fields": {
+            "dndspecialtraits_id": 330,
+            "dndspells_id": 274
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 152,
+        "fields": {
+            "dndspecialtraits_id": 336,
+            "dndspells_id": 46
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 153,
+        "fields": {
+            "dndspecialtraits_id": 336,
+            "dndspells_id": 64
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 154,
+        "fields": {
+            "dndspecialtraits_id": 336,
+            "dndspells_id": 92
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 155,
+        "fields": {
+            "dndspecialtraits_id": 336,
+            "dndspells_id": 287
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 156,
+        "fields": {
+            "dndspecialtraits_id": 336,
+            "dndspells_id": 106
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 157,
+        "fields": {
+            "dndspecialtraits_id": 336,
+            "dndspells_id": 115
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 158,
+        "fields": {
+            "dndspecialtraits_id": 336,
+            "dndspells_id": 285
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 159,
+        "fields": {
+            "dndspecialtraits_id": 336,
+            "dndspells_id": 301
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 160,
+        "fields": {
+            "dndspecialtraits_id": 336,
+            "dndspells_id": 305
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 161,
+        "fields": {
+            "dndspecialtraits_id": 336,
+            "dndspells_id": 233
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 162,
+        "fields": {
+            "dndspecialtraits_id": 336,
+            "dndspells_id": 313
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 163,
+        "fields": {
+            "dndspecialtraits_id": 370,
+            "dndspells_id": 50
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 164,
+        "fields": {
+            "dndspecialtraits_id": 370,
+            "dndspells_id": 67
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 165,
+        "fields": {
+            "dndspecialtraits_id": 370,
+            "dndspells_id": 78
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 166,
+        "fields": {
+            "dndspecialtraits_id": 370,
+            "dndspells_id": 16
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 167,
+        "fields": {
+            "dndspecialtraits_id": 370,
+            "dndspells_id": 39
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 168,
+        "fields": {
+            "dndspecialtraits_id": 370,
+            "dndspells_id": 68
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 169,
+        "fields": {
+            "dndspecialtraits_id": 370,
+            "dndspells_id": 93
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 170,
+        "fields": {
+            "dndspecialtraits_id": 370,
+            "dndspells_id": 96
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 171,
+        "fields": {
+            "dndspecialtraits_id": 370,
+            "dndspells_id": 119
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 172,
+        "fields": {
+            "dndspecialtraits_id": 370,
+            "dndspells_id": 146
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 173,
+        "fields": {
+            "dndspecialtraits_id": 410,
+            "dndspells_id": 46
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 174,
+        "fields": {
+            "dndspecialtraits_id": 410,
+            "dndspells_id": 64
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 175,
+        "fields": {
+            "dndspecialtraits_id": 410,
+            "dndspells_id": 92
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 176,
+        "fields": {
+            "dndspecialtraits_id": 410,
+            "dndspells_id": 287
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 177,
+        "fields": {
+            "dndspecialtraits_id": 410,
+            "dndspells_id": 106
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 178,
+        "fields": {
+            "dndspecialtraits_id": 410,
+            "dndspells_id": 115
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 179,
+        "fields": {
+            "dndspecialtraits_id": 410,
+            "dndspells_id": 285
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 180,
+        "fields": {
+            "dndspecialtraits_id": 410,
+            "dndspells_id": 301
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 181,
+        "fields": {
+            "dndspecialtraits_id": 410,
+            "dndspells_id": 305
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 182,
+        "fields": {
+            "dndspecialtraits_id": 410,
+            "dndspells_id": 233
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 183,
+        "fields": {
+            "dndspecialtraits_id": 410,
+            "dndspells_id": 313
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 184,
+        "fields": {
+            "dndspecialtraits_id": 430,
+            "dndspells_id": 53
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 185,
+        "fields": {
+            "dndspecialtraits_id": 430,
+            "dndspells_id": 57
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 186,
+        "fields": {
+            "dndspecialtraits_id": 430,
+            "dndspells_id": 63
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 187,
+        "fields": {
+            "dndspecialtraits_id": 430,
+            "dndspells_id": 8
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 188,
+        "fields": {
+            "dndspecialtraits_id": 430,
+            "dndspells_id": 19
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 189,
+        "fields": {
+            "dndspecialtraits_id": 430,
+            "dndspells_id": 75
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 190,
+        "fields": {
+            "dndspecialtraits_id": 430,
+            "dndspells_id": 161
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 191,
+        "fields": {
+            "dndspecialtraits_id": 430,
+            "dndspells_id": 92
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 192,
+        "fields": {
+            "dndspecialtraits_id": 430,
+            "dndspells_id": 285
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 193,
+        "fields": {
+            "dndspecialtraits_id": 430,
+            "dndspells_id": 335
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 194,
+        "fields": {
+            "dndspecialtraits_id": 430,
+            "dndspells_id": 105
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 195,
+        "fields": {
+            "dndspecialtraits_id": 430,
+            "dndspells_id": 198
+        }
+    },
+    {
+        "model": "monsters.dndspecialtraits_dnd_spells",
+        "pk": 196,
+        "fields": {
+            "dndspecialtraits_id": 430,
+            "dndspells_id": 244
+        }
+    }
+]
