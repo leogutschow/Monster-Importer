@@ -90,11 +90,11 @@ WSGI_APPLICATION = 'MonsterImporter.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'dbaas-db-2277599-do-user-12703710-0.b.db.ondigitalocean.com',
+        'PORT': '25060',
         'NAME': 'defaultdb',
         'USER': 'doadmin',
-        'PASS': 'AVNS_3ztj0PS8s_uwlP3ixWY',
-        'HOST': 'dbaas-db-2277599-do-user-12703710-0.b.db.ondigitalocean.com',
-        'PORT': '25060'
+        'PASSWORD': 'AVNS_3ztj0PS8s_uwlP3ixWY'
     }
 }
 
@@ -151,10 +151,10 @@ MEDIA_URL = '/media/'
 
 #Email Settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.mailtrap.io'
-EMAIL_HOST_USER = 'b885fa1698ee13'
-EMAIL_HOST_PASSWORD = '6916da2cf81cea'
-EMAIL_PORT = '2525'
+EMAIL_HOST = 'smtp.office365.com'
+EMAIL_HOST_USER = 'madwarlock95@monsterimporter.com'
+EMAIL_HOST_PASSWORD = 'lovisquok33'
+EMAIL_PORT = '587'
 
 #Message Framework
 MESSAGE_TAGS = {

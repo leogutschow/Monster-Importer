@@ -15,7 +15,6 @@ django-summernote==0.8.20.0
 exceptiongroup==1.0.0rc9
 gunicorn==20.1.0
 h11==0.14.0
-heroku==0.1.4
 idna==3.3
 mysqlclient==2.1.1
 numpy==1.23.3
