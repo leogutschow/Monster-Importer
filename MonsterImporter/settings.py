@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'MonsterImporter.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql.connector.django',
+        'ENGINE': 'django.db.backends.mysql',
         'HOST': 'dbaas-db-2277599-do-user-12703710-0.b.db.ondigitalocean.com',
         'PORT': '25060',
         'NAME': 'defaultdb',
