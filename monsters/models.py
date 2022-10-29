@@ -70,8 +70,8 @@ class DnDMonster(BaseSheet):
     languages: str = models.CharField(max_length=100, default="None")
     alignment: str = models.CharField(max_length=30, default="Neutral")
     senses: str = models.CharField(max_length=100, blank=True, null=True)
-    damage_resistances: str = models.CharField(max_length=300, blank=True, null=True)
-    damage_immunities: str = models.CharField(max_length=300, blank=True, null=True)
+    damage_resistances: str = models.CharField(max_length=255, blank=True, null=True)
+    damage_immunities: str = models.CharField(max_length=255, blank=True, null=True)
     condition_immunities: str = models.CharField(max_length=300, blank=True, null=True)
 
     class Meta:
