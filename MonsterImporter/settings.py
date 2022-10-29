@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-u3a8qo1j3ac(q-y#*ti4b-npx3*hir2p#myd0g%!ezt8$6vj7p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['monsterimporter.com']
 
 ADMINS = [('Leonardo Gutschow', 'leogusalles@gmail.com'), ('Leonardo Gutschow', 'leogusalles@gmail.com')]
 
