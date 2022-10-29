@@ -8,7 +8,6 @@ certifi==2021.10.8
 charset-normalizer==2.0.9
 dj-database-url==1.0.0
 Django==4.0.6
-django-heroku==0.3.1
 django-multiselectfield==0.1.12
 django-nested-admin==3.4.0
 django-summernote==0.8.20.0
