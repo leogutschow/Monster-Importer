@@ -33,7 +33,7 @@ def image_upload_path(instance, filename):
 
 
 class BaseSheet(models.Model):
-    name: str = models.CharField(unique=False, max_length=50)
+    name: str = models.CharField(unique=False, max_length=200)
     race: str = models.CharField(max_length=30, blank=True, null=True)
     size: str = models.CharField(max_length=30)
     challenge: str = models.CharField(default="0", max_length=3)
