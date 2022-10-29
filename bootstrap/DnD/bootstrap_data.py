@@ -252,7 +252,7 @@ def load_dnd_monsters():
     saving_file = open(r'bootstrap/DnD/all_savings.json', 'w')
     json.dump(all_savings, saving_file)
 
-    # load_images()
+    load_images()
 
 
 def load_traits():
