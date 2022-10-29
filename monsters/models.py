@@ -62,7 +62,10 @@ class BaseSheet(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(f'{self.game} {self.name}')
+            if len(self.name) > 255:
+                self.slug = slugify(f'{self.game} {self.name[:255]}')
+            else:
+                self.slug = slugify(f'{self.game} {self.name}')
         return super().save()
 
 
