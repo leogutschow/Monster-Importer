@@ -70,7 +70,7 @@ def load_monsters():
                 'save_mods': value['saves'].get('other'),
                 'feats': feats,
                 'spell_domain': parse_value(value.get('domain')),
-                'immune': parse_value(value.get('immunities')),
+                'immune': parse_value(value.get('immunities'))[:255],
                 'resist': parse_value(value.get('resistances')),
                 'spell_resistence': parse_sr(value.get('SR')),
                 'space': parse_value(value.get('space')),
