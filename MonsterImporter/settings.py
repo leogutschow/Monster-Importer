@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-u3a8qo1j3ac(q-y#*ti4b-npx3*hir2p#myd0g%!ezt8$6vj7p')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(os.environ.get('DEBUG')) == '1'
@@ -88,11 +88,11 @@ WSGI_APPLICATION = 'MonsterImporter.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'dbaas-db-2277599-do-user-12703710-0.b.db.ondigitalocean.com',
-        'PORT': '25060',
-        'NAME': 'defaultdb',
-        'USER': 'doadmin',
-        'PASSWORD': 'AVNS_3ztj0PS8s_uwlP3ixWY'
+        'HOST': os.environ.get("DB_HOST"),
+        'PORT': os.environ.get("DB_PORT"),
+        'NAME': os.environ.get("DB_NAME"),
+        'USER': os.environ.get("DB_USER"),
+        'PASSWORD': os.environ.get("DB_PASS")
     }
 }
 
@@ -149,8 +149,8 @@ MEDIA_URL = '/media/'
 #Email Settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.office365.com'
-EMAIL_HOST_USER = 'madwarlock95@monsterimporter.com'
-EMAIL_HOST_PASSWORD = 'lovisquok33'
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASS")
 EMAIL_PORT = '587'
 
 #Message Framework
