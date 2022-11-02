@@ -12,5 +12,5 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 AWS_LOCATION = "http://monster-importer.sfo3.digitaloceanspaces.com"
 
-DEFAULT_FILE_STORAGE = 'monster-importer.cdn.backends.MediaRootS3Boto3Storage'
-STATICFILES_STORAGE = 'monster-importer.cdn.backends.StaticRootS3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'MonsterImporter.cdn.backends.MediaRootS3Boto3Storage'
+STATICFILES_STORAGE = 'MonsterImporter.cdn.backends.StaticRootS3Boto3Storage'
