@@ -147,7 +147,7 @@ from .cdn.conf import * # noqa
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / 'static-cdn' / 'media'
 MEDIA_URL = '/media/'
 
 #Email Settings
