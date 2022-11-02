@@ -63,9 +63,9 @@ class BaseSheet(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             if len(self.name) > 255:
-                self.slug = slugify(f'{self.game} {self.name[:255]}')
+                self.slug = slugify(f'{self.game}-{self.name[:255]}')
             else:
-                self.slug = slugify(f'{self.game} {self.name}')
+                self.slug = slugify(f'{self.game}-{self.name}')
         return super().save()
 
 
@@ -75,7 +75,7 @@ class DnDMonster(BaseSheet):
     senses: str = models.CharField(max_length=100, blank=True, null=True)
     damage_resistances: str = models.CharField(max_length=255, blank=True, null=True)
     damage_immunities: str = models.CharField(max_length=255, blank=True, null=True)
-    condition_immunities: str = models.CharField(max_length=300, blank=True, null=True)
+    condition_immunities: str = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         verbose_name = "DnD Monster"
