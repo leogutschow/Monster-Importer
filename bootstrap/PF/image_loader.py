@@ -29,8 +29,8 @@ for link in soup.table.descendants:
                         img_file = requests.get('https://images.generation-msx.nl/company/0388910c.png', stream=True)
                         if img_file.status_code == 200:
                             if '/' not in monster['fields'].get('name'):
-                                with open(rf"media/images/monsters/PathFinder1e/{monster['fields'].get('name')}.jpg",
-                                          'wb') as img_target:
+                                with (open(rf"media/images/monsters/PathFinder1e/{monster['fields'].get('name')}.jpg",
+                                          'wb') as img_target):
                                     shutil.copyfileobj(img_file.raw, img_target)
                                     print(f"{monster['fields'].get('name')} image has been loaded")
                             else:
@@ -40,8 +40,8 @@ for link in soup.table.descendants:
                                         string_index = monster['fields'].get('name').index(char)
                                         break
                                 monster_name = monster['fields'].get('name')[:string_index]
-                                with open(rf"media/images/monsters/PathFinder1e/{monster_name}.jpg",
-                                          'wb') as img_target:
+                                with (open(rf"media/images/monsters/PathFinder1e/{monster_name}.jpg",
+                                          'wb') as img_target):
                                     shutil.copyfileobj(img_file.raw, img_target)
                                     print(f"{monster['fields'].get('name')} image has been loaded")
                         else:
