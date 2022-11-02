@@ -30,11 +30,11 @@ class DndSpells(models.Model):
         ('8', '8th Level'),
         ('9', '9th Level'),
     ])
-    casting_time: str = models.CharField(max_length=20)
+    casting_time: str = models.CharField(max_length=255)
     verbal: bool = models.BooleanField()
     somatic: bool = models.BooleanField()
     material: bool = models.BooleanField()
-    materials_needed: str = models.CharField(max_length=100, default='None', blank=True, null=True)
+    materials_needed: str = models.TextField(default='None', blank=True, null=True)
 
     class Meta:
         verbose_name = 'DnD Spell'

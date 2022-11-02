@@ -73,9 +73,9 @@ class DnDMonster(BaseSheet):
     languages: str = models.CharField(max_length=100, default="None")
     alignment: str = models.CharField(max_length=30, default="Neutral")
     senses: str = models.CharField(max_length=100, blank=True, null=True)
-    damage_resistances: str = models.CharField(max_length=255, blank=True, null=True)
-    damage_immunities: str = models.CharField(max_length=255, blank=True, null=True)
-    condition_immunities: str = models.CharField(max_length=300, blank=True, null=True)
+    damage_resistances: str = models.TextField(blank=True, null=True)
+    damage_immunities: str = models.TextField(blank=True, null=True)
+    condition_immunities: str = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         verbose_name = "DnD Monster"
@@ -83,14 +83,14 @@ class DnDMonster(BaseSheet):
 
 class DnDAction(models.Model):
     monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
-    action_name: str = models.CharField(max_length=30)
+    action_name: str = models.CharField(max_length=255)
     action_description: str = models.TextField()
     is_attack: bool = models.BooleanField(default=False)
     weapon_type: str = models.CharField(max_length=50, blank=True, null=True)
     attack: int = models.IntegerField(blank=True, null=True)
     reach: str = models.CharField(max_length=50, blank=True, null=True)
     hit: int = models.IntegerField(blank=True, null=True)
-    hit_dice: str = models.CharField(max_length=10, blank=True, null=True)
+    hit_dice: str = models.CharField(max_length=255, blank=True, null=True)
     damage_type: str = models.CharField(max_length=50, blank=True, null=True)
     
     class Meta:
