@@ -3,6 +3,11 @@ import os
 import requests
 from django.utils.text import slugify
 import re
+import sys
+
+PARENT_PATH = sys.path.append('../Monster-Importer')
+from MonsterImporter.settings import MEDIA_ROOT
+
 
 """
 A module that reads the JSON in the bootstrap folder and creates 
@@ -351,7 +356,7 @@ def load_images():
             if monster['name'] == 'Succubus/Incubus':
                 monster['name'] = 'Succubus and Incubus'
             image = requests.get(monster['img_url'])
-            with open(f"media/images/monsters/DnD5e/{monster['name']}.jpg", 'wb') as handler:
+            with open(rf"media/images/monsters/DnD5e/{monster['name']}.jpg", 'wb') as handler:
                 handler.write(image.content)
                 print(f"{monster['name']} image loaded")
 
