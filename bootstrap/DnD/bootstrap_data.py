@@ -257,8 +257,6 @@ def load_dnd_monsters():
     saving_file = open(r'bootstrap/DnD/all_savings.json', 'w')
     json.dump(all_savings, saving_file)
 
-    load_images()
-
 
 def load_traits():
     pass
@@ -356,7 +354,7 @@ def load_images():
             if monster['name'] == 'Succubus/Incubus':
                 monster['name'] = 'Succubus and Incubus'
             image = requests.get(monster['img_url'])
-            with open(rf"media/images/monsters/DnD5e/{monster['name']}.jpg", 'wb') as handler:
+            with open(MEDIA_ROOT / rf"media/images/monsters/DnD5e/{monster['name']}.jpg", 'wb') as handler:
                 handler.write(image.content)
                 print(f"{monster['name']} image loaded")
 
