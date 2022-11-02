@@ -3,11 +3,16 @@
 import os
 import sys
 import dotenv
+import pathlib
 
 
 def main():
     """Run administrative tasks."""
-    dotenv.read_dotenv()
+    DOT_ENV_PATH = pathlib.Path() / '.env'
+    if DOT_ENV_PATH.exists():
+        dotenv.read_dotenv(str(DOT_ENV_PATH))
+    else:
+        print('No .env. please create one')
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'MonsterImporter.settings')
     try:
         from django.core.management import execute_from_command_line
