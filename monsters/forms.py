@@ -75,8 +75,8 @@ class FormDndMonster(ModelForm):
     class Meta:
         model = DnDMonster
         fields = (
-            'languages', 'alignment', 'challenge', 'description', 'senses', 'damage_resistances',
-            'damage_immunities', 'condition_immunities',
+            'languages', 'alignment', 'challenge', 'senses', 'damage_resistances',
+            'damage_immunities', 'condition_immunities'
         )
         widgets = {
             'languages': forms.TextInput(attrs={
@@ -100,8 +100,6 @@ class FormDndMonster(ModelForm):
             'condition_immunities': forms.TextInput(attrs={
                 'class': 'form-control'
             }),
-            'slug': forms.HiddenInput(),
-            'home_brew': forms.HiddenInput()
         }
 
 
@@ -239,7 +237,7 @@ class FormTor20Monster(ModelForm):
     class Meta:
         model = Tor20Monster
         fields = (
-            'description', 'fortitude', 'reflex', 'will', 'level', 'mana', 'equipment', 'treasure',
+            'fortitude', 'reflex', 'will', 'level', 'mana', 'equipment', 'treasure',
         )
         widgets = {
             'fortitude': forms.NumberInput(attrs={
