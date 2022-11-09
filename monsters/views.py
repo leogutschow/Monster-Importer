@@ -248,6 +248,7 @@ class MonsterCreate(CreateView):
     def form_valid(self, form):
         data = form.cleaned_data
         monster_data = self.request.POST
+        print(data)
         if data['game'] == 'DND5E':
             monster = DnDMonster.objects.create(
                 created_by=Profile.objects.get(user=self.request.user),

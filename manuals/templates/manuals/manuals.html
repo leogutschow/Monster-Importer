@@ -16,22 +16,21 @@
             <div class="col">
                 <select id="selectionBook" class="form-select" style="max-height: 40px">
                     <option selected disabled>Choose a Manual do Download</option>
+                    <option disabled>Monsters</option>
                     {% for manual in manuals %}
                         {% if manual.category == 'MON' %}
-                            <option disabled>Monsters</option>
                             <option image_url="{{manual.image.url}}" value="{{ forloop.counter }}" file_path="{{ manual.file_path.url }}">{{ manual.name }}</option>
                         {% endif %}
                     {% endfor %}
+                    <option disabled>Player Books</option>
                     {% for manual in manuals %}
                         {% if manual.category == 'PLA' %}
-
-                            <option disabled>Player Books</option>
                             <option image_url="{{manual.image.url}}" value="{{ forloop.counter }}" file_path="{{ manual.file_path.url }}">{{ manual.name }}</option>
                         {% endif %}
                     {% endfor %}
+                    <option disabled>Game Masters Guides</option>
                     {% for manual in manuals %}
                         {% if manual.category == 'GMS' %}
-                            <option disabled>Game Masters Guides</option>
                             <option image_url="{{manual.image.url}}" value="{{ forloop.counter }}" file_path="{{ manual.file_path.url }}">{{ manual.name }}</option>
                         {% endif %}
                     {% endfor %}
