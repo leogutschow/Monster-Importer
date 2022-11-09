@@ -1,1 +1,9 @@
 *.pyc
+/venv/
+*.sqlite3
+/media/
+.idea/
+!.gitignore
+.idea/*
+*.env
+/static-cdn/

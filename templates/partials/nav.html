@@ -1,8 +1,64 @@
-<nav class="container-fluid bg-secondary">
-    <div class="row align-content-center">
-        <a class="btn col text-white text-decoration-none" href="{% url 'home:home_page' %}">Home Page</a>
-        <a class="btn col text-white text-decoration-none" href="{% url 'monster:monster_list' %}">Monsters</a>
-        <a class="btn col text-white text-decoration-none" href="#">Manuals</a>
-        <a class="btn col text-white text-decoration-none" href="{% url 'home:about' %}">About</a>
+{% load notifications %}
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <div class="container-fluid ms-5">
+        <a class="navbar-brand col text-white text-decoration-none me-0" href="{% url 'home:home_page' %}">Home Page</a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarContent"
+                aria-controls="navbarContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navbarContent" class="container collapse navbar-collapse pe-5">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link text-decoration-none text-white" href="{% url 'monster:monster_list' %}">Monsters</a>
+                </li>
+                <li class="nav-item active ">
+                    <a class="nav-link text-decoration-none text-white" href="{% url 'manuals:manual_download'%}">Manuals</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link text-decoration-none text-white" href="{% url 'requests:new_request'%}">Requests</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link text-decoration-none text-white" href="{% url 'home:about' %}">About</a>
+                </li>
+                <liv class="nav-item active">
+                    <a class="nav-link text-decoration-none text-white" href="{% url 'devlogs:devlog_list' %}">DevLogs</a>
+                </liv>
+                <liv class="nav-item active">
+                    <a class="nav-link text-decoration-none text-white" href="{% url 'forum:forum_index' %}">Forum</a>
+                </liv>
+
+                <div class="d-flex ps-5 ms-5">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item active dropdown">
+                            <a class="nav-link dropdown-toggle text-decoration-none text-white"
+                               id="navbarToggle"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">{{ user.username }}</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarToggle">
+                                <li><a class="dropdown-item disabled">{{ user.username }}</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'auth:profile' user.username %}">Notifications <span id="notificationsNavCounter" class="badge bg-danger rounded-pill">{% if user|get_notifications > 0 %} +{{ user|get_notifications }}{% else %}0{% endif %}</span></a></li>
+                                <li><a class="dropdown-item" href="{% url 'auth:profile' user.username %}">My Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'auth:logout' %}">Logout</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item active">
+                            <a class="nav-link text-decoration-none text-white" href="{% url 'auth:register' %}">Register</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link text-decoration-none text-white" href="{% url 'auth:login' %}">Log in</a>
+                        </li>
+                    {% endif %}
+                </div>
+            </ul>
+        </div>
     </div>
 </nav>

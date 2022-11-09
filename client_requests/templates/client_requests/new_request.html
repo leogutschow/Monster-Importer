@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block 'titulo' %}Requests{% endblock %}</title>
+</head>
+<body>
+    {% block 'conteudo' %}
+    <form method="POST" action="#new_request">
+        {% csrf_token %}
+        <div class="container col p-3">
+            <p>Send us something you want us to add, fix or some other problem that you've encountered</p>
+            <div class="row">
+                <label class="form-label" for="id_request_type">Request Type</label>
+                {{ form.request_type }}
+            </div>
+            <div class="row">
+                <label class="form-label" for="id_request_title">Request Title</label>
+                {{ form.request_title }}
+            </div>
+            <div class="row">
+                <label class="form-label" for="id_request_text">Request Text</label>
+                {{ form.request_text }}
+            </div>
+            <button class="btm btn-success" type="submit">Submit</button>
+        </div>
+
+    </form>
+    {% endblock %}
+
+</body>
+</html>

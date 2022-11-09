@@ -1,20 +1,21 @@
 from django.contrib import admin
 from django.contrib.admin import TabularInline
 from django.forms import TextInput, Textarea
-from .models import Monster, Action, SpecialTraits, Skill
+from .models import *
 from django.db import models
+from django.contrib.auth.models import Group
 
 
 # Register your models here.
-class SkillInline(admin.StackedInline):
-    model = Skill
+class DnDSkillInline(admin.StackedInline):
+    model = DnDSkill
     extra = 0
     can_delete = True
     min_num = 0
 
 
-class ActionInline(admin.TabularInline):
-    model = Action
+class DnDActionInline(admin.TabularInline):
+    model = DnDAction
     extra = 0
     can_delete = True
     min_num = 1
@@ -24,21 +25,113 @@ class ActionInline(admin.TabularInline):
     }
 
 
-class SpecialTraitsInline(admin.TabularInline):
-    model = SpecialTraits
+class DnDSpecialTraitsInline(admin.TabularInline):
+    model = DnDSpecialTraits
     extra = 0
     can_delete = True
     min_num = 0
 
 
-class MonsterAdmin(admin.ModelAdmin):
+class DndSavingThrowsInline(admin.TabularInline):
+    model = DnDSavingThrows
+    extra = 0
+    can_delete = True
+    min_num = 0
+
+
+class DndReactionInline(admin.TabularInline):
+    model = DndReaction
+    extra = 0
+    can_delete = True
+    min_num = 0
+
+
+class DnDMonsterAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'name', 'ac', 'hp', 'challenge'
+        'id', 'name', 'ac', 'hp', 'challenge', 'game'
     )
-    inlines = [ActionInline, SpecialTraitsInline, SkillInline]
+    search_fields = (
+        'name', 'game'
+    )
+    inlines = [DnDActionInline, DnDSpecialTraitsInline, DnDSkillInline, DndSavingThrowsInline, DndReactionInline]
 
 
-admin.site.register(Monster, MonsterAdmin)
+class Tor20SkillInline(admin.StackedInline):
+    model = Tor20Skill
+    extra = 0
+    min_num = 0
+    can_delete = True
+
+
+class Tor20GenericActionInline(admin.TabularInline):
+    model = Tor20GenericAction
+    extra = 0
+    min_num = 0
+    can_delete = 0
+    can_delete = True
+
+
+class Tor20MeleeActionInline(admin.TabularInline):
+    model = Tor20MeleeAction
+    extra = 0
+    min_num = 0
+    can_delete = 0
+    can_delete = True
+
+
+class Tor20RangedActionInline(admin.TabularInline):
+    model = Tor20RangedAction
+    extra = 0
+    min_num = 0
+    can_delete = True
+
+
+class Tor20MonsterAdmin(admin.ModelAdmin):
+    list_display = (
+        'id', 'name', 'ac', 'hp', 'challenge', 'game'
+    )
+    search_fields = (
+        'name', 'game'
+    )
+    inlines = [Tor20SkillInline, Tor20GenericActionInline, Tor20MeleeActionInline, Tor20RangedActionInline, ]
+
+
+class PathFinderSkillInline(admin.TabularInline):
+    model = PathFinderSkill
+    extra = 0
+    min_num = 0
+    can_delete = True
+
+
+class PathFinderSpecialAbilityInline(admin.TabularInline):
+    model = PathFinderSpecialAbility
+    extra = 0
+    min_num = 0
+    can_delete = True
+
+
+class PathFinderOffenseInline(admin.TabularInline):
+    model = PathFinderOffense
+    extra = 0
+    min_num = 0
+    can_delete = True
+
+
+class PathFinderMonsterAdmin(admin.ModelAdmin):
+    list_display = (
+        'id', 'name', 'ac', 'hp', 'challenge', 'game'
+    )
+    search_fields = (
+        'name', 'game'
+    )
+    inlines = [PathFinderOffenseInline, PathFinderSkillInline, PathFinderSpecialAbilityInline, ]
+
+
+admin.site.register(Tor20Monster, Tor20MonsterAdmin)
+admin.site.register(DnDMonster, DnDMonsterAdmin)
+admin.site.register(PathFinderMonster, PathFinderMonsterAdmin)
+admin.site.unregister(Group)
+admin.site.site_header = "Monster Importer Admin"
 
 
 

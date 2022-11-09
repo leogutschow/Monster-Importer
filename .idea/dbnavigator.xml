@@ -29,7 +29,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="58c67a9f-5769-42a5-b8ec-11c617519e7d">
-      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[SELECT * FROM monsters_monster_actions;]]></console>
+      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[SELECT * FROM monsters_pathfinderoffense where monster_id = 2681;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
@@ -39,6 +39,21 @@
     <connection id="58c67a9f-5769-42a5-b8ec-11c617519e7d" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="58c67a9f-5769-42a5-b8ec-11c617519e7d" dataset="main.monsters_dndmonster" active-filter-id="" />
+    <filter-actions connection-id="58c67a9f-5769-42a5-b8ec-11c617519e7d" dataset="main.client_requests_request" active-filter-id="" />
+    <filter-actions connection-id="58c67a9f-5769-42a5-b8ec-11c617519e7d" dataset="main.sqlite_sequence" active-filter-id="" />
+    <filter-actions connection-id="58c67a9f-5769-42a5-b8ec-11c617519e7d" dataset="main.monsters_pathfinderracialmods" active-filter-id="" />
+    <filter-actions connection-id="58c67a9f-5769-42a5-b8ec-11c617519e7d" dataset="main.monsters_dndsavingthrows" active-filter-id="7b24e9bd-6d59-4c39-839e-2d863a2b2760">
+      <filter id="7b24e9bd-6d59-4c39-839e-2d863a2b2760" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
+    <filter-actions connection-id="58c67a9f-5769-42a5-b8ec-11c617519e7d" dataset="main.monsters_dndspecialtraits" active-filter-id="47cb9f7c-d25b-45e0-8bb8-9731c77bff10">
+      <filter id="47cb9f7c-d25b-45e0-8bb8-9731c77bff10" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
+    <filter-actions connection-id="58c67a9f-5769-42a5-b8ec-11c617519e7d" dataset="main.monsters_dndspecialtraits_dnd_spells" active-filter-id="" />
     <filter-actions connection-id="58c67a9f-5769-42a5-b8ec-11c617519e7d" dataset="main.monsters_monster_actions" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
@@ -160,8 +175,8 @@
     </connections>
     <browser-settings>
       <general>
-        <display-mode value="TABBED" />
-        <navigation-history-size value="100" />
+        <display-mode value="SIMPLE" />
+        <navigation-history-size value="1000" />
         <show-object-details value="false" />
       </general>
       <filters>
@@ -463,7 +478,7 @@
     </code-completion-settings>
     <execution-engine-settings>
       <statement-execution>
-        <fetch-block-size value="100" />
+        <fetch-block-size value="10000" />
         <execution-timeout value="20" />
         <debug-execution-timeout value="600" />
         <focus-result value="false" />

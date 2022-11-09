@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block 'titulo' %}Login{% endblock %}</title>
+</head>
+<body>
+    {% block 'conteudo' %}
+        <div class="d-flex justify-content-center col">
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <label class="form-label" for="id_username">Username</label>
+                    {{ form.username }}
+                </div>
+                <div class="row">
+                <label class="form-label" for="id_password">Password</label>
+                {{ form.password }}
+                </div>
+                <button class="btn btn-success" type="submit">Log In</button>
+            </form>
+        </div>
+    {% endblock %}
+
+</body>
+</html>

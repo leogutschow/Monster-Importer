@@ -5,12 +5,40 @@
 </head>
 <body>
     {% block 'conteudo' %}
-    <h1 class="text-wrap text-center p-5">Do you think that creating a Monster Sheet in Roll20 is tedious?</h1>
-    <h3 class="text-center p-0">Well, we thought in a solution to that!</h3>
-    <p class="text-center p-5">
-        Este e o Sobre do Site em desenvolvimento!
+        <h1 class="text-wrap text-center p-5">Do you think that creating a Monster Sheet in Roll20 is tedious?</h1>
+        <h3 class="text-center p-0">Well, we thought in a solution to that!</h3>
+        <p class="text-center p-5">
+            Monster Importer is a WebApp that allow you to import any Monster from the SRD manuals or home brew created
+            here to your Campaign in Roll20. This comes from the struggles to write every single trait, ability or action
+            for every single monster or creature you want your players to face ingame.
+            <br><br>
+            <b class="text-center">Who is running Monster Importer</b><br>
+            A madman for sure. I, <a href="{% url 'auth:profile' 'madwarlock95' %}">madwarlock95</a>, am the creator,
+            developer and soul of Monster Importer. Until now, I received no active help to develop the WebApp, the
+            extension or the Mod Script in Roll20. There's no honor in that. Some friends helped me in some things, like
+            understanding the madness that is JavaScript.
+            <br><br>
+            <b>Ok. So how much to create an account or use Monster Importer in my game?</b><br>
+            No cost involved in this end. To create an account or use any Monster here, you just have to get a Pro subscription
+            in Roll20 and download our extension. That's it! Monster Importer is completely free!
+            <br><br>
+            <b>How can I use Monster Importer?</b><br>
+            Follow this steps to use Monster Importer freely:
+            <br>
+            1. Get a Pro Subscription in Roll20
+            <br>
+            2. Install our extension
+            <br>
+            3. Put out Mod Script in the Mod(API) Scripts in your campaign in Roll20
+            <br>
+            That's it! Now you can use Monster Importer in your games!
+            <br><br>
+            <b>I liked your idea and I want to help!</b><br>
+            Well, maintaining a hosted WebApp and a Data Base can be expensive, and I would love your help! You can donate
+            money to our <a href=""></a>
 
-    </p>
+
+        </p>
     {% endblock %}
 </body>
 </html>

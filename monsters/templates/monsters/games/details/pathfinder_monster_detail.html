@@ -1,0 +1,127 @@
+{% load calculate %}
+<div class="container-fluid pt-5 mb-5">
+    <div class="container col">
+        <div class="container row justify-content-center">
+            <div class="col">
+                <img class="img-fluid" src="{{ monster.image.url }}" style="max-height: 65vh">
+                <div class="container col p-3">
+                    <button id="importMonster" class="btn btn-success" type="button">Import Monster!</button>
+                </div>
+                <p class="p-4">{{ monster.description }}</p>
+            </div>
+            <div class="container-md col-sm">
+                <div class="d-flex justify-content-between bg-success pt-1 ps-2 pe-2 mb-2">
+                    <h3 class="text-white">{{ monster.name }}</h3>
+                    <h3 class="text-white">CR {{ monster.challenge }}</h3>
+                </div>
+                <div class="container row">
+                    <h4 class="fw-bold row">XP {{ monster.challenge|calculate_pf_xp }}</h4>
+                </div>
+                <div class="container row">
+                    <h5 class="row">{% if monster.race != None %}{{ monster.race }}{% endif %} {% if monster.monster_class != None %}{{ monster.monster_class }}{% endif %}</h5>
+                </div>
+                <div class="container row">
+                    <h5 class="row">{{ monster.monster_alignment }} {{ monster.size }} {{ monster.type }}</h5>
+                </div>
+                <div class="container row">
+                    <h5 class="row" style="display:inline;"><b>Init</b> +{{ monster.init }}; <b>Senses</b> {{ monster.senses }}</h5>
+                </div>
+                {% if monster.aura %}
+                    <div class="container row">
+                        <h5 class="row" style="display:inline;"><b>Auras</b> +{{ monster.aura }}</h5>
+                    </div>
+                {% endif %}
+                <hr>
+                <h4>DEFENSE</h4>
+                <hr>
+                <div class="container">
+                    <h5 class="row" style="display: inline;"><b>AC</b> {{ monster.ac }}; {{ monster.ac_mod }}</h5>
+                </div>
+                <div class="container">
+                    <h5 class="row" style="display: inline;"><b>HP</b> {{ monster.hp }} ({{ monster.hp_dices }})</h5>
+                </div>
+                <div class="container">
+                    <h5 class="row" style="display: inline;"><b>Fort</b> +{{ monster.fortitude }}, <b>Ref</b> +{{ monster.reflex }}, <b>Will</b> +{{ monster.will }}; {{ monster.save_mods }} </h5>
+                </div>
+                <div class="container">
+                    <h5 class="row" style="display: inline;">{% if monster.damage_reduction %}<b>DR</b>{{ monster.damage_reduction }}{% endif %};
+                        {% if monster.damage_reduction %}<b>Immunities</b> {{ monster.immune }}{% endif %};
+                        {% if monster.damage_reduction %}<b>Resist</b> {{ monster.resist }}{% endif %}</h5>
+                </div>
+                <hr>
+                <h4>OFFENCE</h4>
+                <hr>
+                <div class="container">
+                    <h5 class="row" style="display: inline;"><b>Speed</b> {{ monster.movement }}</h5>
+                </div>
+                {% if melee_offense or ranged_offense %}
+                    {% if melee_offense %}
+                        <div class="container">
+                            <h5 class="row" style="display: inline;"><b>Melee</b>
+                                {% for melee in monster.pathfinderoffense_set.all %}
+                                    {% if melee.type == 'M' %}
+                                        {{ melee.name }} {% if melee.attack >= 0 %}+{% endif %}{{ melee.attack }}({{ melee.damage }}),
+                                    {% endif %}
+                                {% endfor %}</h5>
+                        </div>
+                    {% endif %}
+                    {% if ranged_offense %}
+                        <div class="container">
+                            <h5 class="row" style="display: inline;"><b>Ranged</b>
+                                {% for ranged in monster.pathfinderoffense_set.all %}
+                                    {% if ranged.type == 'R' %}
+                                         {{ ranged.name }} {% if ranged.attack >= 0 %}+{% endif %}{{ ranged.attack }} ({{ ranged.damage }}/{{ ranged.crit_range }}),
+                                    {% endif %}
+                                {% endfor %}</h5>
+                        </div>
+                    {% endif %}
+                {% endif %}
+                <hr>
+                <h4>STATISTICS</h4>
+                <hr>
+                <div class="container">
+                    <h5 class="row" style="display: inline;"><b>Str</b> {{monster.strength}}, <b>Dex</b> {{monster.dexterity}}, <b>Con</b> {{monster.constitution}}, <b>Int</b> {{monster.intelligence}}, <b>Wis</b> {{monster.wisdom}}, <b>Cha</b> {{monster.charisma}}</h5>
+                </div>
+                <div class="container">
+                    <h5 class="row" style="display: inline;"><b>Base Atk</b> +{{monster.base_attack}}; <b>CMB</b> +{{monster.combat_maneuver_bonus}}; <b>CMD</b> +{{monster.combat_maneuver_defence}}</h5>
+                </div>
+                {% if monster.feats %}
+                <div class="container">
+                    <h5 class="row" style="display: inline;"><b>Feats</b> {{monster.feats}}</h5>
+                </div>
+                {% endif %}
+                <div class="container">
+                    <h5 class="row" style="display: inline;"><b>Skills</b> {% for skill in monster.pathfinderskill_set.all %}{% if skill.racial_mod == False %}{{ skill.get_skill_display }} +{{ skill.skill_bonus }}, {% endif %}{% endfor %}; <b>Racial Modifiers</b>{% for racial in monster.pathfinderskill_set.all %}{% if racial.racial_mod %} +{{ racial.skill_bonus }} {{ racial.get_skill_display }}, {% endif %}{% endfor %}</h5>
+                </div>
+                <div class="container">
+                    <h5 class="row" style="display: inline;"><b>Languages</b> {{monster.languages}}</h5>
+                </div>
+                {% if monster.special_qualities %}
+                    <div class="container">
+                        <h5 class="row" style="display: inline;"><b>SQ</b> {{monster.special_qualities}}</h5>
+                    </div>
+                {% endif %}
+                <hr>
+                <h4>ECOLOGY</h4>
+                <hr>
+                <div class="container">
+                    <h5 class="row" style="display: inline;"><b>Environment</b> {{monster.environment}}</h5>
+                </div>
+                <div class="container">
+                    <h5 class="row" style="display: inline;"><b>Organization</b> {{monster.organization}}</h5>
+                </div>
+                <div class="container">
+                    <h5 class="row" style="display: inline;"><b>Treasure</b> {{monster.treasure}}</h5>
+                </div>
+                {% if monster.pathfinderspecialability_set.count > 0 %}
+                    <hr>
+                    <h4>SPECIAL ABILITIES</h4>
+                    <hr>
+                    {% for ability in monster.pathfinderspecialability_set.all %}
+                        <p><b>{{ability.name}}</b> {{ability.description}}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

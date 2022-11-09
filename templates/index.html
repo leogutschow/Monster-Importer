@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 <head>
     <title>{% block 'titulo' %} Monster Importer {% endblock %}</title>
     {% block 'styles' %}
@@ -16,41 +17,53 @@
 </head>
 <body>
     {% block 'conteudo' %}
-        <!--
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Ac</th>
-                    <th>Challenge</th>
-                </tr>
-            </thead>
-            <tbody>
-                    {% for monster in monsters %}
-                        <tr>
-                            <td>{{ monster.name }}</td>
-                            <td>{{ monster.ac }}</td>
-                            <td>{{ monster.challenge }}</td>
-                        </tr>
-                    {% endfor %}
-
-            </tbody>
-        </table>
-        -->
 
     <div class="d-flex justify-content-center">
-        <div id="carouselControls bg-dark" class="carousel carousel-dark slide w-25" data-bs-rise="carousel">
+        <div id="carouselControls" class="carousel carousel-dark slide w-70 bg-secondary" data-bs-rise="carousel" style="width: 70vw">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselControls" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselControls" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselControls" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
+            </div>
             <div class="carousel-inner">
-                <a href="{% url 'monster:monster_detail' last_monster.slug%}">
-                    <div class="carousel-item-active" data-bs-interval="2000">
-                        <img src="{{ last_monster.image.url }}" alt="..." class="d-block" style="max-width: 25vw;">
+                <div class="carousel-item active" data-bs-interval="2000">
+                    <a href="{% url 'monster:monster_detail' last_monster.slug%}">
+                        <div class="text-center">
+                            <img src="{{ last_monster.image.url }}" alt="..." style="height: 75vh;">
+                        </div>
+                        <div class="carousel-caption d-md-block bg-secondary" style="opacity: 75%;">
+                            <h5 class="text-white " style="opacity: 100%">A Random Monster Appears!</h5>
+                            <h1 class="text-white " style="opacity: 100%">The {{ last_monster.name }}!</h1>
+                            <p class="text-white" style="opacity: 100%">Now you can import this to your Roll20 Campaign and have fun!</p>
+                        </div>
+                     </a>
+                </div>
+                <div class="carousel-item" data-bs-interval="2000">
+                    <a href="{% url 'manuals:manual_download' %}">
+                        <div class="text-center">
+                            <img src="{% static 'vendor/imgs/manuals_studying.jpg' %}" alt="..." class="img-fluid" style="max-width: 50vw;">
+                        </div>
                             <div class="carousel-caption d-md-block bg-secondary" style="opacity: 75%;">
-                                <h5 class="text-white " style="opacity: 100%">Most Recent Monster!</h5>
-                                <h1 class="text-white " style="opacity: 100%">The {{ last_monster.name }}!</h1>
-                                <p class="text-white" style="opacity: 100%">Now you can import this to your Roll20 Campaign and have fun!</p>
+                                <h5 class="text-white " style="opacity: 100%">Don't know the Monsters?</h5>
+                                <h1 class="text-white " style="opacity: 100%">Download the Manuals!!</h1>
+                                <p class="text-white" style="opacity: 100%">Download Manuals and have a look at the Monsters available for various games!</p>
                             </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
+                <div class="carousel-item" data-bs-interval="2000">
+                    <a href="{% url 'devlogs:devlog_list' %}">
+                        <div class="text-center">
+                            <img src="{% static 'vendor/imgs/tavern-board.png' %}" alt="..." class="img-fluid" style="width: 55vw;">
+                        </div>
+                            <div class="carousel-caption d-md-block bg-secondary" style="opacity: 75%;">
+                                <h5 class="text-white " style="opacity: 100%">Want to the News?</h5>
+                                <h1 class="text-white " style="opacity: 100%">Check our DevLogs!</h1>
+                                <p class="text-white" style="opacity: 100%">On each upgrade or fixing, we share with you the news!</p>
+                            </div>
+                    </a>
+                </div>
+
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev" style=":hover{background-color: gray}">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
@@ -60,6 +73,11 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
+        </div>
+    </div>
+    <div>
+        <div class="d-flex justify-content-center mt-5">
+            <h1>How to Use Monster Importer</h1>
         </div>
     </div>
     {% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block 'titulo' %}Manuals{% endblock %}</title>
+
+</head>
+<body>
+
+    {% block 'conteudo' %}
+        <script>
+            var manuals = "{{ manuals }}"
+        </script>
+        <div class="container-fluid row mt-5 w-100">
+
+            <img id="manualImage" class="col" src="" style="max_width: 5vw">
+            <div class="col">
+                <select id="selectionBook" class="form-select" style="max-height: 40px">
+                    <option selected disabled>Choose a Manual do Download</option>
+                    <option disabled>Monsters</option>
+                    {% for manual in manuals %}
+                        {% if manual.category == 'MON' %}
+                            <option image_url="{{manual.image.url}}" value="{{ forloop.counter }}" file_path="{{ manual.file_path.url }}">{{ manual.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                    <option disabled>Player Books</option>
+                    {% for manual in manuals %}
+                        {% if manual.category == 'PLA' %}
+                            <option image_url="{{manual.image.url}}" value="{{ forloop.counter }}" file_path="{{ manual.file_path.url }}">{{ manual.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                    <option disabled>Game Masters Guides</option>
+                    {% for manual in manuals %}
+                        {% if manual.category == 'GMS' %}
+                            <option image_url="{{manual.image.url}}" value="{{ forloop.counter }}" file_path="{{ manual.file_path.url }}">{{ manual.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <button id="downloadBtn" class="btn btn-success" type="button" onclick="download()">Download</button>
+            </div>
+        </div>
+
+        <script>
+            function download(){
+                const e = document.getElementById("selectionBook");
+                const selected = e.options[e.selectedIndex];
+                window.open(selected.getAttribute("file_path", "_self"));
+            }
+            document.getElementById("selectionBook").addEventListener("change", function(){
+                const e = document.getElementById("selectionBook");
+                const selected = e.options[e.selectedIndex];
+                const image_url = selected.getAttribute("image_url");
+                const image = document.getElementById("manualImage");
+                image.src = image_url;
+            })
+        </script>
+    {% endblock %}
+</body>
+</html>

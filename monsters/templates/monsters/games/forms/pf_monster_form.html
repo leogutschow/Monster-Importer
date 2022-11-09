@@ -1,0 +1,270 @@
+<div id="pathFinderMonsterForm" class="hidden">
+    <div class=container">
+        <div class="row">
+            <div class="col">
+                <label class="form-label" for="id_monster_class">Class</label>
+                {{ pfmonster.monster_class }}
+            </div>
+            <div class="col">
+                <label class="form-label" for="id_monster_alignment">Alignment</label>
+                {{ pfmonster.monster_alignment }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" for="id_type">Type</label>
+                {{ pfmonster.type }}
+            </div>
+            <div class="col">
+                <label class="form-label" for="id_type">Subtype</label>
+                {{ pfmonster.subtype }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" for="id_senses">Senses</label>
+                {{ pfmonster.senses }}
+            </div>
+            <div class="col">
+                <label class="form-label" for="id_aura">Aura</label>
+                {{ pfmonster.aura }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" for="id_ac_mod">AC Mod</label>
+                {{ pfmonster.ac_mod }}
+            </div>
+            <div class="col">
+                <label class="form-label" for="id_hp_mod">HP Mod</label>
+                {{ pfmonster.hp_mod }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" for="id_init">Init</label>
+                {{ pfmonster.init }}
+            </div>
+            <div class="col">
+                <label class="form-label" for="id_fortitude">Fort</label>
+                {{ pfmonster.fortitude }}
+            </div>
+            <div class="col">
+                <label class="form-label" for="id_reflex">Ref</label>
+                {{ pfmonster.reflex }}
+            </div>
+            <div class="col">
+                <label class="form-label" for="id_will">Will</label>
+                {{ pfmonster.will }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" for="id_save_mods">Save Mods</label>
+                {{ pfmonster.save_mods }}
+            </div>
+            <div class="col">
+                <label class="form-label" for="id_damage_reduction">Damage Reductions</label>
+                {{ pfmonster.damage_reduction }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" for="id_immune">Immunities</label>
+                {{ pfmonster.immune }}
+            </div>
+            <div class="col">
+                <label class="form-label" for="id_resist">Resistances</label>
+                {{ pfmonster.resist }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" for="id_spell_resistence">Spell Resistances</label>
+                {{ pfmonster.spell_resistence }}
+            </div>
+            <div class="col">
+                <label class="form-label" for="id_weaknesses">Weaknesses</label>
+                {{ pfmonster.weaknesses }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" for="id_feats">Feats</label>
+                {{ pfmonster.feats }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" for="id_speed_mod">Speed Mod</label>
+                {{ pfmonster.speed_mod }}
+            </div>
+            <div class="col">
+                <label class="form-label" for="id_space">Space</label>
+                {{ pfmonster.space }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" for="id_reach">Reach</label>
+                {{ pfmonster.speed_mod }}
+            </div>
+            <div class="col">
+                <label class="form-label" for="id_spell_domain">Spell Domain</label>
+                {{ pfmonster.spell_domain }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" for="id_base_attack">BAB</label>
+                {{ pfmonster.base_attack }}
+            </div>
+            <div class="col">
+                <label class="form-label" for="id_combat_maneuver_bonus">CMB</label>
+                {{ pfmonster.combat_maneuver_bonus }}
+            </div>
+            <div class="col">
+                <label class="form-label" for="id_combat_maneuver_defence">CMD</label>
+                {{ pfmonster.combat_maneuver_defence }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" for="id_languages">Languages</label>
+                {{ pfmonster.languages }}
+            </div>
+            <div class="col">
+                <label class="form-label" for="id_special_qualities">Special Qualities</label>
+                {{ pfmonster.special_qualities }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" for="id_environment">Environment</label>
+                {{ pfmonster.environment }}
+            </div>
+            <div class="col">
+                <label class="form-label" for="id_organization">Organization</label>
+                {{ pfmonster.organization }}
+            </div>
+            <div class="col">
+                <label class="form-label" for="id_treasure">Treasure</label>
+                {{ pfmonster.treasure }}
+            </div>
+        </div>
+        <hr>
+        <div id="pfSkills">
+            <h5>Skills</h5>
+            {{ pfskill.management_form }}
+            <div id="pfSkillList" class="row">
+                {% for skill in pfskill %}
+                    <div class="pfskill-form">
+                        <div class="row">
+                            {{ skill }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <button id="addPFSkillBtn" type="button" class="btn btn-secondary">Add Skill</button>
+        </div>
+        <hr>
+        <div id="pfOffense">
+            <h5>Offenses</h5>
+            {{ pfoffense.management_form }}
+            <div id="pfOffenseList" class="row">
+                {% for offense in pfoffense %}
+                    ______________________
+                    <div class="offense-form">
+                        <div class="row">
+                            {{ offense }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <button id="addPFOffenseBtn" type="button" class="btn btn-secondary">Add Offense</button>
+        </div>
+        <hr>
+        <div id="pfSpecialAbilities">
+            <h5>Special Abilities</h5>
+            {{ pfspecial.management_form }}
+            <div id="pfSpecialList" class="row">
+                {% for special in pfspecial %}
+                    ______________________
+                    <div class="special-form">
+                        <div class="row">
+                            {{ special }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <button id="addPFSpecialBtn" type="button" class="btn btn-secondary">Add Special Ability</button>
+        </div>
+        <div id="emptyPFSkillForm" class="hidden">
+            <div class="col p-2" style="max-width: 60px">
+                <div class="row">
+                    <label class="form-label" for="{{ pfskill.empty_form.skill.id_for_label }}">Skill</label>
+                    {{pfskill.empty_form.skill}}
+                </div>
+                <div class="row">
+                    <label class="form-label" for="{{ pfskill.empty_form.skill_bonus.id_for_label }}">Skill Bonus</label>
+                    {{pfskill.empty_form.skill_bonus}}
+                </div>
+                <div class="row">
+                    <label class="form-label" for="{{ pfskill.empty_form.racial_mod.id_for_label }}">Racial Modifier</label>
+                    {{pfskill.empty_form.racial_mod}}
+                </div>
+            </div>
+        </div>
+        <div id="emptyPFOffenseForm" class="hidden">
+            <div class="col p-2">
+                <div class="row">
+                    <label class="form-label" for="{{ pfoffense.empty_form.name.id_for_label }}">Attack Name</label>
+                    {{pfoffense.empty_form.name}}
+                    <label class="form-label" for="{{ pfoffense.empty_form.type.id_for_label }}">Attack Type</label>
+                    {{pfoffense.empty_form.type}}
+                    <label class="form-label" for="{{ pfoffense.empty_form.effect.id_for_label }}">Effect</label>
+                    {{pfoffense.empty_form.effect}}
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label class="form-label" for="{{ pfoffense.empty_form.damage.id_for_label }}">Damage</label>
+                        {{ pfoffense.empty_form.damage }}
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="{{ pfoffense.empty_form.crit_range.id_for_label }}">Crit Range</label>
+                        {{ pfoffense.empty_form.crit_range }}
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center row">
+                    <div class="col pt-4">
+                        <label class="form-label" for="{{ pfoffense.empty_form.multiple.id_for_label }}">Multiple Attacks</label>
+                        {{ pfoffense.empty_form.multiple }}
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="{{ pfoffense.empty_form.count.id_for_label }}">Number of Attacks</label>
+                        {{ pfoffense.empty_form.count }}
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="{{ pfoffense.empty_form.attack.id_for_label }}">Attack Bonus</label>
+                        {{ pfoffense.empty_form.attack }}
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div id="emptyPFSpecialForm" class="hidden">
+            <div class="col">
+                <div class="row">
+                    <label class="form-label" for="{{ pfspecial.empty_form.name.id_for_label }}">Special Ability Name</label>
+                    {{ pfspecial.empty_form.name }}
+                </div>
+                <div class="row">
+                    <label class="form-label" for="{{ pfspecial.empty_form.description.id_for_label }}">Special Ability Description</label>
+                    {{ pfspecial.empty_form.description }}
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+
+</div>

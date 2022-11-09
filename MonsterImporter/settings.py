@@ -9,26 +9,26 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-import django_heroku
+from django.contrib.messages import constants as message_constants
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-u3a8qo1j3ac(q-y#*ti4b-npx3*hir2p#myd0g%!ezt8$6vj7p'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = str(os.environ.get('DEBUG')) == '1'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['monsterimporter.com', '127.0.0.1']
 
+ADMINS = [('Leonardo Gutschow', 'leogusalles@gmail.com'), ('Leonardo Gutschow', 'leogusalles@gmail.com')]
 
 # Application definition
 
@@ -39,8 +39,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'nested_admin',
+    'django_summernote',
+    'storages',
     'home_page',
     'monsters',
+    'manuals',
+    'client_requests',
+    'authentications',
+    'spells',
+    'devlogs',
+    'forum',
 ]
 
 MIDDLEWARE = [
@@ -79,8 +88,12 @@ WSGI_APPLICATION = 'MonsterImporter.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3'
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': os.environ.get("DB_HOST"),
+        'PORT': os.environ.get("DB_PORT"),
+        'NAME': os.environ.get("DB_NAME"),
+        'USER': os.environ.get("DB_USER"),
+        'PASSWORD': os.environ.get("DB_PASS")
     }
 }
 
@@ -120,13 +133,36 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+STATIC_ROOT = BASE_DIR / 'static-cdn'
+
+from .cdn.conf import * # noqa
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-django_heroku.settings(locals())
 
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / 'static-cdn' / 'media'
 MEDIA_URL = '/media/'
+
+#Email Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.office365.com'
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASS")
+EMAIL_PORT = '587'
+
+#Message Framework
+MESSAGE_TAGS = {
+    message_constants.INFO: 'alert alert-info',
+    message_constants.DEBUG: 'alert alert-primary',
+    message_constants.SUCCESS: 'alert alert-success',
+    message_constants.ERROR: 'alert alert-danger',
+    message_constants.WARNING: 'alert alert-warning'
+}
+

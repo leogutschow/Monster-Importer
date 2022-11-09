@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ forum.title }}</title>
+</head>
+<body>
+    {% block 'conteudo' %}
+        <div class="container mt-3">
+            <h1>{{ forum.title }}</h1>
+            <h5 class="fst-italic">Posted by <a href="{% url 'auth:profile' forum.author.slug %}">{{ forum.author }}</a></h5>
+            <hr>
+            <div>
+                {% for comment in comments %}
+                    <div class="container border m-1">
+                        <div class="row p-2">
+                            {% if comment.author.image %}
+                                <img class="img-fluid rounded-circle" src="{{ comment.author.image.url }}" style="max-width: 10rem; max-height: 10rem">
+                            {% else %}
+                                <img class="img-fluid rounded-circle" src="{% static 'vendor/imgs/baseLogo.png' %}" style="max-width: 10rem; max-height: 10rem">
+                            {% endif %}
+                            <div class="col col-lg-6">
+                                <h5>{{ comment.author }} said: </h5>
+                                <p>{{ comment.comment|safe }}</p>
+                                <hr>
+                                <p class="fst-italic">{{ comment.author.motto }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div>
+                    {% if user.is_authenticated %}
+                    <form class="container" method="post">
+                        {% csrf_token %}
+                        {{ form }}
+                        <button class="btn btn-success" type="submit">Comment</button>
+                    </form>
+                    {% else %}
+                        <h4>You need to log in to comment</h4>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+</body>
+</html>
