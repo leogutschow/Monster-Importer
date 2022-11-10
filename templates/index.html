@@ -76,8 +76,64 @@
         </div>
     </div>
     <div>
-        <div class="d-flex justify-content-center mt-5">
-            <h1>How to Use Monster Importer</h1>
+        <div class="container mt-5">
+            <div class="row justify-content-md-center">
+                <div class="col-auto">
+                    <h1>How to Use Monster Importer</h1>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col">
+                    <h3>Make sure your Roll20 subscription is at Pro tier</h3>
+                    <p>
+                        For Monster Importer to work, you have to have access to Mods (API Scripts).
+                        Monster Importer is a third-party Web App, so we do not have the legitimacy to change how Roll20
+                        works or how it should. That said, unfortunately, you have to pay the higher price there to be
+                        able to user Monster Importer for its main purpose.
+                    </p>
+                </div>
+                <div class="col"></div>
+                <div class="col">
+                    <img class="img-fluid" src="{% static 'vendor/imgs/pro-subscription-roll20.png' %}" style="width: 400px">
+                </div>
+            </div>
+            <div class="row p-5"></div>
+            <div class="row mt-5">
+                <div class="col">
+                    <img class="img-fluid" src="{% static 'vendor/imgs/extension-screenshot.png' %}" style="width: 400px">
+                </div>
+                <div class="col"></div>
+                <div class="col">
+                    <h3>Install <a class="text-decoration-none"
+                                   href="https://addons.mozilla.org/pt-BR/firefox/addon/monster-importer/">
+                        Monster Importer Extension</a> to your browser</h3>
+                    <p>
+                        It will allow you to integrate Monster Importer to Roll20.
+                        Without it, you cannot import your favorite monsters to your
+                        player die for. After installing, close your browser and open again, to make sure
+                        it's working properly
+                    </p>
+                </div>
+            </div>
+            <div class="row p-5"></div>
+            <div class="row mt-5">
+                <div class="col">
+                    <h3>Use our <a class="text-decorarion-none"
+                                   href="https://github.com/leogutschow/Monster-Importer/blob/master/roll20_mod/api.js">
+                        Mod Script</a> in your campaign</h3>
+                    <p>
+                        Ok, you have the Pro Tier and the Extension, now it's time to Roll20 receive and understand
+                        what's going on. For that, we make an API Script that you can put on your Campaigns and use
+                        Monster Importer at it's fullest! That script will do the hard work for you and insert every
+                        aspect of your desired monsters into the game. Make sure to save it before running and
+                        refresh the Campaign page before trying to use it
+                    </p>
+                </div>
+                <div class="col"></div>
+                <div class="col">
+                    <img class="img-fluid" src="{% static 'vendor/imgs/roll20-mod-scripts.png' %}" style="width: 400px">
+                </div>
+            </div>
         </div>
     </div>
     {% endblock %}
