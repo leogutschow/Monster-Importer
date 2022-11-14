@@ -27,7 +27,7 @@
 
             </div>
             <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="2000">
+                <div class="carousel-item active" data-bs-interval="4000">
                     <a href="{% url 'monster:monster_detail' last_monster.slug%}">
                         <div class="text-center">
                             <img src="{{ last_monster.image.url }}" alt="..." style="height: 75vh;">
@@ -39,6 +39,7 @@
                         </div>
                      </a>
                 </div>
+                <!--
                 <div class="carousel-item" data-bs-interval="2000">
                     <a href="{% url 'manuals:manual_download' %}">
                         <div class="text-center">
@@ -51,7 +52,8 @@
                             </div>
                     </a>
                 </div>
-                <div class="carousel-item" data-bs-interval="2000">
+                -->
+                <div class="carousel-item" data-bs-interval="4000">
                     <a href="{% url 'devlogs:devlog_list' %}">
                         <div class="text-center">
                             <img src="{% static 'vendor/imgs/tavern-board.png' %}" alt="..." class="img-fluid" style="width: 55vw;">
