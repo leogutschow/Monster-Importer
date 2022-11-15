@@ -42,12 +42,12 @@ class BaseSheet(models.Model):
     hp: int = models.IntegerField()
     hp_dices: str = models.CharField(max_length=255)
     movement: str = models.CharField(max_length=255, blank=True, null=True,)
-    strength: int = models.IntegerField()
-    dexterity: int = models.IntegerField()
-    constitution: int = models.IntegerField()
-    intelligence: int = models.IntegerField()
-    wisdom: int = models.IntegerField()
-    charisma: int = models.IntegerField()
+    strength: int = models.IntegerField(default=0)
+    dexterity: int = models.IntegerField(default=0)
+    constitution: int = models.IntegerField(default=0)
+    intelligence: int = models.IntegerField(default=0)
+    wisdom: int = models.IntegerField(default=0)
+    charisma: int = models.IntegerField(default=0)
     slug: str = models.SlugField(blank=True, null=True)
     game: str = models.CharField(default='', max_length=5, choices=games)
     home_brew: bool = models.BooleanField(default=False)
@@ -83,15 +83,15 @@ class DnDMonster(BaseSheet):
 
 class DnDAction(models.Model):
     monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
-    action_name: str = models.CharField(max_length=30)
+    action_name: str = models.CharField(max_length=255)
     action_description: str = models.TextField()
     is_attack: bool = models.BooleanField(default=False)
-    weapon_type: str = models.CharField(max_length=50, blank=True, null=True)
+    weapon_type: str = models.CharField(max_length=255, blank=True, null=True)
     attack: int = models.IntegerField(blank=True, null=True)
     reach: str = models.CharField(max_length=50, blank=True, null=True)
     hit: int = models.IntegerField(blank=True, null=True)
-    hit_dice: str = models.CharField(max_length=10, blank=True, null=True)
-    damage_type: str = models.CharField(max_length=50, blank=True, null=True)
+    hit_dice: str = models.CharField(max_length=255, blank=True, null=True)
+    damage_type: str = models.CharField(max_length=255, blank=True, null=True)
     
     class Meta:
         verbose_name = "DnD Action"

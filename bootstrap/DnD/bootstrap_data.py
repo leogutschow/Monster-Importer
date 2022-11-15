@@ -94,7 +94,7 @@ def load_dnd_monsters():
                         'model': 'monsters.dndsavingthrows',
                         'pk': saving_count,
                         'fields': {
-                            'attr': attr, 'bonus': bonus, 'monster': num + 1
+                            'attr': attr, 'bonus': bonus, 'monster_id': num + 1
                         }
                     }
                     saving_count += 1
