@@ -18,6 +18,7 @@ another JSON formatted to be loaded in the DB
 def load_dnd_monsters():
     with open(r'bootstrap/DnD/srd_5e_monsters.json', 'r') as dnd_json_file:
         json_monsters = json.load(dnd_json_file)
+        abstract_all = []
         monster_all = []
         basesheet_all = []
         all_actions = []
@@ -50,23 +51,32 @@ def load_dnd_monsters():
             intelligence = int(monster['INT'])
             wisdom = int(monster['WIS'])
             charisma = int(monster['CHA'])
-            senses = monster['Senses']
             languages = monster['Languages']
             challenge = monster['Challenge'].split(' ')[0]
             img_link = f'images/monsters/DnD5e/{name}.jpg'
             senses = monster['Senses']
-
+            if len(name) > 255:
+                slug = slugify(f'DND5E-{name[:255]}')
+            else:
+                slug = slugify(f'DND5E-{name}')
             # Creating the dictionaries before some Attributes that
             # some Monsters may not have
+            abstract_monster = {
+                'model': 'monsters.abstractsystemmonster',
+                'pk': num + 1,
+                'fields': {
+                    'name': name,  'type': 'None', 'hp': hp, 'movement': movement, 'slug': slug, 'game': 'DND5E', 'home_brew': False,
+                    'image': img_link
+                }
+            }
             base_sheet = {
                 'model': 'monsters.basesheet',
                 'pk': num + 1,
                 'fields': {
-                    'name': name, 'size': size, 'race': race, 'challenge': challenge, 'ac': armor, 'ac_type': armor_class, 'hp': hp,
-                    'hp_dices': hp_dices, 'movement': movement, 'strength': strength, 'dexterity': dexterity,
+                    'abstractsystemmonster_ptr_id': num+1, 'size': size, 'race': race, 'challenge': challenge, 'ac': armor, 'ac_type': armor_class,
+                    'hp_dices': hp_dices, 'strength': strength, 'dexterity': dexterity,
                     'constitution': constitution, 'intelligence': intelligence, 'wisdom': wisdom,
-                    'charisma': charisma, 'game': 'DND5E', 'home_brew': False,
-                    'slug': slugify(f'DND5E {name}'), 'image': img_link
+                    'charisma': charisma,
                 }
             }
             monster_dict = {
@@ -233,15 +243,13 @@ def load_dnd_monsters():
                             traits_count += 1
 
                             all_traits.append(trait_dict)
-
-            basesheet_all.append(base_sheet)
+            monster_all.append(abstract_monster)
+            monster_all.append(base_sheet)
             monster_all.append(monster_dict)
             print(f'{name} has been loaded')
 
     monster_json_file = open(r'bootstrap/DnD/all_monsters.json', 'w')
     json.dump(monster_all, monster_json_file)
-    basesheet_json = open(r'bootstrap/DnD/all_basesheet.json', 'w')
-    json.dump(basesheet_all, basesheet_json)
     skills_json_file = open(r'bootstrap/DnD/all_skills.json', 'w')
     json.dump(all_skills, skills_json_file)
     trait_json = open(r'bootstrap/DnD/all_traits.json', 'w')

@@ -32,22 +32,11 @@ def image_upload_path(instance, filename):
     return 'images/monsters/fallback/{0}'.format(filename)
 
 
-class BaseSheet(models.Model):
+class AbstractSystemMonster(models.Model):
     name: str = models.CharField(unique=False, max_length=200)
-    race: str = models.CharField(max_length=30, blank=True, null=True)
-    size: str = models.CharField(max_length=30)
-    challenge: str = models.CharField(default="0", max_length=3)
-    ac: int = models.IntegerField()
-    ac_type: str = models.CharField(max_length=50)
+    type: str = models.CharField(max_length=255, blank=True, null=True)
     hp: int = models.IntegerField()
-    hp_dices: str = models.CharField(max_length=255)
-    movement: str = models.CharField(max_length=255, blank=True, null=True,)
-    strength: int = models.IntegerField()
-    dexterity: int = models.IntegerField()
-    constitution: int = models.IntegerField()
-    intelligence: int = models.IntegerField()
-    wisdom: int = models.IntegerField()
-    charisma: int = models.IntegerField()
+    movement: str = models.CharField(max_length=255, blank=True, null=True, )
     slug: str = models.SlugField(blank=True, null=True)
     game: str = models.CharField(default='', max_length=5, choices=games)
     home_brew: bool = models.BooleanField(default=False)
@@ -69,6 +58,21 @@ class BaseSheet(models.Model):
         return super().save()
 
 
+class BaseSheet(AbstractSystemMonster):
+    race: str = models.CharField(max_length=30, blank=True, null=True)
+    size: str = models.CharField(max_length=30)
+    challenge: str = models.CharField(default="0", max_length=3)
+    ac: int = models.IntegerField()
+    ac_type: str = models.CharField(max_length=50)
+    hp_dices: str = models.CharField(max_length=255)
+    strength: int = models.IntegerField()
+    dexterity: int = models.IntegerField()
+    constitution: int = models.IntegerField()
+    intelligence: int = models.IntegerField()
+    wisdom: int = models.IntegerField()
+    charisma: int = models.IntegerField()
+
+
 class DnDMonster(BaseSheet):
     languages: str = models.CharField(max_length=100, default="None")
     alignment: str = models.CharField(max_length=30, default="Neutral")
@@ -83,14 +87,14 @@ class DnDMonster(BaseSheet):
 
 class DnDAction(models.Model):
     monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
-    action_name: str = models.CharField(max_length=30)
+    action_name: str = models.CharField(max_length=255)
     action_description: str = models.TextField()
     is_attack: bool = models.BooleanField(default=False)
     weapon_type: str = models.CharField(max_length=50, blank=True, null=True)
     attack: int = models.IntegerField(blank=True, null=True)
     reach: str = models.CharField(max_length=50, blank=True, null=True)
     hit: int = models.IntegerField(blank=True, null=True)
-    hit_dice: str = models.CharField(max_length=10, blank=True, null=True)
+    hit_dice: str = models.CharField(max_length=30, blank=True, null=True)
     damage_type: str = models.CharField(max_length=50, blank=True, null=True)
     
     class Meta:
@@ -276,7 +280,6 @@ class PathFinderMonster(BaseSheet):
     ]
     monster_class = models.CharField(max_length=255, default='', blank=True, null=True)
     monster_alignment: str = models.CharField(max_length=100, choices=alignment, default="N")
-    type = models.CharField(max_length=20, blank=True, null=True)
     subtype = models.CharField(max_length=255, blank=True, null=True)
     init = models.CharField(max_length=20, blank=True, null=True)
     senses = models.CharField(max_length=255, blank=True, null=True)
@@ -369,3 +372,39 @@ class PathFinderSkill(models.Model):
     skill_bonus = models.IntegerField()
     racial_mod = models.BooleanField(default=False)
 
+
+class CoCMonster(AbstractSystemMonster):
+    strength = models.IntegerField(verbose_name='STR')
+    str_roll = models.CharField(max_length=50)
+    constitution = models.IntegerField(verbose_name='CON')
+    con_roll = models.CharField(max_length=50)
+    size = models.IntegerField(verbose_name='SIZ')
+    siz_roll = models.CharField(max_length=50)
+    dexterity = models.IntegerField(verbose_name='DEX')
+    dex_roll = models.CharField(max_length=50)
+    appearance = models.IntegerField(verbose_name='APP')
+    app_roll = models.CharField(max_length=50)
+    intelligence = models.IntegerField(verbose_name='INT')
+    int_roll = models.CharField(max_length=50)
+    power = models.IntegerField(verbose_name='POW')
+    pow_roll = models.CharField(max_length=50)
+    education = models.IntegerField(verbose_name='EDU')
+    edu_roll = models.CharField(max_length=50)
+    build = models.IntegerField()
+    damage_bonus = models.CharField(max_length=255)
+    magic_points = models.IntegerField()
+    armor = models.CharField(max_length=255)
+    sanity_loss = models.CharField(max_length=255)
+
+
+class CoCSpecialPowers(models.Model):
+    monster = models.ForeignKey(CoCMonster, on_delete=models.CASCADE)
+    special_name = models.CharField(max_length=50)
+    special_description = models.TextField()
+
+
+class CoCAttack(models.Model):
+    monster = models.ForeignKey(CoCMonster, on_delete=models.CASCADE)
+    attack_name = models.CharField(max_length=255)
+    attack_description = models.TextField()
+    percentage = models.IntegerField()

@@ -12,6 +12,7 @@ def load_monsters():
     feat_monsters = []
     data = open(r'bootstrap/data/data.json', 'r')
     monsters_json = json.load(data)
+    print(len(monsters_json))
     monster = 1
     skill_count = 1
     attack_counter = 1
@@ -19,30 +20,44 @@ def load_monsters():
 
     for key, value in monsters_json.items():
 
+        if len(value['title1']) > 44:
+            slug = slugify(f"PAF1e-{value['title1'][:44]}")
+        else:
+            slug = slugify(f"PAF1e-{value['title1']}")
+
+        abstract_monster = {
+            'model': 'monsters.abstractsystemmonster',
+            'pk': 328 + monster,
+            'fields': {
+                'name': value['title1'],
+                'type': value['type'],
+                'hp': value['HP']['HP'],
+                'movement': parse_value(value['speeds']),
+                'slug': slug,
+                'game': 'PAF1e',
+                'home_brew': False,
+                'description': value['desc_long'],
+                'image': f"images/monsters/PathFinder1e/{value['title1']}.jpg"
+            }
+        }
+
         base_sheet = {
             'model': 'monsters.basesheet',
             'pk': 328 + monster,
             'fields': {
-                'name': value['title1'],
+                'abstractsystemmonster_ptr_id': abstract_monster['pk'],
                 'size': value['size'],
                 'race': parse_value(value.get('race')),
                 'challenge': parse_attr(value['CR']),
                 'ac': value['AC']['AC'],
                 'ac_type': 'None',
-                'hp': value['HP']['HP'],
                 'hp_dices': value['HP']['long'],
-                'movement': parse_value(value['speeds']),
                 'strength': parse_attr(value['ability_scores']['STR']),
                 'dexterity': parse_attr(value['ability_scores']['DEX']),
                 'constitution': parse_attr(value['ability_scores']['CON']),
                 'intelligence': parse_attr(value['ability_scores']['INT']),
                 'wisdom': parse_attr(value['ability_scores']['WIS']),
                 'charisma': parse_attr(value['ability_scores']['CHA']),
-                'slug': slugify(f"PAF1e {value['title1']}"),
-                'game': 'PAF1e',
-                'home_brew': False,
-                'description': value['desc_long'],
-                'image': f"images/monsters/PathFinder1e/{value['title1']}.jpg"
             }
         }
         # Getting Relation Feats Monsters
@@ -52,13 +67,13 @@ def load_monsters():
 
         pf_monster = {
             'model': 'monsters.pathfindermonster',
+            'pk': 328 + monster,
             'fields': {
                 'basesheet_ptr_id': base_sheet['pk'],
                 'monster_class': parse_value(value.get('classes')),
                 'monster_alignment': value.get('alignment'),
                 'aura': parse_auras(value.get('auras')),
                 'ac_mod': parse_ac_mod(value.get('AC')),
-                'type': value['type'],
                 'subtype': parse_value(value.get('subtypes')),
                 'init': value['initiative']['bonus'],
                 'senses': parse_value(value.get('senses')),
@@ -70,12 +85,12 @@ def load_monsters():
                 'save_mods': value['saves'].get('other'),
                 'feats': feats,
                 'spell_domain': parse_value(value.get('domain')),
-                'immune': parse_value(value.get('immunities'))[:255],
+                'immune': parse_value(value.get('immunities')),
                 'resist': parse_value(value.get('resistances')),
                 'spell_resistence': parse_sr(value.get('SR')),
                 'space': parse_value(value.get('space')),
                 'reach': parse_value(value.get('reach')),
-                'base_attack': value['BAB'],
+                'base_attack': parse_value(value['BAB']),
                 'combat_maneuver_bonus': parse_value(value.get('CMB')),
                 'combat_maneuver_defence': parse_value(value.get('CMD')),
                 'languages': parse_value(value.get('languages')),
@@ -190,8 +205,11 @@ def load_monsters():
                 all_abilities.append(new_ability)
                 special_ability_counter += 1
         monster += 1
+        all_monsters.append(abstract_monster)
         all_monsters.append(base_sheet)
         all_monsters.append(pf_monster)
+        if monster == 3465:
+            break
 
     pf_monsters_file = open(r'bootstrap/PF/json/pf_monsters.json', 'w')
     json.dump(all_monsters, pf_monsters_file)
@@ -295,6 +313,9 @@ def parse_auras(auras):
 
 
 def parse_value(attr_value):
+    if not attr_value:
+        return None
+
     if type(attr_value) != list and type(attr_value) != dict:
         try:
             return attr_value
@@ -312,29 +333,9 @@ def parse_value(attr_value):
 
     try:
         return ', '.join(attr_value)
+
     except:
         return None
-
-
-# Load the feats from the CSV file and insert them into a JSON file
-def load_feats():
-    feats = pd.read_csv(r'bootstrap/PF/raw/Feats_OGL - Feats_OGL Updated 23-03-2014.csv')
-    all_feats = []
-    for index, row in feats.iterrows():
-        feat = {
-            'model': 'monsters.pathfinderfeat',
-            'pk': index,
-            'fields': {
-                'name': row['name'],
-                'type': row['type'],
-                'description': row['description'],
-                'prerequisites': row['prerequisites']
-            }
-        }
-        all_feats.append(feat)
-    feat_json = open(r'bootstrap/PF/json/feats.json', 'w')
-    json.dump(all_feats, feat_json)
-    return all_feats
 
 
 if __name__ == '__main__':
