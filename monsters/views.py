@@ -6,7 +6,7 @@ from django.views.generic import DetailView, ListView, CreateView
 from django.contrib import messages
 from .models import games, DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill, \
     DnDLegendaryAction, DnDSavingThrows, DndReaction, Tor20Monster, Tor20MeleeAction, \
-    Tor20RangedAction, PathFinderMonster, PathFinderOffense, PathFinderSkill, PathFinderSpecialAbility
+    Tor20RangedAction, PathFinderMonster, PathFinderOffense, PathFinderSkill, PathFinderSpecialAbility, AbstractSystemMonster
 from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait, FormDnDSkill, \
     FormDnDLegendaryAction, FormDnDSavingThrow, FormDnDReaction, FormTor20Monster, FormTor20BaseAttack,\
     FormPFSkill, FormPFMonster, FormPFOffense, FormPFSpecialAbility
@@ -171,7 +171,7 @@ class MonsterDetail(DetailView):
 class MonsterList(ListView):
     paginate_by = 20
     template_name: str = 'monsters/monster_list.html'
-    model = BaseSheet
+    model = AbstractSystemMonster
 
     def get_context_data(self, *, object_list=None, **kwargs):
         self.object_list = self.get_queryset()
@@ -182,18 +182,18 @@ class MonsterList(ListView):
 
     def get_queryset(self):
         monster_name_query = self.request.GET.get('monster_name')
-        monster_ac_query = self.request.GET.get('monster_ac')
-        monster_challenge_query = self.request.GET.get('monster_challenge')
+        monster_hp_query = self.request.GET.get('monster_hp')
+        monster_downloaded_query = self.request.GET.get('monster_times_downloaded')
         monster_game_query = self.request.GET.get('monster_game')
         qs = self.model.objects.all()
         # Adding some Logic to Query in the List
         if monster_name_query != '' and monster_name_query is not None:
             qs = qs.filter(name__icontains=monster_name_query)
-        if monster_ac_query != '' and monster_ac_query is not None:
-            qs = qs.filter(ac__iexact=monster_ac_query)
-        if monster_challenge_query != '' and monster_challenge_query is not None:
-            qs = qs.filter(challenge__iexact=monster_challenge_query)
-        if monster_game_query != '' and monster_challenge_query is not None:
+        if monster_hp_query != '' and monster_hp_query is not None:
+            qs = qs.filter(hp__iexact=monster_hp_query)
+        if monster_downloaded_query != '' and monster_downloaded_query is not None:
+            qs = qs.filter(downloaded__iexact=monster_downloaded_query)
+        if monster_game_query != '' and monster_downloaded_query is not None:
             if monster_game_query != 'ALL':
                 qs = qs.filter(game__iexact=monster_game_query)
         return qs.order_by('name')
