@@ -5,10 +5,6 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('monsters', '0004_alter_dndaction_hit_dice'),
-    ]
-
     operations = [
         migrations.AlterField(
             model_name='dndaction',
