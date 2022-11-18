@@ -16,17 +16,17 @@ from authentications.models import Profile
 # Create your views here.
 class MonsterDetail(DetailView):
     template_name: str = 'monsters/monster.html'
-    model = BaseSheet
+    model = AbstractSystemMonster
 
     def post(self, request, slug):
         monster_id = int(request.POST.get('monster_id'))
-        monster = BaseSheet.objects.get(id=monster_id)
+        monster = AbstractSystemMonster.objects.get(id=monster_id)
         # monster.times_downloaded += 1
         # monster.save()
         return JsonResponse({'response': ''}, status=200)
 
     def get_object(self, queryset=None):
-        base_sheet = BaseSheet.objects.get(slug=self.kwargs['slug'])
+        base_sheet = AbstractSystemMonster.objects.get(slug=self.kwargs['slug'])
         match base_sheet.game:
             case 'DND5E':
                 monster = DnDMonster.objects.get(pk=base_sheet.pk)

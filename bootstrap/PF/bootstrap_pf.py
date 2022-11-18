@@ -208,7 +208,7 @@ def load_monsters():
         all_monsters.append(abstract_monster)
         all_monsters.append(base_sheet)
         all_monsters.append(pf_monster)
-        if monster == 3465:
+        if monster == 3792:
             break
 
     pf_monsters_file = open(r'bootstrap/PF/json/pf_monsters.json', 'w')
