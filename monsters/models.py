@@ -11,6 +11,7 @@ games = [
     ('DND5E', 'Dungeons and Dragons 5e'),
     ('TOR20', 'Tormenta20'),
     ('PAF1e', 'Pathfinder 1e'),
+    ('CoC7e', 'Call of Cthulhu 7e'),
     ]
 
 tor20_action_type: list = [

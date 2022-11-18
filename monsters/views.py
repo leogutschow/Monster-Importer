@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.forms import inlineformset_factory
 from django.views.generic import DetailView, ListView, CreateView
 from django.contrib import messages
-from .models import DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill, \
+from .models import games, DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill, \
     DnDLegendaryAction, DnDSavingThrows, DndReaction, Tor20Monster, Tor20MeleeAction, \
     Tor20RangedAction, PathFinderMonster, PathFinderOffense, PathFinderSkill, PathFinderSpecialAbility
 from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait, FormDnDSkill, \
@@ -177,6 +177,7 @@ class MonsterList(ListView):
         self.object_list = self.get_queryset()
         context = super().get_context_data()
         context['monsters'] = self.object_list
+        context['games'] = games
         return context
 
     def get_queryset(self):

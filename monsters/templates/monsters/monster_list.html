@@ -44,9 +44,9 @@
                                 placeholder="Game"
                                 name="monster_game">
                                     <option value="ALL">All</option>
-                                    <option value="DND5E">Dungeons and Dragons 5e</option>
-                                    <option value="TOR20">Tormenta20</option>
-                                    <option value="PAF1e">Pathfinder</option>
+                                    {% for game in games %}
+                                        <option value="{{game.0}}">{{ game.1 }}</option>
+                                    {% endfor %}
                                 </select>
                                 <label class="ps-4" for="monsterGameSearch">Game Rules</label>
                             </div>
