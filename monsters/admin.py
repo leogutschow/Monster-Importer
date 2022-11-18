@@ -127,9 +127,34 @@ class PathFinderMonsterAdmin(admin.ModelAdmin):
     inlines = [PathFinderOffenseInline, PathFinderSkillInline, PathFinderSpecialAbilityInline, ]
 
 
+class CoCSpecialPowerInline(admin.TabularInline):
+    model = CoCSpecialPowers
+    extra = 0
+    min_num = 0
+    can_delete = True
+
+
+class CoCAttackInline(admin.TabularInline):
+    model = CoCAttack
+    extra = 0
+    min_num = 0
+    can_delete = True
+
+
+class CoCMonsterAdmin(admin.ModelAdmin):
+    list_display = (
+        'id', 'name', 'hp', 'game'
+    )
+    search_fields = (
+            'name', 'game'
+    )
+    inlines = [CoCAttackInline, CoCSpecialPowerInline]
+
+
 admin.site.register(Tor20Monster, Tor20MonsterAdmin)
 admin.site.register(DnDMonster, DnDMonsterAdmin)
 admin.site.register(PathFinderMonster, PathFinderMonsterAdmin)
+admin.site.register(CoCMonster, CoCMonsterAdmin)
 admin.site.unregister(Group)
 admin.site.site_header = "Monster Importer Admin"
 

@@ -397,6 +397,10 @@ class CoCMonster(AbstractSystemMonster):
     armor = models.CharField(max_length=255)
     sanity_loss = models.CharField(max_length=255)
 
+    class Meta:
+        verbose_name = 'CoC Monster'
+        verbose_name_plural = 'CoC Monsters'
+
 
 class CoCSpecialPowers(models.Model):
     monster = models.ForeignKey(CoCMonster, on_delete=models.CASCADE)
