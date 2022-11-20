@@ -134,11 +134,18 @@ class CoCSpecialPowerInline(admin.TabularInline):
     can_delete = True
 
 
-class CoCAttackInline(admin.TabularInline):
-    model = CoCAttack
+class CoCMoveInline(admin.TabularInline):
+    model = CoCMove
     extra = 0
     min_num = 0
     can_delete = True
+
+
+class CoCSkillInline(admin.TabularInline):
+    model = CoCSkill
+    extra = 0
+    min_num = 0
+    can_delete = 0
 
 
 class CoCMonsterAdmin(admin.ModelAdmin):
@@ -148,7 +155,7 @@ class CoCMonsterAdmin(admin.ModelAdmin):
     search_fields = (
             'name', 'game'
     )
-    inlines = [CoCAttackInline, CoCSpecialPowerInline]
+    inlines = [CoCMoveInline, CoCSpecialPowerInline, CoCSkillInline]
 
 
 admin.site.register(Tor20Monster, Tor20MonsterAdmin)

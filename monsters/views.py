@@ -9,7 +9,7 @@ from .models import games, DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, D
     Tor20RangedAction, PathFinderMonster, PathFinderOffense, PathFinderSkill, PathFinderSpecialAbility, AbstractSystemMonster
 from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait, FormDnDSkill, \
     FormDnDLegendaryAction, FormDnDSavingThrow, FormDnDReaction, FormTor20Monster, FormTor20BaseAttack,\
-    FormPFSkill, FormPFMonster, FormPFOffense, FormPFSpecialAbility
+    FormPFSkill, FormPFMonster, FormPFOffense, FormPFSpecialAbility, FormBaseSheet
 from authentications.models import Profile
 
 
@@ -225,11 +225,11 @@ class MonsterCreate(CreateView):
     PathFinderSpecialAbility_Formset = inlineformset_factory(form=FormPFSpecialAbility, model=PathFinderSpecialAbility,
                                                              parent_model=PathFinderMonster, min_num=0, extra=0)
 
-
     template_name = 'monsters/monster_create.html'
     form_class = FormMonster
-    model = BaseSheet
+    model = AbstractSystemMonster
     extra_context = {
+        'basesheet': FormBaseSheet,
         'dndmonster': FormDndMonster,
         'dndaction': DnDAction_Formset(),
         'dndtrait': DndTrait_Formset(),
