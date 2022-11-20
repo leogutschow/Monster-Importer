@@ -29,24 +29,24 @@
                                 <input id="monsterACSearch" class="form-control form-control-sm"
                                 type="search"
                                 placeholder="AC"
-                                name="monster_ac">
-                                <label class="ps-4" for="monsterACSearch">AC</label>
+                                name="monster_hp">
+                                <label class="ps-4" for="monsterACSearch">HP</label>
                             </div>
                             <div class="advanceSearch col form-floating input-group">
                                 <input id="monsterChallengeSearch" class="form-control form-control-sm"
                                 type="search"
                                 placeholder="AC"
-                                name="monster_challenge">
-                                <label class="ps-4" for="monsterChallengeSearch">Challenge</label>
+                                name="monster_times_downloaded">
+                                <label class="ps-4" for="monsterChallengeSearch">Times Downloaded</label>
                             </div>
                             <div class="advanceSearch col form-floating input-group">
                                 <select id="monsterGameSearch" class="form-select"
                                 placeholder="Game"
                                 name="monster_game">
                                     <option value="ALL">All</option>
-                                    <option value="DND5E">Dungeons and Dragons 5e</option>
-                                    <option value="TOR20">Tormenta20</option>
-                                    <option value="PAF1e">Pathfinder</option>
+                                    {% for game in games %}
+                                        <option value="{{game.0}}">{{ game.1 }}</option>
+                                    {% endfor %}
                                 </select>
                                 <label class="ps-4" for="monsterGameSearch">Game Rules</label>
                             </div>
@@ -64,8 +64,8 @@
                 <thead>
                     <th style="width: 48px">#</th>
                     <th>Name</th>
-                    <th>AC</th>
-                    <th>Challenge</th>
+                    <th>HP</th>
+                    <th>Times Downloaded</th>
                     <th>Game Rule</th>
                     <th>Home Brew</th>
                 </thead>
@@ -83,8 +83,8 @@
                             <td>
                                 <a href="{% url 'monster:monster_detail' monster.slug%}">{{ monster.name }}</a>
                             </td>
-                            <td>{{ monster.ac }}</td>
-                            <td>{{ monster.challenge }}</td>
+                            <td>{{ monster.hp }}</td>
+                            <td>{{ monster.times_downloaded }}</td>
                             <td>{{ monster.get_game_display }}</td>
                             {% if monster.home_brew %}
                                 <td><h3 class="text-success">✓</h3></td>

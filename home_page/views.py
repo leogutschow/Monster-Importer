@@ -22,3 +22,7 @@ class Index(TemplateView):
 
 class About(TemplateView):
     template_name = 'home_page/about.html'
+
+
+class TermsOfUse(TemplateView):
+    template_name = 'home_page/terms.html'

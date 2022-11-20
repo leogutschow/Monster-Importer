@@ -11,6 +11,7 @@ games = [
     ('DND5E', 'Dungeons and Dragons 5e'),
     ('TOR20', 'Tormenta20'),
     ('PAF1e', 'Pathfinder 1e'),
+    ('CoC7e', 'Call of Cthulhu 7e'),
     ]
 
 tor20_action_type: list = [
@@ -32,22 +33,11 @@ def image_upload_path(instance, filename):
     return 'images/monsters/fallback/{0}'.format(filename)
 
 
-class BaseSheet(models.Model):
+class AbstractSystemMonster(models.Model):
     name: str = models.CharField(unique=False, max_length=200)
-    race: str = models.CharField(max_length=30, blank=True, null=True)
-    size: str = models.CharField(max_length=30)
-    challenge: str = models.CharField(default="0", max_length=3)
-    ac: int = models.IntegerField()
-    ac_type: str = models.CharField(max_length=50)
+    type: str = models.CharField(max_length=255, blank=True, null=True)
     hp: int = models.IntegerField()
-    hp_dices: str = models.CharField(max_length=255)
-    movement: str = models.CharField(max_length=255, blank=True, null=True,)
-    strength: int = models.IntegerField()
-    dexterity: int = models.IntegerField()
-    constitution: int = models.IntegerField()
-    intelligence: int = models.IntegerField()
-    wisdom: int = models.IntegerField()
-    charisma: int = models.IntegerField()
+    movement: str = models.CharField(max_length=255, blank=True, null=True, )
     slug: str = models.SlugField(blank=True, null=True)
     game: str = models.CharField(default='', max_length=5, choices=games)
     home_brew: bool = models.BooleanField(default=False)
@@ -69,6 +59,21 @@ class BaseSheet(models.Model):
         return super().save()
 
 
+class BaseSheet(AbstractSystemMonster):
+    race: str = models.CharField(max_length=30, blank=True, null=True)
+    size: str = models.CharField(max_length=30)
+    challenge: str = models.CharField(default="0", max_length=3)
+    ac: int = models.IntegerField()
+    ac_type: str = models.CharField(max_length=50)
+    hp_dices: str = models.CharField(max_length=255)
+    strength: int = models.IntegerField()
+    dexterity: int = models.IntegerField()
+    constitution: int = models.IntegerField()
+    intelligence: int = models.IntegerField()
+    wisdom: int = models.IntegerField()
+    charisma: int = models.IntegerField()
+
+
 class DnDMonster(BaseSheet):
     languages: str = models.CharField(max_length=100, default="None")
     alignment: str = models.CharField(max_length=30, default="Neutral")
@@ -83,14 +88,14 @@ class DnDMonster(BaseSheet):
 
 class DnDAction(models.Model):
     monster = models.ForeignKey(DnDMonster, on_delete=models.CASCADE)
-    action_name: str = models.CharField(max_length=30)
+    action_name: str = models.CharField(max_length=255)
     action_description: str = models.TextField()
     is_attack: bool = models.BooleanField(default=False)
     weapon_type: str = models.CharField(max_length=50, blank=True, null=True)
     attack: int = models.IntegerField(blank=True, null=True)
     reach: str = models.CharField(max_length=50, blank=True, null=True)
     hit: int = models.IntegerField(blank=True, null=True)
-    hit_dice: str = models.CharField(max_length=10, blank=True, null=True)
+    hit_dice: str = models.CharField(max_length=30, blank=True, null=True)
     damage_type: str = models.CharField(max_length=50, blank=True, null=True)
     
     class Meta:
@@ -276,7 +281,6 @@ class PathFinderMonster(BaseSheet):
     ]
     monster_class = models.CharField(max_length=255, default='', blank=True, null=True)
     monster_alignment: str = models.CharField(max_length=100, choices=alignment, default="N")
-    type = models.CharField(max_length=20, blank=True, null=True)
     subtype = models.CharField(max_length=255, blank=True, null=True)
     init = models.CharField(max_length=20, blank=True, null=True)
     senses = models.CharField(max_length=255, blank=True, null=True)
@@ -369,3 +373,138 @@ class PathFinderSkill(models.Model):
     skill_bonus = models.IntegerField()
     racial_mod = models.BooleanField(default=False)
 
+
+class CoCMonster(AbstractSystemMonster):
+    strength = models.IntegerField(verbose_name='STR')
+    str_roll = models.CharField(max_length=50)
+    constitution = models.IntegerField(verbose_name='CON')
+    con_roll = models.CharField(max_length=50)
+    size = models.IntegerField(verbose_name='SIZ')
+    siz_roll = models.CharField(max_length=50)
+    dexterity = models.IntegerField(verbose_name='DEX')
+    dex_roll = models.CharField(max_length=50)
+    appearance = models.IntegerField(verbose_name='APP')
+    app_roll = models.CharField(max_length=50)
+    intelligence = models.IntegerField(verbose_name='INT')
+    int_roll = models.CharField(max_length=50)
+    power = models.IntegerField(verbose_name='POW')
+    pow_roll = models.CharField(max_length=50)
+    education = models.IntegerField(verbose_name='EDU')
+    edu_roll = models.CharField(max_length=50)
+    build = models.IntegerField()
+    damage_bonus = models.CharField(max_length=255)
+    magic_points = models.IntegerField()
+    armor = models.CharField(max_length=255)
+    sanity_loss = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = 'CoC Monster'
+        verbose_name_plural = 'CoC Monsters'
+
+
+class CoCSpecialPowers(models.Model):
+    monster = models.ForeignKey(CoCMonster, on_delete=models.CASCADE)
+    special_name = models.CharField(max_length=50)
+    special_description = models.TextField()
+
+
+class CoCAttack(models.Model):
+    monster = models.ForeignKey(CoCMonster, on_delete=models.CASCADE)
+    attack_name = models.CharField(max_length=255)
+    attack_description = models.TextField()
+    damage = models.CharField(max_length=255)
+    percentage = models.IntegerField()
+
+
+class CoCSkill(models.Model):
+    skills = [
+        ('Accounting', 'Accounting'),
+        ('Acting', 'Acting'),
+        ('Animal Handling', 'Animal Handling'),
+        ('Anthropology', 'Anthropology'),
+        ('Appraise', 'Appraise'),
+        ('Archeology', 'Archeology'),
+        ('Art and Craft', 'Art and Craft'),
+        ('Artillery', 'Artillery'),
+        ('Astronomy', 'Astronomy'),
+        ('Axe', 'Axe'),
+        ('Biology', 'Biology'),
+        ('Botany', 'Botany'),
+        ('Bow', 'Bow'),
+        ('Brawl', 'Brawl'),
+        ('Chainsaw', 'Chainsaw'),
+        ('Charm', 'Charm'),
+        ('Chemistry', 'Chemistry'),
+        ('Climb', 'Climb'),
+        ('Computer Use', 'Computer'),
+        ('Credit Rating', 'Credit'),
+        ('Cryptography', 'Cryptography'),
+        ('Cthulhu Mythos', 'Cthulhu Mythos'),
+        ('Demolitions', 'Demolitions'),
+        ('Disguise', 'Disguise'),
+        ('Diving', 'Diving'),
+        ('Dodge', 'Dodge'),
+        ('Drive Auto', 'Drive Auto'),
+        ('Electrical Repair', 'Electrical Repair'),
+        ('Electronics', 'Electronics'),
+        ('Fast Talk', 'Fast Talk'),
+        ('Fighting', 'Fighting'),
+        ('Fine Art', 'Fine Art'),
+        ('Firearms', 'Firearms'),
+        ('First Aid', 'First Aid'),
+        ('Flail', 'Flail'),
+        ('Flamethrower', 'Flamethrower'),
+        ('Forensics', 'Forensics'),
+        ('Forgery', 'Forgery'),
+        ('Garrote', 'Garrote'),
+        ('Geology', 'Geology'),
+        ('Handgun', 'Handgun'),
+        ('Heavy Weapons', 'Heavy Weapons'),
+        ('History', 'History'),
+        ('Hypnosis', 'Hypnosis'),
+        ('Intimidate', 'Intimidate'),
+        ('Jump', 'Jump'),
+        ('Language (Other)', 'Language (Other)'),
+        ('Language (Own)', 'Language (Own)'),
+        ('Law', 'Law'),
+        ('Library Use', 'Library Use'),
+        ('Listen', 'Listen'),
+        ('Locksmith', 'Locksmith'),
+        ('Machine Gun', 'Machine Gun'),
+        ('Mathematics', 'Mathematics'),
+        ('Mechanical Repair', 'Mechanical Repair'),
+        ('Medicine', 'Medicine'),
+        ('Meteorology', 'Meteorology'),
+        ('Natural World', 'Natural World'),
+        ('Navigate', 'Navigate'),
+        ('Occult', 'Occult'),
+        ('Operate Heavy Machinery', 'Operate Heavy Machinery'),
+        ('Persuade', 'Persuade'),
+        ('Pharmacy', 'Pharmacy'),
+        ('Photography', 'Photography'),
+        ('Physics', 'Physics'),
+        ('Pilot', 'Pilot'),
+        ('Psychoanalysis', 'Psychoanalysis'),
+        ('Psychology', 'Psychology'),
+        ('Read Lips', 'Read Lips'),
+        ('Ride', 'Ride'),
+        ('Rifle', 'Rifle'),
+        ('Science', 'Science'),
+        ('Shotgun', 'Shotgun'),
+        ('Sleight of Hand', 'Sleight of Hand'),
+        ('Spear', 'Spear'),
+        ('Spot Hidden', 'Spot Hidden'),
+        ('Stealth', 'Stealth'),
+        ('Submachine Gun', 'Submachine Gun'),
+        ('Survival', 'Survival'),
+        ('Sword', 'Sword'),
+        ('Swim', 'Swim'),
+        ('Throw', 'Throw'),
+        ('Track', 'Track'),
+        ('Whip', 'Whip'),
+        ('Zoology', 'Zoology'),
+    ]
+
+    monster = models.ForeignKey(CoCMonster, on_delete=models.CASCADE)
+    skill = models.CharField(max_length=50, choices=skills)
+    percentage = models.PositiveIntegerField()
