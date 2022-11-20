@@ -208,15 +208,13 @@ def load_monsters():
         all_monsters.append(abstract_monster)
         all_monsters.append(base_sheet)
         all_monsters.append(pf_monster)
-        if monster == 3792:
-            break
 
     pf_monsters_file = open(r'bootstrap/PF/json/pf_monsters.json', 'w')
     json.dump(all_monsters, pf_monsters_file)
     # feat_monsters_file = open(r'bootstrap/PF/json/feat_monsters.json', 'w')
     # json.dump(all_feat_monsters, feat_monsters_file)
-    # skill_json = open(r'bootstrap/PF/json/pf_skills.json', 'w')
-    # json.dump(all_skills, skill_json)
+    skill_json = open(r'bootstrap/PF/json/pf_skills.json', 'w')
+    json.dump(all_skills, skill_json)
     attack_json = open(r'bootstrap/PF/json/pf_attacks.json', 'w')
     json.dump(all_attacks, attack_json)
     # feat_json = open(r'bootstrap/PF/json/feat_monsters.json', 'w')
