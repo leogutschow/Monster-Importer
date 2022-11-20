@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Monster Importer",
-    "version": "0.1",
+    "version": "0.1.2",
     "description": "Import a Monster from Monster Importer to your Roll20 Game!",
 
     "icons": {
@@ -18,7 +18,7 @@
         "js": ["./roll20.js"]
         },
         {
-        "matches": ["http://monsterimporter.com/monster/*"],
+        "matches": ["https://monsterimporter.com/monster/*"],
         "js": ["./monster_importer.js"]
         }
     ]
