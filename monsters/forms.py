@@ -3,15 +3,14 @@ from django import forms
 from .models import BaseSheet, DnDMonster, DnDAction, DnDSpecialTraits, DnDSkill, DnDLegendaryAction, \
     DnDSavingThrows, DndReaction, Tor20Monster, Tor20GenericAction, \
     Tor20RangedAction, Tor20MeleeAction, Tor20Skill, PathFinderMonster, games, \
-    PathFinderSpecialAbility, PathFinderOffense, PathFinderSkill
+    PathFinderSpecialAbility, PathFinderOffense, PathFinderSkill, AbstractSystemMonster
 
 
 class FormMonster(ModelForm):
     class Meta:
-        model = BaseSheet
+        model = AbstractSystemMonster
         fields = (
-            'game', 'name', 'race', 'size', 'ac', 'ac_type', 'hp', 'hp_dices', 'movement', 'strength',
-            'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma', 'slug',
+            'name', 'type', 'hp', 'movement', 'slug', 'game',
             'home_brew', 'image', 'description',
         )
         widgets = {
@@ -21,6 +20,31 @@ class FormMonster(ModelForm):
             'name': forms.TextInput(attrs={
                 'class': 'form-control form-control-lg'
             }),
+            'hp': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+            'movement': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'image': forms.FileInput(attrs={
+                'class': 'form-control'
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control'
+            }),
+            'slug': forms.HiddenInput(),
+            'home_brew': forms.HiddenInput()
+        }
+
+
+class FormBaseSheet(ModelForm):
+    class Meta:
+        model = BaseSheet
+        fields = (
+            'race', 'size', 'ac', 'ac_type', 'hp_dices', 'strength',
+            'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma',
+        )
+        widgets = {
             'race': forms.TextInput(attrs={
                 'class': 'form-control'
             }),
@@ -33,13 +57,7 @@ class FormMonster(ModelForm):
             'ac_type': forms.TextInput(attrs={
                 'class': 'form-control'
             }),
-            'hp': forms.NumberInput(attrs={
-                'class': 'form-control'
-            }),
             'hp_dices': forms.TextInput(attrs={
-                'class': 'form-control'
-            }),
-            'movement': forms.TextInput(attrs={
                 'class': 'form-control'
             }),
             'strength': forms.NumberInput(attrs={
@@ -60,14 +78,6 @@ class FormMonster(ModelForm):
             'charisma': forms.NumberInput(attrs={
                 'class': 'form-control'
             }),
-            'image': forms.FileInput(attrs={
-                'class': 'form-control'
-            }),
-            'description': forms.Textarea(attrs={
-                'class': 'form-control'
-            }),
-            'slug': forms.HiddenInput(),
-            'home_brew': forms.HiddenInput()
         }
 
 

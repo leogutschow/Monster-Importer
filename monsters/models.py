@@ -375,27 +375,27 @@ class PathFinderSkill(models.Model):
 
 
 class CoCMonster(AbstractSystemMonster):
-    strength = models.IntegerField(verbose_name='STR')
-    str_roll = models.CharField(max_length=50)
-    constitution = models.IntegerField(verbose_name='CON')
-    con_roll = models.CharField(max_length=50)
-    size = models.IntegerField(verbose_name='SIZ')
-    siz_roll = models.CharField(max_length=50)
-    dexterity = models.IntegerField(verbose_name='DEX')
-    dex_roll = models.CharField(max_length=50)
-    appearance = models.IntegerField(verbose_name='APP')
-    app_roll = models.CharField(max_length=50)
-    intelligence = models.IntegerField(verbose_name='INT')
-    int_roll = models.CharField(max_length=50)
-    power = models.IntegerField(verbose_name='POW')
-    pow_roll = models.CharField(max_length=50)
-    education = models.IntegerField(verbose_name='EDU')
-    edu_roll = models.CharField(max_length=50)
-    build = models.IntegerField()
-    damage_bonus = models.CharField(max_length=255)
-    magic_points = models.IntegerField()
-    armor = models.CharField(max_length=255)
-    sanity_loss = models.CharField(max_length=255)
+    strength = models.IntegerField(verbose_name='STR', blank=True, null=True)
+    str_roll = models.CharField(max_length=50, blank=True, null=True)
+    constitution = models.IntegerField(verbose_name='CON', blank=True, null=True)
+    con_roll = models.CharField(max_length=50, blank=True, null=True)
+    size = models.IntegerField(verbose_name='SIZ', blank=True, null=True)
+    siz_roll = models.CharField(max_length=50, blank=True, null=True)
+    dexterity = models.IntegerField(verbose_name='DEX', blank=True, null=True)
+    dex_roll = models.CharField(max_length=50, blank=True, null=True)
+    appearance = models.IntegerField(verbose_name='APP', blank=True, null=True)
+    app_roll = models.CharField(max_length=50, blank=True, null=True)
+    intelligence = models.IntegerField(verbose_name='INT', blank=True, null=True)
+    int_roll = models.CharField(max_length=50, blank=True, null=True)
+    power = models.IntegerField(verbose_name='POW', blank=True, null=True)
+    pow_roll = models.CharField(max_length=50, blank=True, null=True)
+    education = models.IntegerField(verbose_name='EDU', blank=True, null=True)
+    edu_roll = models.CharField(max_length=50, blank=True, null=True)
+    build = models.IntegerField(blank=True, null=True)
+    damage_bonus = models.CharField(max_length=255, blank=True, null=True)
+    magic_points = models.IntegerField(blank=True, null=True)
+    armor = models.CharField(max_length=255, blank=True, null=True)
+    sanity_loss = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         verbose_name = 'CoC Monster'
@@ -408,12 +408,13 @@ class CoCSpecialPowers(models.Model):
     special_description = models.TextField()
 
 
-class CoCAttack(models.Model):
+class CoCMove(models.Model):
     monster = models.ForeignKey(CoCMonster, on_delete=models.CASCADE)
     attack_name = models.CharField(max_length=255)
     attack_description = models.TextField()
-    damage = models.CharField(max_length=255)
+    damage = models.CharField(max_length=255, blank=True, null=True)
     percentage = models.IntegerField()
+    percentage_raw = models.CharField(max_length=100, blank=True, null=True)
 
 
 class CoCSkill(models.Model):
