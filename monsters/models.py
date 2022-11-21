@@ -396,6 +396,7 @@ class CoCMonster(AbstractSystemMonster):
     magic_points = models.IntegerField(blank=True, null=True)
     armor = models.CharField(max_length=255, blank=True, null=True)
     sanity_loss = models.CharField(max_length=255, blank=True, null=True)
+    attacks_per_round = models.CharField(max_length=255, blank=True, null=True, default='1D8')
 
     class Meta:
         verbose_name = 'CoC Monster'
