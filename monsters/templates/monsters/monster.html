@@ -19,6 +19,9 @@
         <div id="tor20Sheet" class="">{% include 'monsters/games/details/tor20_monster_detail.html' %}</div>
     {% elif monster.game == 'PAF1e' %}
         <div id="pathfinderSheet" class="">{% include 'monsters/games/details/pathfinder_monster_detail.html' %}</div>
+    {% elif monster.game == 'CoC7e' %}
+        <div id="cocSheet" class="">{% include 'monsters/games/details/coc_monster_detail.html' %}</div>
+
     {% endif %}
     {{monster_dict|json_script:"monster"}}
     {% block 'scripts' %}
