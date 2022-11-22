@@ -6,7 +6,8 @@ from django.views.generic import DetailView, ListView, CreateView
 from django.contrib import messages
 from .models import games, DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill, \
     DnDLegendaryAction, DnDSavingThrows, DndReaction, Tor20Monster, Tor20MeleeAction, \
-    Tor20RangedAction, PathFinderMonster, PathFinderOffense, PathFinderSkill, PathFinderSpecialAbility, AbstractSystemMonster
+    Tor20RangedAction, PathFinderMonster, PathFinderOffense, PathFinderSkill, PathFinderSpecialAbility, \
+    AbstractSystemMonster, CoCMonster
 from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait, FormDnDSkill, \
     FormDnDLegendaryAction, FormDnDSavingThrow, FormDnDReaction, FormTor20Monster, FormTor20BaseAttack,\
     FormPFSkill, FormPFMonster, FormPFOffense, FormPFSpecialAbility, FormBaseSheet
@@ -36,6 +37,9 @@ class MonsterDetail(DetailView):
                 return monster
             case 'PAF1e':
                 monster = PathFinderMonster.objects.get(pk=base_sheet.pk)
+                return monster
+            case 'CoC7e':
+                monster = CoCMonster.objects.get(pk=base_sheet.pk)
                 return monster
 
     def get_context_data(self, **kwargs):
@@ -165,6 +169,7 @@ class MonsterDetail(DetailView):
 
             # Getting Special Abilities
             monster_dict['special_abilities'] = get_models(type='special_abilities', game=monster.game)
+
         return monster_dict
 
 
