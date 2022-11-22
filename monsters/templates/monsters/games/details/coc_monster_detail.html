@@ -3,7 +3,7 @@
 <div class="container pt-5">
         <div class="container col">
             <div class="row justify-content-md-center">
-                <div class="col-auto">
+                <div class="col">
                     <img src="{{ monster.image.url }}" style="height: 65vh">
                     <div class="container col p-3">
                         <button id="importMonster" class="btn btn-success" type="button">Import Monster!</button>
@@ -12,7 +12,7 @@
                         {{ monster.description }}
                     </p>
                 </div>
-                <div class="container-md col-auto bg-image p-3" style="background-image: {% static 'vendor/imgs/Sheet_bgs/CoCBgSheet.png' %}; width: 547px; max-height:7000px">
+                <div class="container-md col bg-image p-3" style="background-image: {% static 'vendor/imgs/Sheet_bgs/CoCBgSheet.png' %}; width: 547px; max-height:7000px">
                     <div class="container">
                         <div class="row container">
                             <h5 class="fst-italic fs-6">{{ monster.get_game_display }}</h5>
@@ -72,11 +72,38 @@
                                     <h5><b>Average Magic Points:</b> {{ monster.magic_points }}</h5>
                                     <h5><b>Move:</b> {{ monster.movement }}</h5>
                                 </div>
+                                <div class="">
+                                    <h4 class="mt-2"><b>ATTACKS</b></h4>
+                                    <h5><b>Attacks per Round:</b> {{ monster.attacks_per_round }}</h5>
+                                    {% for attack in monster.cocmove_set.all %}
+                                        {% if attack.attack_name != 'Dodge' %}
+                                            <p><b>{{ attack.attack_name }}{% if attack.percentage == 0 %} (mnvr){% endif %}: </b>{{ attack.attack_description }}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% for attack in monster.cocmove_set.all %}
+                                        <p>{{ attack.attack_name }}
+                                            {% if attack.percentage != 0 %}
+                                                {{ attack.percentage }}% ({{ attack.percentage_raw }}),
+                                            {% else %}
+                                                (mnvr),
+                                            {% endif %}
+                                            {% if attack.damage %}
+                                                damage {{ attack.damage }}
+                                            {% endif %}
+                                        </p>
+                                    {% endfor %}
+                                    <p><b>Armor: </b>{{ monster.armor }}</p>
+                                    {% if monster.cocskill_set.count > 0 %}
+                                        <p><b>Skills: </b>{% for skill in monster.cocskill_set.all %}{{ skill.get_skill_display }} {{ skill.percentage }}%, {% endfor %}</p>
+                                    {% endif %}
+                                    <p><b>Sanity Loss: </b>{{ monster.sanity_loss }}</p>
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <p class="fst-italic">All mechanics are property of Wizards of The Coast by the OGL</p>
+        <p class="fst-italic">All mechanics are property of Chaosium Inc.</p>
     </div>
