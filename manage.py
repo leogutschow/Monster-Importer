@@ -8,7 +8,7 @@ import pathlib
 
 def main():
     """Run administrative tasks."""
-    dotenv.load_dotenv()
+    dotenv.read_dotenv()
 
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'MonsterImporter.settings')
     try:
