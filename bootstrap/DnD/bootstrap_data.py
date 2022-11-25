@@ -407,6 +407,6 @@ if __name__ == '__main__':
     # parse_armor('19 ')
     # parse_hp('481 (26d20 + 208)')
     # print(parse_meta('Huge Dragon, chaotic evil'))
-    # load_dnd_monsters()
-    # load_dndspells()
+    load_dnd_monsters()
+    load_dndspells()
     load_images()
