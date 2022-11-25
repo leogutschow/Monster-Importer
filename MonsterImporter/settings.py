@@ -138,7 +138,7 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = BASE_DIR / 'static-cdn'
 
-# from .cdn.conf import * # noqa
+from .cdn.conf import * # noqa
 
 
 # Default primary key field type
