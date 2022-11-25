@@ -362,7 +362,7 @@ def load_images():
             if monster['name'] == 'Succubus/Incubus':
                 monster['name'] = 'Succubus and Incubus'
             image = requests.get(monster['img_url'])
-            with open(MEDIA_ROOT / rf"media/images/monsters/DnD5e/{monster['name']}.jpg", 'wb') as handler:
+            with open(rf"media/images/monsters/DnD5e/{monster['name']}.jpg", 'wb') as handler:
                 handler.write(image.content)
                 print(f"{monster['name']} image loaded")
 
@@ -407,6 +407,6 @@ if __name__ == '__main__':
     # parse_armor('19 ')
     # parse_hp('481 (26d20 + 208)')
     # print(parse_meta('Huge Dragon, chaotic evil'))
-    load_dnd_monsters()
-    load_dndspells()
+    # load_dnd_monsters()
+    # load_dndspells()
     load_images()

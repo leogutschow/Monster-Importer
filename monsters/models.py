@@ -30,6 +30,8 @@ def image_upload_path(instance, filename):
         return 'images/monsters/Tor20/{0}'.format(filename)
     if isinstance(instance, PathFinderMonster):
         return 'images/monsters/PathFinder1e/{0}'.format(filename)
+    if isinstance(instance, CoCMonster):
+        return 'images/monsters/CoC7e/{0}'.format(filename)
     return 'images/monsters/fallback/{0}'.format(filename)
 
 
