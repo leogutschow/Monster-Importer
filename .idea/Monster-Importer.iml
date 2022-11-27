@@ -8,7 +8,7 @@
       <excludeFolder url="file://$MODULE_DIR$/media" />
       <excludeFolder url="file://$MODULE_DIR$/media/images/monsters/DnD" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.10 (Monster-Importer)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.11 (Monster-Importer)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
