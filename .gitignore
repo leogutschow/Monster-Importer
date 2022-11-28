@@ -3,7 +3,7 @@
 *.sqlite3
 /media/
 .idea/
-.xml
+*.xml
 !.gitignore
 .idea/*
 *.env
