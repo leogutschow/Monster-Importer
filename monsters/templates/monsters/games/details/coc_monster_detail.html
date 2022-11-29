@@ -129,16 +129,18 @@
                                         {% endif %}
                                     {% endfor %}
                                     {% for attack in monster.cocmove_set.all %}
-                                        <p>{{ attack.attack_name }}
-                                            {% if attack.percentage != 0 %}
-                                                {{ attack.percentage }}% ({{ attack.percentage_raw }}),
-                                            {% else %}
-                                                (mnvr),
-                                            {% endif %}
-                                            {% if attack.damage %}
-                                                damage {{ attack.damage }}
-                                            {% endif %}
-                                        </p>
+                                        {% if attack.damage %}
+                                            <p>{{ attack.attack_name }}
+                                                {% if attack.percentage != 0 %}
+                                                    {{ attack.percentage }}% ({{ attack.percentage_raw }}),
+                                                {% else %}
+                                                    (mnvr),
+                                                {% endif %}
+                                                {% if attack.damage %}
+                                                    damage {{ attack.damage }}
+                                                {% endif %}
+                                            </p>
+                                        {% endif %}
                                     {% endfor %}
                                     <p><b>Armor: </b>{{ monster.armor }}</p>
                                     {% if monster.cocskill_set.count > 0 %}
