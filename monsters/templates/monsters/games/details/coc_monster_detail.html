@@ -129,7 +129,7 @@
                                         {% endif %}
                                     {% endfor %}
                                     {% for attack in monster.cocmove_set.all %}
-                                        {% if attack.damage %}
+                                        {% if attack.damage and attack.attack_name != 'Dodge' %}
                                             <p>{{ attack.attack_name }}
                                                 {% if attack.percentage != 0 %}
                                                     {{ attack.percentage }}% ({{ attack.percentage_raw }}),
