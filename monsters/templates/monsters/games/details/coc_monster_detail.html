@@ -86,7 +86,7 @@
                                             </tr>
                                             <tr>
                                                 <td scope="row">POW</td>
-                                                {% if monster.strength == 0 %}
+                                                {% if monster.power == 0 %}
                                                     <td>N/A</td>
                                                     <td></td>
                                                 {% else %}
@@ -96,7 +96,7 @@
                                             </tr>
                                             {% if monster.appearance %}
                                                 <tr>
-                                                    <td scope="row">POW</td>
+                                                    <td scope="row">APP</td>
                                                     <td>N/A</td>
                                                     <td></td>
                                                     <td>{{ monster.appearance }}</td>
@@ -105,7 +105,7 @@
                                             {% endif %}
                                             {% if monster.education %}
                                                 <tr>
-                                                    <td scope="row">POW</td>
+                                                    <td scope="row">EDU</td>
                                                     <td>N/A</td>
                                                     <td></td>
                                                     <td>{{ monster.education }}</td>
