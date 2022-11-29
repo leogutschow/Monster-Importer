@@ -129,17 +129,21 @@
                                         {% endif %}
                                     {% endfor %}
                                     {% for attack in monster.cocmove_set.all %}
-                                        {% if attack.damage and attack.attack_name != 'Dodge' %}
-                                            <p>{{ attack.attack_name }}
-                                                {% if attack.percentage != 0 %}
-                                                    {{ attack.percentage }}% ({{ attack.percentage_raw }}),
-                                                {% else %}
-                                                    (mnvr),
-                                                {% endif %}
-                                                {% if attack.damage %}
-                                                    damage {{ attack.damage }}
-                                                {% endif %}
-                                            </p>
+                                        {% if attack.attack_name != "Dodge" %}
+                                            {% if attack.damage %}
+                                                <p>{{ attack.attack_name }}
+                                                    {% if attack.percentage != 0 %}
+                                                        {{ attack.percentage }}% ({{ attack.percentage_raw }}),
+                                                    {% else %}
+                                                        (mnvr),
+                                                    {% endif %}
+                                                    {% if attack.damage %}
+                                                        damage {{ attack.damage }}
+                                                    {% endif %}
+                                                </p>
+                                            {% endif %}
+                                        {% else %}
+                                            <p>{{attack.attack_name}} {{ attack.percentage }}% ({ attack.percentage_raw }})</p>
                                         {% endif %}
                                     {% endfor %}
                                     <p><b>Armor: </b>{{ monster.armor }}</p>
