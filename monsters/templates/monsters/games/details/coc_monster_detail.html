@@ -36,34 +36,82 @@
                                         <tbody>
                                             <tr>
                                                 <td scope="row">STR</td>
-                                                <td>{{ monster.strength }}</td>
-                                                <td>{{ monster.str_roll }}</td>
+                                                {% if monster.strength == 0 %}
+                                                    <td>N/A</td>
+                                                    <td></td>
+                                                {% else %}
+                                                    <td>{{ monster.strength }}</td>
+                                                    <td>{{ monster.str_roll }}</td>
+                                                {% endif %}
                                             </tr>
                                             <tr>
                                                 <td scope="row">CON</td>
-                                                <td>{{ monster.constitution }}</td>
-                                                <td>{{ monster.con_roll }}</td>
+                                                {% if monster.constitution == 0 %}
+                                                    <td>N/A</td>
+                                                    <td></td>
+                                                {% else %}
+                                                    <td>{{ monster.constitution }}</td>
+                                                    <td>{{ monster.con_roll }}</td>
+                                                {% endif %}
                                             </tr>
                                             <tr>
                                                 <td scope="row">SIZ</td>
-                                                <td>{{ monster.size }}</td>
-                                                <td>{{ monster.siz_roll }}</td>
+                                                {% if monster.strength == 0 %}
+                                                    <td>N/A</td>
+                                                    <td></td>
+                                                {% else %}
+                                                    <td>{{ monster.size }}</td>
+                                                    <td>{{ monster.siz_roll }}</td>
+                                                {% endif %}
                                             </tr>
                                             <tr>
                                                 <td scope="row">DEX</td>
-                                                <td>{{ monster.dexterity }}</td>
-                                                <td>{{ monster.dex_roll }}</td>
+                                                {% if monster.strength == 0 %}
+                                                    <td>N/A</td>
+                                                    <td></td>
+                                                {% else %}
+                                                    <td>{{ monster.dexterity }}</td>
+                                                    <td>{{ monster.dex_roll }}</td>
+                                                {% endif %}
                                             </tr>
                                             <tr>
                                                 <td scope="row">INT</td>
-                                                <td>{{ monster.intelligence }}</td>
-                                                <td>{{ monster.int_roll }}</td>
+                                                {% if monster.strength == 0 %}
+                                                    <td>N/A</td>
+                                                    <td></td>
+                                                {% else %}
+                                                    <td>{{ monster.intelligence }}</td>
+                                                    <td>{{ monster.int_roll }}</td>
+                                                {% endif %}
                                             </tr>
                                             <tr>
                                                 <td scope="row">POW</td>
-                                                <td>{{ monster.power }}</td>
-                                                <td>{{ monster.pow_roll }}</td>
+                                                {% if monster.strength == 0 %}
+                                                    <td>N/A</td>
+                                                    <td></td>
+                                                {% else %}
+                                                    <td>{{ monster.power }}</td>
+                                                    <td>{{ monster.pow_roll }}</td>
+                                                {% endif %}
                                             </tr>
+                                            {% if monster.appearance %}
+                                                <tr>
+                                                    <td scope="row">POW</td>
+                                                    <td>N/A</td>
+                                                    <td></td>
+                                                    <td>{{ monster.appearance }}</td>
+                                                    <td>{{ monster.app_roll }}</td>
+                                                </tr>
+                                            {% endif %}
+                                            {% if monster.education %}
+                                                <tr>
+                                                    <td scope="row">POW</td>
+                                                    <td>N/A</td>
+                                                    <td></td>
+                                                    <td>{{ monster.education }}</td>
+                                                    <td>{{ monster.edu_roll }}</td>
+                                                </tr>
+                                            {% endif %}
                                         </tbody>
                                     </table>
                                     <h5><b>HP:</b> {{ monster.hp }}</h5>
@@ -97,7 +145,13 @@
                                         <p><b>Skills: </b>{% for skill in monster.cocskill_set.all %}{{ skill.get_skill_display }} {{ skill.percentage }}%, {% endfor %}</p>
                                     {% endif %}
                                     <p><b>Sanity Loss: </b>{{ monster.sanity_loss }}</p>
-
+                                </div>
+                                <div class="">
+                                    <h4 class="mt-2"><b>Special Powers</b></h4>
+                                    {% for special in  monster.cocspecialpowers_set.all %}
+                                        <p><b>{{ special.special_name }}: </b>{{ special.special_description }}</p>
+                                    {% endfor %}
+                                    <p></p>
                                 </div>
                             </div>
                         </div>
