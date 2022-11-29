@@ -143,7 +143,7 @@
                                                 </p>
                                             {% endif %}
                                         {% else %}
-                                            <p>{{attack.attack_name}} {{ attack.percentage }}% ({ attack.percentage_raw }})</p>
+                                            <p>{{attack.attack_name}} {{ attack.percentage }}% ({{ attack.percentage_raw }})</p>
                                         {% endif %}
                                     {% endfor %}
                                     <p><b>Armor: </b>{{ monster.armor }}</p>
