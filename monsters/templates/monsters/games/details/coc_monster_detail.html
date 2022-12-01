@@ -114,7 +114,7 @@
                                             {% endif %}
                                         </tbody>
                                     </table>
-                                    <h5><b>HP:</b> {{ monster.hp }}</h5>
+                                    <h5><b>HP:</b> {% if monster.name == "Shoggoth Lord" %}{{ monster.hp }} (human form)/ 22 (shoggoth form){% else %}{{ monster.hp }}{% endif %}</h5>
                                     <h5><b>Average Damage Bonus:</b> {{ monster.damage_bonus }}</h5>
                                     <h5><b>Average Build:</b> {{ monster.build }}</h5>
                                     <h5><b>Average Magic Points:</b> {{ monster.magic_points }}</h5>
