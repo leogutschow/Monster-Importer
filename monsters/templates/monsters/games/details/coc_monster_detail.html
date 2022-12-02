@@ -25,6 +25,59 @@
                             <div class="container">
                                 <h3 class="fst-bold">{{ monster.name }}</h3>
                                 <div class="table-responsive">
+                                    {% if monster.name == "Shoggoth Lord" %}
+                                        <table class="table table-borderless">
+                                            <thead>
+                                                <tr>
+                                                    <th class="fst-italic" scope="col">char</th>
+                                                    <th class="fst-italic" scope="col">avarages</th>
+                                                    <th class="fst-italic" scope="col">rolls</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td scope="row">STR</td>
+                                                    <td>75</td>
+                                                    <td>2D6+8 x5</td>
+                                                </tr>
+                                                <tr>
+                                                    <td scope="row">CON</td>
+                                                    <td>65</td>
+                                                    <td>2D6+6 ×5</td>
+                                                </tr>
+                                                <tr>
+                                                    <td scope="row">SIZ</td>
+                                                    <td>65</td>
+                                                    <td>3D6+3 ×5</td>
+                                                </tr>
+                                                <tr>
+                                                    <td scope="row">DEX</td>
+                                                    <td>50</td>
+                                                    <td>3D6 ×5</td>
+                                                </tr>
+                                                <tr>
+                                                    <td scope="row">INT</td>
+                                                    <td>65</td>
+                                                    <td>2D6+6 ×5</td>
+                                                </tr>
+                                                <tr>
+                                                    <td scope="row">POW</td>
+                                                    <td>65</td>
+                                                    <td>3D6+3 ×5</td>
+                                                </tr>
+                                                <tr>
+                                                    <td scope="row">APP</td>
+                                                    <td>30</td>
+                                                    <td>1D6+3 ×5</td>
+                                                </tr>
+                                                <tr>
+                                                    <td scope="row">EDU</td>
+                                                    <td>50</td>
+                                                    <td>3D6 ×5</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    {% endif %}
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
