@@ -7,7 +7,7 @@ from django.contrib import messages
 from .models import games, DnDMonster, DnDAction, DnDSpecialTraits, BaseSheet, DnDSkill, \
     DnDLegendaryAction, DnDSavingThrows, DndReaction, Tor20Monster, Tor20MeleeAction, \
     Tor20RangedAction, PathFinderMonster, PathFinderOffense, PathFinderSkill, PathFinderSpecialAbility, \
-    AbstractSystemMonster, CoCMonster
+    AbstractSystemMonster, CoCMonster, CoCMove, CoCSkill, CoCSpecialPowers
 from .forms import FormDndMonster, FormDnDAction, FormMonster, FormDndTrait, FormDnDSkill, \
     FormDnDLegendaryAction, FormDnDSavingThrow, FormDnDReaction, FormTor20Monster, FormTor20BaseAttack,\
     FormPFSkill, FormPFMonster, FormPFOffense, FormPFSpecialAbility, FormBaseSheet
@@ -142,6 +142,27 @@ class MonsterDetail(DetailView):
                             ability_list = [model_to_dict(ability) for ability in special_abilities]
                             return ability_list
 
+            if game == 'CoC7e':
+                match type:
+                    case 'moves':
+                        coc_moves = CoCMove.objects.filter(monster=monster)
+                        if len(coc_moves) >= 1:
+                            moves = [model_to_dict(move) for move in coc_moves]
+                            return moves
+
+                    case 'skills':
+                        coc_skills = CoCSkill.objects.filter(monster=monster)
+                        if len(coc_skills) >= 1:
+                            coc_skill_list = [model_to_dict(skill) for skill in coc_skills]
+                            return coc_skill_list
+
+                    case 'special_power':
+                        coc_special = CoCSpecialPowers.objects.filter(monster=monster)
+                        if len(coc_special) >= 1:
+                            coc_special_list = [model_to_dict(special) for special in coc_special]
+                            return coc_special_list
+
+        # Getting the sets of Models to The monster Dict using the above function
         if isinstance(monster, DnDMonster):
             # Getting Monster Actions
             monster_dict['actions'] = get_models(type='actions', game=monster.game)
@@ -160,6 +181,7 @@ class MonsterDetail(DetailView):
 
             # Getting Reactions
             monster_dict['reactions'] = get_models(type='reactions', game=monster.game)
+
         if isinstance(monster, PathFinderMonster):
             # Getting the Offenses
             monster_dict['offense'] = get_models(type='offense', game=monster.game)
@@ -169,6 +191,11 @@ class MonsterDetail(DetailView):
 
             # Getting Special Abilities
             monster_dict['special_abilities'] = get_models(type='special_abilities', game=monster.game)
+
+        if isinstance(monster, CoCMonster):
+            monster_dict['moves'] = get_models(type='moves', game=monster.game)
+            monster_dict['skills'] = get_models(type='skills', game=monster.game)
+            monster_dict['special_power'] = get_models(type='special_power', game=monster.game)
 
         return monster_dict
 

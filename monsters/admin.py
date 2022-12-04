@@ -150,7 +150,7 @@ class CoCSkillInline(admin.TabularInline):
 
 class CoCMonsterAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'name', 'hp', 'game'
+        'id', 'name', 'hp', 'type', 'game'
     )
     search_fields = (
             'name', 'game'
