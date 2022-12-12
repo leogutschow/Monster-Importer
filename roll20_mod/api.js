@@ -408,7 +408,11 @@ function add_pf_feat(feat, monster){
 }
 
 //Add Special Abilities
+<<<<<<< HEAD
 function add_special_ability(sa, monster){
+=======
+function add_pf_special_ability(sa, monster){
+>>>>>>> roll20_mod
     const new_id = generateRowID();
     let special_name = AddPCAttribute(`repeating_abilities_${new_id}_name`, sa.name, monster.id);
     let special_description = AddPCAttribute(`repeating_abilities_${new_id}_description`, sa.description, monster.id);
@@ -521,6 +525,36 @@ function get_pf_xp(cr){
     }
 }
 
+<<<<<<< HEAD
+=======
+//Add Special Ability to CoC Monster
+function add_coc_special_ability(ability, character){
+    let abilityID = generateRowID();
+    let ability_name = AddPCAttribute(`repeating_combat-abilities_${abilityID}_ability_name`, ability.special_name, character.id);
+    let ability_description = AddPCAttribute(`repeating_combat-abilities_${abilityID}_ability_description`, ability.special_description, character.id);
+    return {
+        name: ability_name,
+        description: ability_description
+    }
+}
+
+//Add the Attacks to the CoC Monster
+function add_coc_attack(attack, character){
+    let attackID = generateRowID();
+    let attack_name = AddPCAttribute(`repeating_npc-combat-attacks_${attackID}_attack_name`, attack.attack_name, character.id);
+    let attack_description = AddPCAttribute(`repeating_npc-combat-attacks_${attackID}_attack_description`, attack.attack_description, character.id);
+    let attack_value = AddPCAttribute(`repeating_npc-combat-attacks_${attackID}_attack_value`, attack.percentage, character.id);
+    let attack_damage = AddPCAttribute(`repeating_npc-combat-attacks_${attackID}_attack_damage`, attack.damage, character.id);
+    return {
+        name: attack_name,
+        description: attack_description,
+        value: attack_value,
+        damage: attack_damage
+    }
+
+}
+
+>>>>>>> roll20_mod
 on("chat:message", function(msg){
     if(msg.type!="api"){
         return;
@@ -540,12 +574,21 @@ on("chat:message", function(msg){
 
         let npc = AddPCAttribute("npc", value=1, Character.id);
         let npc_flag = AddPCAttribute("npc_name", value=monster_json.monster.name, Character.id);
+<<<<<<< HEAD
         let npc_ac = AddPCAttribute("npc_ac", value=monster_json.monster.ac, Character.id);
         let npc_hp = createObj("attribute", {name:"hp", current:`${monster_json.monster.hp}`, max: `${monster_json.monster.hp}`, characterid: Character.id});
         let npc_hp_formula = AddPCAttribute("npc_hpformula", value=monster_json.monster.hp_dices, Character.id);
         set_attributes(monster_json.monster, Character.id);
 
         if (monster_json.monster.game === 'DND5E'){
+=======
+
+        if (monster_json.monster.game === 'DND5E'){
+            let npc_ac = AddPCAttribute("npc_ac", value=monster_json.monster.ac, Character.id);
+            let npc_hp = createObj("attribute", {name:"hp", current:`${monster_json.monster.hp}`, max: `${monster_json.monster.hp}`, characterid: Character.id});
+            let npc_hp_formula = AddPCAttribute("npc_hpformula", value=monster_json.monster.hp_dices, Character.id);
+            set_attributes(monster_json.monster, Character.id);
+>>>>>>> roll20_mod
 
 
             let ac_type = AddPCAttribute("npc_actype", value=monster_json.monster.ac_type, Character.id);
@@ -614,11 +657,24 @@ on("chat:message", function(msg){
 
         if (monster_json.monster.game === 'PAF1e'){
             let initialize_character = AddPCAttribute("initialize_character-flag", 0, Character.id)
+<<<<<<< HEAD
+=======
+            let npc_ac = AddPCAttribute("npc_ac", value=monster_json.monster.ac, Character.id);
+            let npc_hp = createObj("attribute", {name:"hp", current:`${monster_json.monster.hp}`, max: `${monster_json.monster.hp}`, characterid: Character.id});
+            let npc_hp_formula = AddPCAttribute("npc_hpformula", value=monster_json.monster.hp_dices, Character.id);
+            set_attributes(monster_json.monster, Character.id);
+
+
+>>>>>>> roll20_mod
 
             if (monster_json.special_abilities){
                 let special_abilities_flag = AddPCAttribute("special_abilities_flag", 1, Character.id);
                 for (const sa of monster_json.special_abilities){
+<<<<<<< HEAD
                     let new_special = add_special_ability(sa, Character);
+=======
+                    let new_special = add_pf_special_ability(sa, Character);
+>>>>>>> roll20_mod
                 }
             }
 
@@ -723,6 +779,48 @@ on("chat:message", function(msg){
 
 
         }
+<<<<<<< HEAD
+=======
+
+        if (monster_json.monster.game === 'CoC7e'){
+            let sheet_initialized = AddPCAttribute("sheet_initialized", value="yes", Character.id);
+            let sheet_npc = AddPCAttribute("sheet_npc", value="on", Character.id);
+            let hitpoints = AddPCAttribute("hitpoints", value=monster_json.monster.hp, max=monster_json.monster.hp, Character.id);
+            let movement = AddPCAttribute("movement_rate", value=monster_json.monster.movement, Character.id);
+            let str = AddPCAttribute("strength", value=monster_json.monster.strength, Character.id);
+            let con = AddPCAttribute("constitution", value=monster_json.monster.constitution, Character.id);
+            let siz = AddPCAttribute("size", value=monster_json.monster.size, Character.id);
+            let dex = AddPCAttribute("dexterity", value=monster_json.monster.dexterity, Character.id);
+            let app;
+            let int = AddPCAttribute("intelligence", value=monster_json.monster.intelligence, Character.id);
+            let pow = AddPCAttribute("power", value=monster_json.monster.power, Character.id);
+            let edu;
+            let build = AddPCAttribute("build", value=monster_json.monster.build, Character.id);
+            let damage_bonus = AddPCAttribute("damage_bonus", value=monster_json.monster.damage_bonus, Character.id);
+            let magic = AddPCAttribute("magicpoints", value=monster_json.monster.magic_points, Character.id);
+            let armor = AddPCAttribute("armor", value=monster_json.monster.armor, Character.id);
+            let sanity_loss = AddPCAttribute("sanity_loss", value=monster_json.monster.sanity_loss, Character.id);
+            let attacks_pr = AddPCAttribute("undefined", value=monster_json.monster.attacks_per_round, Character.id);
+
+            if (monster_json.special_power){
+                for (const special_power of monster_json.special_power){
+                    let new_special_power = add_coc_special_ability(special_power, Character);
+                }
+            }
+
+            if (monster_json.moves){
+                for (const move of monster_json.moves){
+                    if (move.name == "Dodge"){
+                        let dodge = AddPCAttribute("dodge", move.percentage, Character.id);
+                    }
+                    else{
+                        let new_move = add_coc_attack(move, Character);
+                    }
+                }
+            }
+
+        }
+>>>>>>> roll20_mod
         sendChat("Monster-Importer", `/w gm ${monster_json.monster.name} was successfully imported!`);
     }
 })
