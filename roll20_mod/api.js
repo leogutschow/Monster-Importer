@@ -548,6 +548,15 @@ function add_coc_attack(attack, character){
 
 }
 
+function add_coc_skill(skill, character){
+    let skill_name = skill.skill.toLowerCase();
+    if (skill_name.includes(" ")){
+        skill_name = skill_name.replace(" ", "_");
+    }
+    let new_skill = AddPCAttribute(`${skill_name}`, `${skill.percentage}`, character.id);
+    return new_skill;
+}
+
 on("chat:message", function(msg){
     if(msg.type!="api"){
         return;
@@ -785,7 +794,7 @@ on("chat:message", function(msg){
 
             if (monster_json.moves){
                 for (const move of monster_json.moves){
-                    if (move.name == "Dodge"){
+                    if (move.attack_name == "Dodge"){
                         let dodge = AddPCAttribute("dodge", move.percentage, Character.id);
                     }
                     else{
@@ -793,6 +802,14 @@ on("chat:message", function(msg){
                     }
                 }
             }
+
+            if (monster_json.skills){
+                for (const skill of monster_json.skills){
+                    let new_skill = add_coc_skill(skill, Character);
+                }
+            }
+
+            let edit_toggle = AddPCAttribute("edit_toggle", value="0", Character.id);
 
         }
         sendChat("Monster-Importer", `/w gm ${monster_json.monster.name} was successfully imported!`);
