@@ -769,17 +769,24 @@ on("chat:message", function(msg){
         if (monster_json.monster.game === 'CoC7e'){
             let sheet_initialized = AddPCAttribute("sheet_initialized", value="yes", Character.id);
             let sheet_npc = AddPCAttribute("sheet_npc", value="on", Character.id);
-            let hitpoints = AddPCAttribute("hitpoints", value=monster_json.monster.hp, max=monster_json.monster.hp, Character.id);
+            let hitpoints = AddPCAttribute("hitpoints", value=`${monster_json.monster.hp}`, Character.id);
             let movement = AddPCAttribute("movement_rate", value=monster_json.monster.movement, Character.id);
             let str = AddPCAttribute("strength", value=monster_json.monster.strength, Character.id);
             let con = AddPCAttribute("constitution", value=monster_json.monster.constitution, Character.id);
             let siz = AddPCAttribute("size", value=monster_json.monster.size, Character.id);
             let dex = AddPCAttribute("dexterity", value=monster_json.monster.dexterity, Character.id);
-            let app;
             let int = AddPCAttribute("intelligence", value=monster_json.monster.intelligence, Character.id);
             let pow = AddPCAttribute("power", value=monster_json.monster.power, Character.id);
-            let edu;
             let build = AddPCAttribute("build", value=monster_json.monster.build, Character.id);
+
+            if (monster_json.monster.appearance != 0 || monster_json.monster.appearance != null){
+                let app = AddPCAttribute("appearance", monster_json.monster.appearance, Character.id);
+            }
+
+            if (monster_json.monster.education != 0 || monster_json.monster.education != null){
+                let edu = AddPCAttribute("education", monster_json.monster.education, Character.id);
+            }
+
             let damage_bonus = AddPCAttribute("damage_bonus", value=monster_json.monster.damage_bonus, Character.id);
             let magic = AddPCAttribute("magicpoints", value=monster_json.monster.magic_points, Character.id);
             let armor = AddPCAttribute("armor", value=monster_json.monster.armor, Character.id);
